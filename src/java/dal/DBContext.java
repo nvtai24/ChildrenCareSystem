@@ -41,7 +41,7 @@ public class DBContext {
         return ps.executeQuery();
     }
 
-    protected int executeUpdate(String query, Object... params) throws SQLException {
+    public int executeUpdate(String query, Object... params) throws SQLException {
         PreparedStatement ps = connection.prepareStatement(query);
         setParameters(ps, params);
         return ps.executeUpdate();
