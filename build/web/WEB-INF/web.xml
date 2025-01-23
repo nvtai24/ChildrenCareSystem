@@ -32,6 +32,10 @@
         <servlet-name>HomePageController</servlet-name>
         <servlet-class>controller.common.HomePageController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServiceCreateController</servlet-name>
+        <servlet-class>controller.service.manager.ServiceCreateController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServiceListController</servlet-name>
         <url-pattern>/ServiceListController</url-pattern>
@@ -62,6 +66,10 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomePageController</servlet-name>
-        <url-pattern></url-pattern>
+        <url-pattern/>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceCreateController</servlet-name>
+        <url-pattern>/ServiceCreateController</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Admin/Documents/GitHub/ChildrenCareSystem/src/java/controller/service/manager/ServiceListController.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/ChildrenCareSystem/web/views/manager/serviceList.jsp</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/ChildrenCareSystem/web/assets/vendors/revolution/css/navigation.css</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/ChildrenCareSystem/src/java/dal/DBContext.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/ChildrenCareSystem/web/admin/courses.html</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/ChildrenCareSystem/src/java/dal/ServiceDAO.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/ChildrenCareSystem/web/assets/vendors/revolution/css/layers.css</file>
+        </group>
     </open-files>
 </project-private>
