@@ -5,12 +5,19 @@
 
 package controller.common;
 
+import dal.PostDAO;
+import dal.ServiceDAO;
+import dal.SliderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Post;
+import model.Service;
+import model.Slider;
 
 /**
  *
@@ -53,8 +60,35 @@ public class HomePageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
-        request.getRequestDispatcher("index.html").forward(request, response);
+       try {
+            ServiceDAO serviceDAO = new ServiceDAO();
+            List<Service> listService = serviceDAO.getAllServices();
+            if(listService != null && listService.size() > 0) {
+                request.setAttribute("SERVICES", listService);
+            } else {
+                System.out.println("Khong co service trong he thong");
+            }
+            
+             SliderDAO sliderDAO = new SliderDAO();
+            List<Slider> listSliderrs = sliderDAO.getAllSliders();
+            if(listSliderrs != null && listSliderrs.size() > 0) {
+                request.setAttribute("SLIDERS", listSliderrs);
+            } else {
+                System.out.println("Khong co sliders trong he thong");
+            }
+            
+             PostDAO postDAO = new PostDAO();
+            List<Post> listPost = postDAO.getAllPosts();
+            if(listPost != null && listPost.size() > 0) {
+                request.setAttribute("POSTS", listPost);
+            } else {
+                System.out.println("Khong co listPost trong he thong");
+            }
+            
+            request.getRequestDispatcher("home.jsp").forward(request, response);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     } 
 
     /** 

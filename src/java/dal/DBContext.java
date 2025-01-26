@@ -20,10 +20,17 @@ public class DBContext {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "1234";
 
-    public DBContext() {
+    public DBContext()
+    {
         try {
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
+            String user = "root";
+            String pass = "123456789";
+            String url = "jdbc:mysql://localhost:3306/childrencare?useSSL=false&serverTimezone=UTC";
+            
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(url, user, pass);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
