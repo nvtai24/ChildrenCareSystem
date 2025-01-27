@@ -11,14 +11,15 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import model.Service;
 
 /**
  *
- * @author Nvtai
+ * @author Admin
  */
-public class ServiceListController extends HttpServlet {
+public class ServiceFilterController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +38,10 @@ public class ServiceListController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ServiceListController</title>");
+            out.println("<title>Servlet ServiceFilterController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ServiceListController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ServiceFilterController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -49,11 +50,20 @@ public class ServiceListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Get Data form page 
+        HttpSession sessionStatus = request.getSession(); 
         ServiceDAO db = new ServiceDAO();
-        ArrayList<Service> list = db.list();
+        String raw_status = request.getParameter("status");
+        double status = Double.parseDouble(raw_status) ;
+        sessionStatus.setAttribute("sessionStatus", status);
+        
+        ArrayList<Service> list = db.getListByStatus(status);
+        
         request.setAttribute("list", list);
-                
+        request.setAttribute("status", status);
         request.getRequestDispatcher("./views/manager/serviceList.jsp").forward(request, response);
+        
+
     }
 
     @Override
@@ -62,6 +72,11 @@ public class ServiceListController extends HttpServlet {
         processRequest(request, response);
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";

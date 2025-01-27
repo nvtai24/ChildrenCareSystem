@@ -37,8 +37,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!--[if lt IE 9]>
-        <script src="assets/js/html5shiv.min.js"></script>
-        <script src="assets/js/respond.min.js"></script>
+        <script src="assets2/js/html5shiv.min.js"></script>
+        <script src="assets2/js/respond.min.js"></script>
         <![endif]-->
 
         <!-- All PLUGINS CSS ============================================= -->
@@ -63,14 +63,16 @@
         <header class="ttr-header">
             <div class="ttr-header-wrapper">
                 <!--sidebar menu toggler start -->
-
+                <div class="ttr-toggle-sidebar ttr-material-button">
+                    <i class="ti-close ttr-open-icon"></i>
+                    <i class="ti-menu ttr-close-icon"></i>
+                </div>
                 <!--sidebar menu toggler end -->
                 <!--logo start -->
                 <div class="ttr-logo-box">
                     <div>
                         <a href="index.html" class="ttr-logo">
-                            <img alt="" class="ttr-logo-mobile" src="assets2/images/logo-mobile.png" width="30" height="30">
-                            <img alt="" class="ttr-logo-desktop" src="assets2/images/logo-white.png" width="160" height="27">
+                            <h2 style="color: white">Children Care System</h2>
                         </a>
                     </div>
                 </div>
@@ -86,11 +88,119 @@
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button ttr-submenu-toggle"><i class="fa fa-bell"></i></a>
-
+                            <div class="ttr-header-submenu noti-menu">
+                                <div class="ttr-notify-header">
+                                    <span class="ttr-notify-text-top">9 New</span>
+                                    <span class="ttr-notify-text">User Notifications</span>
+                                </div>
+                                <div class="noti-box-list">
+                                    <ul>
+                                        <li>
+                                            <span class="notification-icon dashbg-gray">
+                                                <i class="fa fa-check"></i>
+                                            </span>
+                                            <span class="notification-text">
+                                                <span>Sneha Jogi</span> sent you a message.
+                                            </span>
+                                            <span class="notification-time">
+                                                <a href="#" class="fa fa-close"></a>
+                                                <span> 02:14</span>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="notification-icon dashbg-yellow">
+                                                <i class="fa fa-shopping-cart"></i>
+                                            </span>
+                                            <span class="notification-text">
+                                                <a href="#">Your order is placed</a> sent you a message.
+                                            </span>
+                                            <span class="notification-time">
+                                                <a href="#" class="fa fa-close"></a>
+                                                <span> 7 Min</span>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="notification-icon dashbg-red">
+                                                <i class="fa fa-bullhorn"></i>
+                                            </span>
+                                            <span class="notification-text">
+                                                <span>Your item is shipped</span> sent you a message.
+                                            </span>
+                                            <span class="notification-time">
+                                                <a href="#" class="fa fa-close"></a>
+                                                <span> 2 May</span>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="notification-icon dashbg-green">
+                                                <i class="fa fa-comments-o"></i>
+                                            </span>
+                                            <span class="notification-text">
+                                                <a href="#">Sneha Jogi</a> sent you a message.
+                                            </span>
+                                            <span class="notification-time">
+                                                <a href="#" class="fa fa-close"></a>
+                                                <span> 14 July</span>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="notification-icon dashbg-primary">
+                                                <i class="fa fa-file-word-o"></i>
+                                            </span>
+                                            <span class="notification-text">
+                                                <span>Sneha Jogi</span> sent you a message.
+                                            </span>
+                                            <span class="notification-time">
+                                                <a href="#" class="fa fa-close"></a>
+                                                <span> 15 Min</span>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </li>
-
-
+                        <li>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets2/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
+                            <div class="ttr-header-submenu">
+                                <ul>
+                                    <li><a href="user-profile.html">My profile</a></li>
+                                    <li><a href="list-view-calendar.html">Activity</a></li>
+                                    <li><a href="mailbox.html">Messages</a></li>
+                                    <li><a href="../login.html">Logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="ttr-hide-on-mobile">
+                            <a href="#" class="ttr-material-button"><i class="ti-layout-grid3-alt"></i></a>
+                            <div class="ttr-header-submenu ttr-extra-menu">
+                                <a href="#">
+                                    <i class="fa fa-music"></i>
+                                    <span>Musics</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-youtube-play"></i>
+                                    <span>Videos</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-envelope"></i>
+                                    <span>Emails</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-book"></i>
+                                    <span>Reports</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-smile-o"></i>
+                                    <span>Persons</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-picture-o"></i>
+                                    <span>Pictures</span>
+                                </a>
+                            </div>
+                        </li>
                     </ul>
+
                     <!-- header right menu end -->
                 </div>
                 <!--header search panel start -->
@@ -110,7 +220,108 @@
         </header>
         <!-- header end -->
         <!-- Left sidebar menu start -->
-
+        <div class="ttr-sidebar">
+            <div class="ttr-sidebar-wrapper content-scroll">
+                <!-- side menu logo start -->
+                <div class="ttr-sidebar-logo">
+                    <a href="#"><img alt="" src="assets2/images/logo.png" width="122" height="27"></a>
+                    <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
+                            <i class="material-icons ttr-fixed-icon">gps_fixed</i>
+                            <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
+                    </div> -->
+                    <div class="ttr-sidebar-toggle-button">
+                        <i class="ti-arrow-left"></i>
+                    </div>
+                </div>
+                <!-- side menu logo end -->
+                <!-- sidebar menu start -->
+                <nav class="ttr-sidebar-navi">
+                    <ul>
+                        <li>
+                            <a href="index.html" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-home"></i></span>
+                                <span class="ttr-label">Dashborad</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="courses.html" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-book"></i></span>
+                                <span class="ttr-label">Services</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-email"></i></span>
+                                <span class="ttr-label">Other </span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="mailbox.html" class="ttr-material-button"><span class="ttr-label">Mail Box</span></a>
+                                </li>
+                                <li>
+                                    <a href="mailbox-compose.html" class="ttr-material-button"><span class="ttr-label">Compose</span></a>
+                                </li>
+                                <li>
+                                    <a href="mailbox-read.html" class="ttr-material-button"><span class="ttr-label">Mail Read</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-calendar"></i></span>
+                                <span class="ttr-label">Other</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="basic-calendar.html" class="ttr-material-button"><span class="ttr-label">Basic Calendar</span></a>
+                                </li>
+                                <li>
+                                    <a href="list-view-calendar.html" class="ttr-material-button"><span class="ttr-label">List View</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="bookmark.html" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-bookmark-alt"></i></span>
+                                <span class="ttr-label">Other</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="review.html" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-comments"></i></span>
+                                <span class="ttr-label">Other</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="add-listing.html" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-layout-accordion-list"></i></span>
+                                <span class="ttr-label">Other</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-user"></i></span>
+                                <span class="ttr-label">Other</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="user-profile.html" class="ttr-material-button"><span class="ttr-label">User Profile</span></a>
+                                </li>
+                                <li>
+                                    <a href="teacher-profile.html" class="ttr-material-button"><span class="ttr-label">Teacher Profile</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ttr-seperate"></li>
+                    </ul>
+                    <!-- sidebar menu end -->
+                </nav>
+                <!-- sidebar menu end -->
+            </div>
+        </div>
         <!-- Left sidebar menu end -->
 
         <!--Main container start -->
@@ -119,7 +330,7 @@
                 <div class="db-breadcrumb">
                     <h4 class="breadcrumb-title">Add Service</h4>
                     <ul class="db-breadcrumb-list">
-                        <li><a href="ServiceListController"><i class="fa fa-home"></i>Service List</a></li>
+                        <li><a href="./ServiceListController"><i class="fa fa-home"></i>Service List</a></li>
                         <li>Add Service</li>
                     </ul>
                 </div>	
@@ -131,7 +342,7 @@
                                 <h4>Add Service</h4>
                             </div>
                             <div class="widget-inner">
-                                <form class="edit-profile m-b30" id="numberForm">
+                                <form class="edit-profile m-b30" id="numberForm" action="ServiceCreateController" method="POST" onsubmit="return confirmCreateService()">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="ml-auto">
@@ -141,7 +352,7 @@
                                         <div class="form-group col-12">
                                             <label class="col-form-label">Service name</label>
                                             <div>
-                                                <input class="form-control" type="text" value="">
+                                                <input class="form-control" type="text" name="name">
                                             </div>
                                         </div>
 
@@ -150,13 +361,14 @@
                                             <div>
                                                 <input class="form-control" type="number" 
                                                        placeholder="Enter a number" 
+                                                       name ="price"
                                                        >
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
                                             <label class="col-form-label">Service discount</label>
                                             <div>
-                                                <input class="form-control" type="number" placeholder="Enter a number" 
+                                                <input class="form-control" type="number" placeholder="Enter a number"  name="discount"
                                                        >
                                             </div>
                                         </div>
@@ -171,7 +383,11 @@
                                         <div class="form-group col-12">
                                             <label class="col-form-label">Service description</label>
                                             <div>
-                                                <textarea class="form-control"> </textarea>
+                                                <textarea class="form-control" name="description"> </textarea>
+                                            </div>
+                                             <label class="col-form-label">Service Brief Information</label>
+                                            <div>
+                                                <textarea class="form-control" name="briefInfo"> </textarea>
                                             </div>
                                         </div>
                                         <div class="col-12 m-t20">
@@ -184,11 +400,23 @@
                                                 <tr class="list-item">
                                                     <td>
                                                         <div class="row">
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-6">
                                                                 <label class="col-form-label">Thumbnail URL</label>
                                                                 <div>
-                                                                    <input class="form-control" type="text" value="">
+                                                                    <input class="form-control" type="text" name="thumbnail">
                                                                 </div>
+                                                            </div>
+                                                            <div class="col-md-6 ">
+                                                                <label class="col-form-label">Status</label><br/>
+                                                                <div class="row-md-3 ">
+                                                                    <input type="radio" name="status" checked="checked" value="1" check="checked"/>Active
+
+                                                                </div>
+                                                                <div class="row-md-3 ">
+                                                                    <input type="radio" name="status" checked="checked" value="0"/>Inactive
+                                                                </div>
+
+
                                                             </div>
 
                                                         </div>
@@ -197,7 +425,7 @@
                                             </table>
                                         </div>
                                         <div class="col-12">
-                                            
+
                                             <button type="submit" class="btn">Save changes</button>
                                         </div>
                                     </div>
@@ -247,7 +475,30 @@
                 });
             }
 
+            function confirmCreateService() {        
+                
+//                const name = document.querySelector('[name="name"]').value.trim();
+//                const price = parseFloat(document.querySelector('[name="price"]').value);
+//                const discount = parseFloat(document.querySelector('[name="discount"]').value);
+//                const description = document.querySelector('[name="description"]').value.trim();
+//                const briefInfo = document.querySelector('[name="briefInfo"]').value.trim();
+//                const thumbnail = document.querySelector('[name="thumbnail"]').value.trim();
+//
+//                
+//                if (!name || !description || !briefInfo || !thumbnail || isNaN(price) || isNaN(discount)) {
+//                    alert("Cannot write information empty.");
+//                    return false; 
+//                }
+//
+//                
+//                if (discount > price) {
+//                    alert("Invalid price: Discount cannot be greater than price.");
+//                    return false; 
+//                }
 
+
+                return confirm("Are you sure you want to change the status?");
+            }
         </script>
     </body>
 

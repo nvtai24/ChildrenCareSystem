@@ -16,14 +16,20 @@ public class DBContext {
 
     protected Connection connection;
 
-    private static final String URL = "jdbc:mysql://localhost:3306/world";
+    private static final String URL = "jdbc:mysql://localhost:3306/childrencare";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "1234";
 
     public DBContext() {
         try {
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            String user = "root";
+            String pass = "1234";
+            String url = "jdbc:mysql://localhost:3306/childrencare?useSSL=false&serverTimezone=UTC";
 
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(url, user, pass);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -5,12 +5,15 @@
 
 package controller.service.manager;
 
+import dal.ServiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import model.Service;
 
 /**
  *
@@ -18,64 +21,49 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class ServiceCreateController extends HttpServlet {
    
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServiceCreateController</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServiceCreateController at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    } 
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
+ 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+
+        
         request.getRequestDispatcher("./views/manager/serviceCreate.jsp").forward(request, response);
     } 
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+ 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        
+        ServiceDAO db = new ServiceDAO();
+        String raw_name = request.getParameter("name");
+        String raw_price = request.getParameter("price");
+        String raw_discount = request.getParameter("discount");
+        String raw_description = request.getParameter("description");
+        String raw_thumbnail = request.getParameter("thumbnail");
+        String raw_status = request.getParameter("status");
+        String raw_briefInfo = request.getParameter("briefInfo");
+        
+        Service s = new Service();
+        
+        s.setName(raw_name);
+        s.setPrice(Double.parseDouble(raw_price));
+        s.setDiscount(Double.parseDouble(raw_discount));
+        s.setDescription(raw_description);
+        s.setThumbnail(raw_thumbnail);
+        s.setStatus(Double.parseDouble(raw_status));
+        s.setBriefInfo(raw_briefInfo);
+        
+        db.createService(s);
+        response.sendRedirect("ServiceListController");
+        
+        
+        
+        
+        
     }
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

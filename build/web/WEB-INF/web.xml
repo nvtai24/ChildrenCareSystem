@@ -36,6 +36,26 @@
         <servlet-name>ServiceCreateController</servlet-name>
         <servlet-class>controller.service.manager.ServiceCreateController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServiceUpdateController</servlet-name>
+        <servlet-class>controller.service.manager.ServiceUpdateController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceFilterController</servlet-name>
+        <servlet-class>controller.service.manager.ServiceFilterController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceSortController</servlet-name>
+        <servlet-class>controller.service.manager.ServiceSortController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceChangeStatusController</servlet-name>
+        <servlet-class>controller.service.manager.ServiceChangeStatusController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceSearchByNameController</servlet-name>
+        <servlet-class>controller.service.manager.ServiceSearchByNameController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServiceListController</servlet-name>
         <url-pattern>/ServiceListController</url-pattern>
@@ -71,5 +91,25 @@
     <servlet-mapping>
         <servlet-name>ServiceCreateController</servlet-name>
         <url-pattern>/ServiceCreateController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceUpdateController</servlet-name>
+        <url-pattern>/ServiceUpdateController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceFilterController</servlet-name>
+        <url-pattern>/ServiceFilterController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceSortController</servlet-name>
+        <url-pattern>/ServiceSortController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceChangeStatusController</servlet-name>
+        <url-pattern>/ServiceChangeStatusController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceSearchByNameController</servlet-name>
+        <url-pattern>/ServiceSearchByNameController</url-pattern>
     </servlet-mapping>
 </web-app>
