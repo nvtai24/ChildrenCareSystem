@@ -1,6 +1,9 @@
 <!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="model.auth.User" %>        
 <html lang="en">
     <head>
+
         <!-- META ============================================= -->
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -42,6 +45,7 @@
         <!-- All PLUGINS CSS ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/assets.css" />
 
+
         <!-- TYPOGRAPHY ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/typography.css" />
 
@@ -60,6 +64,7 @@
             type="text/css"
             href="assets/css/color/color-1.css"
             />
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/dashboard.css">
 
         <!-- REVOLUTION SLIDER CSS ============================================= -->
         <link
@@ -79,6 +84,7 @@
             />
         <!-- REVOLUTION SLIDER END -->
     </head>
+
     <body id="bg">
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
@@ -102,11 +108,40 @@
                                 </ul>
                             </div>
                             <div class="topbar-right">
-                                <ul>   
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="register.html">Register</a></li>
+                                <ul>
+                                    <%
+                                        User user = (User) session.getAttribute("account");
+                                        if (user != null) {
+                                    %>
+                                    <!-- Hiển thị avatar và menu khi đã đăng nhập -->
+                                    <li class="dropdown">
+                                        <a href="#" class="ttr-material-button ttr-submenu-toggle" id="userAvatar">
+                                            <span class="ttr-user-avatar">
+                                                <img alt="User Avatar" src="<%= user.getAvatar() %>" width="32" height="32">
+                                            </span>
+                                        </a>
+                                        <div class="ttr-header-submenu" id="userDropdown">
+                                            <ul>
+                                                <li><a href="user-profile.jsp">My profile</a></li>
+                                                <li><a href="list-view-calendar.jsp">Activity</a></li>
+                                                <li><a href="mailbox.jsp">Messages</a></li>
+                                                <li><a href="logout.jsp">Logout</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <%
+                                        } else {
+                                    %>
+                                    <!-- Hiển thị nút Login/Register khi chưa đăng nhập -->
+                                    <li><a href="login.jsp">Login</a></li>
+                                    <li><a href="register.jsp">Register</a></li>
+                                        <%
+                                            }
+                                        %>
                                 </ul>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -1777,5 +1812,6 @@
                 }
             });
         </script>
+
     </body>
 </html>

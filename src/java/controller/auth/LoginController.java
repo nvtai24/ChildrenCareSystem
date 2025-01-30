@@ -29,7 +29,7 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("dzName");
-        String password = request.getParameter("dzEmail");
+        String password = request.getParameter("dzPassword");
 
         UserDAO udb = new UserDAO();
         User user = udb.get(username, password);
