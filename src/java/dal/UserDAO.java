@@ -48,13 +48,24 @@ public class UserDAO {
             return false;
         }
     }
-
-
     
     public boolean checkUsernameExists(String username) {
         String sql = "SELECT `username` FROM `user` WHERE `username` = ?";
         try (PreparedStatement ps = dbContext.connection.prepareStatement(sql)) {
             ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            boolean exists = rs.next();
+            rs.close();
+            return exists;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    public boolean checkEmailExists(String email) {
+        String sql = "SELECT `email` FROM `user` WHERE `email` = ?";
+        try (PreparedStatement ps = dbContext.connection.prepareStatement(sql)) {
+            ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             boolean exists = rs.next();
             rs.close();
