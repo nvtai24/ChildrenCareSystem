@@ -1,10 +1,10 @@
 -- Create database
-CREATE DATABASE IF NOT EXISTS ChildrenCare;
+drop database if exists ChildrenCare;
+CREATE DATABASE  ChildrenCare;
 USE ChildrenCare;
 -- Create Category table
 CREATE TABLE Category (
     id INT AUTO_INCREMENT,
-    type VARCHAR(20),
     name NVARCHAR(100) NOT NULL,
     description NVARCHAR(500),
     status BOOLEAN DEFAULT 1,
@@ -38,21 +38,6 @@ CREATE TABLE Role (
     status BOOLEAN DEFAULT 1,
     PRIMARY KEY (id)
 );
-
--- Create Profile table
-CREATE TABLE Profile (
-    userid INT AUTO_INCREMENT,
-    full_name NVARCHAR(100),
-    gender BOOLEAN,
-    dob DATE,
-    address NVARCHAR(200),
-    phone VARCHAR(20),
-    avatar VARCHAR(200),
-    created_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_date DATETIME ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (userid)
-);
-
 -- Create User table
 CREATE TABLE User (
     id INT AUTO_INCREMENT,
@@ -66,9 +51,25 @@ CREATE TABLE User (
     PRIMARY KEY (id),
     UNIQUE KEY (email),
     UNIQUE KEY (username),
-    FOREIGN KEY (role_id) REFERENCES Role(id),
-    FOREIGN KEY (id) REFERENCES Profile(userid)
+    FOREIGN KEY (role_id) REFERENCES Role(id)
+    
 );
+-- Create Profile table
+CREATE TABLE Profile (
+    userid INT AUTO_INCREMENT,
+    full_name NVARCHAR(100),
+    gender BOOLEAN,
+    dob DATE,
+    address NVARCHAR(200),
+    phone VARCHAR(20),
+    avatar VARCHAR(200),
+    created_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_date DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (userid),
+    FOREIGN KEY (userid) REFERENCES User(id)
+);
+
+
 
 -- Create Post table
 CREATE TABLE Post (
@@ -230,49 +231,122 @@ CREATE INDEX IX_Reservation_Customer ON Reservation(customer_id);
 CREATE INDEX IX_Reservation_Date ON Reservation(reserved_date);
 CREATE INDEX IX_MedicalExamination_Reservation ON MedicalExamination(reservation_id);
 
--- Insert data vào bảng Slider
-INSERT INTO Slider (title, image_url, back_link, status)
-VALUES
-('Welcome to Children Care', 'slider1.jpg', 'home', 1),
-('Health Check Promotion', 'slider2.jpg', 'services', 1),
-('Vaccination Updates', 'slider3.jpg', 'news', 1),
-('Nutrition Tips for Kids', 'slider4.jpg', 'blog', 1),
-('Emergency Services Available', 'slider5.jpg', 'services', 1);
 
--- Insert data vào bảng Service
-INSERT INTO Service ( name, description, brief_info, price, discount, thumbnail, status)
-VALUES
-( 'Health Checkup', 'Comprehensive health checkup for children.', 'General health checkup', 50.00, 10.00, 'service1.jpg', 1),
-( 'Vaccination', 'Vaccination services for all ages.', 'Vaccines available', 30.00, 5.00, 'service2.jpg', 1),
-( 'Nutritional Guidance', 'Expert advice on child nutrition.', 'Nutrition tips', 40.00, 15.00, 'service3.jpg', 1),
-( 'Home Health Services', 'Doctor visits at home.', 'Home visits', 100.00, 20.00, 'service4.jpg', 1),
-( 'Behavioral Counseling', 'Counseling for child behavioral issues.', 'Counseling services', 70.00, 10.00, 'service5.jpg', 1);
+INSERT INTO Role (role_name, description) VALUES
+('Admin', 'Administrator with full access to the system.'),
+('Doctor', 'Medical professional providing health services.'),
+('Parent', 'Parent or guardian of a child using the services.'),
+('Staff', 'Support staff assisting in the operations.');
+
+INSERT INTO User (username, password, email, role_id) VALUES
+('admin', 'admin123', 'admin@childrencare.com', 1),
+('doctor1', 'doctor123', 'doctor1@childrencare.com', 2),
+('parent1', 'parent123', 'parent1@childrencare.com', 3),
+('staff1', 'staff123', 'staff1@childrencare.com', 4);
+
+INSERT INTO Profile (userid, full_name, gender, dob, address, phone, avatar) VALUES
+(1, 'Admin User', 1, '1980-01-01', '123 Admin Street', '123-456-7890', 'admin.jpg'),
+(2, 'Dr. John Doe', 1, '1975-05-15', '456 Health Lane', '234-567-8901', 'doctor1.jpg'),
+(3, 'Jane Smith', 0, '1985-08-20', '789 Parent Road', '345-678-9012', 'parent1.jpg'),
+(4, 'Staff Member', 1, '1990-03-10', '101 Staff Avenue', '456-789-0123', 'staff1.jpg');
+
+INSERT INTO Category (name, description) VALUES
+('General Checkup', 'Regular health checkups for children to monitor growth and development.'),
+('Vaccination', 'Vaccination services to protect children from various diseases.'),
+('Nutrition', 'Nutritional advice and dietary plans for children.'),
+('Dental Care', 'Dental health services for children, including checkups and treatments.'),
+('Emergency Care', 'Emergency medical services for children.'),
+('Physical Therapy', 'Physical therapy services to support children with physical disabilities or injuries.'),
+('Mental Health', 'Mental health support and counseling for children.');
+
+INSERT INTO Service (category_id, name, description, brief_info, price, discount, thumbnail) VALUES
+-- Dịch vụ thuộc danh mục General Checkup (category_id = 1)
+(1, 'Advanced Health Checkup', 'A detailed health checkup including blood tests, urine tests, and more.', 'Advanced health checkup for children', 100.00, 0.00, 'advanced_checkup.jpg'),
+(1, 'Annual Health Screening', 'Comprehensive annual health screening for children.', 'Annual health screening', 150.00, 5.00, 'annual_screening.jpg'),
+
+-- Dịch vụ thuộc danh mục Vaccination (category_id = 2)
+(2, 'Flu Vaccination', 'Annual flu vaccination to protect children from seasonal flu.', 'Flu vaccination for children', 40.00, 0.00, 'flu_vaccination.jpg'),
+(2, 'MMR Vaccination', 'Vaccination against Measles, Mumps, and Rubella.', 'MMR vaccination', 60.00, 0.00, 'mmr_vaccination.jpg'),
+(2, 'Hepatitis B Vaccination', 'Vaccination to protect against Hepatitis B.', 'Hepatitis B vaccination', 70.00, 0.00, 'hepatitis_b_vaccination.jpg'),
+
+-- Dịch vụ thuộc danh mục Nutrition (category_id = 3)
+(3, 'Weight Management Consultation', 'Consultation for children struggling with weight issues.', 'Weight management for children', 90.00, 0.00, 'weight_management.jpg'),
+(3, 'Allergy Testing and Diet Plan', 'Testing for food allergies and creating a safe diet plan.', 'Allergy testing and diet plan', 120.00, 0.00, 'allergy_testing.jpg'),
+
+-- Dịch vụ thuộc danh mục Dental Care (category_id = 4)
+(4, 'Tooth Extraction', 'Safe and painless tooth extraction for children.', 'Tooth extraction for children', 80.00, 0.00, 'tooth_extraction.jpg'),
+(4, 'Braces Consultation', 'Consultation for orthodontic treatment and braces.', 'Braces consultation', 50.00, 0.00, 'braces_consultation.jpg'),
+(4, 'Teeth Whitening', 'Teeth whitening treatment for children.', 'Teeth whitening', 100.00, 10.00, 'teeth_whitening.jpg'),
+
+-- Dịch vụ thuộc danh mục Emergency Care (category_id = 5)
+(5, '24/7 Emergency Consultation', 'Round-the-clock emergency consultation for children.', '24/7 emergency consultation', 250.00, 0.00, 'emergency_consultation.jpg'),
+(5, 'Injury Treatment', 'Treatment for minor injuries and wounds.', 'Injury treatment for children', 150.00, 0.00, 'injury_treatment.jpg'),
+
+-- Dịch vụ thuộc danh mục Physical Therapy (category_id = 6)
+(6, 'Post-Surgery Rehabilitation', 'Rehabilitation services for children after surgery.', 'Post-surgery rehabilitation', 120.00, 0.00, 'rehabilitation.jpg'),
+(6, 'Sports Injury Therapy', 'Therapy for children recovering from sports injuries.', 'Sports injury therapy', 110.00, 0.00, 'sports_therapy.jpg'),
+(6, 'Developmental Delay Therapy', 'Therapy for children with developmental delays.', 'Developmental delay therapy', 130.00, 0.00, 'developmental_therapy.jpg'),
+
+-- Dịch vụ thuộc danh mục Mental Health (category_id = 7)
+(7, 'Anxiety Counseling', 'Counseling for children dealing with anxiety.', 'Anxiety counseling', 110.00, 0.00, 'anxiety_counseling.jpg'),
+(7, 'Behavioral Therapy', 'Therapy for children with behavioral issues.', 'Behavioral therapy', 120.00, 0.00, 'behavioral_therapy.jpg'),
+(7, 'ADHD Management', 'Counseling and management for children with ADHD.', 'ADHD management', 130.00, 0.00, 'adhd_management.jpg'),
+
+-- Dịch vụ thuộc danh mục General Checkup (category_id = 1)
+(1, 'Newborn Health Checkup', 'Comprehensive health checkup for newborns.', 'Newborn health checkup', 70.00, 0.00, 'newborn_checkup.jpg'),
+(1, 'Growth Monitoring', 'Regular monitoring of child growth and development.', 'Growth monitoring', 60.00, 0.00, 'growth_monitoring.jpg'),
+
+-- Dịch vụ thuộc danh mục Vaccination (category_id = 2)
+(2, 'Chickenpox Vaccination', 'Vaccination to protect against chickenpox.', 'Chickenpox vaccination', 50.00, 0.00, 'chickenpox_vaccination.jpg'),
+(2, 'Pneumococcal Vaccination', 'Vaccination to protect against pneumococcal diseases.', 'Pneumococcal vaccination', 80.00, 0.00, 'pneumococcal_vaccination.jpg');
+
+INSERT INTO ReservationStatus (status_name) VALUES
+('Pending'),
+('Confirmed'),
+('Completed'),
+('Cancelled');
 
 
+INSERT INTO Reservation (customer_id, status_id, reserved_date, notes) VALUES
+(3, 1, '2023-10-15 10:00:00', 'Regular checkup for my child.'),
+(3, 2, '2023-10-20 14:00:00', 'Vaccination appointment.'),
+(3, 3, '2023-10-25 09:00:00', 'Nutrition consultation.');
 
--- Insert data vào bảng Profile
-INSERT INTO Profile (full_name, gender, dob, address, phone, avatar)
-VALUES
-('Admin User', 1, '1985-05-05', '123 Elm Street', '1234567890', 'admin_avatar.jpg'),
-('Doctor Mike', 1, '1980-03-03', '101 Pine Lane', '0987654321', 'doctor_avatar.jpg'),
-('Nurse Anna', 0, '1990-07-10', '456 Maple Avenue', '1122334455', 'nurse_avatar.jpg'),
-('Jane Smith', 0, '1995-12-25', '789 Oak Drive', '5566778899', 'jane_avatar.jpg'),
-('John Doe', 1, '1990-06-15', '202 Cedar Road', '6677889900', 'john_avatar.jpg');
 
--- Insert data vào bảng User
-INSERT INTO User (id, username, password, email, status)
-VALUES
-(1, 'admin', 'password123', 'admin@children.care', 1),
-(2, 'doctor_mike', 'doctor123', 'mike@children.care', 1),
-(3, 'nurse_anna', 'nurse123', 'anna@children.care', 1),
-(4, 'user_jane', 'user123', 'jane@children.care', 1),
-(5, 'user_john', 'user123', 'john@children.care', 1);
+INSERT INTO ReservationDetail (reservation_id, service_id, quantity, price) VALUES
+(1, 1, 1, 50.00),
+(2, 2, 1, 120.00),
+(3, 3, 1, 80.00);
 
--- Insert data vào bảng Post (blog)
-INSERT INTO Post ( title, content, thumbnail, status)
-VALUES
-( 'Importance of Vaccination for Kids', 'Vaccines protect children from serious illnesses...', 'post1.jpg', 1),
-( 'Top 5 Health Tips for Kids', 'Learn the best practices for maintaining children health...', 'post2.jpg', 1),
-( 'Nutrition Advice for Growing Kids', 'Discover how to provide a balanced diet...', 'post3.jpg', 1),
-( 'Home Care Services During Pandemic', 'How home care services help during crises...', 'post4.jpg', 1),
-( 'Managing Behavioral Issues in Kids', 'Effective ways to address behavioral challenges...', 'post5.jpg', 1);
+
+INSERT INTO MedicalExamination (reservation_id, staff_id, examination_date, diagnosis, notes) VALUES
+(1, 2, '2023-10-15 10:30:00', 'Healthy', 'No issues found during the checkup.'),
+(2, 2, '2023-10-20 14:30:00', 'Vaccinated', 'Child received all scheduled vaccinations.'),
+(3, 2, '2023-10-25 09:30:00', 'Nutritional Advice', 'Provided dietary recommendations.');
+
+
+INSERT INTO MedicalPrescription (id, examination_id, medicine_name, dosage, instructions) VALUES
+(1, 1, 'Multivitamin', 1, 'Take once daily with meals.'),
+(2, 3, 'Calcium Supplement', 1, 'Take once daily with breakfast.');
+
+INSERT INTO Slider (title, image_url, back_link, author_id) VALUES
+('Welcome to Children Care', 'welcome.jpg', '/', 1),
+('Healthy Kids, Happy Parents', 'healthy_kids.jpg', '/services', 1),
+('Book an Appointment Today', 'appointment.jpg', '/appointment', 1);
+
+
+INSERT INTO Post (author_id, title, content, thumbnail) VALUES
+(1, 'Importance of Regular Checkups', 'Regular health checkups are essential for monitoring the growth and development of children.', 'checkup.jpg'),
+(2, 'Vaccination Schedule for Children', 'Ensure your child is up-to-date with their vaccinations to protect them from diseases.', 'vaccination.jpg'),
+(3, 'Nutrition Tips for Kids', 'A balanced diet is crucial for the healthy development of children.', 'nutrition.jpg');
+
+
+INSERT INTO Label (id, labelName, description) VALUES
+(1, 'Health Tips', 'Posts related to health tips for children.'),
+(2, 'Vaccination', 'Posts related to vaccination information.'),
+(3, 'Nutrition', 'Posts related to child nutrition.');
+
+INSERT INTO LabelPost (label_id, post_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
