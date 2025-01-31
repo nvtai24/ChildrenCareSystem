@@ -67,8 +67,8 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <label>Your Name</label>
-                                            <input name="dzName" type="text" required="" class="form-control">
-                                            
+                                            <input name="dzName" type="text" required="" class="form-control" id="username">
+                                            <small id="usernameError" style="color:red;"></small><br>
                                         </div>
                                     </div>
                                 </div>
@@ -76,7 +76,8 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <label>Your Email Address</label>
-                                            <input name="dzEmail" type="email" required="" class="form-control">
+                                            <input name="dzEmail" type="email" required="" class="form-control" id="email">
+                                            <small id="emailError" style="color:red;"></small><br>
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +94,7 @@
                                         <div class="input-group"> 
                                             <label>Confirm Password</label>
                                             <input type="password" class="form-control" required id="confirmPassword">
-                                            <small id="passwordError" class="text-danger"></small>
+                                            <small id="passwordError" style="color:red;"></small><br>
                                         </div>
                                     </div>
                                 </div>
@@ -132,19 +133,51 @@
         <script src='assets/vendors/switcher/switcher.js'></script>
     </body>
 <script>
-function validateForm() {
-    var password = document.getElementById("password").value;
-    var confirmPassword = document.getElementById("confirmPassword").value;
-    var error = document.getElementById("passwordError");
+        function validateForm() {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            var error = document.getElementById("passwordError");
 
-    if (password !== confirmPassword) {
-        error.textContent = "Passwords do not match!";
-        return false;
-    }
-    error.textContent = "";
-    return true;
-}
+            if (password !== confirmPassword) {
+                error.textContent = "Passwords do not match!";
+                return false;
+            }
+            error.textContent = "";
+            return true;
+        }
 
+        $(document).ready(function() {
+            $("#username").on("blur", function() {
+                var username = $(this).val();
+                $.ajax({
+                    url: "register",
+                    type: "POST",
+                    data: { action: "checkUsername", username: username },
+                    success: function(response) {
+                        if (response === "exists") {
+                            $("#usernameError").text("Username already taken.");
+                        } else {
+                            $("#usernameError").text("");
+                        }
+                    }
+                });
+            });
 
-</script>
+            $("#email").on("blur", function() {
+                var email = $(this).val();
+                $.ajax({
+                    url: "register",
+                    type: "POST",
+                    data: { action: "checkEmail", email: email },
+                    success: function(response) {
+                        if (response === "exists") {
+                            $("#emailError").text("Email already in use.");
+                        } else {
+                            $("#emailError").text("");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </html>

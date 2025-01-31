@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller.auth;
 
 import dal.UserDAO;
@@ -19,16 +18,16 @@ import model.auth.User;
  * @author Nvtai
  */
 public class RegisterController extends HttpServlet {
-   
-  
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         request.getRequestDispatcher("register.html").forward(request, response);
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -36,18 +35,37 @@ public class RegisterController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-
-    String username = request.getParameter("dzName");
-    String password = request.getParameter("dzPassword");
-    String email = request.getParameter("dzEmail");
-
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
         UserDAO userDAO = new UserDAO();
+
+        if ("checkUsername".equals(action)) {
+            // Kiểm tra username có tồn tại không
+            String username = request.getParameter("username");
+            boolean exists = userDAO.checkUsernameExists(username);
+            response.getWriter().write(exists ? "exists" : "available");
+            return;
+        }
+
+        if ("checkEmail".equals(action)) {
+            // Kiểm tra email có tồn tại không
+            String email = request.getParameter("email");
+            boolean exists = userDAO.checkEmailExists(email);
+            response.getWriter().write(exists ? "exists" : "available");
+            return;
+        }
+        String username = request.getParameter("dzName");
+        String password = request.getParameter("dzPassword");
+        String email = request.getParameter("dzEmail");
 
         // Kiểm tra username đã tồn tại chưa
         if (userDAO.checkUsernameExists(username)) {
-            request.setAttribute("error", "Username already exists. Please choose another one.");
-            request.getRequestDispatcher("register.html").forward(request, response);
+            response.getWriter().write("<script>alert('Username already exists!'); window.location='register.html';</script>");
+            return;
+        }
+
+        if (userDAO.checkEmailExists(email)) {
+            response.getWriter().write("<script>alert('Email already exists!'); window.location='register.html';</script>");
             return;
         }
 
@@ -61,9 +79,9 @@ public class RegisterController extends HttpServlet {
         boolean isRegistered = userDAO.register(newUser);
         if (isRegistered) {
             response.sendRedirect("login.html?success=1");
-    } else {
-        request.setAttribute("error", "Registration failed. Please try again.");
-        request.getRequestDispatcher("register.html").forward(request, response);
-    }
+        } else {
+            request.setAttribute("error", "Registration failed. Please try again.");
+            request.getRequestDispatcher("register.html").forward(request, response);
+        }
     }
 }
