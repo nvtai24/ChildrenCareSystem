@@ -1,6 +1,129 @@
+<%-- 
+    Document   : sliderlist
+    Created on : Jan 26, 2025, 10:28:59 PM
+    Author     : ADMIN
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    /* Nút Search màu xanh nước biển */
+    .form-search button[type="submit"] {
+        background-color: #00aaff; 
+        color: white; 
+        border: none; 
+        padding: 5px 15px; 
+        cursor: pointer; 
+        font-size: 14px; 
+        border-radius: 5px; 
+    }
 
+    /* Hiệu ứng hover cho nút Search */
+    .form-search button[type="submit"]:hover {
+        background-color: #0088cc; 
+    }
+    .btn.delete {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 5px 15px; 
+        cursor: pointer; 
+        font-size: 14px;
+    }
+    .btn.disable {
+        background-color: red;
+        color: white;
+        padding: 5px 15px; 
+        cursor: pointer; 
+        font-size: 14px;
+    }
+
+   
+    .btn.enable {
+        background-color: green;
+        color: white;
+        padding: 5px 15px; 
+        cursor: pointer; 
+        font-size: 14px;
+    }
+
+    
+    .btn:hover {
+        opacity: 0.8; 
+    }
+     .wc-title h4 {
+        
+        font-weight: bold; 
+        text-transform: uppercase; 
+    }
+    .form-search  {
+        display: flex; /* Sử dụng Flexbox */
+        justify-content: flex-end; /* Đẩy nút Search sang bên phải */
+        align-items: center; /* Căn giữa theo chiều dọc */
+        gap: 10px; /* Khoảng cách giữa ô input và nút button */
+    }
+    table {
+        width: 100%;
+        max-width: 1200px; 
+        border-collapse: collapse;
+        margin: 20px auto; 
+        table-layout: fixed; 
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px; 
+        text-align: center;
+    }
+    th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
+    img {
+        max-width: 50px; 
+        height: auto;
+    }
+    
+    
+    td:first-child, th:first-child {
+        width: 3%;
+        text-align: center;
+    }
+    
+    td:nth-child(2), th:nth-child(2) {
+        width: 15%;
+        text-align: center;
+    }
+    
+    td:nth-child(3), th:nth-child(3) {
+        width: 12%;
+        text-align: center;
+    }
+   
+    td:nth-child(4), th:nth-child(4) {
+        width: 6%;
+        text-align: center;
+    }
+    td:nth-child(5), th:nth-child(5) {
+        width: 10%;
+        text-align: center;
+    }
+    td:nth-child(6), th:nth-child(6) {
+        width: 10%;
+        text-align: center;
+    }
+    
+    td:nth-child(7), th:nth-child(7) {
+        width: 10%;
+        text-align: center;
+    }
+    
+    td:last-child, th:last-child {
+        width: 6%;
+        text-align: center;
+    }
+</style>
 <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:10:19 GMT -->
 <head>
 
@@ -25,7 +148,7 @@
 	<link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
 	
 	<!-- PAGE TITLE HERE ============================================= -->
-	<title>EduChamp : Education HTML Template </title>
+	<title>ChildrenCare </title>
 	
 	<!-- MOBILE SPECIFIC ============================================= -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -65,7 +188,7 @@
 			<!--logo start -->
 			<div class="ttr-logo-box">
 				<div>
-					<a href="index.html" class="ttr-logo">
+					<a href="/app" class="ttr-logo">
 						<img alt="" class="ttr-logo-mobile" src="assets/images/logo-mobile.png" width="30" height="30">
 						<img alt="" class="ttr-logo-desktop" src="assets/images/logo-white.png" width="160" height="27">
 					</a>
@@ -76,10 +199,10 @@
 				<!-- header left menu start -->
 				<ul class="ttr-header-navigation">
 					<li>
-						<a href="../index.html" class="ttr-material-button ttr-submenu-toggle">HOME</a>
+						<a href="/app" class="ttr-material-button ttr-submenu-toggle">HOME</a>
 					</li>
 					<li>
-						<a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
+						
 						<div class="ttr-header-submenu">
 							<ul>
 								<li><a href="../courses.html">Our Courses</a></li>
@@ -234,7 +357,7 @@
 		<div class="ttr-sidebar-wrapper content-scroll">
 			<!-- side menu logo start -->
 			<div class="ttr-sidebar-logo">
-				<a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
+				<a ><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
 				<!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
 					<i class="material-icons ttr-fixed-icon">gps_fixed</i>
 					<i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
@@ -254,9 +377,9 @@
 		                </a>
 		            </li>
 					<li>
-						<a href="courses.html" class="ttr-material-button">
+						<a href="/app/SliderListController" class="ttr-material-button">
 							<span class="ttr-icon"><i class="ti-book"></i></span>
-		                	<span class="ttr-label">Courses</span>
+		                	<span class="ttr-label">Sliders</span>
 		                </a>
 		            </li>
 					<li>
@@ -338,241 +461,95 @@
 	<main class="ttr-wrapper">
 		<div class="container-fluid">
 			<div class="db-breadcrumb">
-				<h4 class="breadcrumb-title">Courses</h4>
-				<ul class="db-breadcrumb-list">
-					<li><a href="#"><i class="fa fa-home"></i>Home</a></li>
-					<li>Courses</li>
-				</ul>
+                            
+				<h4 class="breadcrumb-title">SLIDERS</h4>
+				
 			</div>	
 			<div class="row">
 				<!-- Your Profile Views Chart -->
 				<div class="col-lg-12 m-b30">
 					<div class="widget-box">
 						<div class="wc-title">
-							<h4>Your Courses</h4>
+							<h4>Slider List</h4>
 						</div>
-						<div class="widget-inner">
-							<div class="card-courses-list admin-courses">
-								<div class="card-courses-media">
-									<img src="assets/images/courses/pic1.jpg" alt=""/>
-								</div>
-								<div class="card-courses-full-dec">
-									<div class="card-courses-title">
-										<h4>Become a PHP Master and Make Money</h4>
-									</div>
-									<div class="card-courses-list-bx">
-										<ul class="card-courses-view">
-											<li class="card-courses-user">
-												<div class="card-courses-user-pic">
-													<img src="assets/images/testimonials/pic3.jpg" alt=""/>
-												</div>
-												<div class="card-courses-user-info">
-													<h5>Teacher</h5>
-													<h4>Keny White</h4>
-												</div>
-											</li>
-											<li class="card-courses-categories">
-												<h5>3 Categories</h5>
-												<h4>Backend</h4>
-											</li>
-											<li class="card-courses-review">
-												<h5>3 Review</h5>
-												<ul class="cours-star">
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li><i class="fa fa-star"></i></li>
-													<li><i class="fa fa-star"></i></li>
-												</ul>
-											</li>
-											<li class="card-courses-stats">
-												<a href="#" class="btn button-sm green radius-xl">Pending</a>
-											</li>
-											<li class="card-courses-price">
-												<del>$190</del>
-												<h5 class="text-primary">$120</h5>
-											</li>
-										</ul>
-									</div>
-									<div class="row card-courses-dec">
-										<div class="col-md-12">
-											<h6 class="m-b10">Course Description</h6>
-											<p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae, pro detracto disputando reformidans at, ex vel suas eripuit. Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit te possit senserit, eam alia veritus maluisset ei, id cibo vocent ocurreret per. Te qui doming doctus referrentur, usu debet tamquam et. Sea ut nullam aperiam, mei cu tollit salutatus delicatissimi. </p>	
-										</div>
-										<div class="col-md-12">
-											<a href="#" class="btn green radius-xl outline">Approve</a>
-											<a href="#" class="btn red outline radius-xl ">Cancel</a>
-										</div>
-									</div>
-									
-								</div>
-							</div>
-							<div class="card-courses-list admin-courses">
-								<div class="card-courses-media">
-									<img src="assets/images/courses/pic2.jpg" alt=""/>
-								</div>
-								<div class="card-courses-full-dec">
-									<div class="card-courses-title">
-										<h4>Become a PHP Master and Make Money</h4>
-									</div>
-									<div class="card-courses-list-bx">
-										<ul class="card-courses-view">
-											<li class="card-courses-user">
-												<div class="card-courses-user-pic">
-													<img src="assets/images/testimonials/pic3.jpg" alt=""/>
-												</div>
-												<div class="card-courses-user-info">
-													<h5>Teacher</h5>
-													<h4>Keny White</h4>
-												</div>
-											</li>
-											<li class="card-courses-categories">
-												<h5>3 Categories</h5>
-												<h4>Backend</h4>
-											</li>
-											<li class="card-courses-review">
-												<h5>3 Review</h5>
-												<ul class="cours-star">
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li><i class="fa fa-star"></i></li>
-													<li><i class="fa fa-star"></i></li>
-												</ul>
-											</li>
-											<li class="card-courses-stats">
-												<a href="#" class="btn button-sm green radius-xl">Pending</a>
-											</li>
-											<li class="card-courses-price">
-												<del>$190</del>
-												<h5 class="text-primary">$120</h5>
-											</li>
-										</ul>
-									</div>
-									<div class="row card-courses-dec">
-										<div class="col-md-12">
-											<h6 class="m-b10">Course Description</h6>
-											<p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae, pro detracto disputando reformidans at, ex vel suas eripuit. Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit te possit senserit, eam alia veritus maluisset ei, id cibo vocent ocurreret per. Te qui doming doctus referrentur, usu debet tamquam et. Sea ut nullam aperiam, mei cu tollit salutatus delicatissimi. </p>	
-										</div>
-										<div class="col-md-12">
-											<a href="#" class="btn green radius-xl outline">Approve</a>
-											<a href="#" class="btn red outline radius-xl ">Cancel</a>
-										</div>
-									</div>
-									
-								</div>
-							</div>
-							<div class="card-courses-list admin-courses">
-								<div class="card-courses-media">
-									<img src="assets/images/courses/pic3.jpg" alt=""/>
-								</div>
-								<div class="card-courses-full-dec">
-									<div class="card-courses-title">
-										<h4>Become a PHP Master and Make Money</h4>
-									</div>
-									<div class="card-courses-list-bx">
-										<ul class="card-courses-view">
-											<li class="card-courses-user">
-												<div class="card-courses-user-pic">
-													<img src="assets/images/testimonials/pic3.jpg" alt=""/>
-												</div>
-												<div class="card-courses-user-info">
-													<h5>Teacher</h5>
-													<h4>Keny White</h4>
-												</div>
-											</li>
-											<li class="card-courses-categories">
-												<h5>3 Categories</h5>
-												<h4>Backend</h4>
-											</li>
-											<li class="card-courses-review">
-												<h5>3 Review</h5>
-												<ul class="cours-star">
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li><i class="fa fa-star"></i></li>
-													<li><i class="fa fa-star"></i></li>
-												</ul>
-											</li>
-											<li class="card-courses-stats">
-												<a href="#" class="btn button-sm green radius-xl">Pending</a>
-											</li>
-											<li class="card-courses-price">
-												<del>$190</del>
-												<h5 class="text-primary">$120</h5>
-											</li>
-										</ul>
-									</div>
-									<div class="row card-courses-dec">
-										<div class="col-md-12">
-											<h6 class="m-b10">Course Description</h6>
-											<p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae, pro detracto disputando reformidans at, ex vel suas eripuit. Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit te possit senserit, eam alia veritus maluisset ei, id cibo vocent ocurreret per. Te qui doming doctus referrentur, usu debet tamquam et. Sea ut nullam aperiam, mei cu tollit salutatus delicatissimi. </p>	
-										</div>
-										<div class="col-md-12">
-											<a href="#" class="btn green radius-xl outline">Approve</a>
-											<a href="#" class="btn red outline radius-xl ">Cancel</a>
-										</div>
-									</div>
-									
-								</div>
-							</div>
-							<div class="card-courses-list admin-courses">
-								<div class="card-courses-media">
-									<img src="assets/images/courses/pic4.jpg" alt=""/>
-								</div>
-								<div class="card-courses-full-dec">
-									<div class="card-courses-title">
-										<h4>Become a PHP Master and Make Money</h4>
-									</div>
-									<div class="card-courses-list-bx">
-										<ul class="card-courses-view">
-											<li class="card-courses-user">
-												<div class="card-courses-user-pic">
-													<img src="assets/images/testimonials/pic3.jpg" alt=""/>
-												</div>
-												<div class="card-courses-user-info">
-													<h5>Teacher</h5>
-													<h4>Keny White</h4>
-												</div>
-											</li>
-											<li class="card-courses-categories">
-												<h5>3 Categories</h5>
-												<h4>Backend</h4>
-											</li>
-											<li class="card-courses-review">
-												<h5>3 Review</h5>
-												<ul class="cours-star">
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li class="active"><i class="fa fa-star"></i></li>
-													<li><i class="fa fa-star"></i></li>
-													<li><i class="fa fa-star"></i></li>
-												</ul>
-											</li>
-											<li class="card-courses-stats">
-												<a href="#" class="btn button-sm green radius-xl">Pending</a>
-											</li>
-											<li class="card-courses-price">
-												<del>$190</del>
-												<h5 class="text-primary">$120</h5>
-											</li>
-										</ul>
-									</div>
-									<div class="row card-courses-dec">
-										<div class="col-md-12">
-											<h6 class="m-b10">Course Description</h6>
-											<p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae, pro detracto disputando reformidans at, ex vel suas eripuit. Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit te possit senserit, eam alia veritus maluisset ei, id cibo vocent ocurreret per. Te qui doming doctus referrentur, usu debet tamquam et. Sea ut nullam aperiam, mei cu tollit salutatus delicatissimi. </p>	
-										</div>
-										<div class="col-md-12">
-											<a href="#" class="btn green radius-xl outline">Approve</a>
-											<a href="#" class="btn red outline radius-xl ">Cancel</a>
-										</div>
-									</div>
-									
-								</div>
-							</div>
-						</div>
+                                            <form method="get" action="SliderListController" class="form-search">
+            
+            <input type="text" id="search" name="search" value="${param.search}">
+            <button type="submit">Search</button>
+        </form>  
+        <br><br>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Image</th>
+                    <th>Status</th>
+                    <th>Created Date</th>
+                    <th>Updated Date</th>
+                    <th>Action</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="slider" items="${SLIDERS}">
+                    <tr>
+                        <td>${slider.id}</td>
+                        <td>${slider.title}</td>
+                        <td><img src="assets/images/slider/${slider.imageUrl}" alt=""/></td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${slider.status}">Active</c:when>
+                                <c:otherwise>Inactive</c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>${slider.createdDate}</td>
+                        <td>
+                            <c:if test="${slider.updatedDate != null}">
+                                ${slider.updatedDate}
+                            </c:if>
+                        </td>
+                        <td>
+                            <!-- Nút Enable/Disable -->
+                            <form method="post" action="SliderListController">
+                                <input type="hidden" name="id" value="${slider.id}">
+                                <input type="hidden" name="status" value="${slider.status ? 0 : 1}">
+                                <button type="submit" 
+                                        class="btn ${slider.status ? 'disable' : 'enable'}">
+                                    ${slider.status ? 'Disable' : 'Enable'}
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="post" action="DeleteSlider" style="display:inline;">
+                                <input type="hidden" name="id" value="${slider.id}">
+                                <button type="submit" class="btn delete">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <!-- Pagination -->
+            <c:if test="${CURRENT_PAGE > 1}">
+                <a href="SliderListController?page=${CURRENT_PAGE - 1}&search=${param.search}" style="margin-right: 10px;">Previous</a>
+            </c:if>
+
+            <c:forEach begin="1" end="${TOTAL_PAGES}" var="i">
+                <a href="SliderListController?page=${i}&search=${param.search}" 
+                   style="margin: 0 5px; text-decoration: ${i == CURRENT_PAGE ? 'underline' : 'none'};">
+                    ${i}
+                </a>
+            </c:forEach>
+
+            <c:if test="${CURRENT_PAGE < TOTAL_PAGES}">
+                <a href="SliderListController?page=${CURRENT_PAGE + 1}&search=${param.search}" style="margin-left: 10px;">Next</a>
+            </c:if>
+        </div>
 					</div>
 				</div>
 				<!-- Your Profile Views Chart END-->

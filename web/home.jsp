@@ -64,7 +64,7 @@
                         <div class="container clearfix">
                             <!-- Header Logo ==== -->
                             <div class="menu-logo">
-                                <a href="HomePage.jsp"><img src="assets/images/logochildren.jpg" alt ></a>
+                                <a href="/app"><img src="assets/images/logochildren.jpg" alt ></a>
                             </div>
                             <!-- Mobile Nav Button ==== -->
 
@@ -305,7 +305,7 @@
                                             <div class="cours-bx">
                                                 <div class="action-box">
                                                     <a href="#"><img src="assets/images/courses/${post.thumbnail}" alt=""></a>
-                                                    
+
                                                 </div>
                                                 <div class="info-bx text-center">
                                                     <h5><a href="#">${post.title}</a></h5>
@@ -336,7 +336,7 @@
                                 <div class="container">
                                     <div class="d-flex align-items-stretch">
                                         <div class="pt-logo mr-auto">
-                                            <a href="HomePage.jsp"><img src="assets/images/logochildren.jpg" alt style="width:100px"/></a>
+                                            <a href="/app"><img src="assets/images/logochildren.jpg" alt style="width:100px"/></a>
                                         </div>
 
 
