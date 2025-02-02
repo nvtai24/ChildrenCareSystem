@@ -20,7 +20,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Category {
     private int id;
-    private String type;
     private String name;
     private String description;
     private boolean status;

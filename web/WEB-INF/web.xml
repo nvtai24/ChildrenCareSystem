@@ -42,7 +42,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceListPublicController</servlet-name>
-        <url-pattern>/ServiceListPublicController</url-pattern>
+        <url-pattern>/services</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
