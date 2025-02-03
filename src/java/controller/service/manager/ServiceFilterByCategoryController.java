@@ -21,7 +21,7 @@ import model.Service;
  *
  * @author Admin
  */
-public class ServiceFilterController extends HttpServlet {
+public class ServiceFilterByCategoryController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,15 +40,24 @@ public class ServiceFilterController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ServiceFilterController</title>");
+            out.println("<title>Servlet ServiceFilterByCategoryController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ServiceFilterController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ServiceFilterByCategoryController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -56,44 +65,54 @@ public class ServiceFilterController extends HttpServlet {
         HttpSession session = request.getSession();
         ServiceDAO db = new ServiceDAO();
         CategoryDAO dbCategory = new CategoryDAO();
-        
-        // Lấy tham số từ request
-        String raw_status = request.getParameter("status");
 
-        // Khởi tạo giá trị mặc định
-        int categoryId = -1;
-        double status = -1;
+        // Lấy danh sách danh mục
+        ArrayList<Category> listCategory = dbCategory.list();
 
-        try {
-            // Kiểm tra session có giá trị không trước khi ép kiểu
-            Object categoryIdObj = session.getAttribute("sessionCategoryId");
-            if (categoryIdObj != null) {
-                categoryId = (int) categoryIdObj;  // Ép kiểu nếu không phải null
+        // Kiểm tra sessionStatus, tránh NullPointerException
+        double status = -1; // Giá trị mặc định
+        Object sessionStatusObj = session.getAttribute("sessionStatus");
+        if (sessionStatusObj != null) {
+            try {
+                status = (double) sessionStatusObj;
+            } catch (ClassCastException e) {
+                System.out.println("Error casting sessionStatus: " + e.getMessage());
             }
-
-            // Kiểm tra raw_status có hợp lệ không trước khi parse
-            if (raw_status != null && !raw_status.isEmpty()) {
-                status = Double.parseDouble(raw_status);
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Error parsing status: " + e.getMessage());
         }
 
-        // Lưu status vào session
-        session.setAttribute("sessionStatus", status);
+        // Xử lý categoryId từ request
+        int categoryId = -1;
+        try {
+            String categoryParam = request.getParameter("idCategory");
+            if (categoryParam != null && !categoryParam.isEmpty()) {
+                categoryId = Integer.parseInt(categoryParam);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Error parsing categoryId: " + e.getMessage());
+        }
 
-        // Lấy danh sách dịch vụ theo categoryId và status
+        // Lấy danh sách dịch vụ theo status và categoryId
         ArrayList<Service> list = db.getListByStatusAndCategory(status, categoryId);
-        ArrayList<Category> listCategory = dbCategory.list();
-        // Đặt danh sách vào request scope để hiển thị trên JSP
-        request.setAttribute("listCategory", listCategory);
+
+        // Lưu categoryId vào session
+        session.setAttribute("sessionCategoryId", categoryId);
+
+        // Đặt danh sách vào request để hiển thị trên JSP
         request.setAttribute("list", list);
-        request.setAttribute("status", status);
+        request.setAttribute("listCategory", listCategory);
 
         // Chuyển hướng đến JSP
         request.getRequestDispatcher("./views/manager/serviceList.jsp").forward(request, response);
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

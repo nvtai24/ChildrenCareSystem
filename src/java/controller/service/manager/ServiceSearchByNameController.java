@@ -5,6 +5,7 @@
 
 package controller.service.manager;
 
+import dal.CategoryDAO;
 import dal.ServiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import model.Category;
 import model.Service;
 
 /**
@@ -34,8 +36,12 @@ public class ServiceSearchByNameController extends HttpServlet {
         
         ServiceDAO db = new ServiceDAO();
         ArrayList<Service> list  = db.getListByName(nameService);
+        CategoryDAO dbCategory = new CategoryDAO();
+        ArrayList<Category> listCategory = dbCategory.list();
+        request.setAttribute("listCategory", listCategory);
         
         request.setAttribute("list", list);
+        request.setAttribute("nameService", nameService);
         request.getRequestDispatcher("./views/manager/serviceList.jsp").forward(request, response);
         
         

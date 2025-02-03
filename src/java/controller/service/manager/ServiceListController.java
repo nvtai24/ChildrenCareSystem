@@ -4,6 +4,7 @@
  */
 package controller.service.manager;
 
+import dal.CategoryDAO;
 import dal.ServiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import model.Category;
 import model.Service;
 
 /**
@@ -50,9 +52,13 @@ public class ServiceListController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ServiceDAO db = new ServiceDAO();
+        CategoryDAO dbCategory = new CategoryDAO();
         ArrayList<Service> list = db.list();
+        ArrayList<Category> listCategory = dbCategory.list();
+
+        request.setAttribute("listCategory", listCategory);
         request.setAttribute("list", list);
-                
+
         request.getRequestDispatcher("./views/manager/serviceList.jsp").forward(request, response);
     }
 

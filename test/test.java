@@ -1,5 +1,7 @@
 
+import dal.CategoryDAO;
 import dal.ServiceDAO;
+import model.Category;
 import model.Service;
 
 /*
@@ -16,12 +18,12 @@ public class test {
         
         ServiceDAO list = new ServiceDAO();
         
-        
+        CategoryDAO list2 = new CategoryDAO();
 //        list.updateStatusById(10);
         
        
-        for (Service arg : list.getListByName("heal")) {
-            System.out.println(arg.toString());
+        for(Category i: list2.list()){
+            System.out.println(i.toString());
         }
 
 

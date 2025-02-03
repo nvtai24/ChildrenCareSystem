@@ -56,6 +56,10 @@
         <servlet-name>ServiceSearchByNameController</servlet-name>
         <servlet-class>controller.service.manager.ServiceSearchByNameController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServiceFilterByCategoryController</servlet-name>
+        <servlet-class>controller.service.manager.ServiceFilterByCategoryController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServiceListController</servlet-name>
         <url-pattern>/ServiceListController</url-pattern>
@@ -111,5 +115,9 @@
     <servlet-mapping>
         <servlet-name>ServiceSearchByNameController</servlet-name>
         <url-pattern>/ServiceSearchByNameController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceFilterByCategoryController</servlet-name>
+        <url-pattern>/ServiceFilterByCategoryController</url-pattern>
     </servlet-mapping>
 </web-app>

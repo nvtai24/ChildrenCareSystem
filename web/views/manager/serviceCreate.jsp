@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -244,7 +245,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="courses.html" class="ttr-material-button">
+                            <a href="./ServiceListController" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-book"></i></span>
                                 <span class="ttr-label">Services</span>
                             </a>
@@ -342,17 +343,31 @@
                                 <h4>Add Service</h4>
                             </div>
                             <div class="widget-inner">
-                                <form class="edit-profile m-b30" id="numberForm" action="ServiceCreateController" method="POST" onsubmit="return confirmCreateService()">
+                                <form class="edit-profile m-b30" id="numberForm" action="ServiceCreateController" method="POST" onsubmit="return confirmCreateService()" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="ml-auto">
                                                 <h3>1. Basic info</h3>
                                             </div>
                                         </div>
-                                        <div class="form-group col-12">
+                                        <div class="form-group col-6">
                                             <label class="col-form-label">Service name</label>
                                             <div>
-                                                <input class="form-control" type="text" name="name">
+                                                <input class="form-control" type="text" name="name" placeholder="Enter a name" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label class="col-form-label">Category</label>
+                                            <div>
+                                                <select select name="idCategory" >
+                                                    
+
+                                                    <c:forEach items="${listCategory}" var="c">                                
+                                                        <option value="${c.id}" >${c.name}</option>                                
+                                                    </c:forEach>
+
+                                                </select>
+
                                             </div>
                                         </div>
 
@@ -381,14 +396,16 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-12">
+
+                                            <label class="col-form-label">Service Brief Information</label>
+                                            <div>
+                                                <input class="form-control" type="text" name="briefInfo" placeholder="Enter a Brief Information"/>                                                
+                                            </div>
                                             <label class="col-form-label">Service description</label>
                                             <div>
-                                                <textarea class="form-control" name="description"> </textarea>
+                                                <textarea class="form-control" name="description"  > </textarea>
                                             </div>
-                                             <label class="col-form-label">Service Brief Information</label>
-                                            <div>
-                                                <textarea class="form-control" name="briefInfo"> </textarea>
-                                            </div>
+
                                         </div>
                                         <div class="col-12 m-t20">
                                             <div class="ml-auto">
@@ -403,7 +420,7 @@
                                                             <div class="col-md-6">
                                                                 <label class="col-form-label">Thumbnail URL</label>
                                                                 <div>
-                                                                    <input class="form-control" type="text" name="thumbnail">
+                                                                    <input type="file" name="thumbnail" accept="image/*" required/>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 ">
@@ -426,7 +443,8 @@
                                         </div>
                                         <div class="col-12">
 
-                                            <button type="submit" class="btn">Save changes</button>
+                                            <button type="submit" class="btn">Save changes</button> 
+                                            <h4 style="color: red;">${error}</h4>
                                         </div>
                                     </div>
                                 </form>
@@ -458,47 +476,26 @@
         <script src="assets2/js/admin.js"></script>
         <script src='assets2/vendors/switcher/switcher.js'></script>
         <script>
-            // Pricing add
-            function newMenuItem() {
-                var newElem = $('tr.list-item').first().clone();
-                newElem.find('input').val('');
-                newElem.appendTo('table#item-add');
-            }
-            if ($("table#item-add").is('*')) {
-                $('.add-item').on('click', function (e) {
-                    e.preventDefault();
-                    newMenuItem();
-                });
-                $(document).on("click", "#item-add .delete", function (e) {
-                    e.preventDefault();
-                    $(this).parent().parent().parent().parent().remove();
-                });
-            }
+                                                   // Pricing add
+                                                   function newMenuItem() {
+                                                       var newElem = $('tr.list-item').first().clone();
+                                                       newElem.find('input').val('');
+                                                       newElem.appendTo('table#item-add');
+                                                   }
+                                                   if ($("table#item-add").is('*')) {
+                                                       $('.add-item').on('click', function (e) {
+                                                           e.preventDefault();
+                                                           newMenuItem();
+                                                       });
+                                                       $(document).on("click", "#item-add .delete", function (e) {
+                                                           e.preventDefault();
+                                                           $(this).parent().parent().parent().parent().remove();
+                                                       });
+                                                   }
 
-            function confirmCreateService() {        
-                
-//                const name = document.querySelector('[name="name"]').value.trim();
-//                const price = parseFloat(document.querySelector('[name="price"]').value);
-//                const discount = parseFloat(document.querySelector('[name="discount"]').value);
-//                const description = document.querySelector('[name="description"]').value.trim();
-//                const briefInfo = document.querySelector('[name="briefInfo"]').value.trim();
-//                const thumbnail = document.querySelector('[name="thumbnail"]').value.trim();
-//
-//                
-//                if (!name || !description || !briefInfo || !thumbnail || isNaN(price) || isNaN(discount)) {
-//                    alert("Cannot write information empty.");
-//                    return false; 
-//                }
-//
-//                
-//                if (discount > price) {
-//                    alert("Invalid price: Discount cannot be greater than price.");
-//                    return false; 
-//                }
-
-
-                return confirm("Are you sure you want to change the status?");
-            }
+                                                   function confirmCreateService() {
+                                                       return confirm("Are you sure you want to change the status?");
+                                                   }
         </script>
     </body>
 

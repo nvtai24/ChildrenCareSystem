@@ -4,6 +4,7 @@
  */
 package controller.service.manager;
 
+import dal.CategoryDAO;
 import dal.ServiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import model.Category;
 import model.Service;
 
 /**
@@ -34,27 +36,56 @@ public class ServiceSortController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
+        // Lấy tham số từ request
         String field = request.getParameter("field");
         String raw_order = request.getParameter("order");
-        Double status = (Double) session.getAttribute("sessionStatus");
 
-        ArrayList<Service> list;
-        ServiceDAO db = new ServiceDAO();
-        boolean order = raw_order.equalsIgnoreCase("asc");
-        if (status == null) {
-            status = -1.0;
+        // Kiểm tra và lấy sessionStatus (tránh NullPointerException)
+        Double status = -1.0;
+        Object sessionStatusObj = session.getAttribute("sessionStatus");
+        if (sessionStatusObj != null) {
+            try {
+                status = (Double) sessionStatusObj;
+            } catch (ClassCastException e) {
+                System.out.println("Error casting sessionStatus: " + e.getMessage());
+            }
         }
 
-        list = db.getServiceListBySortByOrder(field, order, status);
+        // Kiểm tra và lấy idCategory (tránh NullPointerException & sửa tên sai)
+        int idCategory = -1;
+        Object sessionCategoryObj = session.getAttribute("sessionCategoryId"); // Fix tên sai
+        if (sessionCategoryObj != null) {
+            try {
+                idCategory = (int) sessionCategoryObj;
+            } catch (ClassCastException e) {
+                System.out.println("Error casting sessionCategoryId: " + e.getMessage());
+            }
+        }
+
+        // Xử lý order (tránh NullPointerException)
+        boolean order = false; // Giá trị mặc định
+        if (raw_order != null && raw_order.equalsIgnoreCase("asc")) {
+            order = true;
+        }
+
+        // Lấy danh sách category
+        CategoryDAO dbCategory = new CategoryDAO();
+        ArrayList<Category> listCategory = dbCategory.list();
+        request.setAttribute("listCategory", listCategory);
+
+        // Lấy danh sách service theo điều kiện
+        ServiceDAO db = new ServiceDAO();
+        ArrayList<Service> list = db.getServiceListBySortByOrder(field, order, status, idCategory);
+
+        // Đưa dữ liệu vào request
         request.setAttribute("list", list);
         request.setAttribute("status", status);
         request.setAttribute("field", field);
+
+        // Chuyển hướng tới JSP
         request.getRequestDispatcher("./views/manager/serviceList.jsp").forward(request, response);
-
-        response.getWriter().print(field);
-        response.getWriter().print(order);
-        response.getWriter().print(status);
-
+       
+       response.getWriter().print(field +", " +order+", "+status+", "+idCategory);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
