@@ -165,8 +165,9 @@ public class ServiceDAO extends DBContext {
                 + "    `service`.`thumbnail`,\n"
                 + "    `service`.`created_date`,\n"
                 + "    `service`.`updated_date`\n"
-                + "FROM `childrencare`.`service` where status = 1 and category_id = ?"
-                + "ORDER BY GREATEST(`service`.`created_date`, COALESCE(`service`.`updated_date`, '1970-01-01')) DESC\n";
+                + "FROM `childrencare`.`service` \n"
+                + "WHERE status = 1 AND category_id = ? \n"
+                + "ORDER BY GREATEST(`service`.`created_date`, COALESCE(`service`.`updated_date`, '1970-01-01')) DESC";
 
         try {
 
@@ -285,7 +286,7 @@ public class ServiceDAO extends DBContext {
     }
 
     public Service getServiceById(int id) {
-        Service result = null;
+        Service s = null;
 
         String query = "SELECT `service`.`category_id`,\n"
                 + "    `service`.`name`,\n"
@@ -311,7 +312,9 @@ public class ServiceDAO extends DBContext {
                 LocalDateTime created = rs.getTimestamp("created_date").toLocalDateTime();
                 LocalDateTime updated = rs.getTimestamp("updated_date").toLocalDateTime();
 
-                Service s = new Service();
+                int cid = rs.getInt("category_id");
+
+                s = new Service();
                 s.setId(id);
                 s.setName(name);
                 s.setBriefInfo(brief);
@@ -321,6 +324,11 @@ public class ServiceDAO extends DBContext {
                 s.setThumbnail(thumbnail);
                 s.setCreatedDate(created);
                 s.setUpdatedDate(updated);
+
+                CategoryDAO cDB = new CategoryDAO();
+                Category c = cDB.getCategoryById(cid);
+                s.setCategory(c);
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -332,7 +340,7 @@ public class ServiceDAO extends DBContext {
             }
         }
 
-        return result;
+        return s;
     }
 
     public List<Service> getAllAvailableServicesWithPagination(int page, int pageSize) {
@@ -356,6 +364,11 @@ public class ServiceDAO extends DBContext {
                 s.setThumbnail(rs.getString("thumbnail"));
                 s.setStatus(rs.getInt("status"));
                 s.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
+
+                int cid = rs.getInt("category_id");
+                CategoryDAO cDB = new CategoryDAO();
+                Category c = cDB.getCategoryById(cid);
+                s.setCategory(c);
 
                 Timestamp updated = rs.getTimestamp("updated_date");
                 if (updated != null) {

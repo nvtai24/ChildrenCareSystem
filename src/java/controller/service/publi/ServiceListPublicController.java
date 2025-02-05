@@ -66,16 +66,11 @@ public class ServiceListPublicController extends HttpServlet {
             services = sDB.getAllAvailableServicesByInfo(info);
             totalServices = services.size(); // Không phân trang nếu tìm kiếm
             request.setAttribute("info", info);
-        } else if (raw_cid != null && !raw_cid.isEmpty()) {
-            try {
-                int cid = Integer.parseInt(raw_cid);
-                services = sDB.getAllAvailableServicesByCategoryId(cid);
-                totalServices = services.size();
-            } catch (NumberFormatException e) {
-                services = sDB.getAllAvailableServicesWithPagination(page, pageSize);
-                sDB = new ServiceDAO();
-                totalServices = sDB.countAllAvailableServices();
-            }
+        } else if (raw_cid != null) {
+            int cid = Integer.parseInt(raw_cid);
+            services = sDB.getAllAvailableServicesByCategoryId(cid);
+            totalServices = services.size();
+            request.setAttribute("cid", cid);
         } else {
             services = sDB.getAllAvailableServicesWithPagination(page, pageSize);
             sDB = new ServiceDAO();
@@ -108,15 +103,5 @@ public class ServiceListPublicController extends HttpServlet {
             throws ServletException, IOException {
 
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

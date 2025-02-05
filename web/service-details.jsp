@@ -1,14 +1,13 @@
 <%-- 
-    Document   : services_public
-    Created on : Jan 25, 2025, 11:38:51 PM
+    Document   : service-details
+    Created on : Feb 2, 2025, 4:27:16 PM
     Author     : Nvtai
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
-
 
     <head>
 
@@ -60,7 +59,6 @@
     <body id="bg">
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
-
             <!-- Header Top ==== -->
             <header class="header rs-nav">
                 <div class="top-bar">
@@ -169,8 +167,8 @@
                                             <li class="add-menu-left">
                                                 <h5 class="menu-adv-title">Our Services</h5>
                                                 <ul>
-                                                    <li><a href="courses.html">Courses </a></li>
-                                                    <li><a href="courses-details.html">Courses Details</a></li>
+                                                    <li><a href="courses.html">Services </a></li>
+                                                    <li><a href="courses-details.html">Services Details</a></li>
                                                     <li><a href="profile.html">Instructor Profile</a></li>
                                                     <li><a href="event.html">Upcoming Event</a></li>
                                                     <li><a href="membership.html">Membership</a></li>
@@ -195,7 +193,7 @@
                                             <li><a href="admin/index.html">Dashboard</a></li>
                                             <li><a href="admin/add-listing.html">Add Listing</a></li>
                                             <li><a href="admin/bookmark.html">Bookmark</a></li>
-                                            <li><a href="admin/courses.html">Courses</a></li>
+                                            <li><a href="admin/courses.html">Services</a></li>
                                             <li><a href="admin/review.html">Review</a></li>
                                             <li><a href="admin/teacher-profile.html">Teacher Profile</a></li>
                                             <li><a href="admin/user-profile.html">User Profile</a></li>
@@ -230,10 +228,10 @@
             <!-- Content -->
             <div class="page-content bg-white">
                 <!-- inner page banner -->
-                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
+                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner2.jpg);">
                     <div class="container">
                         <div class="page-banner-entry">
-                            <h1 class="text-white">Our Services</h1>
+                            <h1 class="text-white">Service Details</h1>
                         </div>
                     </div>
                 </div>
@@ -242,7 +240,7 @@
                     <div class="container">
                         <ul class="list-inline">
                             <li><a href="#">Home</a></li>
-                            <li>Our Services</li>
+                            <li>Services Details</li>
                         </ul>
                     </div>
                 </div>
@@ -252,117 +250,179 @@
                     <!-- About Us -->
                     <div class="section-area section-sp1">
                         <div class="container">
-                            <div class="row">
+                            <div class="row d-flex flex-row-reverse">
                                 <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
-                                    <div class="widget courses-search-bx placeani">
-                                        <div class="form-group">
-                                            <form id="searchForm" action="services" method="GET" class="input-group">
-                                                <input name="info" type="text" class="form-control" value="${requestScope.info}" placeholder="Search Services">
-                                                <button type="submit" class="btn btn-primary">
-                                                    <i class="fa fa-search"></i>
-                                                </button>
-                                            </form>
-
+                                    <div class="course-detail-bx" style="width: 400px">
+                                        <div class="course-price">
+                                            <del>$${requestScope.s.price}</del>
+                                            <h4 class="price">$${requestScope.s.price - requestScope.s.discount}</h4>
+                                        </div>	
+                                        <div class="course-buy-now text-center">
+                                            <a href="#" class="btn radius-xl text-uppercase">Buy Now</a>
                                         </div>
-                                    </div>
-                                    <div class="widget widget_archive">
-                                        <h5 class="widget-title style-1">
-                                            <a href="services">All Services</a>
-                                        </h5>
-                                        <ul>
-                                            <c:forEach items="${requestScope.categories}" var="c">
-                                                    <!--<input type="submit" value="${c.name}"/>-->
-                                                <li><a href="services?cid=${c.id}">${c.name}</a></li>
-                                                </form>
-                                            </c:forEach>
-                                        </ul>
-                                    </div>
-                                    <!--                                    <div class="widget">
-                                                                            <a href="#"><img src="assets/images/adv/adv.jpg" alt=""/></a>
-                                                                        </div>-->
-                                    <div class="widget recent-posts-entry widget-courses">
-                                        <h5 class="widget-title style-1">Recent Services</h5>
 
-                                        <div class="widget-post-bx">
-                                            <c:forEach items="${requestScope.recents}" var="r">
-                                                <div class="widget-post clearfix" onclick="window.location.href = 'service?id=${r.id}'" style="cursor: pointer;">
-                                                    <div class="ttr-post-media"> <img src="${r.thumbnail}" width="200" height="143" alt=""> </div>
-                                                    <div class="ttr-post-info">
-                                                        <div class="ttr-post-header">
-                                                            <h6 class="post-title"><a href="#">${r.name}</a></h6>
-                                                        </div>
-                                                        <div class="ttr-post-meta">
-                                                            <ul>
-                                                                <li class="price">
-                                                                    <del>$${r.price}</del>
-                                                                    <h5 class="text-danger">$${r.price - r.discount}</h5>
-                                                                </li>
-                                                                <!--<li class="review">03 Review</li>-->
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </c:forEach>
+                                        <div class="cours-more-info">
+                                            <div class="review">
+                                                <span>3 Review</span>
+                                                <ul class="cours-star">
+                                                    <li class="active"><i class="fa fa-star"></i></li>
+                                                    <li class="active"><i class="fa fa-star"></i></li>
+                                                    <li class="active"><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                </ul>
+                                            </div>
+                                            <div class="price categories">
+                                                <span>Category</span>
+                                                <h5 class="text-primary">${requestScope.s.category.name}</h5>
+                                            </div>
+                                        </div>
+                                        <div class="course-info-list scroll-page">
+                                            <ul class="navbar">
+                                                <li><a class="nav-link" href="#overview"><i class="ti-comments"></i>Reviews</a></li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-9 col-md-8 col-sm-12">
-                                    <div class="row">
+                                    <div class="courses-post">
+                                        <div class="ttr-post-media media-effect">
+                                            <a href="#"><img src="${requestScope.s.thumbnail}" alt="${requestScope.s.name}"></a>
+                                        </div>
+                                        <div class="ttr-post-info">
+                                            <div class="ttr-post-title ">
+                                                <h2 class="post-title">${requestScope.s.name}</h2>
+                                            </div>
+                                            <div class="ttr-post-text">
+                                                <p>${requestScope.s.briefInfo}</p>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                        <c:forEach items="${requestScope.services}" var="s">
-                                            <div class="col-md-6 col-lg-4 col-sm-6 mb-4" onclick="window.location.href = 'service?id=${s.id}'" style="cursor: pointer;">
+                                    <div class="courese-overview" id="overview">
+                                        <h4>Overview</h4>
+                                        <p>${requestScope.s.description}</p>
+                                    </div>
 
-                                                <div class="card h-100 shadow-sm">
 
-                                                    <img src="${s.thumbnail}" class="card-img-top" alt="${s.name}" style="height: 200px; width: 100%; object-fit: cover;">
+                                    <div class="" id="reviews">
+                                        <h4>Reviews</h4>
 
-                                                    <div class="card-body d-flex flex-column">
-                                                        <div style="height: 70px;">
-                                                            <h5 class="card-title text-center">${s.name}</h5>
-                                                        </div>
-                                                        <p class="text-center text-muted">${s.category.name}</p>
-                                                        <div class="mt-auto">
-                                                            <p class="text-center">
-                                                                <del class="text-muted">$${s.price}</del> 
-                                                                <strong class="text-danger">$${s.price - s.discount}</strong>
-                                                            </p>
-                                                            <button class="btn btn-success w-100" onclick="addToCart(event, '${s.id}', '${s.name}', '${s.price - s.discount}')">
-                                                                <i class="fa fa-cart-plus"></i> Add to Cart
-                                                            </button>
+                                        <div class="review-bx">
+                                            <div class="all-review">
+                                                <h2 class="rating-type">${requestScope.average}</h2>
+                                                <ul class="cours-star">
+
+                                                    <c:forEach begin="1" end="${requestScope.average}">
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        </c:forEach>
+
+                                                    <c:forEach begin="1" end="${5 - requestScope.average}">
+                                                        <li><i class="fa fa-star"></i></li>
+                                                    </c:forEach>
+                                                </ul>
+                                                <span>${requestScope.feedbacks.size()} Rating</span>
+                                            </div>
+                                            <div class="review-bar">
+                                                <div class="bar-bx">
+                                                    <div class="side">
+                                                        <div>5 star</div>
+                                                    </div>
+                                                    <div class="middle">
+                                                        <div class="bar-container">
+                                                            <div class="bar-5" style="width: ${requestScope.fives.size() / requestScope.feedbacks.size() * 100}%;"></div>
                                                         </div>
                                                     </div>
+                                                    <div class="side right">
+                                                        <div>${requestScope.fives.size()}</div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="bar-bx">
+                                                    <div class="side">
+                                                        <div>4 star</div>
+                                                    </div>
+                                                    <div class="middle">
+                                                        <div class="bar-container">
+                                                            <div class="bar-5" style="width: ${requestScope.fours.size() / requestScope.feedbacks.size() * 100}%;"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="side right">
+                                                        <div>${requestScope.fours.size()}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="bar-bx">
+                                                    <div class="side">
+                                                        <div>3 star</div>
+                                                    </div>
+                                                    <div class="middle">
+                                                        <div class="bar-container">
+                                                            <div class="bar-5" style="width: ${requestScope.threes.size() / requestScope.feedbacks.size() * 100}%;"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="side right">
+                                                        <div>${requestScope.threes.size()}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="bar-bx">
+                                                    <div class="side">
+                                                        <div>2 star</div>
+                                                    </div>
+                                                    <div class="middle">
+                                                        <div class="bar-container">
+                                                            <div class="bar-5" style="width: ${requestScope.twos.size() / requestScope.feedbacks.size() * 100}%;"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="side right">
+                                                        <div>${requestScope.twos.size()}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="bar-bx">
+                                                    <div class="side">
+                                                        <div>1 star</div>
+                                                    </div>
+                                                    <div class="middle">
+                                                        <div class="bar-container">
+                                                            <div class="bar-5" style="width: ${requestScope.ones.size() / requestScope.feedbacks.size() * 100}%;"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="side right">
+                                                        <div>${requestScope.ones.size()}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="" id="instructor">
+                                        <c:forEach items="${requestScope.feedbacks}" var="f">
+                                            <div class="instructor-bx">
+                                                <div class="instructor-author">
+                                                    <img src="${f.reservationDetail.reservation.customer.profile.avatar}" alt="">
+                                                </div>
+                                                <div class="instructor-info">
+                                                    <h6>${f.reservationDetail.reservation.customer.profile.fullName}</h6>
+                                                    <span>Professor</span>
+
+                                                    <ul class="cours-star">
+                                                        <c:forEach begin="1" end="${f.rating}">
+                                                            <li class="active"><i class="fa fa-star"></i></li>
+                                                            </c:forEach>
+
+                                                        <c:forEach begin="1" end="${5 - f.rating}">
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            </c:forEach>
+                                                    </ul>
+                                                    <p class="m-b0">${f.comment}</p>
                                                 </div>
                                             </div>
                                         </c:forEach>
-
-
-
-                                        <c:if test="${requestScope.cid == null && requestScope.info == null}">
-                                            <div class="col-lg-12 m-b20">
-                                                <div class="pagination-bx rounded-sm gray clearfix">
-                                                    <ul class="pagination">
-                                                        <c:if test="${requestScope.currentPage > 1}">
-                                                            <li class="previous"><a href="?page=${requestScope.currentPage -1}"><i class="ti-arrow-left"></i> Prev</a></li>
-                                                            </c:if>
-                                                        <li class="active"><a href="?page=${requestScope.currentPage}">${requestScope.currentPage }</a></li>
-
-
-                                                        <c:if test="${requestScope.currentPage + 1 <= requestScope.totalPages}">
-                                                            <li><a href="?page=${requestScope.currentPage + 1}">${requestScope.currentPage + 1}</a></li>
-                                                            </c:if>
-
-                                                        <c:if test="${requestScope.currentPage + 2 <= requestScope.totalPages}">
-                                                            <li><a href="?page=${requestScope.currentPage + 2}">${requestScope.currentPage + 2}</a></li>
-                                                            <li class="next"><a href="?page=${requestScope.currentPage + 1}">Next <i class="ti-arrow-right"></i></a></li>
-
-                                                        </c:if>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </c:if>
-
                                     </div>
+
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -439,9 +499,9 @@
                                     </div>
                                     <div class="col-4 col-lg-4 col-md-4 col-sm-4">
                                         <div class="widget footer_widget">
-                                            <h5 class="footer-title">Courses</h5>
+                                            <h5 class="footer-title">Services</h5>
                                             <ul>
-                                                <li><a href="courses.html">Courses</a></li>
+                                                <li><a href="courses.html">Services</a></li>
                                                 <li><a href="courses-details.html">Details</a></li>
                                                 <li><a href="membership.html">Membership</a></li>
                                                 <li><a href="profile.html">Profile</a></li>
@@ -471,7 +531,7 @@
                 <div class="footer-bottom">
                     <div class="container">
                         <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 text-center"> <a target="_blank" href="https://www.templateshub.net">Templates Hub</a></div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 text-center"><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></div>
                         </div>
                     </div>
                 </div>
@@ -492,22 +552,9 @@
         <script src="assets/vendors/masonry/masonry.js"></script>
         <script src="assets/vendors/masonry/filter.js"></script>
         <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src="assets/js/jquery.scroller.js"></script>
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/contact.js"></script>
-
-
-
-        <script>
-            function addToCart(event, id, name, price) {
-                // Ngừng sự kiện click truyền lên cha (ngừng điều hướng)
-                event.stopPropagation();
-
-                // Tiến hành thêm sản phẩm vào giỏ hàng
-                console.log(`Added ${name} to the cart!`);
-                // Bạn có thể thêm logic để thêm vào giỏ hàng ở đây
-            }
-
-        </script>
     </body>
 
 </html>
