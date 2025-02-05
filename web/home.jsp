@@ -75,11 +75,17 @@
                             <!-- Navigation Menu ==== -->
                             <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
 
-                                <ul class="nav navbar-nav">	
-                                    <li><a href="javascript:;">Services <i class="fa fa-chevron-down"></i></a>
+                                <ul class="nav navbar-nav">
+                                    <li><a href="/app">Home</a>
+                                      
+                                    </li>
+                                    <li><a href="javascript:;">Services</a>
+                                        
+                                    </li>
+                                    <li><a href="javascript:;">Blogs <i class="fa fa-chevron-down"></i></a>
                                         <ul class="sub-menu">
-                                            <c:forEach items="${SERVICES}" var="service">
-                                                <li><a href="profile.html">${service.name}</a></li>
+                                            <c:forEach items="${POSTS}" var="post">
+                                                <li><a>${post.title}</a></li>
                                                 </c:forEach>
 
                                         </ul>
@@ -294,7 +300,7 @@
                             <div class="row">
                                 <div class="col-md-12 heading-bx left">
                                     <h2 class="title-head">Blog</h2>
-                                    <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                                    
                                 </div>
                             </div>
                             <div class="row">

@@ -60,11 +60,25 @@ public class SliderDAO extends DBContext {
         }
     }
 
-    public int getSliderCount(String search) {
+    public int getSliderCount(String search, Boolean status) {
         String query = "SELECT COUNT(*) AS total FROM slider WHERE title LIKE ?";
-        try (ResultSet rs = executeQuery(query, "%" + search + "%")) {
-            if (rs.next()) {
-                return rs.getInt("total");
+
+        // Nếu có trạng thái, thêm điều kiện lọc
+        if (status != null) {
+            query += " AND status = ?";
+        }
+
+        try {
+            if (status != null) {
+                ResultSet rs = executeQuery(query, "%" + search + "%", status);
+                if (rs.next()) {
+                    return rs.getInt("total");
+                }
+            } else {
+                ResultSet rs = executeQuery(query, "%" + search + "%");
+                if (rs.next()) {
+                    return rs.getInt("total");
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,17 +86,33 @@ public class SliderDAO extends DBContext {
         return 0;
     }
 
-    public List<Slider> getSlidersByPageAndSearch(int page, int slidersPerPage, String search) {
+    public List<Slider> getSlidersByPageSearchAndStatus(int page, int slidersPerPage, String search, Boolean status) {
         List<Slider> sliders = new ArrayList<>();
-        String query = "SELECT * FROM slider WHERE title LIKE ? LIMIT ? OFFSET ?";
+        String query = "SELECT * FROM slider WHERE title LIKE ?";
+
+        // Nếu có trạng thái, thêm điều kiện lọc
+        if (status != null) {
+            query += " AND status = ?";
+        }
+
+        query += " LIMIT ? OFFSET ?";
+
         try {
             int offset = (page - 1) * slidersPerPage;
-            ResultSet rs = executeQuery(query, "%" + search + "%", slidersPerPage, offset);
+
+            ResultSet rs;
+            if (status != null) {
+                rs = executeQuery(query, "%" + search + "%", status, slidersPerPage, offset);
+            } else {
+                rs = executeQuery(query, "%" + search + "%", slidersPerPage, offset);
+            }
+
             while (rs.next()) {
                 Slider slider = new Slider();
                 slider.setId(rs.getInt("id"));
                 slider.setTitle(rs.getString("title"));
                 slider.setImageUrl(rs.getString("image_url"));
+                slider.setBackLink(rs.getString("back_link"));
                 slider.setStatus(rs.getBoolean("status"));
                 slider.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
                 if (rs.getTimestamp("updated_date") != null) {
