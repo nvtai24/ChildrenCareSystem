@@ -263,13 +263,16 @@
 
                                         <div class="cours-more-info">
                                             <div class="review">
-                                                <span>3 Review</span>
+                                                <span>${requestScope.feedbacks.size()} Review</span>
                                                 <ul class="cours-star">
-                                                    <li class="active"><i class="fa fa-star"></i></li>
-                                                    <li class="active"><i class="fa fa-star"></i></li>
-                                                    <li class="active"><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
+
+                                                    <c:forEach end="${requestScope.average}" begin="1">
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        </c:forEach>
+
+                                                    <c:forEach end="${5 - requestScope.average}" begin="1">
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        </c:forEach>
                                                 </ul>
                                             </div>
                                             <div class="price categories">
@@ -320,7 +323,7 @@
 
                                                     <c:forEach begin="1" end="${5 - requestScope.average}">
                                                         <li><i class="fa fa-star"></i></li>
-                                                    </c:forEach>
+                                                        </c:forEach>
                                                 </ul>
                                                 <span>${requestScope.feedbacks.size()} Rating</span>
                                             </div>
@@ -404,7 +407,7 @@
                                                 </div>
                                                 <div class="instructor-info">
                                                     <h6>${f.reservationDetail.reservation.customer.profile.fullName}</h6>
-                                                    <span>Professor</span>
+                                                    <!--<span>Professor</span>-->
 
                                                     <ul class="cours-star">
                                                         <c:forEach begin="1" end="${f.rating}">
