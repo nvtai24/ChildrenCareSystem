@@ -40,13 +40,21 @@
         <servlet-name>ServiceDetails</servlet-name>
         <servlet-class>controller.service.manager.ServiceDetails</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProfileController</servlet-name>
+        <servlet-class>controller.common.ProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceDetailsPublicController</servlet-name>
+        <servlet-class>controller.service.publi.ServiceDetailsPublicController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServiceListController</servlet-name>
         <url-pattern>/ServiceListController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceListPublicController</servlet-name>
-        <url-pattern>/ServiceListPublicController</url-pattern>
+        <url-pattern>/services</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -78,6 +86,14 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceDetails</servlet-name>
-        <url-pattern>/ServiceDetails</url-pattern>
+        <url-pattern/>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileController</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceDetailsPublicController</servlet-name>
+        <url-pattern>/ServiceDetails/service</url-pattern>
     </servlet-mapping>
 </web-app>

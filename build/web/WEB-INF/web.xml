@@ -33,6 +33,14 @@
         <servlet-class>controller.common.HomePageController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ProfileController</servlet-name>
+        <servlet-class>controller.common.ProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceDetailsPublicController</servlet-name>
+        <servlet-class>controller.service.publi.ServiceDetailsPublicController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>DeleteSlider</servlet-name>
         <servlet-class>controller.slider.DeleteSlider</servlet-class>
     </servlet>
@@ -46,7 +54,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceListPublicController</servlet-name>
-        <url-pattern>/ServiceListPublicController</url-pattern>
+        <url-pattern>/services</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -70,14 +78,6 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomePageController</servlet-name>
-        <url-pattern/>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteSlider</servlet-name>
-        <url-pattern>/DeleteSlider</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServiceDetails</servlet-name>
-        <url-pattern>/ServiceDetails</url-pattern>
+        <url-pattern></url-pattern>
     </servlet-mapping>
 </web-app>
