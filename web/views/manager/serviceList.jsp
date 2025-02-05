@@ -403,6 +403,7 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th>Service Name</th>
+                                <th>Thumbnail</th>
                                 <th>Category</th>
                                 <th>Price</th>
                                 <th>Discount</th>
@@ -416,6 +417,7 @@
                             <c:forEach items="${requestScope.list}" var="s">
                                 <tr>
                                     <td>${s.name}</td>
+                                    <td><img src="${s.thumbnail}" alt="No image" height="150px" width="150px"/></td>
                                     <td>${s.category.name}</td>
                                     <td>$${s.price}</td>
                                     <td>$${s.discount}</td>
