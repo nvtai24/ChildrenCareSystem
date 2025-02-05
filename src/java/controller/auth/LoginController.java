@@ -36,7 +36,7 @@ public class LoginController extends HttpServlet {
         if (user != null) {
             request.getSession().setAttribute("account", user);
 
-            response.sendRedirect("index.html");
+            response.sendRedirect("topbar.jsp");
         } else {
             response.sendRedirect("login.html");
         }

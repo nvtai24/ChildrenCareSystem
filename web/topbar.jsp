@@ -44,6 +44,8 @@
 
         <!-- All PLUGINS CSS ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/assets.css" />
+        <!-- FontAwesome CDN -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 
         <!-- TYPOGRAPHY ============================================= -->
@@ -90,51 +92,57 @@
             <div id="loading-icon-bx"></div>
             <!-- Header Top ==== -->
             <header class="header rs-nav header-transparent">
-                <div class="top-bar">
+                <div class="top-bar" style="background: transparent; width: 100%;">
                     <div class="container">
-                        <div class="row d-flex justify-content-between">
-                            <div class="topbar-left">
-                                <ul>
+                        <div class="row d-flex align-items-center justify-content-between" style="display: flex; flex-wrap: nowrap; align-items: center; width: 100%;">
+
+                            <!-- Phần bên trái -->
+                            <div class="topbar-left" style="display: flex; align-items: center; gap: 15px; flex-shrink: 0;">
+                                <ul style="display: flex; align-items: center; gap: 15px; margin: 0; padding: 0; list-style: none;">
                                     <li>
-                                        <a href="faq-1.html"
-                                           ><i class="fa fa-question-circle"></i>Ask a Question</a
-                                        >
+                                        <a href="faq-1.html" style="text-decoration: none; color: white;">
+                                            <i class="fa fa-question-circle"></i> Ask a Question
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:;"
-                                           ><i class="fa fa-envelope-o"></i>Support@website.com</a
-                                        >
+                                        <a href="javascript:;" style="text-decoration: none; color: white;">
+                                            <i class="fa fa-envelope-o"></i> Support@website.com
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="topbar-right">
-                                <ul>
+
+                            <!-- Phần bên phải -->
+                            <!-- Phần bên phải -->
+                            <div class="topbar-right" style="display: flex; align-items: center; gap: 10px;">
+                                <ul class="navbar-nav" style="display: flex; align-items: center; gap: 10px; margin: 0; padding: 0; list-style: none; flex-direction: row-reverse;">
                                     <%
                                         User user = (User) session.getAttribute("account");
                                         if (user != null) {
                                     %>
-                                    <!-- Hiển thị avatar và menu khi đã đăng nhập -->
-                                    <li class="dropdown">
-                                        <a href="#" class="ttr-material-button ttr-submenu-toggle" id="userAvatar">
-                                            <span class="ttr-user-avatar">
-                                                <img alt="User Avatar" src="<%= user.getAvatar() %>" width="32" height="32">
-                                            </span>
+                                    <!-- Avatar khi đã đăng nhập (LUÔN BÊN PHẢI) -->
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link d-flex align-items-center" href="#" id="userAvatar" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="display: flex; align-items: center;">
+                                            <img src="uploads/profile/pr.png" alt="User Avatar" width="32" height="32" class="rounded-circle" style="border-radius: 50%; cursor: pointer; transition: transform 0.2s ease-in-out;">
                                         </a>
-                                        <div class="ttr-header-submenu" id="userDropdown">
-                                            <ul>
-                                                <li><a href="user-profile.jsp">My profile</a></li>
-                                                <li><a href="list-view-calendar.jsp">Activity</a></li>
-                                                <li><a href="mailbox.jsp">Messages</a></li>
-                                                <li><a href="logout.jsp">Logout</a></li>
-                                            </ul>
-                                        </div>
+                                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userAvatar">
+                                            <li><a class="dropdown-item" href="admin/user-profile.html" style="color: black; text-decoration: none;">My profile</a></li>
+                                            <li><a class="dropdown-item" href="login.html" style="color: black; text-decoration: none;">Logout</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- Icon giỏ hàng (LUÔN BÊN TRÁI) -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="cart.jsp" style="color: white;">
+                                            <i class="fas fa-shopping-cart" style="font-size: 18px;"></i>
+                                        </a>
                                     </li>
                                     <%
                                         } else {
                                     %>
-                                    <!-- Hiển thị nút Login/Register khi chưa đăng nhập -->
-                                    <li><a href="login.jsp">Login</a></li>
-                                    <li><a href="register.jsp">Register</a></li>
+                                    <!-- Nếu chưa đăng nhập, chỉ hiển thị Login & Register -->
+                                    <li class="nav-item"><a class="nav-link" href="login.jsp" style="text-decoration: none; color: white;">Login</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="register.jsp" style="text-decoration: none; color: white;">Register</a></li>
                                         <%
                                             }
                                         %>
@@ -145,6 +153,8 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div class="sticky-header navbar-expand-lg">
                     <div class="menu-bar clearfix">
                         <div class="container clearfix">
@@ -172,21 +182,21 @@
                             <div class="secondary-menu">
                                 <div class="secondary-inner">
                                     <ul>
-                                        <li>
-                                            <a href="javascript:;" class="btn-link"
-                                               ><i class="fa fa-facebook"></i
-                                                ></a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;" class="btn-link"
-                                               ><i class="fa fa-google-plus"></i
-                                                ></a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;" class="btn-link"
-                                               ><i class="fa fa-linkedin"></i
-                                                ></a>
-                                        </li>
+                                        <!--                                        <li>
+                                                                                    <a href="javascript:;" class="btn-link"
+                                                                                       ><i class="fa fa-facebook"></i
+                                                                                        ></a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="javascript:;" class="btn-link"
+                                                                                       ><i class="fa fa-google-plus"></i
+                                                                                        ></a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="javascript:;" class="btn-link"
+                                                                                       ><i class="fa fa-linkedin"></i
+                                                                                        ></a>
+                                                                                </li>-->
                                         <!-- Search Button ==== -->
                                         <li class="search-btn">
                                             <button
@@ -1723,6 +1733,8 @@
         <script src="assets/vendors/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
         <script src="assets/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
         <script src="assets/vendors/revolution/js/extensions/revolution.extension.video.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <script>
             jQuery(document).ready(function () {
                 var ttrevapi;

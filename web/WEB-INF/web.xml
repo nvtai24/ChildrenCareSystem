@@ -32,6 +32,14 @@
         <servlet-name>HomePageController</servlet-name>
         <servlet-class>controller.common.HomePageController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VerifyController</servlet-name>
+        <servlet-class>controller.auth.VerifyController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReservationDetailController</servlet-name>
+        <servlet-class>controller.reservation.ReservationDetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServiceListController</servlet-name>
         <url-pattern>/ServiceListController</url-pattern>
@@ -62,6 +70,14 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomePageController</servlet-name>
-        <url-pattern></url-pattern>
+        <url-pattern/>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyController</servlet-name>
+        <url-pattern>/verify</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservationDetailController</servlet-name>
+        <url-pattern>/reservationDetail</url-pattern>
     </servlet-mapping>
 </web-app>
