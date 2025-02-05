@@ -418,7 +418,7 @@
                                     <td>${s.name}</td>
                                     <td>${s.category.name}</td>
                                     <td>$${s.price}</td>
-                                    <td>${s.discount}%</td>
+                                    <td>$${s.discount}</td>
                                     <td><strong class="text-primary">$${s.price - s.discount}</strong></td>
                                     <td>${s.briefInfo}</td>
                                     <td>
@@ -433,7 +433,7 @@
                                                 ${s.status == 1 ? 'Deactivate' : 'Activate'}
                                             </button>
                                         </form>
-                                        <a href="ServiceDetailController?id=${s.id}" class="btn btn-sm btn-info">View</a>
+                                        <a href="ServiceUpdateController?id=${s.id}" class="btn btn-sm btn-info">View</a>
                                     </td>
                                 </tr>
                             </c:forEach>

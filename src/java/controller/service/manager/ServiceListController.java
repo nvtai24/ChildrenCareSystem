@@ -5,7 +5,7 @@
 package controller.service.manager;
 
 import dal.CategoryDAO;
-import dal.ServiceDAO;
+import dal.ServiceManagerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -51,7 +51,7 @@ public class ServiceListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ServiceDAO db = new ServiceDAO();
+        ServiceManagerDAO db = new ServiceManagerDAO();
         CategoryDAO dbCategory = new CategoryDAO();
         ArrayList<Service> list = db.list();
         ArrayList<Category> listCategory = dbCategory.list();

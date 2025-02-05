@@ -16,11 +16,51 @@ import model.Category;
  *
  * @author Nvtai
  */
-public class ServiceDAO extends DBContext {
+public class ServiceManagerDAO extends DBContext {
+
+    public Service getServiceByID(int id) {
+        DBContext db = new DBContext();
+        Service s = new Service();
+        String sql = "Select s.id,s.category_id,c.name,s.name,s.description,s.brief_info,s.price,s.discount,s.thumbnail,s.status \n"
+                + "from service s join category c on s.category_id = c.id WHERE s.id = ?; ";
+
+        try {
+
+            ResultSet rs = db.executeQuery(sql, id);
+            while (rs.next()) {
+                // Get attribute into object.                
+                s.setId(rs.getInt("s.id"));
+
+                Category c = new Category();
+                c.setName(rs.getString("c.name"));
+                s.setCategory(c);
+                s.setName(rs.getString("s.name"));
+
+                s.setDescription(rs.getString("s.description"));
+                s.setBriefInfo(rs.getString("s.brief_info"));
+                s.setPrice(rs.getDouble("s.price"));
+                s.setDiscount(rs.getDouble("s.discount"));
+                s.setThumbnail(rs.getString("s.thumbnail"));
+                s.setStatus(rs.getDouble("s.status"));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return s;
+
+    }
 
     public ArrayList<Service> list() {
         DBContext db = new DBContext();
-        CategoryDAO dbCategory = new CategoryDAO();
         ArrayList<Service> list = new ArrayList<>();
         String sql = "select s.id,s.category_id,c.name,s.name,s.description,s.brief_info,s.price,s.discount,s.thumbnail,s.status \n"
                 + "from service s join category c on s.category_id = c.id; ";
@@ -48,13 +88,13 @@ public class ServiceDAO extends DBContext {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -100,12 +140,12 @@ public class ServiceDAO extends DBContext {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 db.connection.close(); // Đảm bảo đóng kết nối sau khi sử dụng
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -145,12 +185,12 @@ public class ServiceDAO extends DBContext {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 db.connection.close(); // Đảm bảo đóng kết nối sau khi sử dụng
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -220,7 +260,7 @@ public class ServiceDAO extends DBContext {
                 list.add(s);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (rs != null) {
@@ -230,7 +270,7 @@ public class ServiceDAO extends DBContext {
                     ps.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -281,7 +321,7 @@ public class ServiceDAO extends DBContext {
                 list.add(s);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 // Đóng ResultSet và PreparedStatement nếu chúng không null
@@ -292,7 +332,7 @@ public class ServiceDAO extends DBContext {
                     ps.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -365,14 +405,14 @@ public class ServiceDAO extends DBContext {
                 list.add(s);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (rs != null) {
                     rs.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -402,7 +442,7 @@ public class ServiceDAO extends DBContext {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
 
@@ -411,7 +451,7 @@ public class ServiceDAO extends DBContext {
                 }
 
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -425,12 +465,12 @@ public class ServiceDAO extends DBContext {
         try {
             db.executeUpdate(sql, service.getName(), service.getCategory().getId(), service.getDescription(), service.getBriefInfo(), service.getPrice(), service.getDiscount(), service.getThumbnail(), service.getStatus());
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 db.connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

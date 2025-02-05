@@ -5,7 +5,7 @@
 package controller.service.manager;
 
 import dal.CategoryDAO;
-import dal.ServiceDAO;
+import dal.ServiceManagerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -74,7 +74,7 @@ public class ServiceSortController extends HttpServlet {
         request.setAttribute("listCategory", listCategory);
 
         // Lấy danh sách service theo điều kiện
-        ServiceDAO db = new ServiceDAO();
+        ServiceManagerDAO db = new ServiceManagerDAO();
         ArrayList<Service> list = db.getServiceListBySortByOrder(field, order, status, idCategory);
 
         // Đưa dữ liệu vào request

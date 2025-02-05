@@ -5,7 +5,7 @@
 
 package controller.service.manager;
 
-import dal.ServiceDAO;
+import dal.ServiceManagerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -26,7 +26,7 @@ public class ServiceChangeStatusController extends HttpServlet {
           // get Id 
         String raw_id =  request.getParameter("id");
         int id = Integer.parseInt(raw_id);
-        ServiceDAO db = new ServiceDAO();
+        ServiceManagerDAO db = new ServiceManagerDAO();
         db.updateStatusById(id);
         response.sendRedirect("ServiceListController");
     }

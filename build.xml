@@ -10,17 +10,7 @@
 <project name="ChildrenCareSystem" default="default" basedir=".">
     <description>Builds, tests, and runs the project ChildrenCareSystem.</description>
     <import file="nbproject/build-impl.xml"/>
-       <property name="sonar.binaries" value="build/web/WEB-INF/classes" />
-    <target name="sonar" depends="compile">
-    <exec executable="sonar-scanner">
-        <arg value="-Dsonar.projectKey=ABCDEF" />
-        <arg value="-Dsonar.sources=src" />
-        <arg value="-Dsonar.java.binaries=${sonar.binaries}" />
-        <arg value="-Dsonar.host.url=http://localhost:9000" />
-        <arg value="-Dsonar.login=admin" />
-        <arg value="-Dsonar.password=1234" />
-    </exec>
-</target>
+       
     <!--
 
     There exist several targets which are by default empty and which can be 

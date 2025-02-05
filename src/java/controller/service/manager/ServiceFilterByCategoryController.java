@@ -5,7 +5,7 @@
 package controller.service.manager;
 
 import dal.CategoryDAO;
-import dal.ServiceDAO;
+import dal.ServiceManagerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -63,7 +63,7 @@ public class ServiceFilterByCategoryController extends HttpServlet {
             throws ServletException, IOException {
         // Lấy session
         HttpSession session = request.getSession();
-        ServiceDAO db = new ServiceDAO();
+        ServiceManagerDAO db = new ServiceManagerDAO();
         CategoryDAO dbCategory = new CategoryDAO();
 
         // Lấy danh sách danh mục

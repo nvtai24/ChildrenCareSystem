@@ -5,10 +5,9 @@
 package controller.service.manager;
 
 import dal.CategoryDAO;
-import dal.ServiceDAO;
+import dal.ServiceManagerDAO;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
@@ -18,10 +17,6 @@ import jakarta.servlet.http.Part;
 import java.util.ArrayList;
 import model.Category;
 import model.Service;
-import java.nio.file.Paths;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -44,7 +39,7 @@ public class ServiceCreateController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ServiceDAO db = new ServiceDAO();
+        ServiceManagerDAO db = new ServiceManagerDAO();
 
         // Lấy dữ liệu từ form
         String raw_categoryId = request.getParameter("idCategory");
@@ -59,9 +54,20 @@ public class ServiceCreateController extends HttpServlet {
         Part filePart = request.getPart("thumbnail"); // Lấy file ảnh từ request
         String fileName = getFileName(filePart); // Lấy tên file
 
-        // Đường dẫn thư mục lưu ảnh
-        String uploadPath = "C:\\Users\\Admin\\Documents\\GitHub\\ChildrenCareSystem\\web\\uploads\\profile";
+        // Lấy đường dẫn thư mục lưu ảnh
+        String uploadPath = request.getServletContext().getRealPath("/uploads/profile");
 
+        // Kiểm tra nếu đường dẫn chứa "/build", loại bỏ nó
+        if (uploadPath.contains(File.separator + "build")) {
+            StringBuilder sb = new StringBuilder(uploadPath);
+            int index = sb.indexOf(File.separator + "build");
+            if (index != -1) {
+                sb.delete(index, index + 6); // Xóa phần "/build"
+            }
+            uploadPath = sb.toString();
+        }
+
+        //test 
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             boolean created = uploadDir.mkdirs();

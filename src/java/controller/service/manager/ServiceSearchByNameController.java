@@ -6,7 +6,7 @@
 package controller.service.manager;
 
 import dal.CategoryDAO;
-import dal.ServiceDAO;
+import dal.ServiceManagerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -34,7 +34,7 @@ public class ServiceSearchByNameController extends HttpServlet {
             response.sendRedirect("ServiceListController");
         }
         
-        ServiceDAO db = new ServiceDAO();
+        ServiceManagerDAO db = new ServiceManagerDAO();
         ArrayList<Service> list  = db.getListByName(nameService);
         CategoryDAO dbCategory = new CategoryDAO();
         ArrayList<Category> listCategory = dbCategory.list();

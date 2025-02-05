@@ -49,30 +49,4 @@ public class CategoryDAO extends DBContext {
         return list;
     }
 
-    public Category getCategoryById(int id) {
-        DBContext db = new DBContext();
-        Category c = new Category();
-        String sql = "select id,name,description,status from category WHERE id = ?;";
-
-        try {
-            ResultSet rs = db.executeQuery(sql);
-
-            if (rs.next()) {
-                c.setId(rs.getInt("id"));
-                c.setName(rs.getString("name"));
-                c.setDescription(rs.getString("description"));
-                c.setStatus(rs.getInt("status") == 1);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        return c;
-    }
 }
