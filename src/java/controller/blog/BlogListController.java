@@ -79,7 +79,7 @@ public class BlogListController extends HttpServlet {
 
             // Lấy danh sách dịch vụ nếu có (không liên quan đến bài post nhưng bạn đang load nó)
             ServiceDAO serviceDAO = new ServiceDAO();
-            List<Service> listService = serviceDAO.getAllServices();
+            List<Service> listService = serviceDAO.getAllAvailableServices();
             if (listService != null && !listService.isEmpty()) {
                 request.setAttribute("SERVICES", listService);
             } else {
