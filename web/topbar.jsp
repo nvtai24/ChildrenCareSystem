@@ -86,7 +86,11 @@
             />
         <!-- REVOLUTION SLIDER END -->
     </head>
-
+    <style>
+        a {
+    text-decoration: none !important;
+}
+    </style>
     <body id="bg">
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>

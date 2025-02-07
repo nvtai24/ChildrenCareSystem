@@ -8,9 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import model.ReservationDetail;
 import java.sql.*;
+import java.time.LocalDateTime;
 import model.Reservation;
+import model.ReservationStatus;
 import model.Service;
 import model.auth.User;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -18,8 +21,12 @@ import model.auth.User;
  */
 public class ReservationDetailDAO extends DBContext {
 
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
     public List<ReservationDetail> getUserReservations(int userId) {
+
         List<ReservationDetail> list = new ArrayList<>();
+
         String query = "SELECT \n"
                 + "    rd.id, \n"
                 + "    r.customer_id, \n"
@@ -30,19 +37,28 @@ public class ReservationDetailDAO extends DBContext {
                 + "    rd.quantity, \n"
                 + "    rd.price, \n"
                 + "    rd.created_date,\n"
-                + "    r.status_id\n"
+                + "    r.status_id,\n"
+                + "    rs.status_name\n"
                 + "FROM reservationdetail rd \n"
                 + "JOIN reservation r ON rd.reservation_id = r.id \n"
                 + "JOIN service s ON rd.service_id = s.id \n"
+                + "JOIN reservationStatus rs ON r.status_id = rs.id \n"
                 + "WHERE r.customer_id = ?;";
 
         try (ResultSet rs = executeQuery(query, userId)) {
             while (rs.next()) {
+                LocalDateTime reservedDate = rs.getTimestamp("reserved_date").toLocalDateTime();
+                String formattedReservedDate = reservedDate.format(formatter);
+                ReservationStatus status = ReservationStatus.builder()
+                        .id(rs.getInt("status_id"))
+                        .statusName(rs.getString("status_name"))
+                        .build();
                 ReservationDetail reservationDetail = ReservationDetail.builder()
                         .id(rs.getInt("id"))
                         .reservation(Reservation.builder()
                                 .id(rs.getInt("reservation_id"))
-                                .reservedDate(rs.getTimestamp("reserved_date").toLocalDateTime())
+                                .reservedDate(reservedDate)
+                                .status(status)
                                 .build())
                         .service(Service.builder()
                                 .id(rs.getInt("service_id"))
@@ -99,10 +115,14 @@ public class ReservationDetailDAO extends DBContext {
     /**
      * Updates an existing reservation detail.
      */
-    public boolean updateReservationDetail(int id, int quantity, double price) {
-        String query = "UPDATE reservationdetail SET quantity = ?, price = ?, updated_date = NOW() WHERE id = ?";
+    public boolean updateReservationDetail(int id, int quantity) {
+        String query = "UPDATE reservationdetail rd\n"
+                + "JOIN service s ON rd.service_id = s.id\n"
+                + "SET rd.quantity = ?, \n"
+                + "    rd.price = s.price\n"
+                + "WHERE rd.id = ?;";
         try {
-            return executeUpdate(query, quantity, price, id) > 0;
+            return executeUpdate(query, quantity, id) > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

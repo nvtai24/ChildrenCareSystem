@@ -1,133 +1,37 @@
-<%-- 
-    Document   : reservationDetail
-    Created on : Feb 5, 2025, 11:27:18 PM
-    Author     : admin
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, model.ReservationDetail" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link rel="stylesheet" href="assets/css/style.css">
+
 <!DOCTYPE html>
 <html lang="en">
-    <style>
-            /* ================================
-   RESERVATION DETAIL PAGE STYLING
-================================ */
-
-/* Container */
-.reservation-container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Table Styling */
-.reservation-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.reservation-table th, .reservation-table td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-.reservation-table th {
-    background: #efbb20;
-    color: white;
-    font-weight: bold;
-}
-
-/* Input Fields */
-.reservation-table input {
-    width: 60px;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 5px;
-}
-
-/* Total Price */
-.total-price {
-    font-size: 20px;
-    font-weight: bold;
-    text-align: right;
-    margin-top: 15px;
-}
-
-/* Buttons */
-.reservation-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.reservation-buttons .btn {
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    display: inline-block;
-}
-
-.btn-primary {
-    background: #007bff;
-    color: white;
-    border: none;
-}
-
-.btn-success {
-    background: #28a745;
-    color: white;
-    border: none;
-}
-
-.btn-danger {
-    background: #dc3545;
-    color: white;
-    border: none;
-}
-
-.btn:hover {
-    opacity: 0.8;
-}
-
-/* Delete Button */
-.delete-btn {
-    background: #ff4d4d;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.delete-btn:hover {
-    background: #d43f3f;
-}
-
-    </style>
 <head>
     <meta charset="UTF-8">
     <title>Reservation Cart</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/typography.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
     <script>
-        function updateReservation(reservationId) {
+        function saveReservation(reservationId) {
             let quantity = document.getElementById('quantity_' + reservationId).value;
-            let numPersons = document.getElementById('numPersons_' + reservationId).value;
-
             fetch('reservationDetail', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `action=update&reservationId=${reservationId}&quantity=${quantity}&numPersons=${numPersons}`
+                body: `action=save&reservationId=${reservationId}&quantity=${quantity}`
+            }).then(() => location.reload());
+        }
+        
+        function saveAll() {
+            let updates = [];
+            document.querySelectorAll('[id^="quantity_"]').forEach(input => {
+                let id = input.id.split('_')[1];
+                let quantity = input.value;
+                updates.push(`reservationId=${id}&quantity=${quantity}`);
+            });
+            fetch('reservationDetail', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `action=saveAll&` + updates.join('&')
             }).then(() => location.reload());
         }
 
@@ -142,50 +46,72 @@
         }
     </script>
 </head>
-<body>
-    <div class="reservation-container mt-5">
-        <h2 class="text-center">Your Reservation Cart</h2>
-
-        <table class="reservation-table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Service Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total Cost</th>
-                    <th>Actions</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-            <form action="reservationDetail" method="get">
-                <c:forEach var="reservation" items="${requestScope.reservationDetails}">
-                    <tr>
-                        <td>${reservation.id}</td>
-                        <td>${reservation.service.name}</td>
-                        <td>$${reservation.price}</td>
-                        <td>
-                            <input type="number" id="quantity_${reservation.id}" value="${reservation.quantity}" min="1"
-                                   onchange="updateReservation(${reservation.id})">
-                        </td>
-                        <td id="totalCost_${reservation.id}">$${reservation.total}</td>
-                        <td>
-                            <button class="delete-btn btn-danger" onclick="deleteReservation(${reservation.id})">Delete</button>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </form>
-                
-            </tbody>
-        </table>
-
-        <h4 class="total-price">Total Price: $${totalPrice}</h4>
-
-        <div class="reservation-buttons">
-            <a href="services.jsp" class="btn btn-primary">Choose More Services</a>
-            <a href="checkout.jsp" class="btn btn-success">Check Out</a>
+<body class="ttr-opened-sidebar ttr-pinned-sidebar">
+    <header class="ttr-header">
+        <div class="ttr-header-wrapper">
+           
+            <div class="ttr-header-right ttr-with-seperator">
+                <button class="btn btn-secondary" onclick="window.history.back()">Back</button>
+            </div>
         </div>
-    </div>
+    </header>
+
+    <main class="ttr-wrapper">
+        <div class="container-fluid">
+            <div class="db-breadcrumb">
+                <h4 class="breadcrumb-title">Your Reservation Cart</h4>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 m-b30">
+                    <div class="widget-box">
+                        <div class="wc-title">
+                            <h4>Reservations</h4>
+                        </div>
+                        <div class="widget-inner">
+                            <table class="table table-bordered text-center">
+                                <thead>
+                                    <tr class="table-warning">
+                                        <th>ID</th>
+                                        <th>Service Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total Cost</th>
+                                        <th>Reserve Date</th>
+                                        <th>Actions</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="reservation" items="${requestScope.reservationDetails}">
+                                        <tr>
+                                            <td>${reservation.id}</td>
+                                            <td>${reservation.service.name}</td>
+                                            <td>$${reservation.price}</td>
+                                            <td>
+                                                <input type="number" id="quantity_${reservation.id}" value="${reservation.quantity}" min="1">
+                                            </td>
+                                            <td id="totalCost_${reservation.id}">$${reservation.total}</td>
+                                            <td>${reservation.reservation.reservedDate}</td>
+                                            <td>
+                                                <button class="btn btn-danger" onclick="deleteReservation(${reservation.id})">Delete</button>
+                                            </td>
+                                            <td>${reservation.reservation.status.statusName}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                            <h4 class="text-end">Total Price: $${totalPrice}</h4>
+                            <div class="d-flex justify-content-between">
+                                <a href="services.jsp" class="btn btn-primary">Choose More Services</a>
+                                <button class="btn btn-warning" onclick="saveAll()">Save All</button>
+                                <a href="reservation-contact.jsp" class="btn btn-success">Check Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="assets/js/functions.js"></script>
 </body>
 </html>

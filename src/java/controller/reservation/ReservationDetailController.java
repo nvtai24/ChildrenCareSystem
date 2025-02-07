@@ -56,15 +56,15 @@ public class ReservationDetailController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         String action = request.getParameter("action");
-        int reservationId = Integer.parseInt(request.getParameter("reservationId"));
+    int reservationId = Integer.parseInt(request.getParameter("reservationId"));
 
-        if ("update".equals(action)) {
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
-            int numberOfPersons = Integer.parseInt(request.getParameter("numPersons"));
-            reservationdetailDAO.updateReservationDetail(reservationId, quantity, numberOfPersons);
-        } else if ("delete".equals(action)) {
-            reservationdetailDAO.deleteReservationDetail(reservationId);
-        }
+    if ("save".equals(action)) {  // Xử lý lưu số lượng mới
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        reservationdetailDAO.updateReservationDetail(reservationId, quantity);
+    } else if ("delete".equals(action)) {  // Xử lý xóa
+        reservationdetailDAO.deleteReservationDetail(reservationId);
+    }
+
 
         response.sendRedirect("reservationDetail");
     }
