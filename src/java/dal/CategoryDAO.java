@@ -28,7 +28,6 @@ public class CategoryDAO extends DBContext {
                 // Get attribute into object.
                 Category c = new Category();
                 c.setId(rs.getInt("id"));
-
                 c.setName(rs.getString("name"));
                 c.setDescription(rs.getString("description"));
                 c.setStatus(rs.getInt("status") == 1);

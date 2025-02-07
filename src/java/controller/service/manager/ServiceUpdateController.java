@@ -1,71 +1,130 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.service.manager;
 
-import com.mysql.cj.Session;
+import dal.CategoryDAO;
+import dal.ServiceManagerDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.File;
+import java.util.ArrayList;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import model.Category;
+import model.Service;
 
-/**
- *
- * @author Admin
- */
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class ServiceUpdateController extends HttpServlet {
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServiceUpdateController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServiceUpdateController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ServiceManagerDAO db = new ServiceManagerDAO();
+        CategoryDAO dbCategory = new CategoryDAO();
+
+        int serviceId = Integer.parseInt(request.getParameter("id"));
+        Service service = db.getServiceByID(serviceId);
+        ArrayList<Category> listCategory = dbCategory.list();
+
+        request.setAttribute("s", service);
+        request.setAttribute("listCategory", listCategory);
+        request.getRequestDispatcher("./views/manager/serviceDetail.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Read Data in page 
-        request.getAttribute("");
+        try {
+            Service service = extractServiceFromRequest(request);
+            ServiceManagerDAO db = new ServiceManagerDAO();
+            db.updateService(service);
+            HttpSession session = request.getSession(false); // Không tạo mới nếu chưa có session
+            if (session != null) {
+                session.invalidate(); // Hủy toàn bộ session
+            }
+            response.sendRedirect("ServiceListController");
+        } catch (Exception e) {
+            ServiceManagerDAO db = new ServiceManagerDAO();
+            CategoryDAO dbCategory = new CategoryDAO();
+            int id = Integer.parseInt(request.getParameter("id"));
 
+            Service service = db.getServiceByID(id);
+            ArrayList<Category> listCategory = dbCategory.list();
+
+            request.setAttribute("s", service);
+            request.setAttribute("listCategory", listCategory);
+
+            request.setAttribute("error", e.getMessage());
+            HttpSession session = request.getSession(false); // Không tạo mới nếu chưa có session
+            if (session != null) {
+                session.invalidate(); // Hủy toàn bộ session
+            }
+
+            request.getRequestDispatcher("./views/manager/serviceDetail").forward(request, response);
+        }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    private Service extractServiceFromRequest(HttpServletRequest request) throws Exception {
+        int serviceId = Integer.parseInt(request.getParameter("id"));
+        ServiceManagerDAO db = new ServiceManagerDAO();
+        Service service = db.getServiceByID(serviceId);
 
+        String name = request.getParameter("name").trim();
+        double price = Double.parseDouble(request.getParameter("price"));
+        double discount = Double.parseDouble(request.getParameter("discount"));
+
+        if (discount > price) {
+            throw new IllegalArgumentException("Discount cannot be greater than price!");
+        }
+
+        service.setName(name);
+        service.setPrice(price);
+        service.setDiscount(discount);
+        service.setDescription(request.getParameter("description").trim());
+        service.setBriefInfo(request.getParameter("briefInfo").trim());
+        service.setStatus(Integer.parseInt(request.getParameter("status")));
+
+        String fileURL = handleFileUpload(request, request.getParameter("oldThumbnail"));
+        service.setThumbnail(fileURL);
+
+        Category category = new Category();
+        category.setId(Integer.parseInt(request.getParameter("idCategory")));
+        service.setCategory(category);
+
+        return service;
+    }
+
+    private String handleFileUpload(HttpServletRequest request, String oldThumbnail) throws IOException, ServletException {
+        Part filePart = request.getPart("thumbnail");
+        if (filePart == null || filePart.getSize() == 0) {
+            return oldThumbnail;
+        }
+
+        String fileName = getFileName(filePart);
+        String uploadPath = request.getServletContext().getRealPath("/assets/images/services").replace("/build", "");
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+
+        String filePath = uploadPath + File.separator + fileName;
+        filePart.write(filePath);
+
+        return request.getContextPath() + "/assets/images/services/" + fileName;
+    }
+
+    private String getFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        for (String content : contentDisp.split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(content.indexOf('=') + 2, content.length() - 1);
+            }
+        }
+        return null;
+    }
 }

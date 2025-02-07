@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.util.ArrayList;
 import model.Category;
@@ -36,6 +37,7 @@ public class ServiceCreateController extends HttpServlet {
         request.getRequestDispatcher("./views/manager/serviceCreate.jsp").forward(request, response);
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -55,7 +57,7 @@ public class ServiceCreateController extends HttpServlet {
         String fileName = getFileName(filePart); // Lấy tên file
 
         // Lấy đường dẫn thư mục lưu ảnh
-        String uploadPath = request.getServletContext().getRealPath("/uploads/profile");
+        String uploadPath = request.getServletContext().getRealPath("/assets/images/services");
 
         // Kiểm tra nếu đường dẫn chứa "/build", loại bỏ nó
         if (uploadPath.contains(File.separator + "build")) {
@@ -86,7 +88,7 @@ public class ServiceCreateController extends HttpServlet {
         }
 
         // Tạo URL để lưu vào database
-        String fileURL = request.getContextPath() + "/uploads/profile/" + fileName;
+        String fileURL = request.getContextPath() + "/assets/images/services/" + fileName;
 
         // Khởi tạo đối tượng Service
         Service s = new Service();
@@ -132,6 +134,10 @@ public class ServiceCreateController extends HttpServlet {
 
             // Lưu vào database
             db.createService(s);
+            HttpSession session = request.getSession(false); // Không tạo mới nếu chưa có session
+            if (session != null) {
+                session.invalidate(); // Hủy toàn bộ session
+            }
 
             // Redirect về danh sách dịch vụ
             response.sendRedirect("ServiceListController");

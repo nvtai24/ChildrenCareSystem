@@ -13,10 +13,10 @@
 
     <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:10:19 GMT -->
     <head>
-
         <!-- META ============================================= -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="keywords" content="" />
         <meta name="author" content="" />
         <meta name="robots" content="" />
@@ -24,23 +24,18 @@
         <!-- DESCRIPTION -->
         <meta name="description" content="EduChamp : Education HTML Template" />
 
-        <!-- OG -->
+        <!-- OG (Open Graph) ============================================= -->
         <meta property="og:title" content="EduChamp : Education HTML Template" />
         <meta property="og:description" content="EduChamp : Education HTML Template" />
         <meta property="og:image" content="" />
         <meta name="format-detection" content="telephone=no">
 
+        <!-- PAGE TITLE ============================================= -->
+        <title>EduChamp : Education HTML Template</title>
+
         <!-- FAVICONS ICON ============================================= -->
-        <link rel="icon" href="../error-404.html" type="image/x-icon" />
+        <link rel="icon" href="assets2/images/favicon.png" type="image/x-icon" />
         <link rel="shortcut icon" type="image/x-icon" href="assets2/images/favicon.png" />
-
-        <!-- PAGE TITLE HERE ============================================= -->
-        <title>EduChamp : Education HTML Template </title>
-
-        <!-- MOBILE SPECIFIC ============================================= -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
 
         <!-- All PLUGINS CSS ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets2/css/assets.css">
@@ -52,14 +47,13 @@
         <!-- SHORTCODES ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets2/css/shortcodes/shortcodes.css">
 
-        <!-- STYLESHEETS ============================================= -->
+        <!-- MAIN STYLESHEETS ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets2/css/style.css">
         <link rel="stylesheet" type="text/css" href="assets2/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="assets2/css/color/color-1.css">
 
+        <!-- DATA TABLES ============================================= -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-
-
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
@@ -335,7 +329,7 @@
 
 
                     <h4 class="breadcrumb-title">Service Management</h4>
-                    
+
                     <h5 >Status </h5>
                     <form method="GET" action="ServiceFilterController">
 
@@ -410,7 +404,8 @@
                                 <th>Sale Price</th>
                                 <th>Brief Info</th>
                                 <th>Status</th>
-                                <th>Actions</th>
+                                <th class="text-center">Actions</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -428,7 +423,7 @@
                                             ${s.status == 1 ? 'Active' : 'Inactive'}
                                         </span>
                                     </td>
-                                    <td>
+                                    <td class="text-center text-nowrap">
                                         <form action="ServiceChangeStatusController" method="POST" onsubmit="return confirmChangeStatus()" class="d-inline">
                                             <input type="hidden" name="id" value="${s.id}">
                                             <button type="submit" class="btn btn-sm ${s.status == 1 ? 'btn-danger' : 'btn-success'}">
@@ -437,6 +432,8 @@
                                         </form>
                                         <a href="ServiceUpdateController?id=${s.id}" class="btn btn-sm btn-info">View</a>
                                     </td>
+
+
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -450,28 +447,81 @@
     <div class="ttr-overlay"></div>
 
     <!-- External JavaScripts -->
-    <script src="assets2/js/jquery.min.js"></script>
+    <!-- jQuery: -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="assets2/js/jquery.min.js"></script> 
+
+    <!-- Bootstrap & Plugin  -->
     <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
     <script src="assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
     <script src="assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+
+    <!-- Owl Carousel -->
+    <script src="assets2/vendors/owl-carousel/owl.carousel.js"></script>
     <script src="assets2/vendors/magnific-popup/magnific-popup.js"></script>
+
+    <!-- Counter &  Scroll -->
     <script src="assets2/vendors/counter/waypoints-min.js"></script>
     <script src="assets2/vendors/counter/counterup.min.js"></script>
+    <script src='assets2/vendors/scroll/scrollbar.min.js'></script>
+
+    <!-- Masonry & image -->
     <script src="assets2/vendors/imagesloaded/imagesloaded.js"></script>
     <script src="assets2/vendors/masonry/masonry.js"></script>
     <script src="assets2/vendors/masonry/filter.js"></script>
-    <script src="assets2/vendors/owl-carousel/owl.carousel.js"></script>
-    <script src='assets2/vendors/scroll/scrollbar.min.js'></script>
-    <script src="assets2/js/functions.js"></script>
+
+    <!-- DataTables  -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- Chart & Admin Scripts -->
     <script src="assets2/vendors/chart/chart.min.js"></script>
     <script src="assets2/js/admin.js"></script>
+
+    <!-- function website -->
+    <script src="assets2/js/functions.js"></script>
     <script src='assets2/vendors/switcher/switcher.js'></script>
+
+    <!-- Custom Scripts -->
     <script>
-                                            function confirmChangeStatus() {
-                                                return confirm("Are you sure you want to change the status?");
-                                            }
+                                                function confirmChangeStatus() {
+                                                    return confirm("Are you sure you want to change the status?");
+                                                }
+
+                                                $(document).ready(function () {
+                                                    
+                                                    $('#serviceTable').DataTable({
+                                                        "paging": true,
+                                                        "lengthMenu": [5, 10, 20, 50],
+                                                        "searching": false,
+                                                        "ordering": false,
+                                                        "info": false
+                                                    });
+
+                                                    
+                                                    if ($(".selectpicker").length) {
+                                                        $(".selectpicker").selectpicker();
+                                                    }
+
+                                                    
+                                                    if ($(".owl-carousel").length) {
+                                                        $(".owl-carousel").owlCarousel({
+                                                            loop: true,
+                                                            margin: 10,
+                                                            nav: true,
+                                                            dots: true,
+                                                            autoplay: true,
+                                                            autoplayTimeout: 3000,
+                                                            responsive: {
+                                                                0: {items: 1},
+                                                                600: {items: 2},
+                                                                1000: {items: 3}
+                                                            }
+                                                        });
+                                                    }
+                                                });
     </script>
+
 </body>
 
 <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->

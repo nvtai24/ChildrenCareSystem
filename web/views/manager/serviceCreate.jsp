@@ -360,7 +360,7 @@
                                             <label class="col-form-label">Category</label>
                                             <div>
                                                 <select select name="idCategory" >
-                                                    
+
 
                                                     <c:forEach items="${listCategory}" var="c">                                
                                                         <option value="${c.id}" >${c.name}</option>                                
@@ -420,7 +420,8 @@
                                                             <div class="col-md-6">
                                                                 <label class="col-form-label">Thumbnail URL</label>
                                                                 <div>
-                                                                    <input type="file" name="thumbnail" accept="image/*" required/>
+                                                                    <input type="file" name="thumbnail" accept="image/*" required onchange="previewImage(event)">
+                                                                    <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 200px; height: auto; margin-top: 10px;">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 ">
@@ -476,26 +477,41 @@
         <script src="assets2/js/admin.js"></script>
         <script src='assets2/vendors/switcher/switcher.js'></script>
         <script>
-                                                   // Pricing add
-                                                   function newMenuItem() {
-                                                       var newElem = $('tr.list-item').first().clone();
-                                                       newElem.find('input').val('');
-                                                       newElem.appendTo('table#item-add');
-                                                   }
-                                                   if ($("table#item-add").is('*')) {
-                                                       $('.add-item').on('click', function (e) {
-                                                           e.preventDefault();
-                                                           newMenuItem();
-                                                       });
-                                                       $(document).on("click", "#item-add .delete", function (e) {
-                                                           e.preventDefault();
-                                                           $(this).parent().parent().parent().parent().remove();
-                                                       });
-                                                   }
+                                                                        // Pricing add
+                                                                        function newMenuItem() {
+                                                                            var newElem = $('tr.list-item').first().clone();
+                                                                            newElem.find('input').val('');
+                                                                            newElem.appendTo('table#item-add');
+                                                                        }
+                                                                        if ($("table#item-add").is('*')) {
+                                                                            $('.add-item').on('click', function (e) {
+                                                                                e.preventDefault();
+                                                                                newMenuItem();
+                                                                            });
+                                                                            $(document).on("click", "#item-add .delete", function (e) {
+                                                                                e.preventDefault();
+                                                                                $(this).parent().parent().parent().parent().remove();
+                                                                            });
+                                                                        }
 
-                                                   function confirmCreateService() {
-                                                       return confirm("Are you sure you want to change the status?");
-                                                   }
+                                                                        function confirmCreateService() {
+                                                                            return confirm("Are you sure you want to change the status?");
+                                                                        }
+                                                                        function previewImage(event) {
+                                                                            var input = event.target;
+                                                                            var reader = new FileReader();
+
+                                                                            reader.onload = function () {
+                                                                                var img = document.getElementById('imagePreview');
+                                                                                img.src = reader.result;
+                                                                                img.style.display = 'block';
+                                                                            };
+
+                                                                            if (input.files && input.files[0]) {
+                                                                                reader.readAsDataURL(input.files[0]);
+                                                                            }
+                                                                        }
+
         </script>
     </body>
 

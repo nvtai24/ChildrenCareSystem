@@ -226,10 +226,10 @@
                 <!-- side menu logo start -->
                 <div class="ttr-sidebar-logo">
                     <a href="#"><img alt="" src="assets2/images/logo.png" width="122" height="27"></a>
-                    <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
-                            <i class="material-icons ttr-fixed-icon">gps_fixed</i>
-                            <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
-                    </div> -->
+                    <!--                    <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
+                                            <i class="material-icons ttr-fixed-icon">gps_fixed</i>
+                                            <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
+                                        </div> -->
                     <div class="ttr-sidebar-toggle-button">
                         <i class="ti-arrow-left"></i>
                     </div>
@@ -329,10 +329,10 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">Add Service</h4>
+                    <h4 class="breadcrumb-title">Service Detail</h4>
                     <ul class="db-breadcrumb-list">
                         <li><a href="./ServiceListController"><i class="fa fa-home"></i>Service List</a></li>
-                        <li>Add Service</li>
+                        <li>View</li>
                     </ul>
                 </div>	
                 <div class="row">
@@ -340,10 +340,10 @@
                     <div class="col-lg-12 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>Add Service</h4>
+                                <h4>Service Detail</h4>
                             </div>
                             <div class="widget-inner">
-                                <form class="edit-profile m-b30" id="numberForm" action="ServiceCreateController" method="POST" onsubmit="return confirmCreateService()" enctype="multipart/form-data">
+                                <form class="edit-profile m-b30"  name="serviceForm" d="numberForm"  action="ServiceUpdateController" method="POST" onsubmit="return confirmCreateService()" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="ml-auto">
@@ -353,19 +353,17 @@
                                         <div class="form-group col-6">
                                             <label class="col-form-label">Service name</label>
                                             <div>
-                                                <input class="form-control" type="text" name="name" placeholder="Enter a name" >
+                                                <input class="form-control" type="text" name="name" placeholder="Enter a name"  value="${s.name}">
+                                                <input type="hidden" value="${s.id}" name="id" required>
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
                                             <label class="col-form-label">Category</label>
                                             <div>
                                                 <select select name="idCategory" >
-                                                    
-
                                                     <c:forEach items="${listCategory}" var="c">                                
-                                                        <option value="${c.id}" >${c.name}</option>                                
+                                                        <option value="${c.id}" ${ s.category.id == c.id ? 'selected' : ''}>${c.name}</option>                                
                                                     </c:forEach>
-
                                                 </select>
 
                                             </div>
@@ -377,14 +375,15 @@
                                                 <input class="form-control" type="number" 
                                                        placeholder="Enter a number" 
                                                        name ="price"
-                                                       >
+                                                       value="${s.price}"
+                                                       required >
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
                                             <label class="col-form-label">Service discount</label>
                                             <div>
                                                 <input class="form-control" type="number" placeholder="Enter a number"  name="discount"
-                                                       >
+                                                       value="${s.discount}"  required>
                                             </div>
                                         </div>
 
@@ -399,11 +398,11 @@
 
                                             <label class="col-form-label">Service Brief Information</label>
                                             <div>
-                                                <input class="form-control" type="text" name="briefInfo" placeholder="Enter a Brief Information"/>                                                
+                                                <textarea class="form-control" name="briefInfo" placeholder="Enter a Brief Information" rows="3" required>${s.briefInfo}</textarea>                                               
                                             </div>
                                             <label class="col-form-label">Service description</label>
                                             <div>
-                                                <textarea class="form-control" name="description"  > </textarea>
+                                                <textarea class="form-control" name="description" placeholder="Enter a description" rows="6" required>${requestScope.s.description}</textarea>
                                             </div>
 
                                         </div>
@@ -419,18 +418,21 @@
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <label class="col-form-label">Thumbnail URL</label>
+
                                                                 <div>
-                                                                    <input type="file" name="thumbnail" accept="image/*" required/>
+                                                                    <input type="file" name="thumbnail" accept="image/*"  onchange="previewImage(event)">
+                                                                    <input type="hidden" name="oldThumbnail" value="${s.thumbnail}">
+                                                                    <img id="imagePreview" src="${s.thumbnail}" alt="Image Preview" style=" width: 200px; height: auto; margin-top: 10px;">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 ">
                                                                 <label class="col-form-label">Status</label><br/>
                                                                 <div class="row-md-3 ">
-                                                                    <input type="radio" name="status" checked="checked" value="1" check="checked"/>Active
+                                                                    <input type="radio" name="status"  value="1" ${ s.status == 1 ? 'checked' : ''}/>Active
 
                                                                 </div>
                                                                 <div class="row-md-3 ">
-                                                                    <input type="radio" name="status" checked="checked" value="0"/>Inactive
+                                                                    <input type="radio" name="status"  value="0" ${ s.status == 0 ? 'checked' : ''}/>Inactive
                                                                 </div>
 
 
@@ -476,26 +478,69 @@
         <script src="assets2/js/admin.js"></script>
         <script src='assets2/vendors/switcher/switcher.js'></script>
         <script>
-                                                   // Pricing add
-                                                   function newMenuItem() {
-                                                       var newElem = $('tr.list-item').first().clone();
-                                                       newElem.find('input').val('');
-                                                       newElem.appendTo('table#item-add');
-                                                   }
-                                                   if ($("table#item-add").is('*')) {
-                                                       $('.add-item').on('click', function (e) {
-                                                           e.preventDefault();
-                                                           newMenuItem();
-                                                       });
-                                                       $(document).on("click", "#item-add .delete", function (e) {
-                                                           e.preventDefault();
-                                                           $(this).parent().parent().parent().parent().remove();
-                                                       });
-                                                   }
+                                                                        // Pricing add
+                                                                        function newMenuItem() {
+                                                                            var newElem = $('tr.list-item').first().clone();
+                                                                            newElem.find('input').val('');
+                                                                            newElem.appendTo('table#item-add');
+                                                                        }
+                                                                        if ($("table#item-add").is('*')) {
+                                                                            $('.add-item').on('click', function (e) {
+                                                                                e.preventDefault();
+                                                                                newMenuItem();
+                                                                            });
+                                                                            $(document).on("click", "#item-add .delete", function (e) {
+                                                                                e.preventDefault();
+                                                                                $(this).parent().parent().parent().parent().remove();
+                                                                            });
+                                                                        }
 
-                                                   function confirmCreateService() {
-                                                       return confirm("Are you sure you want to change the status?");
-                                                   }
+                                                                        function confirmCreateService() {
+                                                                            return confirm("Are you sure you want to change the status?");
+                                                                        }
+                                                                        function previewImage(event) {
+                                                                            var input = event.target;
+                                                                            var reader = new FileReader();
+
+                                                                            reader.onload = function () {
+                                                                                var img = document.getElementById('imagePreview');
+                                                                                img.src = reader.result;
+                                                                                img.style.display = 'block';
+                                                                            };
+
+                                                                            if (input.files && input.files[0]) {
+                                                                                reader.readAsDataURL(input.files[0]);
+                                                                            }
+                                                                        }
+                                                                        function validateForm() {
+                                                                            let name = document.forms["serviceForm"]["name"].value.trim();
+                                                                            let description = document.forms["serviceForm"]["description"].value.trim();
+                                                                            let price = document.forms["serviceForm"]["price"].value.trim();
+                                                                            let discount = document.forms["serviceForm"]["discount"].value.trim();
+                                                                            let briefInfo = document.forms["serviceForm"]["briefInfo"].value.trim();
+
+                                                                            if (name === "" || description === "" || price === "" || discount === "" || briefInfo === "") {
+                                                                                alert("Please fill in all required fields.");
+                                                                                return false;
+                                                                            }
+
+                                                                            if (isNaN(price) || price <= 0) {
+                                                                                alert("Price must be a positive number.");
+                                                                                return false;
+                                                                            }
+
+                                                                            if (isNaN(discount) || discount < 0) {
+                                                                                alert("Discount must be a valid number and not negative.");
+                                                                                return false;
+                                                                            }
+
+                                                                            if (parseFloat(discount) > parseFloat(price)) {
+                                                                                alert("Discount cannot be greater than the price.");
+                                                                                return false;
+                                                                            }
+
+                                                                            return true;
+                                                                        }
         </script>
     </body>
 

@@ -32,6 +32,7 @@ public class ServiceManagerDAO extends DBContext {
                 s.setId(rs.getInt("s.id"));
 
                 Category c = new Category();
+                c.setId(rs.getInt("category_id"));
                 c.setName(rs.getString("c.name"));
                 s.setCategory(c);
                 s.setName(rs.getString("s.name"));
@@ -474,6 +475,28 @@ public class ServiceManagerDAO extends DBContext {
             }
         }
 
+    }
+
+    public void updateService(Service s) {
+        DBContext db = new DBContext();
+        String sql = "update service \n"
+                + "set category_id = ?,\n"
+                + "	name = ?,\n"
+                + "    description = ?,\n"
+                + "    brief_info = ?,\n"
+                + "	price = ?,\n"
+                + "    discount = ?,  \n"
+                + "    thumbnail = ?,\n"
+                + "    status = ?\n"
+                + "WHERE id = ?;";
+
+        try {
+            db.executeUpdate(sql, s.getCategory().getId(), s.getName(), s.getDescription(),
+                    s.getBriefInfo(), s.getPrice(), s.getDiscount(), s.getThumbnail(), s.getStatus(), s.getId());
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
