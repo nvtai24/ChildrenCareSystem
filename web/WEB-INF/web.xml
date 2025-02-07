@@ -40,6 +40,18 @@
         <servlet-name>ServiceDetails</servlet-name>
         <servlet-class>controller.service.manager.ServiceDetails</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BlogDetailController</servlet-name>
+        <servlet-class>controller.blog.BlogDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddSliderController</servlet-name>
+        <servlet-class>controller.slider.AddSliderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateSliderController</servlet-name>
+        <servlet-class>controller.slider.UpdateSliderController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServiceListController</servlet-name>
         <url-pattern>/ServiceListController</url-pattern>
@@ -79,5 +91,17 @@
     <servlet-mapping>
         <servlet-name>ServiceDetails</servlet-name>
         <url-pattern>/ServiceDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogDetailController</servlet-name>
+        <url-pattern>/BlogDetailController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddSliderController</servlet-name>
+        <url-pattern>/AddSliderController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateSliderController</servlet-name>
+        <url-pattern>/UpdateSliderController</url-pattern>
     </servlet-mapping>
 </web-app>
