@@ -133,7 +133,7 @@
 
                                     <!-- Icon giỏ hàng (LUÔN BÊN TRÁI) -->
                                     <li class="nav-item">
-                                        <a class="nav-link" href="cart.jsp" style="color: white;">
+                                        <a class="nav-link" href="reservationDetail" style="color: white;">
                                             <i class="fas fa-shopping-cart" style="font-size: 18px;"></i>
                                         </a>
                                     </li>

@@ -12,6 +12,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.ReservationDetail;
+import model.auth.User;
 
 /**
  *
@@ -19,10 +23,10 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class ReservationDetailController extends HttpServlet {
    private static final long serialVersionUID = 1L;
-    private ReservationDetailDAO reservationDAO;
+    private ReservationDetailDAO reservationdetailDAO;
 
     public void init() {
-        reservationDAO = new ReservationDetailDAO();
+        reservationdetailDAO = new ReservationDetailDAO();
     }
 
     
@@ -30,7 +34,15 @@ public class ReservationDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("account");
+        int userId = user.getId();
+        List<ReservationDetail> reservationDetails = reservationdetailDAO.getUserReservations(userId);
+        double totalReservationPrice = reservationdetailDAO.getTotalReservationPrice(userId);
+        
+        request.setAttribute("reservationDetails", reservationDetails);
+        request.setAttribute("totalPrice", totalReservationPrice);
+        request.getRequestDispatcher("reservationDetail.jsp").forward(request, response);
     } 
 
     /** 
@@ -43,16 +55,18 @@ public class ReservationDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        String action = request.getParameter("action");
+        int reservationId = Integer.parseInt(request.getParameter("reservationId"));
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+        if ("update".equals(action)) {
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            int numberOfPersons = Integer.parseInt(request.getParameter("numPersons"));
+            reservationdetailDAO.updateReservationDetail(reservationId, quantity, numberOfPersons);
+        } else if ("delete".equals(action)) {
+            reservationdetailDAO.deleteReservationDetail(reservationId);
+        }
+
+        response.sendRedirect("reservationDetail");
+    }
 
 }

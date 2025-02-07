@@ -25,14 +25,20 @@ public class UserDAO {
 
     public User get(String username, String password) {
         User user = null;
-
-        String sql = "SELECT `username`, `password` FROM `user` WHERE `username` = ? AND `password` = ?";
-        try (ResultSet rs = dbContext.executeQuery(sql, username, password)) {
+        PreparedStatement stm = null;
+        try{
+        String sql = "SELECT `id`, `username`, `password` FROM `user` WHERE `username` = ? AND `password` = ?";
+        stm = dbContext.connection.prepareStatement(sql);
+            stm.setString(1, username);
+            stm.setString(2, password);
+            ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 user = new User();
-                user.setUsername(rs.getString("username"));
+                int id = rs.getInt("id");
+                user.setId(id);
+                user.setUsername(username);        
             }
-        } catch (SQLException ex) {
+        }catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return user;

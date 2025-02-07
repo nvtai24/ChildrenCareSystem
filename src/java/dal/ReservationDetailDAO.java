@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import model.ReservationDetail;
 import java.sql.*;
+import model.Reservation;
+import model.Service;
+import model.auth.User;
+
 /**
  *
  * @author Nvtai
@@ -16,24 +20,41 @@ public class ReservationDetailDAO extends DBContext {
 
     public List<ReservationDetail> getUserReservations(int userId) {
         List<ReservationDetail> list = new ArrayList<>();
-        String query = "SELECT rd.id, r.customer_id, r.reserved_date, s.name AS service_name, rd.quantity, rd.num_persons, rd.price "
-                + "FROM reservationdetail rd "
-                + "JOIN reservation r ON rd.reservation_id = r.id "
-                + "JOIN service s ON rd.service_id = s.id "
-                + "WHERE r.customer_id = ?";
+        String query = "SELECT \n"
+                + "    rd.id, \n"
+                + "    r.customer_id, \n"
+                + "    r.reserved_date, \n"
+                + "    rd.service_id,\n"
+                + "    rd.reservation_id,\n"
+                + "    s.name AS service_name, \n"
+                + "    rd.quantity, \n"
+                + "    rd.price, \n"
+                + "    rd.created_date,\n"
+                + "    r.status_id\n"
+                + "FROM reservationdetail rd \n"
+                + "JOIN reservation r ON rd.reservation_id = r.id \n"
+                + "JOIN service s ON rd.service_id = s.id \n"
+                + "WHERE r.customer_id = ?;";
 
         try (ResultSet rs = executeQuery(query, userId)) {
             while (rs.next()) {
-                ReservationDetail reservation = new ReservationDetail();
-                reservation.setId(rs.getInt("id"));
-                reservation.setCustomerId(rs.getInt("customer_id"));
-                reservation.setReservedDate(rs.getTimestamp("reserved_date"));
-                reservation.setServiceName(rs.getString("service_name"));
-                reservation.setQuantity(rs.getInt("quantity"));
-                reservation.setNumberOfPersons(rs.getInt("num_persons"));
-                reservation.setPrice(rs.getDouble("price"));
-                reservation.setTotalCost(rs.getDouble("price") * rs.getInt("quantity") * rs.getInt("num_persons"));
-                list.add(reservation);
+                ReservationDetail reservationDetail = ReservationDetail.builder()
+                        .id(rs.getInt("id"))
+                        .reservation(Reservation.builder()
+                                .id(rs.getInt("reservation_id"))
+                                .reservedDate(rs.getTimestamp("reserved_date").toLocalDateTime())
+                                .build())
+                        .service(Service.builder()
+                                .id(rs.getInt("service_id"))
+                                .name(rs.getString("service_name"))
+                                .build())
+                        .user(User.builder().id(rs.getInt("customer_id")).build())
+                        .quantity(rs.getInt("quantity"))
+                        .price(rs.getDouble("price"))
+                        .total(rs.getDouble("price") * rs.getInt("quantity"))
+                        .createdDate(rs.getTimestamp("created_date").toLocalDateTime())
+                        .build();
+                list.add(reservationDetail);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,9 +62,12 @@ public class ReservationDetailDAO extends DBContext {
         return list;
     }
 
+    /**
+     * Calculates the total cost of all reservations made by a customer.
+     */
     public double getTotalReservationPrice(int userId) {
         double total = 0;
-        String query = "SELECT SUM(rd.price * rd.quantity * rd.num_persons) AS total_price "
+        String query = "SELECT SUM(rd.price * rd.quantity) AS total_price "
                 + "FROM reservationdetail rd "
                 + "JOIN reservation r ON rd.reservation_id = r.id "
                 + "WHERE r.customer_id = ?";
@@ -56,5 +80,45 @@ public class ReservationDetailDAO extends DBContext {
             e.printStackTrace();
         }
         return total;
+    }
+
+    /**
+     * Inserts a new reservation detail.
+     */
+    public boolean insertReservationDetail(int reservationId, int serviceId, int quantity, double price) {
+        String query = "INSERT INTO reservationdetail (reservation_id, service_id, quantity, price, created_date, updated_date) "
+                + "VALUES (?, ?, ?, ?, NOW(), NOW())";
+        try {
+            return executeUpdate(query, reservationId, serviceId, quantity, price) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Updates an existing reservation detail.
+     */
+    public boolean updateReservationDetail(int id, int quantity, double price) {
+        String query = "UPDATE reservationdetail SET quantity = ?, price = ?, updated_date = NOW() WHERE id = ?";
+        try {
+            return executeUpdate(query, quantity, price, id) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Deletes a reservation detail by ID.
+     */
+    public boolean deleteReservationDetail(int id) {
+        String query = "DELETE FROM reservationdetail WHERE id = ?";
+        try {
+            return executeUpdate(query, id) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
