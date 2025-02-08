@@ -352,7 +352,8 @@ public class ServiceDAO extends DBContext {
 
         try {
 
-            ResultSet rs = executeQuery(query, pageSize, (page - 1) * pageSize); // Offset để lấy dữ liệu cho trang hiện tại
+            ResultSet rs = executeQuery(query, pageSize, (page - 1) * pageSize); // Offset để lấy dữ liệu cho trang hiện
+                                                                                 // tại
             while (rs.next()) {
                 Service s = new Service();
                 s.setId(rs.getInt("id"));
