@@ -4,11 +4,13 @@
  */
 package dal;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import model.Category;
-import java.sql.*;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Category;
 
 /**
  *
@@ -16,24 +18,25 @@ import java.util.logging.Logger;
  */
 public class CategoryDAO extends DBContext {
 
-    public ArrayList<Category> list() {
-        DBContext db = new DBContext();
-        ArrayList<Category> list = new ArrayList<>();
-        String sql = "select id,name,description,status from category;";
+    public List<Category> getAllAvailabelCategories() {
+        List<Category> result = new ArrayList<>();
+
+        String query = "SELECT `id`, `name`, `description` FROM `category` WHERE status = 1";
 
         try {
-            ResultSet rs = db.executeQuery(sql);
+            ResultSet rs = executeQuery(query);
 
             while (rs.next()) {
-                // Get attribute into object.
-                Category c = new Category();
-                c.setId(rs.getInt("id"));
-                c.setName(rs.getString("name"));
-                c.setDescription(rs.getString("description"));
-                c.setStatus(rs.getInt("status") == 1);
-                // Get category into list 
-                list.add(c);
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String description = rs.getString("description");
 
+                Category c = new Category();
+                c.setId(id);
+                c.setName(name);
+                c.setDescription(description);
+
+                result.add(c);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -45,7 +48,37 @@ public class CategoryDAO extends DBContext {
             }
         }
 
-        return list;
+        return result;
+    }
+
+    public Category getCategoryById(int cid) {
+        Category c = null;
+
+        String query = "SELECT `name`, `description` FROM `category` WHERE id = ?";
+
+        try {
+            ResultSet rs = executeQuery(query, cid);
+
+            if (rs.next()) {
+                String name = rs.getString("name");
+                String description = rs.getString("description");
+
+                c = new Category();
+                c.setId(cid);
+                c.setName(name);
+                c.setDescription(description);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return c;
     }
 
 }
