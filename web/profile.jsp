@@ -356,18 +356,24 @@
                         <div class="widget-box">
 
                             <div class="user-profile-thumb">
-                                <img src="${requestScope.profile.avatar}" alt=""/>
+                                <img id="avatarImage" src="${requestScope.profile.avatar}" alt=""/>
                             </div>
 
                             <div class="widget-inner">
-                                <form class="edit-profile m-b30" action="profile" method="post">
+                                <form class="edit-profile m-b30" action="profile" method="post" enctype="multipart/form-data">
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Full Name</label>
+                                        <label class="col-sm-2 col-form-label">Avatar</label>
                                         <div class="col-sm-7">
-                                            <input class="form-control" type="text" value="${requestScope.profile.fullName}">
+                                            <input class="form-control" type="file" name="avatar" id="avatarInput">
                                         </div>
                                     </div>
 
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Full Name</label>
+                                        <div class="col-sm-7">
+                                            <input class="form-control" type="text" value="${requestScope.profile.fullName}" name="fullname">
+                                        </div>
+                                    </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Gender</label>
@@ -388,21 +394,29 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Birthday</label>
                                         <div class="col-sm-7">
-                                            <input class="form-control" type="date" value="${requestScope.profile.dob}">
+                                            <input class="form-control" type="date" value="${requestScope.profile.dob}" name="dob">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Address</label>
                                         <div class="col-sm-7">
-                                            <input class="form-control" type="text" value="${requestScope.profile.address}">
+                                            <input class="form-control" type="text" value="${requestScope.profile.address}"  name="address">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Phone Number</label>
                                         <div class="col-sm-7">
-                                            <input class="form-control" type="text" value="${requestScope.profile.phone}">
+                                            <input class="form-control" type="text" value="${requestScope.profile.phone}" name="phone">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Email</label>
+                                        <div class="col-sm-7">
+                                            <input class="form-control" type="email" value="${requestScope.profile.user.email}" readonly>
                                         </div>
                                     </div>
 
@@ -442,6 +456,25 @@
         <script src="assets2/js/functions.js"></script>
         <script src="assets2/vendors/chart/chart.min.js"></script>
         <script src="assets2/js/admin.js"></script>
+
+
+        <script>
+            // JavaScript để thay đổi ảnh đại diện ngay khi người dùng chọn ảnh mới
+            const avatarInput = document.getElementById('avatarInput');
+            const avatarImage = document.getElementById('avatarImage');
+
+            avatarInput.addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        avatarImage.src = e.target.result; // Cập nhật ảnh đại diện ngay lập tức
+                    };
+                    reader.readAsDataURL(file); // Đọc ảnh dưới dạng URL và thay đổi ảnh
+                }
+            });
+        </script>
+
     </body>
 
     <!-- Mirrored from educhamp.themetrades.com/demo/admin/user-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
