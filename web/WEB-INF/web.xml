@@ -99,8 +99,6 @@
     <servlet-mapping>
         <servlet-name>ServiceDetailsPublicController</servlet-name>
         <url-pattern>/service</url-pattern>
-        <servlet-name>DeleteSlider</servlet-name>
-        <url-pattern>/DeleteSlider</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceDetails</servlet-name>
