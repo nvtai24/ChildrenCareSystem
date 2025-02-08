@@ -77,7 +77,7 @@
                                         data-param9="" data-param10="" 
                                         >
                                         <!-- MAIN IMAGE -->
-                                        <img src="assets/images/slider/${slider.imageUrl}" alt="" 
+                                        <img src="${slider.imageUrl}" alt="" 
                                              data-bgposition="center center" 
                                              data-bgfit="cover" 
                                              data-bgrepeat="no-repeat" 
