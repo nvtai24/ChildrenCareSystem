@@ -2,11 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.common;
+package controller.blog;
 
 import dal.PostDAO;
 import dal.ServiceDAO;
-import dal.SliderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,13 +15,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import model.Post;
 import model.Service;
-import model.Slider;
 
 /**
  *
- * @author Nvtai
+ * @author ADMIN
  */
-public class HomePageController extends HttpServlet {
+public class BlogDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +39,10 @@ public class HomePageController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomePageController</title>");
+            out.println("<title>Servlet BlogDetailController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomePageController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BlogDetailController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,33 +61,20 @@ public class HomePageController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            ServiceDAO serviceDAO = new ServiceDAO();
-            List<Service> listService = serviceDAO.getAllAvailableServices();
-            if (listService != null && listService.size() > 0) {
-                request.setAttribute("SERVICES", listService);
-            } else {
-                System.out.println("Khong co service trong he thong");
-            }
-
-            SliderDAO sliderDAO = new SliderDAO();
-            List<Slider> listSliderrs = sliderDAO.getAllSliders();
-            if (listSliderrs != null && listSliderrs.size() > 0) {
-                request.setAttribute("SLIDERS", listSliderrs);
-            } else {
-                System.out.println("Khong co sliders trong he thong");
-            }
-
+            int postId = Integer.parseInt(request.getParameter("id"));
             PostDAO postDAO = new PostDAO();
-            List<Post> listPost = postDAO.getAllPosts();
-            if (listPost != null && listPost.size() > 0) {
-                request.setAttribute("POSTS", listPost);
-            } else {
-                System.out.println("Khong co listPost trong he thong");
-            }
+            Post post = postDAO.getPostById(postId);
+            List<Post> top3post = postDAO.getTop3Post();
 
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+            
+
+            if (post != null) {
+                request.setAttribute("POST", post);
+                request.setAttribute("LISTPOSTS", top3post);
+            }
+            request.getRequestDispatcher("blogdetails.jsp").forward(request, response);
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 

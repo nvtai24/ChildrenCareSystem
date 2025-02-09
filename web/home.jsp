@@ -59,57 +59,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="sticky-header navbar-expand-lg">
-                    <div class="menu-bar clearfix">
-                        <div class="container clearfix">
-                            <!-- Header Logo ==== -->
-                            <div class="menu-logo">
-                                <a href="/app"><img src="assets/images/logochildren.jpg" alt ></a>
-                            </div>
-                            <!-- Mobile Nav Button ==== -->
-
-                            <!-- Author Nav ==== -->
-
-                            <!-- Search Box ==== -->
-
-                            <!-- Navigation Menu ==== -->
-                            <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
-
-                                <ul class="nav navbar-nav">
-                                    <li><a href="/app">Home</a>
-                                      
-                                    </li>
-                                    <li><a href="javascript:;">Services</a>
-                                        
-                                    </li>
-                                    <li><a href="javascript:;">Blogs <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <c:forEach items="${POSTS}" var="post">
-                                                <li><a>${post.title}</a></li>
-                                                </c:forEach>
-
-                                        </ul>
-                                    </li>
-                                    <li><a href="javascript:;">Contact us <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="blog-classic-grid.html">Blog Classic</a></li>
-                                            <li><a href="blog-classic-sidebar.html">Blog Classic Sidebar</a></li>
-                                            <li><a href="blog-list-sidebar.html">Blog List Sidebar</a></li>
-                                            <li><a href="blog-standard-sidebar.html">Blog Standard Sidebar</a></li>
-                                            <li><a href="blog-details.html">Blog Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="javascript:;">Reservation</a>
-
-                                    </li>
-
-                                </ul>
-
-                            </div>
-                            <!-- Navigation Menu END ==== -->
-                        </div>
-                    </div>
-                </div>
+                <jsp:include page="header.jsp"/>
             </header>
             <!-- Header Top END ==== -->
             <!-- Content -->
@@ -310,7 +260,7 @@
                                         <div class="item">
                                             <div class="cours-bx">
                                                 <div class="action-box">
-                                                    <a href="#"><img src="assets/images/courses/${post.thumbnail}" alt=""></a>
+                                                    <a href="BlogDetailController?id=${post.id}"><img src="assets/images/courses/${post.thumbnail}" alt=""></a>
 
                                                 </div>
                                                 <div class="info-bx text-center">
@@ -443,7 +393,7 @@
                 <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
                 <script src="assets/js/functions.js"></script>
                 <script src="assets/js/contact.js"></script>
-                <script src='assets/vendors/switcher/switcher.js'></script>
+                
                 <!-- Revolution JavaScripts Files -->
                 <script src="assets/vendors/revolution/js/jquery.themepunch.tools.min.js"></script>
                 <script src="assets/vendors/revolution/js/jquery.themepunch.revolution.min.js"></script>

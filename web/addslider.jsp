@@ -1,6 +1,6 @@
 <%-- 
-    Document   : sliderlist
-    Created on : Jan 26, 2025, 10:28:59 PM
+    Document   : addslider
+    Created on : Feb 7, 2025, 10:16:33 AM
     Author     : ADMIN
 --%>
 
@@ -8,188 +8,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
-    <style>
-        .filter-search-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px; /* Khoảng cách giữa hai form */
-            margin-bottom: 20px;
-        }
 
-        /* Định dạng chung cho cả hai form */
-        .form-search, .form-filter {
-            display: flex;
-            align-items: center;
-            background: #f9f9f9;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-            gap: 10px;
-        }
-
-        /* Ô nhập dữ liệu */
-        .form-search input, .form-filter select {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            outline: none;
-            font-size: 16px;
-            background: white;
-        }
-
-        /* Ô nhập tìm kiếm */
-        .form-search input {
-            width: 200px;
-        }
-
-        /* Dropdown filter */
-        .form-filter select {
-            width: 150px;
-            cursor: pointer;
-        }
-
-        /* Hiệu ứng khi hover vào dropdown */
-        .form-filter select:hover {
-            border-color: #007bff;
-        }
-
-        /* Label của bộ lọc */
-        .form-filter label {
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        /* Nút chung cho cả Search & Filter */
-        .form-search button, .form-filter button {
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        /* Hiệu ứng khi hover vào nút */
-        .form-search button:hover, .form-filter button:hover {
-            background: #0056b3;
-        }
-        .btn.update {
-            background-color: green;
-            color: white;
-            border: none;
-            padding: 5px 15px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .btn.delete {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 5px 15px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .btn.disable {
-            background-color: red;
-            color: white;
-            padding: 5px 15px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-
-        .btn.enable {
-            background-color: green;
-            color: white;
-            padding: 5px 15px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-
-        .btn:hover {
-            opacity: 0.8;
-        }
-        .wc-title h4 {
-
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        .form-search  {
-            display: flex; /* Sử dụng Flexbox */
-            justify-content: flex-end; /* Đẩy nút Search sang bên phải */
-            align-items: center; /* Căn giữa theo chiều dọc */
-            gap: 10px; /* Khoảng cách giữa ô input và nút button */
-        }
-        table {
-            width: 100%;
-            max-width: 1200px;
-            border-collapse: collapse;
-            margin: 20px auto;
-            table-layout: fixed;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: center;
-        }
-        th {
-            background-color: #f4f4f4;
-            font-weight: bold;
-        }
-        img {
-            max-width: 50px;
-            height: auto;
-        }
-
-
-        td:first-child, th:first-child {
-            width: 3%;
-            text-align: center;
-        }
-
-        td:nth-child(2), th:nth-child(2) {
-            width: 15%;
-            text-align: center;
-        }
-
-        td:nth-child(3), th:nth-child(3) {
-            width: 12%;
-            text-align: center;
-        }
-
-        td:nth-child(4), th:nth-child(4) {
-            width: 6%;
-            text-align: center;
-        }
-        td:nth-child(5), th:nth-child(5) {
-            width: 10%;
-            text-align: center;
-        }
-        td:nth-child(6), th:nth-child(6) {
-            width: 10%;
-            text-align: center;
-        }
-
-        td:nth-child(7), th:nth-child(7) {
-            width: 10%;
-            text-align: center;
-        }
-        td:nth-child(8), th:nth-child(8) {
-            width: 6%;
-            text-align: center;
-        }
-
-        td:last-child, th:last-child {
-            width: 6%;
-            text-align: center;
-        }
-    </style>
-    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:10:19 GMT -->
+    <!-- Mirrored from educhamp.themetrades.com/demo/admin/add-listing.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:09:05 GMT -->
     <head>
 
         <!-- META ============================================= -->
@@ -213,7 +33,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/logochildren.jpg" />
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>ChildrenCare </title>
+        <title>ChildrenCare</title>
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -224,19 +44,19 @@
         <![endif]-->
 
         <!-- All PLUGINS CSS ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/assets.css">
-        <link rel="stylesheet" type="text/css" href="assets2/vendors/calendar/fullcalendar.css">
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/assets.css">
+        <link rel="stylesheet" type="text/css" href="admin/assets/vendors/calendar/fullcalendar.css">
 
         <!-- TYPOGRAPHY ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/typography.css">
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/typography.css">
 
         <!-- SHORTCODES ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/shortcodes/shortcodes.css">
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/shortcodes/shortcodes.css">
 
         <!-- STYLESHEETS ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/style.css">
-        <link rel="stylesheet" type="text/css" href="assets2/css/dashboard.css">
-        <link class="skin" rel="stylesheet" type="text/css" href="assets2/css/color/color-1.css">
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/style.css">
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/dashboard.css">
+        <link class="skin" rel="stylesheet" type="text/css" href="admin/assets/css/color/color-1.css">
 
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
@@ -415,7 +235,6 @@
                 </div>
                 <!--header search panel end -->
             </div>
-
         </header>
         <!-- header end -->
         <!-- Left sidebar menu start -->
@@ -527,143 +346,101 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-
-                    <h4 class="breadcrumb-title">SLIDERS</h4>
-
+                    <h4 class="breadcrumb-title">Add Slider</h4>
+                    <ul class="db-breadcrumb-list">
+                        
+                        <li>Add Slider</li>
+                    </ul>
                 </div>	
                 <div class="row">
                     <!-- Your Profile Views Chart -->
                     <div class="col-lg-12 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>Slider List</h4>
-                                <c:if test="${sessionScope.MESSAGE != null}">
-                                    <div class="alert alert-success">${sessionScope.MESSAGE}</div>
-                                </c:if>
-                                <!-- Xóa message khỏi session sau khi hiển thị -->
-                                <c:remove var="MESSAGE" scope="session"/>
+                                <h4>Add Slider</h4>
                             </div>
-                            <!-- Container chứa cả 2 form -->
-                            <div class="filter-search-container">
+                            <div class="widget-inner">
+                                <form class="edit-profile m-b30" action="AddSliderController" method="post" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="ml-auto">
+                                                <h3>Information</h3>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label class="col-form-label">Slider title</label>
+                                            <div>
+                                                <input name="title" class="form-control" type="text" value="" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label class="col-form-label">Image</label>
+                                            <div>
+                                                <input class="form-control" type="file" name="image" accept="image/*" required>
+                                            </div>
+                                        </div>
 
-                                <!-- Form tìm kiếm -->
-                                <form method="get" action="SliderListController" class="form-search">
-                                    <input type="text" id="search" name="search" value="${param.search}" placeholder="Search by title">
-                                    <button type="submit">Search</button>
+                                        <div class="seperator"></div>
+                                        <!--
+                                                                                <div class="col-12 m-t20">
+                                                                                    <div class="ml-auto m-b5">
+                                                                                        <h3>2. Description</h3>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group col-12">
+                                                                                    <label class="col-form-label">Course description</label>
+                                                                                    <div>
+                                                                                        <textarea class="form-control"> </textarea>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-12 m-t20">
+                                                                                    <div class="ml-auto">
+                                                                                        <h3 class="m-form__section">3. Add Item</h3>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-12">
+                                                                                    <table id="item-add" style="width:100%;">
+                                                                                        <tr class="list-item">
+                                                                                            <td>
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-4">
+                                                                                                        <label class="col-form-label">Course Name</label>
+                                                                                                        <div>
+                                                                                                            <input class="form-control" type="text" value="">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-3">
+                                                                                                        <label class="col-form-label">Course Category</label>
+                                                                                                        <div>
+                                                                                                            <input class="form-control" type="text" value="">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-3">
+                                                                                                        <label class="col-form-label">Course Category</label>
+                                                                                                        <div>
+                                                                                                            <input class="form-control" type="text" value="">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label class="col-form-label">Close</label>
+                                                                                                        <div class="form-group">
+                                                                                                            <a class="delete" href="#"><i class="fa fa-close"></i></a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>-->
+                                        <div class="col-12">
+                                            <button class="btn-secondry add-item m-r5">          
+                                                <a style="color: white" href="SliderListController"><<< Slider list</a>
+                                            </button>
+                                            <button type="submit" class="btn">Save changes</button>
+                                        </div>
+                                    </div>
+
                                 </form>
-
-                                <!-- Form lọc trạng thái -->
-                                <form method="get" action="SliderListController" class="form-filter">
-                                    <select name="status" id="status">
-                                        <option value="" ${empty param.status ? "selected" : ""}>All</option>
-                                        <option value="true" ${param.status == "true" ? "selected" : ""}>Active</option>
-                                        <option value="false" ${param.status == "false" ? "selected" : ""}>Inactive</option>
-                                    </select>
-                                    <button type="submit">Apply</button>
-                                </form>
-                                <form class="form-filter">
-                                    <button>           
-                                        <a style="color: white" href="addslider.jsp">Add New Slider</a>
-                                    </button>
-
-                                </form>
-
-                            </div>
-
-                            <br><br>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Title</th>
-                                        <th>Image</th>
-                                        <th>Status</th>
-                                        <th>Created Date</th>
-                                        <th>Updated Date</th>
-                                        <th>Action</th>
-                                        <th></th>
-                                        <th></th>         
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="slider" items="${SLIDERS}" varStatus="status">
-                                        <tr>
-                                            <td>${status.index + 1}</td>
-                                            <td>${slider.title}</td>
-                                            <td><img src="assets/images/slider/${slider.imageUrl}" alt=""/></td>
-                                            <td>
-                                                <c:choose>
-                                                    <c:when test="${slider.status}">Active</c:when>
-                                                    <c:otherwise>Inactive</c:otherwise>
-                                                </c:choose>
-                                            </td>
-                                            <td>${slider.createdDate}</td>
-                                            <td>
-                                                <c:if test="${slider.updatedDate != null}">
-                                                    ${slider.updatedDate}
-                                                </c:if>
-                                            </td>
-                                            <td>
-                                                <!-- Nút Enable/Disable -->
-                                                <form method="post" action="SliderListController">
-                                                    <input type="hidden" name="id" value="${slider.id}">
-                                                    <input type="hidden" name="status" value="${slider.status ? 0 : 1}">
-                                                    <button type="submit" 
-                                                            class="btn ${slider.status ? 'disable' : 'enable'}">
-                                                        ${slider.status ? 'Disable' : 'Enable'}
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <form method="post" action="DeleteSlider" style="display:inline;">
-                                                    <input type="hidden" name="id" value="${slider.id}">
-                                                    <button type="submit" class="btn delete">
-                                                        Delete
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <form method="get" action="UpdateSliderController" style="display:inline;">
-                                                    <input  type="hidden" name="id" value="${slider.id}">
-                                                    <button type="submit" class="btn update" style="display:inline;">
-                                                        Edit
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-
-                            <div class="col-lg-12 m-b20">
-                                <div class="pagination-bx rounded-sm gray clearfix">
-                                    <ul class="pagination">
-                                        <c:if test="${CURRENT_PAGE > 1}">
-                                            <li class="previous">
-                                                <a href="SliderListController?page=${CURRENT_PAGE - 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
-                                                    <i class="ti-arrow-left"></i> Prev
-                                                </a>
-                                            </li>
-                                        </c:if>
-
-                                        <c:forEach begin="1" end="${TOTAL_PAGES}" var="i">
-                                            <li class="${i == CURRENT_PAGE ? 'active' : ''}">
-                                                <a href="SliderListController?page=${i}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
-                                                    ${i}
-                                                </a>
-                                            </li>
-                                        </c:forEach>
-
-                                        <c:if test="${CURRENT_PAGE < TOTAL_PAGES}">
-                                            <li class="next">
-                                                <a href="SliderListController?page=${CURRENT_PAGE + 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
-                                                    <i class="ti-arrow-right"></i> Next
-                                                </a>
-                                            </li>
-                                        </c:if>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -690,7 +467,26 @@
         <script src="assets/js/functions.js"></script>
         <script src="assets/vendors/chart/chart.min.js"></script>
         <script src="assets/js/admin.js"></script>
+        
+        <script>
+            // Pricing add
+            function newMenuItem() {
+                var newElem = $('tr.list-item').first().clone();
+                newElem.find('input').val('');
+                newElem.appendTo('table#item-add');
+            }
+            if ($("table#item-add").is('*')) {
+                $('.add-item').on('click', function (e) {
+                    e.preventDefault();
+                    newMenuItem();
+                });
+                $(document).on("click", "#item-add .delete", function (e) {
+                    e.preventDefault();
+                    $(this).parent().parent().parent().parent().remove();
+                });
+            }
+        </script>
     </body>
 
-    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
+    <!-- Mirrored from educhamp.themetrades.com/demo/admin/add-listing.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:09:05 GMT -->
 </html>
