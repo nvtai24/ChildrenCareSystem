@@ -36,6 +36,12 @@
         <link rel="stylesheet" type="text/css" href="assets/vendors/revolution/css/navigation.css">
         <!-- REVOLUTION SLIDER END -->	
     </head>
+    <style>
+        a {
+            text-decoration: none !important;
+        }
+    </style>
+
     <body id="bg">
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
@@ -296,6 +302,10 @@
                 <script src="assets/vendors/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
                 <script src="assets/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
                 <script src="assets/vendors/revolution/js/extensions/revolution.extension.video.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
                 <script>
                     jQuery(document).ready(function () {
                         var ttrevapi;

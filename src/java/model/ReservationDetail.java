@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import model.auth.User;
 
 /**
  *
@@ -19,10 +20,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ReservationDetail {
+    private int id;
     private Feedback feedback;
     private Reservation reservation;
     private Service service;
+    private User user;
     private int quantity;
+    private double price;
     private double total;
     private LocalDateTime createdDate;
 }
