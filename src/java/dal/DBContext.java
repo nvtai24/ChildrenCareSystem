@@ -15,13 +15,13 @@ import java.util.logging.Logger;
 public class DBContext {
 
     protected Connection connection;
-    public DBContext()
-    {
+
+    public DBContext() {
         try {
             String user = "root";
             String pass = "1234";
             String url = "jdbc:mysql://localhost:3306/childrencare?useSSL=false&serverTimezone=UTC";
-            
+
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, user, pass);
         } catch (ClassNotFoundException ex) {
@@ -30,7 +30,6 @@ public class DBContext {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 
     private void setParameters(PreparedStatement ps, Object... params) throws SQLException {
         for (int i = 0; i < params.length; i++) {

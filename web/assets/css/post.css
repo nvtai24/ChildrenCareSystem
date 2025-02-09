@@ -1,0 +1,76 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jan 26, 2025, 5:01:39 PM
+    Author     : ADMIN
+*/
+.courses-carousel .cours-bx {
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.courses-carousel .action-box {
+    flex-shrink: 0;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.courses-carousel .action-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+
+
+.courses-carousel .info-bx {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;  /* Căn phần tử từ trên xuống, không gian sẽ được chia đều */
+    height: auto; /* Đảm bảo chiều cao tự động để phù hợp với nội dung */
+    text-align: center;
+    flex-grow: 1;  /* Để các phần tử bên trong có thể chiếm không gian tự do */
+}
+
+/* Phần tiêu đề */
+.courses-carousel h5 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    white-space: normal; /* Đảm bảo tiêu đề có thể xuống dòng */
+    overflow: visible;   /* Hiển thị toàn bộ nội dung mà không bị cắt */
+    text-overflow: clip; /* Không cắt chữ */
+    word-wrap: break-word; /* Đảm bảo chữ sẽ xuống dòng khi dài quá */
+}
+
+/* Phần nội dung (span) */
+.courses-carousel span {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Giới hạn 3 dòng cho nội dung */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Giới hạn chiều cao nếu cần */
+@media (max-width: 768px) {
+    .courses-carousel .info-bx {
+        height: auto;  /* Cho phép chiều cao thay đổi theo nội dung */
+    }
+
+    .courses-carousel h5, .courses-carousel span {
+        white-space: normal;
+    }
+}
+
