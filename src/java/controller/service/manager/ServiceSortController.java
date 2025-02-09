@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 import model.Category;
 import model.Service;
 
@@ -70,7 +71,7 @@ public class ServiceSortController extends HttpServlet {
 
         // Lấy danh sách category
         CategoryDAO dbCategory = new CategoryDAO();
-        ArrayList<Category> listCategory = dbCategory.list();
+        List<Category> listCategory = dbCategory.getAllAvailabelCategories();
         request.setAttribute("listCategory", listCategory);
 
         // Lấy danh sách service theo điều kiện

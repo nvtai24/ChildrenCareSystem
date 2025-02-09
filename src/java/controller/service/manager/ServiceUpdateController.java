@@ -4,7 +4,6 @@ import dal.CategoryDAO;
 import dal.ServiceManagerDAO;
 import java.io.IOException;
 import java.io.File;
-import java.util.ArrayList;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
@@ -12,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import java.util.List;
 import model.Category;
 import model.Service;
 
@@ -28,7 +28,7 @@ public class ServiceUpdateController extends HttpServlet {
 
         int serviceId = Integer.parseInt(request.getParameter("id"));
         Service service = db.getServiceByID(serviceId);
-        ArrayList<Category> listCategory = dbCategory.list();
+        List<Category> listCategory = dbCategory.getAllAvailabelCategories();
 
         request.setAttribute("s", service);
         request.setAttribute("listCategory", listCategory);
@@ -54,7 +54,7 @@ public class ServiceUpdateController extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
 
             Service service = db.getServiceByID(id);
-            ArrayList<Category> listCategory = dbCategory.list();
+            List<Category> listCategory = dbCategory.getAllAvailabelCategories();
 
             request.setAttribute("s", service);
             request.setAttribute("listCategory", listCategory);

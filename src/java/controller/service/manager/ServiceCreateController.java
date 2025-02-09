@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import java.util.ArrayList;
+import java.util.List;
 import model.Category;
 import model.Service;
 
@@ -32,7 +32,7 @@ public class ServiceCreateController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CategoryDAO dbCategory = new CategoryDAO();
-        ArrayList<Category> list = dbCategory.list();
+        List<Category> list = dbCategory.getAllAvailabelCategories();
         request.setAttribute("listCategory", list);
         request.getRequestDispatcher("./views/manager/serviceCreate.jsp").forward(request, response);
     }
@@ -58,6 +58,7 @@ public class ServiceCreateController extends HttpServlet {
 
         // Lấy đường dẫn thư mục lưu ảnh
         String uploadPath = request.getServletContext().getRealPath("/assets/images/services");
+        String uploadPath2 = request.getServletContext().getRealPath("/assets/images/services");
 
         // Kiểm tra nếu đường dẫn chứa "/build", loại bỏ nó
         if (uploadPath.contains(File.separator + "build")) {
@@ -71,8 +72,10 @@ public class ServiceCreateController extends HttpServlet {
 
         //test 
         File uploadDir = new File(uploadPath);
+        File uploadDir2 = new File(uploadPath2);
         if (!uploadDir.exists()) {
             boolean created = uploadDir.mkdirs();
+            uploadDir2.mkdirs();
             if (!created) {
                 System.out.println("️khong the tao thu muc: " + uploadPath);
             }
