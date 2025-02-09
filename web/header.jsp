@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,22 +15,10 @@
     <body>
 
         <header class="header rs-nav header-transparent">
-            <div class="top-bar">
-                <div class="container">
-                    <div class="row d-flex justify-content-between">
-                        <div class="topbar-left">
+            <jsp:include page="top-bar.jsp"/>
 
-                        </div>
-                        <div class="topbar-right">
-                            <ul>
 
-                                <li><a href="login.jsp">Login</a></li>
-                                <li><a href="register.jsp">Register</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
             <div class="sticky-header navbar-expand-lg">
                 <div class="menu-bar clearfix">

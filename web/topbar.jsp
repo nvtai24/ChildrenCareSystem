@@ -1,6 +1,9 @@
 <!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="model.auth.User" %>        
 <html lang="en">
     <head>
+
         <!-- META ============================================= -->
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -41,6 +44,9 @@
 
         <!-- All PLUGINS CSS ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/assets.css" />
+        <!-- FontAwesome CDN -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
 
         <!-- TYPOGRAPHY ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/typography.css" />
@@ -60,6 +66,7 @@
             type="text/css"
             href="assets/css/color/color-1.css"
             />
+        <link rel="stylesheet" type="text/css" href="admin/assets/css/dashboard.css">
 
         <!-- REVOLUTION SLIDER CSS ============================================= -->
         <link
@@ -79,37 +86,79 @@
             />
         <!-- REVOLUTION SLIDER END -->
     </head>
+    <style>
+        a {
+    text-decoration: none !important;
+}
+    </style>
     <body id="bg">
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
             <!-- Header Top ==== -->
             <header class="header rs-nav header-transparent">
-                <div class="top-bar">
+                <div class="top-bar" style="background: transparent; width: 100%;">
                     <div class="container">
-                        <div class="row d-flex justify-content-between">
-                            <div class="topbar-left">
-                                <ul>
+                        <div class="row d-flex align-items-center justify-content-between" style="display: flex; flex-wrap: nowrap; align-items: center; width: 100%;">
+
+                            <!-- Phần bên trái -->
+                            <div class="topbar-left" style="display: flex; align-items: center; gap: 15px; flex-shrink: 0;">
+                                <ul style="display: flex; align-items: center; gap: 15px; margin: 0; padding: 0; list-style: none;">
                                     <li>
-                                        <a href="faq-1.html"
-                                           ><i class="fa fa-question-circle"></i>Ask a Question</a
-                                        >
+                                        <a href="faq-1.html" style="text-decoration: none; color: white;">
+                                            <i class="fa fa-question-circle"></i> Ask a Question
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:;"
-                                           ><i class="fa fa-envelope-o"></i>Support@website.com</a
-                                        >
+                                        <a href="javascript:;" style="text-decoration: none; color: white;">
+                                            <i class="fa fa-envelope-o"></i> Support@website.com
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="topbar-right">
-                                <ul>   
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="register.html">Register</a></li>
+
+                            <!-- Phần bên phải -->
+                            <!-- Phần bên phải -->
+                            <div class="topbar-right" style="display: flex; align-items: center; gap: 10px;">
+                                <ul class="navbar-nav" style="display: flex; align-items: center; gap: 10px; margin: 0; padding: 0; list-style: none; flex-direction: row-reverse;">
+                                    <%
+                                        User user = (User) session.getAttribute("account");
+                                        if (user != null) {
+                                    %>
+                                    <!-- Avatar khi đã đăng nhập (LUÔN BÊN PHẢI) -->
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link d-flex align-items-center" href="#" id="userAvatar" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="display: flex; align-items: center;">
+                                            <img src="uploads/profile/pr.png" alt="User Avatar" width="32" height="32" class="rounded-circle" style="border-radius: 50%; cursor: pointer; transition: transform 0.2s ease-in-out;">
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userAvatar">
+                                            <li><a class="dropdown-item" href="admin/user-profile.html" style="color: black; text-decoration: none;">My profile</a></li>
+                                            <li><a class="dropdown-item" href="login.html" style="color: black; text-decoration: none;">Logout</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- Icon giỏ hàng (LUÔN BÊN TRÁI) -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="reservationDetail" style="color: white;">
+                                            <i class="fas fa-shopping-cart" style="font-size: 18px;"></i>
+                                        </a>
+                                    </li>
+                                    <%
+                                        } else {
+                                    %>
+                                    <!-- Nếu chưa đăng nhập, chỉ hiển thị Login & Register -->
+                                    <li class="nav-item"><a class="nav-link" href="login.jsp" style="text-decoration: none; color: white;">Login</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="register.jsp" style="text-decoration: none; color: white;">Register</a></li>
+                                        <%
+                                            }
+                                        %>
                                 </ul>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
+
+
                 <div class="sticky-header navbar-expand-lg">
                     <div class="menu-bar clearfix">
                         <div class="container clearfix">
@@ -137,21 +186,21 @@
                             <div class="secondary-menu">
                                 <div class="secondary-inner">
                                     <ul>
-                                        <li>
-                                            <a href="javascript:;" class="btn-link"
-                                               ><i class="fa fa-facebook"></i
-                                                ></a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;" class="btn-link"
-                                               ><i class="fa fa-google-plus"></i
-                                                ></a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;" class="btn-link"
-                                               ><i class="fa fa-linkedin"></i
-                                                ></a>
-                                        </li>
+                                        <!--                                        <li>
+                                                                                    <a href="javascript:;" class="btn-link"
+                                                                                       ><i class="fa fa-facebook"></i
+                                                                                        ></a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="javascript:;" class="btn-link"
+                                                                                       ><i class="fa fa-google-plus"></i
+                                                                                        ></a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="javascript:;" class="btn-link"
+                                                                                       ><i class="fa fa-linkedin"></i
+                                                                                        ></a>
+                                                                                </li>-->
                                         <!-- Search Button ==== -->
                                         <li class="search-btn">
                                             <button
@@ -914,147 +963,147 @@
                     </div>
                     <!-- Our Services END -->
 
-          <!-- Popular Courses -->
-          <div class="section-area section-sp2 popular-courses-bx">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-12 heading-bx left">
-                  <h2 class="title-head">Popular <span>Courses</span></h2>
-                  <p>
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page
-                  </p>
-                </div>
-              </div>
-              <div class="row">
-                <div
-                  class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0"
-                >
-                  <div class="item">
-                    <div class="cours-bx">
-                      <div class="action-box">
-                        <img src="assets/images/courses/pic1.jpg" alt="" />
-                        <a href="#" class="btn">Read More</a>
-                      </div>
-                      <div class="info-bx text-center">
-                        <h5>
-                          <a href="#">Introduction EduChamp – LMS plugin</a>
-                        </h5>
-                        <span>Programming</span>
-                      </div>
-                      <div class="cours-more-info">
-                        <div class="review">
-                          <span>3 Review</span>
-                          <ul class="cours-star">
-                            <li class="active"><i class="fa fa-star"></i></li>
-                            <li class="active"><i class="fa fa-star"></i></li>
-                            <li class="active"><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                          </ul>
+                    <!-- Popular Courses -->
+                    <div class="section-area section-sp2 popular-courses-bx">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 heading-bx left">
+                                    <h2 class="title-head">Popular <span>Courses</span></h2>
+                                    <p>
+                                        It is a long established fact that a reader will be
+                                        distracted by the readable content of a page
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div
+                                    class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0"
+                                    >
+                                    <div class="item">
+                                        <div class="cours-bx">
+                                            <div class="action-box">
+                                                <img src="assets/images/courses/pic1.jpg" alt="" />
+                                                <a href="#" class="btn">Read More</a>
+                                            </div>
+                                            <div class="info-bx text-center">
+                                                <h5>
+                                                    <a href="#">Introduction EduChamp – LMS plugin</a>
+                                                </h5>
+                                                <span>Programming</span>
+                                            </div>
+                                            <div class="cours-more-info">
+                                                <div class="review">
+                                                    <span>3 Review</span>
+                                                    <ul class="cours-star">
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="price">
+                                                    <del>$190</del>
+                                                    <h5>$120</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="cours-bx">
+                                            <div class="action-box">
+                                                <img src="assets/images/courses/pic2.jpg" alt="" />
+                                                <a href="#" class="btn">Read More</a>
+                                            </div>
+                                            <div class="info-bx text-center">
+                                                <h5>
+                                                    <a href="#">Introduction EduChamp – LMS plugin</a>
+                                                </h5>
+                                                <span>Programming</span>
+                                            </div>
+                                            <div class="cours-more-info">
+                                                <div class="review">
+                                                    <span>3 Review</span>
+                                                    <ul class="cours-star">
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="price">
+                                                    <del>$190</del>
+                                                    <h5>$120</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="cours-bx">
+                                            <div class="action-box">
+                                                <img src="assets/images/courses/pic3.jpg" alt="" />
+                                                <a href="#" class="btn">Read More</a>
+                                            </div>
+                                            <div class="info-bx text-center">
+                                                <h5>
+                                                    <a href="#">Introduction EduChamp – LMS plugin</a>
+                                                </h5>
+                                                <span>Programming</span>
+                                            </div>
+                                            <div class="cours-more-info">
+                                                <div class="review">
+                                                    <span>3 Review</span>
+                                                    <ul class="cours-star">
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="price">
+                                                    <del>$190</del>
+                                                    <h5>$120</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="cours-bx">
+                                            <div class="action-box">
+                                                <img src="assets/images/courses/pic4.jpg" alt="" />
+                                                <a href="#" class="btn">Read More</a>
+                                            </div>
+                                            <div class="info-bx text-center">
+                                                <h5>
+                                                    <a href="#">Introduction EduChamp – LMS plugin</a>
+                                                </h5>
+                                                <span>Programming</span>
+                                            </div>
+                                            <div class="cours-more-info">
+                                                <div class="review">
+                                                    <span>3 Review</span>
+                                                    <ul class="cours-star">
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="price">
+                                                    <del>$190</del>
+                                                    <h5>$120</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="price">
-                          <del>$190</del>
-                          <h5>$120</h5>
-                        </div>
-                      </div>
                     </div>
-                  </div>
-                  <div class="item">
-                    <div class="cours-bx">
-                      <div class="action-box">
-                        <img src="assets/images/courses/pic2.jpg" alt="" />
-                        <a href="#" class="btn">Read More</a>
-                      </div>
-                      <div class="info-bx text-center">
-                        <h5>
-                          <a href="#">Introduction EduChamp – LMS plugin</a>
-                        </h5>
-                        <span>Programming</span>
-                      </div>
-                      <div class="cours-more-info">
-                        <div class="review">
-                          <span>3 Review</span>
-                          <ul class="cours-star">
-                            <li class="active"><i class="fa fa-star"></i></li>
-                            <li class="active"><i class="fa fa-star"></i></li>
-                            <li class="active"><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                          </ul>
-                        </div>
-                        <div class="price">
-                          <del>$190</del>
-                          <h5>$120</h5>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div class="cours-bx">
-                      <div class="action-box">
-                        <img src="assets/images/courses/pic3.jpg" alt="" />
-                        <a href="#" class="btn">Read More</a>
-                      </div>
-                      <div class="info-bx text-center">
-                        <h5>
-                          <a href="#">Introduction EduChamp – LMS plugin</a>
-                        </h5>
-                        <span>Programming</span>
-                      </div>
-                      <div class="cours-more-info">
-                        <div class="review">
-                          <span>3 Review</span>
-                          <ul class="cours-star">
-                            <li class="active"><i class="fa fa-star"></i></li>
-                            <li class="active"><i class="fa fa-star"></i></li>
-                            <li class="active"><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                          </ul>
-                        </div>
-                        <div class="price">
-                          <del>$190</del>
-                          <h5>$120</h5>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div class="cours-bx">
-                      <div class="action-box">
-                        <img src="assets/images/courses/pic4.jpg" alt="" />
-                        <a href="#" class="btn">Read More</a>
-                      </div>
-                      <div class="info-bx text-center">
-                        <h5>
-                          <a href="#">Introduction EduChamp – LMS plugin</a>
-                        </h5>
-                        <span>Programming</span>
-                      </div>
-                      <div class="cours-more-info">
-                        <div class="review">
-                          <span>3 Review</span>
-                          <ul class="cours-star">
-                            <li class="active"><i class="fa fa-star"></i></li>
-                            <li class="active"><i class="fa fa-star"></i></li>
-                            <li class="active"><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                          </ul>
-                        </div>
-                        <div class="price">
-                          <del>$190</del>
-                          <h5>$120</h5>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Popular Courses END -->
+                    <!-- Popular Courses END -->
 
                     <!-- Form -->
                     <div
@@ -1234,12 +1283,12 @@
                                                             >
                                                         </li>
                                                         <li>
+                                                        </li>
+                                                    </ul>
                                                             <a href="#"
                                                                ><i class="fa fa-map-marker"></i> Berlin,
                                                                 Germany</a
                                                             >
-                                                        </li>
-                                                    </ul>
                                                     <p>
                                                         Lorem Ipsum is simply dummy text of the printing and
                                                         typesetting industry. Lorem Ipsum has been the
@@ -1688,6 +1737,8 @@
         <script src="assets/vendors/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
         <script src="assets/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
         <script src="assets/vendors/revolution/js/extensions/revolution.extension.video.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <script>
             jQuery(document).ready(function () {
                 var ttrevapi;
@@ -1777,5 +1828,6 @@
                 }
             });
         </script>
+
     </body>
 </html>
