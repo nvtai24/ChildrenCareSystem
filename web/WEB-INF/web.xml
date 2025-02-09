@@ -33,7 +33,6 @@
         <servlet-class>controller.common.HomePageController</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
         <servlet-name>ServiceCreateController</servlet-name>
         <servlet-class>controller.service.manager.ServiceCreateController</servlet-class>
     </servlet>
@@ -60,7 +59,8 @@
     <servlet>
         <servlet-name>ServiceFilterByCategoryController</servlet-name>
         <servlet-class>controller.service.manager.ServiceFilterByCategoryController</servlet-class>
-=======
+    </servlet>
+    <servlet>
         <servlet-name>VerifyController</servlet-name>
         <servlet-class>controller.auth.VerifyController</servlet-class>
     </servlet>
@@ -83,7 +83,6 @@
     <servlet>
         <servlet-name>ServiceDetailsPublicController</servlet-name>
         <servlet-class>controller.service.publi.ServiceDetailsPublicController</servlet-class>
->>>>>>> 56f24ac9d9ad0ba34f1c9049736cf32e2a3e9a26
     </servlet>
     <servlet>
         <servlet-name>DeleteSlider</servlet-name>
@@ -150,7 +149,6 @@
         <url-pattern/>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
         <servlet-name>ServiceCreateController</servlet-name>
         <url-pattern>/ServiceCreateController</url-pattern>
     </servlet-mapping>
@@ -177,14 +175,14 @@
     <servlet-mapping>
         <servlet-name>ServiceFilterByCategoryController</servlet-name>
         <url-pattern>/ServiceFilterByCategoryController</url-pattern>
-=======
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>VerifyController</servlet-name>
         <url-pattern>/verify</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReservationDetailController</servlet-name>
         <url-pattern>/reservationDetail</url-pattern>
->>>>>>> 56f24ac9d9ad0ba34f1c9049736cf32e2a3e9a26
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProfileController</servlet-name>
