@@ -89,6 +89,7 @@
         <div class="reservation-buttons">
             <a href="services.jsp" class="btn btn-primary">Choose More Services</a>
             <a href="reservation-contact.jsp" class="btn btn-success">Check Out</a>
+=======
 <body class="ttr-opened-sidebar ttr-pinned-sidebar">
     <header class="ttr-header">
         <div class="ttr-header-wrapper">
