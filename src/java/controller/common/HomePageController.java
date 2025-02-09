@@ -65,7 +65,8 @@ public class HomePageController extends HttpServlet {
         try {
             ServiceDAO serviceDAO = new ServiceDAO();
             List<Service> listService = serviceDAO.getAllAvailableServices();
-            if (listService != null && listService.size() > 0) {
+
+            if(listService != null && listService.size() > 0) {
                 request.setAttribute("SERVICES", listService);
             } else {
                 System.out.println("Khong co service trong he thong");
