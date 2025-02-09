@@ -68,6 +68,10 @@
         <servlet-name>ServiceDetailsPublicController</servlet-name>
         <servlet-class>controller.service.publi.ServiceDetailsPublicController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.auth.LogoutController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServiceListController</servlet-name>
         <url-pattern>/ServiceListController</url-pattern>
@@ -131,5 +135,9 @@
     <servlet-mapping>
         <servlet-name>UpdateSliderController</servlet-name>
         <url-pattern>/UpdateSliderController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 </web-app>

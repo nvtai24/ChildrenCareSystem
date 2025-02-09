@@ -1283,12 +1283,12 @@
                                                             >
                                                         </li>
                                                         <li>
+                                                        </li>
+                                                    </ul>
                                                             <a href="#"
                                                                ><i class="fa fa-map-marker"></i> Berlin,
                                                                 Germany</a
                                                             >
-                                                        </li>
-                                                    </ul>
                                                     <p>
                                                         Lorem Ipsum is simply dummy text of the printing and
                                                         typesetting industry. Lorem Ipsum has been the

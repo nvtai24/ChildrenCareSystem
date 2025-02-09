@@ -35,11 +35,10 @@ public class LoginController extends HttpServlet {
         User user = udb.get(username, password);
         if (user != null) {
             request.getSession().setAttribute("account", user);
-            
-
-            response.sendRedirect("topbar.jsp");
+           
+            response.sendRedirect("/app");
         } else {
-            response.sendRedirect("login.html");
+            response.sendRedirect("login");
         }
     }
 
