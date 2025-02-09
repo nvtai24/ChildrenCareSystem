@@ -36,7 +36,7 @@
                                     <li><a href="javascript:;">Services</a>
                                         
                                     </li>
-                                     <li><a href="BlogListController">Blogs</a>
+                                     <li><a href="blog">Blogs</a>
 
                             </li>
                                     <li><a href="javascript:;">Contact us <i class="fa fa-chevron-down"></i></a>
