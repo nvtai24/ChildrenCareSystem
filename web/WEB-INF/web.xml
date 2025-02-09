@@ -33,6 +33,14 @@
         <servlet-class>controller.common.HomePageController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>VerifyController</servlet-name>
+        <servlet-class>controller.auth.VerifyController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReservationDetailController</servlet-name>
+        <servlet-class>controller.reservation.ReservationDetailController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>DeleteSlider</servlet-name>
         <servlet-class>controller.slider.DeleteSlider</servlet-class>
     </servlet>
@@ -76,6 +84,10 @@
         <servlet-name>ServiceDetailsPublicController</servlet-name>
         <servlet-class>controller.service.publi.ServiceDetailsPublicController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.auth.LogoutController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServiceListController</servlet-name>
         <url-pattern>/ServiceListController</url-pattern>
@@ -86,11 +98,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
-        <url-pattern>/LoginController</url-pattern>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
-        <url-pattern>/RegisterController</url-pattern>
+        <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReservationListController</servlet-name>
@@ -106,7 +118,15 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomePageController</servlet-name>
-        <url-pattern></url-pattern>
+        <url-pattern/>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyController</servlet-name>
+        <url-pattern>/verify</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservationDetailController</servlet-name>
+        <url-pattern>/reservationDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProfileController</servlet-name>
@@ -135,5 +155,9 @@
     <servlet-mapping>
         <servlet-name>UpdateSliderController</servlet-name>
         <url-pattern>/UpdateSliderController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 </web-app>
