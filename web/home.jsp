@@ -186,6 +186,8 @@
                         </div><!-- END REVOLUTION SLIDER -->  
                     </div>  
                 </div>  
+
+
                 <!-- Main Slider -->
                 <div class="content-block">
 
@@ -390,6 +392,23 @@
                                     disableFocusListener: false,
                                 }
                             });
+                        }
+                    });
+                </script>
+
+                <script>
+                    // JavaScript để thay đổi ảnh đại diện ngay khi người dùng chọn ảnh mới
+                    const avatarInput = document.getElementById('avatarInput');
+                    const avatarImage = document.getElementById('avatarImage');
+
+                    avatarInput.addEventListener('change', function (event) {
+                        const file = event.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                avatarImage.src = e.target.result; // Cập nhật ảnh đại diện ngay lập tức
+                            };
+                            reader.readAsDataURL(file); // Đọc ảnh dưới dạng URL và thay đổi ảnh
                         }
                     });
                 </script>
