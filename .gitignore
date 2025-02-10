@@ -1,8 +1,18 @@
-**/nbproject/private/
-**/nbproject/Makefile-*.mk
-**/nbproject/Package-*.bash
+# Ignore NetBeans project files
+nbproject/
+
+# Ignore build output
 build/
-nbbuild/
 dist/
-nbdist/
-.nb-gradle/
+
+# Ignore IDE settings and workspace-specific files
+.idea/
+*.iml
+
+# Ignore compiled Java files
+*.class
+
+# Ignore logs
+*.log
+
+test/

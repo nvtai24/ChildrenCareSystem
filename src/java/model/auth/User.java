@@ -38,6 +38,8 @@ public class User {
     private List<Post> posts;
     private List<Reservation> reservations;
     private List<MedicalExamination> examinations;
-    
+    private String avatar;
+    private String verificationToken;
+    private boolean verified;
 }
 
