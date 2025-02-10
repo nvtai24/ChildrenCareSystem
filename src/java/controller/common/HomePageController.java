@@ -64,7 +64,7 @@ public class HomePageController extends HttpServlet {
             throws ServletException, IOException {
         try {
             ServiceDAO serviceDAO = new ServiceDAO();
-            List<Service> listService = serviceDAO.getAllAvailableServices();
+            List<Service> listService = serviceDAO.getAllServices();
 
             if(listService != null && listService.size() > 0) {
                 request.setAttribute("SERVICES", listService);

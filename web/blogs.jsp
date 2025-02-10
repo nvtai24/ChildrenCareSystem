@@ -41,7 +41,6 @@
         .form-search{
             display: flex;
             flex-direction: column;
-
             background: #f9f9f9;
             padding: 10px;
             border-radius: 8px;
@@ -64,8 +63,8 @@
             width: 200px;
         }
         .form-search button{
-            background: #007bff;
-            color: white;
+            background: #EFBB20;
+            color: black;
             border: none;
             padding: 8px 12px;
             border-radius: 5px;
@@ -163,7 +162,7 @@
                                 <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
                                     <div class="widget courses-search-bx placeani">
                                         <!-- Form tìm kiếm -->
-                                        <form method="get" action="BlogListController" class="form-search">
+                                        <form method="get" action="blog" class="form-search">
                                             <div>
                                                 <input type="text" id="search" name="search" value="${param.search}" placeholder="Search by title">
                                             </div>
@@ -179,10 +178,10 @@
                                                 <div class="cours-bx">
                                                     <div class="action-box">
                                                         <img src="assets/images/courses/${post.thumbnail}" alt="Blog Image">
-                                                        <a href="BlogDetailController?id=${post.id}" class="btn">Read More</a>
+                                                        <a href="blogdetail?id=${post.id}" class="btn">Read More</a>
                                                     </div>
                                                     <div class="info-bx text-center">
-                                                        <h5><a href="BlogDetailController?id=${post.id}">${post.title}</a></h5>
+                                                        <h5><a href="blogdetail?id=${post.id}">${post.title}</a></h5>
                                                         <span>${post.content}</span>
                                                     </div>
                                                 </div>
@@ -193,13 +192,13 @@
                                                 <ul class="pagination">
                                                     <c:if test="${CURRENT_PAGE > 1}">
                                                         <li class="previous">
-                                                            <a href="BlogListController?page=${CURRENT_PAGE - 1}&search=${param.search}"><i class="ti-arrow-left"></i> Prev</a>
+                                                            <a href="blog?page=${CURRENT_PAGE - 1}&search=${param.search}"><i class="ti-arrow-left"></i> Prev</a>
                                                         </li>
                                                     </c:if>
 
                                                     <c:forEach begin="1" end="${TOTAL_PAGES}" var="i">
                                                         <li class="${i == CURRENT_PAGE ? 'active' : ''}">
-                                                            <a href="BlogListController?page=${i}&search=${param.search}">
+                                                            <a href="blog?page=${i}&search=${param.search}">
                                                                 ${i}
                                                             </a>
                                                         </li>
@@ -207,7 +206,7 @@
 
                                                     <c:if test="${CURRENT_PAGE < TOTAL_PAGES}">
                                                         <li class="previous">
-                                                            <a href="BlogListController?page=${CURRENT_PAGE + 1}&search=${param.search}"><i class="ti-arrow-right"></i> Next</a>
+                                                            <a href="blog?page=${CURRENT_PAGE + 1}&search=${param.search}"><i class="ti-arrow-right"></i> Next</a>
                                                         </li>
                                                     </c:if>
                                                 </ul>

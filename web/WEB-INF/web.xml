@@ -110,11 +110,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SliderListController</servlet-name>
-        <url-pattern>/SliderListController</url-pattern>
+        <url-pattern>/slider</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BlogListController</servlet-name>
-        <url-pattern>/BlogListController</url-pattern>
+        <url-pattern>/blog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomePageController</servlet-name>
@@ -146,15 +146,15 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BlogDetailController</servlet-name>
-        <url-pattern>/BlogDetailController</url-pattern>
+        <url-pattern>/blogdetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddSliderController</servlet-name>
-        <url-pattern>/AddSliderController</url-pattern>
+        <url-pattern>/addslider</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateSliderController</servlet-name>
-        <url-pattern>/UpdateSliderController</url-pattern>
+        <url-pattern>/updateslider</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
