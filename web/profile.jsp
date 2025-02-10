@@ -57,6 +57,9 @@
         <link rel="stylesheet" type="text/css" href="assets2/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="assets2/css/color/color-1.css">
 
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
@@ -343,97 +346,92 @@
 
         <!--Main container start -->
         <main class="ttr-wrapper">
-            <div class="container-fluid">
-                <div class="db-breadcrumb">
-                    <ul class="db-breadcrumb-list">
-                        <li><a href="/app"><i class="fa fa-home"></i>Home</a></li>
-                        <li>User Profile</li>
-                    </ul>
-                </div>	
-                <div class="row">
-                    <!-- Your Profile Views Chart -->
-                    <div class="col-lg-12 m-b30">
-                        <div class="widget-box">
 
-                            <div class="user-profile-thumb">
-                                <img id="avatarImage" src="${requestScope.profile.avatar}" alt=""/>
-                            </div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#profileModal">
+                View Profile
+            </button>
 
-                            <div class="widget-inner">
-                                <form class="edit-profile m-b30" action="profile" method="post" enctype="multipart/form-data">
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Avatar</label>
-                                        <div class="col-sm-7">
-                                            <input class="form-control" type="file" name="avatar" id="avatarInput">
+            <!-- The Modal -->
+            <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="profileModalLabel">User Profile</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="edit-profile" action="profile" method="post" enctype="multipart/form-data">
+                                <div class="row">
+                                    <!-- Avatar -->
+                                    <div class="col-md-4 text-center">
+                                        <div class="user-profile-thumb" style="width: 150px; height: 150px;">
+                                            <img id="avatarImage" src="${requestScope.profile.avatar}" alt="Avatar" style="max-width: 150px;"/>
+                                        </div>
+                                        <!-- Chỉnh sửa nút Choose File -->
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="avatarInput" name="avatar" style="display: none;" onchange="updateFileName()">
+                                            <button type="button" class="btn btn-light" onclick="document.getElementById('avatarInput').click()">Choose file</button>
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Full Name</label>
-                                        <div class="col-sm-7">
-                                            <input class="form-control" type="text" value="${requestScope.profile.fullName}" name="fullname">
-                                        </div>
-                                    </div>
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Gender</label>
-
-                                        <div class="col-sm-10">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="gender" id="male" value="male" ${requestScope.profile.gender ? 'checked' : ''}>
-                                                Male
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="gender" id="female" value="female" ${!requestScope.profile.gender ? 'checked' : ''}>
-                                                Female
+                                    <!-- Profile Fields -->
+                                    <div class="col-md-8">
+                                        <div class="form-group row mb-3">
+                                            <label class="col-sm-4 col-form-label">Full Name</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" type="text" value="${requestScope.profile.fullName}" name="fullname">
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Birthday</label>
-                                        <div class="col-sm-7">
-                                            <input class="form-control" type="date" value="${requestScope.profile.dob}" name="dob">
+                                        <div class="form-group row mb-3">
+                                            <label class="col-sm-4 col-form-label">Gender</label>
+                                            <div class="col-sm-8">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="gender" id="male" value="male" ${requestScope.profile.gender ? 'checked' : ''}>
+                                                    <label class="form-check-label" for="male">Male</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="gender" id="female" value="female" ${!requestScope.profile.gender ? 'checked' : ''}>
+                                                    <label class="form-check-label" for="female">Female</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-3">
+                                            <label class="col-sm-4 col-form-label">Birthday</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" type="date" value="${requestScope.profile.dob}" name="dob">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-3">
+                                            <label class="col-sm-4 col-form-label">Address</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" type="text" value="${requestScope.profile.address}" name="address">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-3">
+                                            <label class="col-sm-4 col-form-label">Phone Number</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" type="text" value="${requestScope.profile.phone}" name="phone">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-3">
+                                            <label class="col-sm-4 col-form-label">Email</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" type="email" value="${requestScope.profile.user.email}" readonly>
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Address</label>
-                                        <div class="col-sm-7">
-                                            <input class="form-control" type="text" value="${requestScope.profile.address}"  name="address">
-                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-8 text-right">
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                        <button type="reset" class="btn btn-secondary">Cancel</button>
                                     </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Phone Number</label>
-                                        <div class="col-sm-7">
-                                            <input class="form-control" type="text" value="${requestScope.profile.phone}" name="phone">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Email</label>
-                                        <div class="col-sm-7">
-                                            <input class="form-control" type="email" value="${requestScope.profile.user.email}" readonly>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-2">
-                                        </div>
-                                        <div class="col-sm-7">
-                                            <button type="submit" class="btn">Save changes</button>
-                                            <button type="reset" class="btn-secondry">Cancel</button>
-                                        </div>
-                                    </div>
-
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <!-- Your Profile Views Chart END-->
                 </div>
             </div>
         </main>
@@ -459,20 +457,30 @@
 
 
         <script>
-            // JavaScript để thay đổi ảnh đại diện ngay khi người dùng chọn ảnh mới
-            const avatarInput = document.getElementById('avatarInput');
-            const avatarImage = document.getElementById('avatarImage');
+                                                // JavaScript để thay đổi ảnh đại diện ngay khi người dùng chọn ảnh mới
+                                                const avatarInput = document.getElementById('avatarInput');
+                                                const avatarImage = document.getElementById('avatarImage');
 
-            avatarInput.addEventListener('change', function (event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        avatarImage.src = e.target.result; // Cập nhật ảnh đại diện ngay lập tức
-                    };
-                    reader.readAsDataURL(file); // Đọc ảnh dưới dạng URL và thay đổi ảnh
-                }
-            });
+                                                avatarInput.addEventListener('change', function (event) {
+                                                    const file = event.target.files[0];
+                                                    if (file) {
+                                                        const reader = new FileReader();
+                                                        reader.onload = function (e) {
+                                                            avatarImage.src = e.target.result; // Cập nhật ảnh đại diện ngay lập tức
+                                                        };
+                                                        reader.readAsDataURL(file); // Đọc ảnh dưới dạng URL và thay đổi ảnh
+                                                    }
+                                                });
+
+
+
+                                                function updateFileName() {
+                                                    var label = input.nextElementSibling;
+                                                    if (input.files.length > 0) {
+                                                        label.textContent = input.files[0].name;
+                                                    }
+                                                }
+
         </script>
 
     </body>
