@@ -154,7 +154,7 @@
 
                                         <div class="review-bx">
                                             <div class="all-review">
-                                                <h2 class="rating-type">${requestScope.average}</h2>
+                                                <h2 class="rating-type">5</h2>
                                                 <ul class="cours-star">
 
                                                     <c:forEach begin="1" end="${requestScope.average}">

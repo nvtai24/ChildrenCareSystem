@@ -44,9 +44,7 @@ public class ProfileController extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        User currentUser = new User().builder()
-                .id(2)
-                .build();
+        User currentUser = (User) session.getAttribute("account");
 
         ProfileDAO db = new ProfileDAO();
 
@@ -71,9 +69,7 @@ public class ProfileController extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        User currentUser = new User().builder()
-                .id(2) // Giả sử ID của người dùng là 2, bạn có thể thay thế bằng cách lấy từ session
-                .build();
+        User currentUser = (User) session.getAttribute("account");
 
         int id = currentUser.getId();
 
