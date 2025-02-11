@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <style>
+
         .filter-search-container {
             display: flex;
             justify-content: center;
@@ -17,8 +18,8 @@
             margin-bottom: 20px;
         }
 
-        /* Định dạng chung cho cả hai form */
-        .form-search, .form-filter {
+
+        .form-search, .form-filter, .form-add {
             display: flex;
             align-items: center;
             background: #f9f9f9;
@@ -51,7 +52,7 @@
 
         /* Hiệu ứng khi hover vào dropdown */
         .form-filter select:hover {
-            border-color: #007bff;
+            border-color: #EFBB20;
         }
 
         /* Label của bộ lọc */
@@ -62,9 +63,9 @@
         }
 
         /* Nút chung cho cả Search & Filter */
-        .form-search button, .form-filter button {
-            background: #007bff;
-            color: white;
+        .form-search button, .form-filter button, .form-add button {
+            background: #EFBB20;
+            color: black;
             border: none;
             padding: 8px 12px;
             border-radius: 5px;
@@ -74,20 +75,20 @@
         }
 
         /* Hiệu ứng khi hover vào nút */
-        .form-search button:hover, .form-filter button:hover {
-            background: #0056b3;
+        .form-search button:hover, .form-filter button:hover, .form-add button:hover{
+            background: #FFC321;
         }
         .btn.update {
-            background-color: green;
-            color: white;
+            background-color: #EFBB20;
+            color: black;
             border: none;
             padding: 5px 15px;
             cursor: pointer;
             font-size: 14px;
         }
         .btn.delete {
-            background-color: red;
-            color: white;
+            background-color: #EFBB20;
+            color: black;
             border: none;
             padding: 5px 15px;
             cursor: pointer;
@@ -120,10 +121,10 @@
             text-transform: uppercase;
         }
         .form-search  {
-            display: flex; /* Sử dụng Flexbox */
-            justify-content: flex-end; /* Đẩy nút Search sang bên phải */
-            align-items: center; /* Căn giữa theo chiều dọc */
-            gap: 10px; /* Khoảng cách giữa ô input và nút button */
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
         }
         table {
             width: 100%;
@@ -443,7 +444,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/app/SliderListController" class="ttr-material-button">
+                            <a href="/app/slider" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-book"></i></span>
                                 <span class="ttr-label">Sliders</span>
                             </a>
@@ -547,13 +548,13 @@
                             <div class="filter-search-container">
 
                                 <!-- Form tìm kiếm -->
-                                <form method="get" action="SliderListController" class="form-search">
+                                <form method="get" action="slider" class="form-search">
                                     <input type="text" id="search" name="search" value="${param.search}" placeholder="Search by title">
                                     <button type="submit">Search</button>
                                 </form>
 
                                 <!-- Form lọc trạng thái -->
-                                <form method="get" action="SliderListController" class="form-filter">
+                                <form method="get" action="slider" class="form-filter">
                                     <select name="status" id="status">
                                         <option value="" ${empty param.status ? "selected" : ""}>All</option>
                                         <option value="true" ${param.status == "true" ? "selected" : ""}>Active</option>
@@ -561,9 +562,9 @@
                                     </select>
                                     <button type="submit">Apply</button>
                                 </form>
-                                <form class="form-filter">
-                                    <button>           
-                                        <a style="color: white" href="addslider.jsp">Add New Slider</a>
+                                <form class="form-add">
+                                    <button type="button" onclick="window.location.href = 'addslider.jsp';">
+                                        Add New Slider
                                     </button>
 
                                 </form>
@@ -594,8 +595,12 @@
                                             <td><img src="assets/images/slider/${slider.imageUrl}" alt=""/></td>
                                             <td>
                                                 <c:choose>
-                                                    <c:when test="${slider.status}">Active</c:when>
-                                                    <c:otherwise>Inactive</c:otherwise>
+                                                    <c:when test="${slider.status}">
+                                                        <span style="color: green;">Active</span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span style="color: red;">Inactive</span>
+                                                    </c:otherwise>
                                                 </c:choose>
                                             </td>
                                             <td>${slider.createdDate}</td>
@@ -606,7 +611,7 @@
                                             </td>
                                             <td>
                                                 <!-- Nút Enable/Disable -->
-                                                <form method="post" action="SliderListController">
+                                                <form method="post" action="slider">
                                                     <input type="hidden" name="id" value="${slider.id}">
                                                     <input type="hidden" name="status" value="${slider.status ? 0 : 1}">
                                                     <button type="submit" 
@@ -624,7 +629,7 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                <form method="get" action="UpdateSliderController" style="display:inline;">
+                                                <form method="get" action="updateslider" style="display:inline;">
                                                     <input  type="hidden" name="id" value="${slider.id}">
                                                     <button type="submit" class="btn update" style="display:inline;">
                                                         Edit
@@ -641,7 +646,7 @@
                                     <ul class="pagination">
                                         <c:if test="${CURRENT_PAGE > 1}">
                                             <li class="previous">
-                                                <a href="SliderListController?page=${CURRENT_PAGE - 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
+                                                <a href="slider?page=${CURRENT_PAGE - 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
                                                     <i class="ti-arrow-left"></i> Prev
                                                 </a>
                                             </li>
@@ -649,7 +654,7 @@
 
                                         <c:forEach begin="1" end="${TOTAL_PAGES}" var="i">
                                             <li class="${i == CURRENT_PAGE ? 'active' : ''}">
-                                                <a href="SliderListController?page=${i}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
+                                                <a href="slider?page=${i}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
                                                     ${i}
                                                 </a>
                                             </li>
@@ -657,7 +662,7 @@
 
                                         <c:if test="${CURRENT_PAGE < TOTAL_PAGES}">
                                             <li class="next">
-                                                <a href="SliderListController?page=${CURRENT_PAGE + 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
+                                                <a href="slider?page=${CURRENT_PAGE + 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
                                                     <i class="ti-arrow-right"></i> Next
                                                 </a>
                                             </li>

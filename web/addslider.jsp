@@ -44,19 +44,19 @@
         <![endif]-->
 
         <!-- All PLUGINS CSS ============================================= -->
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/assets.css">
-        <link rel="stylesheet" type="text/css" href="admin/assets/vendors/calendar/fullcalendar.css">
+        <link rel="stylesheet" type="text/css" href="assets2/css/assets.css">
+        <link rel="stylesheet" type="text/css" href="assets2/vendors/calendar/fullcalendar.css">
 
         <!-- TYPOGRAPHY ============================================= -->
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/typography.css">
+        <link rel="stylesheet" type="text/css" href="assets2/css/typography.css">
 
         <!-- SHORTCODES ============================================= -->
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/shortcodes/shortcodes.css">
+        <link rel="stylesheet" type="text/css" href="assets2/css/shortcodes/shortcodes.css">
 
         <!-- STYLESHEETS ============================================= -->
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/style.css">
-        <link rel="stylesheet" type="text/css" href="admin/assets/css/dashboard.css">
-        <link class="skin" rel="stylesheet" type="text/css" href="admin/assets/css/color/color-1.css">
+        <link rel="stylesheet" type="text/css" href="assets2/css/style.css">
+        <link rel="stylesheet" type="text/css" href="assets2/css/dashboard.css">
+        <link class="skin" rel="stylesheet" type="text/css" href="assets2/css/color/color-1.css">
 
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
@@ -262,7 +262,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/app/SliderListController" class="ttr-material-button">
+                            <a href="/app/slider" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-book"></i></span>
                                 <span class="ttr-label">Sliders</span>
                             </a>
@@ -360,7 +360,7 @@
                                 <h4>Add Slider</h4>
                             </div>
                             <div class="widget-inner">
-                                <form class="edit-profile m-b30" action="AddSliderController" method="post" enctype="multipart/form-data">
+                                <form class="edit-profile m-b30" action="addslider" method="post" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="ml-auto">
@@ -381,60 +381,10 @@
                                         </div>
 
                                         <div class="seperator"></div>
-                                        <!--
-                                                                                <div class="col-12 m-t20">
-                                                                                    <div class="ml-auto m-b5">
-                                                                                        <h3>2. Description</h3>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="form-group col-12">
-                                                                                    <label class="col-form-label">Course description</label>
-                                                                                    <div>
-                                                                                        <textarea class="form-control"> </textarea>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-12 m-t20">
-                                                                                    <div class="ml-auto">
-                                                                                        <h3 class="m-form__section">3. Add Item</h3>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-12">
-                                                                                    <table id="item-add" style="width:100%;">
-                                                                                        <tr class="list-item">
-                                                                                            <td>
-                                                                                                <div class="row">
-                                                                                                    <div class="col-md-4">
-                                                                                                        <label class="col-form-label">Course Name</label>
-                                                                                                        <div>
-                                                                                                            <input class="form-control" type="text" value="">
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="col-md-3">
-                                                                                                        <label class="col-form-label">Course Category</label>
-                                                                                                        <div>
-                                                                                                            <input class="form-control" type="text" value="">
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="col-md-3">
-                                                                                                        <label class="col-form-label">Course Category</label>
-                                                                                                        <div>
-                                                                                                            <input class="form-control" type="text" value="">
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="col-md-2">
-                                                                                                        <label class="col-form-label">Close</label>
-                                                                                                        <div class="form-group">
-                                                                                                            <a class="delete" href="#"><i class="fa fa-close"></i></a>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </div>-->
+                                      
                                         <div class="col-12">
                                             <button class="btn-secondry add-item m-r5">          
-                                                <a style="color: white" href="SliderListController"><<< Slider list</a>
+                                                <a style="color: white" href="slider"><<< Slider list</a>
                                             </button>
                                             <button type="submit" class="btn">Save changes</button>
                                         </div>
@@ -451,22 +401,22 @@
         <div class="ttr-overlay"></div>
 
         <!-- External JavaScripts -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
-        <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-        <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-        <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
-        <script src="assets/vendors/counter/waypoints-min.js"></script>
-        <script src="assets/vendors/counter/counterup.min.js"></script>
-        <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
-        <script src="assets/vendors/masonry/masonry.js"></script>
-        <script src="assets/vendors/masonry/filter.js"></script>
-        <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
-        <script src='assets/vendors/scroll/scrollbar.min.js'></script>
-        <script src="assets/js/functions.js"></script>
-        <script src="assets/vendors/chart/chart.min.js"></script>
-        <script src="assets/js/admin.js"></script>
+        <script src="assets2/js/jquery.min.js"></script>
+        <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="assets2/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="assets2/vendors/counter/waypoints-min.js"></script>
+        <script src="assets2/vendors/counter/counterup.min.js"></script>
+        <script src="assets2/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="assets2/vendors/masonry/masonry.js"></script>
+        <script src="assets2/vendors/masonry/filter.js"></script>
+        <script src="assets2/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src='assets2/vendors/scroll/scrollbar.min.js'></script>
+        <script src="assets2/js/functions.js"></script>
+        <script src="assets2/vendors/chart/chart.min.js"></script>
+        <script src="assets2/js/admin.js"></script>
         
         <script>
             // Pricing add
