@@ -8,7 +8,142 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
+    <style>
+        .recent-news-carousel .item {
+            width: 100%; /* Chiều rộng 100% của container */
+            display: flex;
+            justify-content: center; /* Canh giữa các item */
+            flex: 0 0 33%; /* Đảm bảo các item có chiều rộng đều nhau (3 item trên mỗi hàng) */
+            padding: 10px; /* Khoảng cách giữa các item */
+        }
 
+        /* Đảm bảo tất cả các blog có chiều cao và chiều rộng bằng nhau */
+        .recent-news {
+            width: 100%; /* Chiều rộng bằng 100% */
+            height: 500px; /* Chiều cao cố định cho blog */
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Đảm bảo các phần tử bên trong được căn chỉnh đều */
+            overflow: hidden; /* Ẩn những phần tử vượt ra ngoài */
+        }
+
+        /* Hình ảnh sẽ chiếm 100% chiều rộng và chiều cao cố định */
+        .recent-news .action-box {
+            height: 500px; /* Chiều cao cố định cho ảnh */
+            width: 100%; /* Chiều rộng bằng 100% */
+            overflow: hidden; /* Ẩn phần ảnh vượt quá chiều cao */
+        }
+
+        .recent-news .action-box img {
+            width: 100%; /* Chiều rộng của ảnh bằng với chiều rộng của container */
+            height: 100%; /* Chiều cao của ảnh bằng với chiều cao của container */
+            object-fit: cover; /* Đảm bảo ảnh lấp đầy không gian mà không bị méo */
+        }
+
+        /* Căn chỉnh phần tiêu đề và mô tả sao cho đều nhau */
+        .recent-news .info-bx {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Đảm bảo các phần tử con được căn chỉnh đều nhau */
+            height: 100%; /* Đảm bảo container chiếm hết chiều cao */
+        }
+
+        /* Tiêu đề sẽ có kích thước cố định và căn chỉnh */
+        .recent-news .info-bx .post-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        /* Mô tả nội dung sẽ bị giới hạn dòng */
+        .recent-news .info-bx p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Giới hạn 3 dòng nội dung */
+            -webkit-box-orient: vertical;
+        }
+        .courses-carousel .cours-bx {
+            display: flex;
+            flex-direction: column;
+            height: 400px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            overflow: hidden;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .courses-carousel .action-box {
+            flex-shrink: 0;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .courses-carousel .action-box img {
+            width: 100%;
+            height: 155px;
+            border-radius: 8px;
+        }
+
+
+
+        .courses-carousel .info-bx {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;  /* Căn phần tử từ trên xuống, không gian sẽ được chia đều */
+            height: auto; /* Đảm bảo chiều cao tự động để phù hợp với nội dung */
+            
+            flex-grow: 1;  /* Để các phần tử bên trong có thể chiếm không gian tự do */
+        }
+
+        /* Phần tiêu đề */
+        .courses-carousel h5 {
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            white-space: normal; /* Đảm bảo tiêu đề có thể xuống dòng */
+            overflow: visible;   /* Hiển thị toàn bộ nội dung mà không bị cắt */
+            text-overflow: clip; /* Không cắt chữ */
+            word-wrap: break-word; /* Đảm bảo chữ sẽ xuống dòng khi dài quá */
+        }
+
+        /* Phần nội dung (span) */
+        .courses-carousel span {
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Giới hạn 3 dòng cho nội dung */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Giới hạn chiều cao nếu cần */
+        @media (max-width: 768px) {
+            .courses-carousel .info-bx {
+                height: auto;  /* Cho phép chiều cao thay đổi theo nội dung */
+            }
+
+            .courses-carousel h5, .courses-carousel span {
+                white-space: normal;
+            }
+        }
+
+
+    </style>
     <head>
 
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/logochildren.jpg" />
@@ -28,7 +163,7 @@
         <!-- STYLESHEETS ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/post.css">
+
 
         <!-- REVOLUTION SLIDER CSS ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/vendors/revolution/css/layers.css">
@@ -186,6 +321,8 @@
                         </div><!-- END REVOLUTION SLIDER -->  
                     </div>  
                 </div>  
+
+
                 <!-- Main Slider -->
                 <div class="content-block">
 
@@ -231,36 +368,86 @@
                             </div>
                         </div>
                     </div>
+                    <div class="section-area section-sp2 popular-courses-bx">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 heading-bx left">
+                                    <h2 class="title-head">Services</h2>
 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div
+                                    class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0"
+                                    >
+                                    <c:forEach items="${SERVICES}" var="service">
+                                        <div class="item">
+                                            <div class="cours-bx">
+                                                <div class="action-box">
+                                                    <img src="assets/images/our-services/${service.thumbnail}" alt="" />
+                                                    <a href="#" class="btn">Read More</a>
+                                                </div>
+                                                <div class="info-bx text-center">
+                                                    <h5>
+                                                        <a href="#">${service.name}</a>
+                                                    </h5>
+                                                    <span>${service.briefInfo}</span>
+                                                </div>
+                                                <div class="cours-more-info">
+                                                    <div class="review">
+                                                        <span>Discount</span>
+                                                        <h5>${service.discount}%</h5>
+                                                    </div>
+                                                    <div class="price">
+                                                        <span>Price</span>
+                                                        <h5>$${service.price}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Popular Courses -->
                     <div class="section-area section-sp2 popular-courses-bx">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12 heading-bx left">
+
+                                    
                                     <h2 class="title-head">Blog</h2>
+
 
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-
+                                <div class="recent-news-carousel owl-carousel owl-btn-1 col-12 p-lr0">
                                     <c:forEach items="${POSTS}" var="post">
                                         <div class="item">
-                                            <div class="cours-bx">
+                                            <div class="recent-news">
                                                 <div class="action-box">
-                                                    <a href="BlogDetailController?id=${post.id}"><img src="assets/images/courses/${post.thumbnail}" alt=""></a>
-
+                                                    <a href="blogdetail?id=${post.id}"><img src="assets/images/courses/${post.thumbnail}" alt=""></a>
                                                 </div>
-                                                <div class="info-bx text-center">
-                                                    <h5><a href="#">${post.title}</a></h5>
-                                                    <span>${post.content}</span>
+                                                <div class="info-bx">
+                                                    <ul class="media-post">
+                                                        <li>
+                                                            <a><i class="fa fa-calendar"></i>${post.createdDate}</a>
+                                                        </li>
+                                                    </ul>
+                                                    <h5 class="post-title">
+                                                        <a href="blogdetail?id=${post.id}">${post.title}</a
+                                                        >
+                                                    </h5>
+                                                    <p>${post.content}</p>
+                                                    <div class="post-extra">
+                                                        <a href="blogdetail?id=${post.id}">READ MORE</a>
+                                                    </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </c:forEach>
-
-
                                 </div>
                             </div>
                         </div>
@@ -390,6 +577,23 @@
                                     disableFocusListener: false,
                                 }
                             });
+                        }
+                    });
+                </script>
+
+                <script>
+                    // JavaScript để thay đổi ảnh đại diện ngay khi người dùng chọn ảnh mới
+                    const avatarInput = document.getElementById('avatarInput');
+                    const avatarImage = document.getElementById('avatarImage');
+
+                    avatarInput.addEventListener('change', function (event) {
+                        const file = event.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                avatarImage.src = e.target.result; // Cập nhật ảnh đại diện ngay lập tức
+                            };
+                            reader.readAsDataURL(file); // Đọc ảnh dưới dạng URL và thay đổi ảnh
                         }
                     });
                 </script>

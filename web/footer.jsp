@@ -18,7 +18,9 @@
                     <div class="container">
                         <div class="d-flex align-items-stretch">
                             <div class="pt-logo mr-auto">
-                                <a href="index.html"><img src="assets/images/logo-white.png" alt=""/></a>
+                                <div class="menu-logo">
+                                    <a href="/app"><img src="assets/images/logochildren.jpg" alt ></a>
+                                </div>
                             </div>
                             <div class="pt-social-link">
                                 <ul class="list-inline m-a0">

@@ -76,7 +76,7 @@ public class SliderListController extends HttpServlet {
             sliderDAO.updateStatus(sliderId, newStatus);
 
             // Quay lại danh sách slider
-            response.sendRedirect("SliderListController");
+            response.sendRedirect("slider");
         } catch (Exception e) {
             e.printStackTrace();
         }

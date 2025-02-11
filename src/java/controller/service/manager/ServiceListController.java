@@ -29,8 +29,8 @@ public class ServiceListController extends HttpServlet {
         ServiceManagerDAO db = new ServiceManagerDAO();
         CategoryDAO dbCategory = new CategoryDAO();
         ArrayList<Service> list = db.list();
-        List<Category> listCategory = dbCategory.getAllAvailabelCategories();
 
+        List<Category> listCategory = dbCategory.getAllAvailabelCategories();
         request.setAttribute("listCategory", listCategory);
         request.setAttribute("list", list);
 

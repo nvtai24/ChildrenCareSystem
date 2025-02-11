@@ -54,70 +54,80 @@ public class UpdateSliderController extends HttpServlet {
 
             Part filePart = request.getPart("image"); // Lấy file ảnh
 
-            // Kiểm tra nếu không có file mới được chọn
-            if (filePart == null || filePart.getSize() == 0) {
-                request.setAttribute("MESSAGE", "Bạn chưa chọn ảnh mới!");
-                request.getRequestDispatcher("editSlider.jsp").forward(request, response);
-                return;
+            // Khai báo DAO
+            SliderDAO sliderDAO = new SliderDAO();
+            Slider existingSlider = sliderDAO.GetSliderById(sliderId);
+
+            String fileName = null;
+            boolean isUpdatingImage = (filePart != null && filePart.getSize() > 0);
+
+            if (isUpdatingImage) {
+                // Lấy tên file mới
+                fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                String sanitizedFileName = fileName.replaceAll("\\s+", "_");
+
+                // Đường dẫn thư mục lưu ảnh
+                String appPath = getServletContext().getRealPath("/");
+                String rootPath = new File(appPath).getParentFile().getParent();
+
+                String webUploadDir = rootPath + "/web/" + UPLOAD_DIR;
+                String buildUploadDir = rootPath + "/build/web/" + UPLOAD_DIR;
+
+                File webFolder = new File(webUploadDir);
+                File buildFolder = new File(buildUploadDir);
+
+                // Tạo thư mục nếu chưa có
+                if (!webFolder.exists()) {
+                    webFolder.mkdirs();
+                }
+                if (!buildFolder.exists()) {
+                    buildFolder.mkdirs();
+                }
+
+                // Kiểm tra xem ảnh đã tồn tại trong folder hay chưa
+                File existingFile = new File(webFolder, sanitizedFileName);
+                if (!existingFile.exists()) {
+                    // Nếu ảnh mới chưa tồn tại, lưu nó
+                    File webImageFile = new File(webFolder, sanitizedFileName);
+                    File buildImageFile = new File(buildFolder, sanitizedFileName);
+
+                    filePart.write(webImageFile.getAbsolutePath());
+                    Files.copy(webImageFile.toPath(), buildImageFile.toPath());
+
+                    System.out.println("File saved to: " + webImageFile.getAbsolutePath());
+                    System.out.println("File also copied to: " + buildImageFile.getAbsolutePath());
+                } else {
+                    System.out.println("File already exists in folder: " + sanitizedFileName);
+                }
+
+                // Cập nhật fileName để lưu vào database
+                fileName = sanitizedFileName;
+            } else {
+                // Không có ảnh mới, giữ nguyên ảnh cũ
+                fileName = existingSlider.getImageUrl();
             }
-
-            // Lấy tên file và chuẩn hóa
-            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-            String sanitizedFileName = fileName.replaceAll("\\s+", "_");
-
-            // Lấy đường dẫn gốc của dự án
-            String appPath = getServletContext().getRealPath("/");
-            String rootPath = new File(appPath).getParentFile().getParent(); // Lấy thư mục gốc dự án
-
-            // Xác định đường dẫn thư mục `web` và `build`
-            String webUploadDir = rootPath + "/web/" + UPLOAD_DIR;
-            String buildUploadDir = rootPath + "/build/web/" + UPLOAD_DIR;
-
-            File webFolder = new File(webUploadDir);
-            File buildFolder = new File(buildUploadDir);
-
-            // Tạo thư mục nếu chưa tồn tại
-            if (!webFolder.exists()) {
-                webFolder.mkdirs();
-            }
-            if (!buildFolder.exists()) {
-                buildFolder.mkdirs();
-            }
-
-            // Tạo file mới để lưu ảnh
-            File webImageFile = new File(webFolder, sanitizedFileName);
-            File buildImageFile = new File(buildFolder, sanitizedFileName);
-
-            // Ghi file vào thư mục web
-            filePart.write(webImageFile.getAbsolutePath());
-
-            // Copy file từ web sang build
-            Files.copy(webImageFile.toPath(), buildImageFile.toPath());
-
-            System.out.println("File saved to: " + webImageFile.getAbsolutePath());
-            System.out.println("File also copied to: " + buildImageFile.getAbsolutePath());
 
             // Cập nhật thông tin vào database
             Slider slider = new Slider();
             slider.setTitle(title);
             slider.setId(sliderId);
-            slider.setImageUrl(sanitizedFileName);
+            slider.setImageUrl(fileName);
 
-            SliderDAO sliderDAO = new SliderDAO();
             boolean result = sliderDAO.updateSlider(slider);
 
             HttpSession session = request.getSession();
             if (result) {
-                session.setAttribute("MESSAGE", "Cập nhật slider thành công!");
+                session.setAttribute("MESSAGE", "Update slider successfully!");
             } else {
-                session.setAttribute("MESSAGE", "Cập nhật slider thất bại!");
+                session.setAttribute("MESSAGE", "Update slider failed");
             }
 
-            response.sendRedirect("SliderListController");
+            response.sendRedirect("slider");
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi cập nhật slider.");
         }
+
     }
 
     /**
