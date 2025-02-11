@@ -99,7 +99,7 @@
                                                 <li><a><i class="fa fa-calendar"></i>${POST.createdDate}</a></li>
                                                 <li><a><i class="fa fa-comments-o"></i>.....</a></li>
                                             </ul>
-                                            <h5 class="post-title"><a href="#">${POST.title}</a></h5>
+                                            <h5 class="post-title"><a >${POST.title}</a></h5>
                                             <p>${POST.content}</p>
                                             <div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
                                             <div class="widget_tag_cloud">
@@ -154,10 +154,10 @@
 
                                                 <c:forEach var="post" items="${LISTPOSTS}">
                                                     <div class="widget-post clearfix">
-                                                        <div class="ttr-post-media"> <a href="BlogDetailController?id=${post.id}"><img src="assets/images/courses/${post.thumbnail}" width="200" height="143" alt=""></a> </div>
+                                                        <div class="ttr-post-media"> <a href="blogdetail?id=${post.id}"><img src="assets/images/courses/${post.thumbnail}" width="200" height="143" alt=""></a> </div>
                                                         <div class="ttr-post-info">
                                                             <div class="ttr-post-header">
-                                                                <h6 class="post-title"><a href="BlogDetailController?id=${post.id}">${post.title}</a></h6>
+                                                                <h6 class="post-title"><a href="blogdetail?id=${post.id}">${post.title}</a></h6>
                                                             </div>
                                                             <ul class="media-post">
                                                                 <li><a><i class="fa fa-calendar"></i>${post.createdDate}</a></li>

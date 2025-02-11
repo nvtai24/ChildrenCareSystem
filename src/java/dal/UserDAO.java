@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.*;
+import model.Profile;
 import model.auth.User;
 
 public class UserDAO {
@@ -26,19 +27,22 @@ public class UserDAO {
     public User get(String username, String password) {
         User user = null;
         PreparedStatement stm = null;
-        try{
-        String sql = "SELECT `id`, `username`, `password` FROM `user` WHERE `username` = ? AND `password` = ?";
-        stm = dbContext.connection.prepareStatement(sql);
+        try {
+            String sql = "SELECT `id`, `username`, `password`, `email` FROM `user` WHERE `username` = ? AND `password` = ?";
+            stm = dbContext.connection.prepareStatement(sql);
             stm.setString(1, username);
             stm.setString(2, password);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 user = new User();
                 int id = rs.getInt("id");
+                String email = rs.getString("email");
+                
                 user.setId(id);
-                user.setUsername(username);        
+                user.setUsername(username);
+                user.setEmail(email);
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return user;
@@ -48,7 +52,7 @@ public class UserDAO {
         String sql = "INSERT INTO `user` (`username`, `password`, `email`, `verification_token`, `verified`) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement ps = dbContext.connection.prepareStatement(sql)) {
             ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword()); 
+            ps.setString(2, user.getPassword());
             ps.setString(3, user.getEmail());
             ps.setString(4, user.getVerificationToken());
             ps.setBoolean(5, false);  // Mặc định chưa xác minh

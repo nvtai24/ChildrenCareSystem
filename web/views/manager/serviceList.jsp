@@ -331,7 +331,8 @@
                     <h4 class="breadcrumb-title">Service Management</h4>
 
                     <h5 >Status </h5>
-                    <form method="GET" action="/service/filter/manager">
+
+                    <form method="GET" action="ServiceFilterController">
 
                         <select select name="status" onchange="this.form.submit()">
                             <option value="-1" ${ sessionScope.sessionStatus == -1 ? 'selected' : ''}>All Status</option>

@@ -143,6 +143,8 @@ public class ProfileController extends HttpServlet {
         pDB = new ProfileDAO();
         Profile updatedProfile = pDB.getProfileByUserId(id);
         request.setAttribute("profile", updatedProfile);
+
+        // Chuyển tiếp đến trang profile.jsp
         request.getRequestDispatcher("profile.jsp").forward(request, response);
     }
 

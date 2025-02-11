@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 
+
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
@@ -27,6 +28,12 @@ import java.nio.file.Paths;
 public class AddSliderController extends HttpServlet {
 
     private static final String UPLOAD_DIR = "web\\assets\\images\\slider";
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -84,12 +91,12 @@ public class AddSliderController extends HttpServlet {
 
         HttpSession session = request.getSession();
         if (result) {
-            session.setAttribute("MESSAGE", "Thêm slider thành công!");
+            session.setAttribute("MESSAGE", "Add slider successfully!");
         } else {
-            session.setAttribute("MESSAGE", "Thêm slider thất bại!");
+            session.setAttribute("MESSAGE", "Add slider failed!");
         }
 
-        response.sendRedirect("SliderListController");
+        response.sendRedirect("slider");
 
     }
 

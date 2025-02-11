@@ -262,7 +262,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/app/SliderListController" class="ttr-material-button">
+                            <a href="/app/slider" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-book"></i></span>
                                 <span class="ttr-label">Sliders</span>
                             </a>
@@ -360,7 +360,7 @@
                                 <h4>Add Slider</h4>
                             </div>
                             <div class="widget-inner">
-                                <form class="edit-profile m-b30" action="AddSliderController" method="post" enctype="multipart/form-data">
+                                <form class="edit-profile m-b30" action="addslider" method="post" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="ml-auto">
@@ -381,60 +381,10 @@
                                         </div>
 
                                         <div class="seperator"></div>
-                                        <!--
-                                                                                <div class="col-12 m-t20">
-                                                                                    <div class="ml-auto m-b5">
-                                                                                        <h3>2. Description</h3>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="form-group col-12">
-                                                                                    <label class="col-form-label">Course description</label>
-                                                                                    <div>
-                                                                                        <textarea class="form-control"> </textarea>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-12 m-t20">
-                                                                                    <div class="ml-auto">
-                                                                                        <h3 class="m-form__section">3. Add Item</h3>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-12">
-                                                                                    <table id="item-add" style="width:100%;">
-                                                                                        <tr class="list-item">
-                                                                                            <td>
-                                                                                                <div class="row">
-                                                                                                    <div class="col-md-4">
-                                                                                                        <label class="col-form-label">Course Name</label>
-                                                                                                        <div>
-                                                                                                            <input class="form-control" type="text" value="">
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="col-md-3">
-                                                                                                        <label class="col-form-label">Course Category</label>
-                                                                                                        <div>
-                                                                                                            <input class="form-control" type="text" value="">
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="col-md-3">
-                                                                                                        <label class="col-form-label">Course Category</label>
-                                                                                                        <div>
-                                                                                                            <input class="form-control" type="text" value="">
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="col-md-2">
-                                                                                                        <label class="col-form-label">Close</label>
-                                                                                                        <div class="form-group">
-                                                                                                            <a class="delete" href="#"><i class="fa fa-close"></i></a>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </div>-->
+                                      
                                         <div class="col-12">
                                             <button class="btn-secondry add-item m-r5">          
-                                                <a style="color: white" href="SliderListController"><<< Slider list</a>
+                                                <a style="color: white" href="slider"><<< Slider list</a>
                                             </button>
                                             <button type="submit" class="btn">Save changes</button>
                                         </div>
