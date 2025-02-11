@@ -384,7 +384,7 @@
                                         <div class="item">
                                             <div class="cours-bx">
                                                 <div class="action-box">
-                                                    <img src="assets/images/our-services/${service.thumbnail}" alt="" />
+                                                    <img src="${service.thumbnail}" alt="" />
                                                     <a href="#" class="btn">Read More</a>
                                                 </div>
                                                 <div class="info-bx text-center">
@@ -428,7 +428,7 @@
                                         <div class="item">
                                             <div class="recent-news">
                                                 <div class="action-box">
-                                                    <a href="blogdetail?id=${post.id}"><img src="assets/images/courses/${post.thumbnail}" alt=""></a>
+                                                    <a href="blogdetail?id=${post.id}"><img src="${post.thumbnail}" alt=""></a>
                                                 </div>
                                                 <div class="info-bx">
                                                     <ul class="media-post">
