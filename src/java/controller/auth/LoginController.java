@@ -4,6 +4,7 @@
  */
 package controller.auth;
 
+import dal.ProfileDAO;
 import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Profile;
 import model.auth.User;
 
 /**
@@ -33,9 +35,15 @@ public class LoginController extends HttpServlet {
 
         UserDAO udb = new UserDAO();
         User user = udb.get(username, password);
+
         if (user != null) {
+            ProfileDAO pDB = new ProfileDAO();
+            Profile p = pDB.getProfileByUserId(user.getId());
+            
+            user.setProfile(p);
+
             request.getSession().setAttribute("account", user);
-           
+
             response.sendRedirect("/app");
         } else {
             response.sendRedirect("login");

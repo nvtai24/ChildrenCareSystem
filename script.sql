@@ -234,7 +234,7 @@ CREATE TABLE `post` (
   PRIMARY KEY (`id`),
   KEY `author_id` (`author_id`),
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,7 +243,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,1,'Importance of Regular Checkups','Regular health checkups are essential for monitoring the growth and development of children.','checkup.jpg',1,'2025-01-31 23:46:56',NULL),(2,2,'Vaccination Schedule for Children','Ensure your child is up-to-date with their vaccinations to protect them from diseases.','vaccination.jpg',1,'2025-01-31 23:46:56',NULL),(3,3,'Nutrition Tips for Kids','A balanced diet is crucial for the healthy development of children.','nutrition.jpg',1,'2025-01-31 23:46:56',NULL);
+INSERT INTO `post` VALUES (1,1,'Importance of Regular Checkups','Regular health checkups are essential for monitoring the growth and development of children.','assets/images/blog/blog1.jpg',1,'2025-01-31 23:46:56','2025-02-10 10:42:43'),(2,2,'Vaccination Schedule for Children','Ensure your child is up-to-date with their vaccinations to protect them from diseases.','assets/images/blog/blog2.jpg',1,'2025-01-31 23:46:56','2025-02-10 10:42:43'),(3,3,'Nutrition Tips for Kids','A balanced diet is crucial for the healthy development of children.','assets/images/blog/blog3.jpg',1,'2025-01-31 23:46:56','2025-02-10 10:42:43'),(16,1,'Common Childhood Illnesses','Understanding and preventing common childhood illnesses helps keep your child healthy.','assets/images/blog/blog16.jpg',1,'2025-02-01 09:12:45','2025-02-10 10:42:43'),(17,1,'How to Build Strong Immunity','Learn about the best ways to boost your child’s immune system.','assets/images/blog/blog17.jpg',1,'2025-02-01 09:15:20','2025-02-10 10:42:43'),(18,1,'First Aid for Children','Essential first aid tips for dealing with common injuries in children.','assets/images/blog/blog18.jpg',1,'2025-02-01 09:20:10','2025-02-10 10:42:43'),(19,1,'Sleep Routines for Kids','Establishing healthy sleep routines is vital for your child’s development.','assets/images/blog/blog19.jpg',1,'2025-02-01 09:22:35','2025-02-10 10:42:43'),(20,1,'Dental Care for Children','Starting dental care early can prevent future dental problems.','assets/images/blog/blog20.jpg',1,'2025-02-01 09:25:00','2025-02-10 10:42:43'),(21,1,'Mental Health in Children','Supporting your child’s mental health is as important as their physical health.','assets/images/blog/blog21.jpg',1,'2025-02-01 09:30:15','2025-02-10 10:42:43'),(22,1,'Exercise for Kids','Regular physical activity is key for your child’s growth and well-being.','assets/images/blog/blog22.jpg',1,'2025-02-01 09:35:10','2025-02-10 10:42:43'),(23,1,'Skin Care for Children','Learn the importance of gentle skin care for young children.','assets/images/blog/blog23.jpg',1,'2025-02-01 09:40:25','2025-02-10 10:42:43'),(24,1,'Sun Protection for Kids','Protect your child from harmful UV rays with the right sun protection.','assets/images/blog/blog24.jpg',1,'2025-02-01 09:45:35','2025-02-10 10:42:43');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,7 +275,7 @@ CREATE TABLE `profile` (
 
 LOCK TABLES `profile` WRITE;
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
-INSERT INTO `profile` VALUES (1,'Admin User',1,'1980-01-01','123 Admin Street','123-456-7890','assets/images/profile/profile_1.jpg','2025-01-31 23:46:55','2025-02-05 16:03:32'),(2,'Dr. John Doe',1,'1975-05-15','456 Health Lane','234-567-8901','assets/images/profile/profile_2.jpg','2025-01-31 23:46:55','2025-02-05 16:03:32'),(3,'Jane Smith',0,'1985-08-20','789 Parent Road','345-678-9012','assets/images/profile/profile_3.jpg','2025-01-31 23:46:55','2025-02-05 16:03:32'),(4,'Staff Member',1,'1990-03-10','101 Staff Avenue','456-789-0123','assets/images/profile/profile_4.jpg','2025-01-31 23:46:55','2025-02-05 16:03:32');
+INSERT INTO `profile` VALUES (1,'Admin User',1,'1980-01-01','123 Admin Street','123-456-7890','assets/images/profile/profile_1.jpg','2025-01-31 23:46:55','2025-02-05 16:03:32'),(2,'Dr. John Doe',1,'1975-05-15','456 Health Lane kkk','124356789','assets/images/profile/profile_2.jpg','2025-01-31 23:46:55','2025-02-10 08:33:13'),(3,'Jane Smith',0,'1985-08-20','789 Parent Road','345-678-9012','assets/images/profile/profile_3.jpg','2025-01-31 23:46:55','2025-02-05 16:03:32'),(4,'Staff Member',1,'1990-03-10','101 Staff Avenue','456-789-0123','assets/images/profile/profile_4.jpg','2025-01-31 23:46:55','2025-02-05 16:03:32');
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -485,7 +485,7 @@ CREATE TABLE `slider` (
 
 LOCK TABLES `slider` WRITE;
 /*!40000 ALTER TABLE `slider` DISABLE KEYS */;
-INSERT INTO `slider` VALUES (1,'Welcome to Children Care','assets/images/slider/slider1.jpg','/',1,1,'2025-01-31 23:46:55','2025-02-08 23:52:35'),(2,'Healthy Kids, Happy Parents','assets/images/slider/slider2.jpg','/services',1,1,'2025-01-31 23:46:55','2025-02-08 23:52:35'),(3,'Book an Appointment Today','assets/images/slider/slider3.jpg','/appointment',1,1,'2025-01-31 23:46:55','2025-02-08 23:52:35'),(4,'Fun Activities for Kids','assets/images/slider/slider4.jpg','/activities',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(5,'Expert Childcare Services','assets/images/slider/slider5.jpg','/services',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(6,'Your Child’s Health Matters','assets/images/slider/slider6.jpg','/health',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(7,'Educational Programs','assets/images/slider/slider7.jpg','/education',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(8,'Nutritional Guidance','assets/images/slider/slider8.jpg','/nutrition',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(9,'Safe and Secure Environment','assets/images/slider/slider9.jpg','/safety',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(10,'Engaging Playtime','assets/images/slider/slider10.jpg','/play',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(11,'Caring and Supportive Staff','assets/images/slider/slider11.jpg','/team',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(12,'Parental Involvement','assets/images/slider/slider12.jpg','/parents',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(13,'Book a Consultation','assets/images/slider/slider13.jpg','/consultation',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35');
+INSERT INTO `slider` VALUES (1,'Welcome to Children Care','assets/images/slider/slider1.jpg','/app',1,1,'2025-01-31 23:46:55','2025-02-10 09:41:39'),(2,'Healthy Kids, Happy Parents','assets/images/slider/slider2.jpg','/services',1,1,'2025-01-31 23:46:55','2025-02-08 23:52:35'),(3,'Book an Appointment Today','assets/images/slider/slider3.jpg','/appointment',1,1,'2025-01-31 23:46:55','2025-02-08 23:52:35'),(4,'Fun Activities for Kids','assets/images/slider/slider4.jpg','/activities',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(5,'Expert Childcare Services','assets/images/slider/slider5.jpg','/services',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(6,'Your Child’s Health Matters','assets/images/slider/slider6.jpg','/health',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(7,'Educational Programs','assets/images/slider/slider7.jpg','/education',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(8,'Nutritional Guidance','assets/images/slider/slider8.jpg','/nutrition',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(9,'Safe and Secure Environment','assets/images/slider/slider9.jpg','/safety',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(10,'Engaging Playtime','assets/images/slider/slider10.jpg','/play',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(11,'Caring and Supportive Staff','assets/images/slider/slider11.jpg','/team',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(12,'Parental Involvement','assets/images/slider/slider12.jpg','/parents',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(13,'Book a Consultation','assets/images/slider/slider13.jpg','/consultation',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35');
 /*!40000 ALTER TABLE `slider` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -521,7 +521,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','admin123','admin@childrencare.com',1,1,'2025-01-31 23:46:55',NULL),(2,'doctor1','doctor123','doctor1@childrencare.com',2,1,'2025-01-31 23:46:55',NULL),(3,'parent1','parent123','parent1@childrencare.com',3,1,'2025-01-31 23:46:55',NULL),(4,'staff1','staff123','staff1@childrencare.com',4,1,'2025-01-31 23:46:55',NULL),(5,'parent2','parent123','parent2@gmail.com',3,1,'2025-02-03 12:27:52',NULL),(6,'parent3','parent123','parent3@gmail.com',3,1,'2025-02-03 12:28:17',NULL),(7,'parent4','parent123','parent$@gmail.com',3,1,'2025-02-03 12:28:38',NULL);
+INSERT INTO `user` VALUES (1,'admin','123','admin@childrencare.com',1,1,'2025-01-31 23:46:55','2025-02-10 09:19:58'),(2,'doctor1','123','doctor1@childrencare.com',2,1,'2025-01-31 23:46:55','2025-02-10 09:19:58'),(3,'parent1','123','parent1@childrencare.com',3,1,'2025-01-31 23:46:55','2025-02-10 09:19:58'),(4,'staff1','123','staff1@childrencare.com',4,1,'2025-01-31 23:46:55','2025-02-10 09:19:58'),(5,'parent2','123','parent2@gmail.com',3,1,'2025-02-03 12:27:52','2025-02-10 09:19:58'),(6,'parent3','123','parent3@gmail.com',3,1,'2025-02-03 12:28:17','2025-02-10 09:19:58'),(7,'parent4','123','parent$@gmail.com',3,1,'2025-02-03 12:28:38','2025-02-10 09:19:58');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -534,4 +534,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-09  0:04:07
+-- Dump completed on 2025-02-10 10:44:24

@@ -1,196 +1,14 @@
 <%-- 
-    Document   : sliderlist
-    Created on : Jan 26, 2025, 10:28:59 PM
-    Author     : ADMIN
+    Document   : serviceCreate
+    Created on : Jan 23, 2025, 11:43:25 PM
+    Author     : Admin
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-    <style>
 
-        .filter-search-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px; /* Khoảng cách giữa hai form */
-            margin-bottom: 20px;
-        }
-
-
-        .form-search, .form-filter, .form-add {
-            display: flex;
-            align-items: center;
-            background: #f9f9f9;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-            gap: 10px;
-        }
-
-        /* Ô nhập dữ liệu */
-        .form-search input, .form-filter select {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            outline: none;
-            font-size: 16px;
-            background: white;
-        }
-
-        /* Ô nhập tìm kiếm */
-        .form-search input {
-            width: 200px;
-        }
-
-        /* Dropdown filter */
-        .form-filter select {
-            width: 150px;
-            cursor: pointer;
-        }
-
-        /* Hiệu ứng khi hover vào dropdown */
-        .form-filter select:hover {
-            border-color: #EFBB20;
-        }
-
-        /* Label của bộ lọc */
-        .form-filter label {
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        /* Nút chung cho cả Search & Filter */
-        .form-search button, .form-filter button, .form-add button {
-            background: #EFBB20;
-            color: black;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        /* Hiệu ứng khi hover vào nút */
-        .form-search button:hover, .form-filter button:hover, .form-add button:hover{
-            background: #FFC321;
-        }
-        .btn.update {
-            background-color: #EFBB20;
-            color: black;
-            border: none;
-            padding: 5px 15px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .btn.delete {
-            background-color: #EFBB20;
-            color: black;
-            border: none;
-            padding: 5px 15px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .btn.disable {
-            background-color: red;
-            color: white;
-            padding: 5px 15px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-
-        .btn.enable {
-            background-color: green;
-            color: white;
-            padding: 5px 15px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-
-        .btn:hover {
-            opacity: 0.8;
-        }
-        .wc-title h4 {
-
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        .form-search  {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 10px;
-        }
-        table {
-            width: 100%;
-            max-width: 1200px;
-            border-collapse: collapse;
-            margin: 20px auto;
-            table-layout: fixed;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: center;
-        }
-        th {
-            background-color: #f4f4f4;
-            font-weight: bold;
-        }
-        img {
-            max-width: 50px;
-            height: auto;
-        }
-
-
-        td:first-child, th:first-child {
-            width: 3%;
-            text-align: center;
-        }
-
-        td:nth-child(2), th:nth-child(2) {
-            width: 15%;
-            text-align: center;
-        }
-
-        td:nth-child(3), th:nth-child(3) {
-            width: 12%;
-            text-align: center;
-        }
-
-        td:nth-child(4), th:nth-child(4) {
-            width: 6%;
-            text-align: center;
-        }
-        td:nth-child(5), th:nth-child(5) {
-            width: 10%;
-            text-align: center;
-        }
-        td:nth-child(6), th:nth-child(6) {
-            width: 10%;
-            text-align: center;
-        }
-
-        td:nth-child(7), th:nth-child(7) {
-            width: 10%;
-            text-align: center;
-        }
-        td:nth-child(8), th:nth-child(8) {
-            width: 6%;
-            text-align: center;
-        }
-
-        td:last-child, th:last-child {
-            width: 6%;
-            text-align: center;
-        }
-    </style>
-    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:10:19 GMT -->
+    <!-- Mirrored from educhamp.themetrades.com/demo/admin/add-listing.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:09:05 GMT -->
     <head>
 
         <!-- META ============================================= -->
@@ -211,17 +29,17 @@
 
         <!-- FAVICONS ICON ============================================= -->
         <link rel="icon" href="../error-404.html" type="image/x-icon" />
-        <link rel="shortcut icon" type="image/x-icon" href="assets/images/logochildren.jpg" />
+        <link rel="shortcut icon" type="image/x-icon" href="assets2/images/favicon.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>ChildrenCare </title>
+        <title>EduChamp : Education HTML Template </title>
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!--[if lt IE 9]>
-        <script src="assets/js/html5shiv.min.js"></script>
-        <script src="assets/js/respond.min.js"></script>
+        <script src="assets2/js/html5shiv.min.js"></script>
+        <script src="assets2/js/respond.min.js"></script>
         <![endif]-->
 
         <!-- All PLUGINS CSS ============================================= -->
@@ -254,31 +72,14 @@
                 <!--logo start -->
                 <div class="ttr-logo-box">
                     <div>
-                        <a href="/app" class="ttr-logo">
-
-                            <img alt=""  src="assets/images/logochildren.jpg" width="70" height="10">
+                        <a href="index.html" class="ttr-logo">
+                            <h2 style="color: white">Children Care System</h2>
                         </a>
                     </div>
                 </div>
                 <!--logo end -->
                 <div class="ttr-header-menu">
-                    <!-- header left menu start -->
-                    <ul class="ttr-header-navigation">
-                        <li>
-                            <a href="/app" class="ttr-material-button ttr-submenu-toggle">HOME</a>
-                        </li>
-                        <li>
 
-                            <div class="ttr-header-submenu">
-                                <ul>
-                                    <li><a href="../courses.html">Our Courses</a></li>
-                                    <li><a href="../event.html">New Event</a></li>
-                                    <li><a href="../membership.html">Membership</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- header left menu end -->
                 </div>
                 <div class="ttr-header-right ttr-with-seperator">
                     <!-- header right menu start -->
@@ -360,7 +161,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets2/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
                             <div class="ttr-header-submenu">
                                 <ul>
                                     <li><a href="user-profile.html">My profile</a></li>
@@ -400,6 +201,7 @@
                             </div>
                         </li>
                     </ul>
+
                     <!-- header right menu end -->
                 </div>
                 <!--header search panel start -->
@@ -416,7 +218,6 @@
                 </div>
                 <!--header search panel end -->
             </div>
-
         </header>
         <!-- header end -->
         <!-- Left sidebar menu start -->
@@ -424,7 +225,7 @@
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- side menu logo start -->
                 <div class="ttr-sidebar-logo">
-                    <a ><img alt="" src="assets/images/logochildren.jpg" width="70" height="17"></a>
+                    <a href="#"><img alt="" src="assets2/images/logo.png" width="122" height="27"></a>
                     <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
                             <i class="material-icons ttr-fixed-icon">gps_fixed</i>
                             <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
@@ -444,15 +245,15 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/app/slider" class="ttr-material-button">
+                            <a href="./ServiceListController" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Sliders</span>
+                                <span class="ttr-label">Services</span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-email"></i></span>
-                                <span class="ttr-label">Mailbox</span>
+                                <span class="ttr-label">Other </span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
@@ -470,7 +271,7 @@
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-calendar"></i></span>
-                                <span class="ttr-label">Calendar</span>
+                                <span class="ttr-label">Other</span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
@@ -485,25 +286,25 @@
                         <li>
                             <a href="bookmark.html" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-bookmark-alt"></i></span>
-                                <span class="ttr-label">Bookmarks</span>
+                                <span class="ttr-label">Other</span>
                             </a>
                         </li>
                         <li>
                             <a href="review.html" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-comments"></i></span>
-                                <span class="ttr-label">Review</span>
+                                <span class="ttr-label">Other</span>
                             </a>
                         </li>
                         <li>
                             <a href="add-listing.html" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-layout-accordion-list"></i></span>
-                                <span class="ttr-label">Add listing</span>
+                                <span class="ttr-label">Other</span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-user"></i></span>
-                                <span class="ttr-label">My Profile</span>
+                                <span class="ttr-label">Other</span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
@@ -528,147 +329,126 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-
-                    <h4 class="breadcrumb-title">SLIDERS</h4>
-
+                    <h4 class="breadcrumb-title">Add Service</h4>
+                    <ul class="db-breadcrumb-list">
+                        <li><a href="./ServiceListController"><i class="fa fa-home"></i>Service List</a></li>
+                        <li>Add Service</li>
+                    </ul>
                 </div>	
                 <div class="row">
                     <!-- Your Profile Views Chart -->
                     <div class="col-lg-12 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>Slider List</h4>
-                                <c:if test="${sessionScope.MESSAGE != null}">
-                                    <div class="alert alert-success">${sessionScope.MESSAGE}</div>
-                                </c:if>
-                                <!-- Xóa message khỏi session sau khi hiển thị -->
-                                <c:remove var="MESSAGE" scope="session"/>
+                                <h4>Add Service</h4>
                             </div>
-                            <!-- Container chứa cả 2 form -->
-                            <div class="filter-search-container">
+                            <div class="widget-inner">
+                                <form class="edit-profile m-b30" id="numberForm" action="ServiceCreateController" method="POST" onsubmit="return confirmCreateService()" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="ml-auto">
+                                                <h3>1. Basic info</h3>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label class="col-form-label">Service name</label>
+                                            <div>
+                                                <input class="form-control" type="text" name="name" placeholder="Enter a name" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label class="col-form-label">Category</label>
+                                            <div>
+                                                <select select name="idCategory" >
 
-                                <!-- Form tìm kiếm -->
-                                <form method="get" action="slider" class="form-search">
-                                    <input type="text" id="search" name="search" value="${param.search}" placeholder="Search by title">
-                                    <button type="submit">Search</button>
+
+                                                    <c:forEach items="${listCategory}" var="c">                                
+                                                        <option value="${c.id}" >${c.name}</option>                                
+                                                    </c:forEach>
+
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-6">
+                                            <label class="col-form-label">Service price</label>
+                                            <div>
+                                                <input class="form-control" type="number" 
+                                                       placeholder="Enter a number" 
+                                                       name ="price"
+                                                       >
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label class="col-form-label">Service discount</label>
+                                            <div>
+                                                <input class="form-control" type="number" placeholder="Enter a number"  name="discount"
+                                                       >
+                                            </div>
+                                        </div>
+
+                                        <div class="seperator"></div>
+
+                                        <div class="col-12 m-t20">
+                                            <div class="ml-auto m-b5">
+                                                <h3>2. Description</h3>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-12">
+
+                                            <label class="col-form-label">Service Brief Information</label>
+                                            <div>
+                                                <input class="form-control" type="text" name="briefInfo" placeholder="Enter a Brief Information"/>                                                
+                                            </div>
+                                            <label class="col-form-label">Service description</label>
+                                            <div>
+                                                <textarea class="form-control" name="description"  > </textarea>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-12 m-t20">
+                                            <div class="ml-auto">
+                                                <h3 class="m-form__section">3. Add Item</h3>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <table id="item-add" style="width:100%;">
+                                                <tr class="list-item">
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label class="col-form-label">Thumbnail URL</label>
+                                                                <div>
+                                                                    <input type="file" name="thumbnail" accept="image/*" required onchange="previewImage(event)">
+                                                                    <img id="imagePreview" src="#" alt="Image Preview" style="display: none; width: 200px; height: auto; margin-top: 10px;">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 ">
+                                                                <label class="col-form-label">Status</label><br/>
+                                                                <div class="row-md-3 ">
+                                                                    <input type="radio" name="status" checked="checked" value="1" check="checked"/>Active
+
+                                                                </div>
+                                                                <div class="row-md-3 ">
+                                                                    <input type="radio" name="status" checked="checked" value="0"/>Inactive
+                                                                </div>
+
+
+                                                            </div>
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-12">
+
+                                            <button type="submit" class="btn">Save changes</button> 
+                                            <h4 style="color: red;">${error}</h4>
+                                        </div>
+                                    </div>
                                 </form>
-
-                                <!-- Form lọc trạng thái -->
-                                <form method="get" action="slider" class="form-filter">
-                                    <select name="status" id="status">
-                                        <option value="" ${empty param.status ? "selected" : ""}>All</option>
-                                        <option value="true" ${param.status == "true" ? "selected" : ""}>Active</option>
-                                        <option value="false" ${param.status == "false" ? "selected" : ""}>Inactive</option>
-                                    </select>
-                                    <button type="submit">Apply</button>
-                                </form>
-                                <form class="form-add">
-                                    <button type="button" onclick="window.location.href = 'addslider.jsp';">
-                                        Add New Slider
-                                    </button>
-
-                                </form>
-
-                            </div>
-
-                            <br><br>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Title</th>
-                                        <th>Image</th>
-                                        <th>Status</th>
-                                        <th>Created Date</th>
-                                        <th>Updated Date</th>
-                                        <th>Action</th>
-                                        <th></th>
-                                        <th></th>         
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="slider" items="${SLIDERS}" varStatus="status">
-                                        <tr>
-                                            <td>${status.index + 1}</td>
-                                            <td>${slider.title}</td>
-                                            <td><img src="assets/images/slider/${slider.imageUrl}" alt=""/></td>
-                                            <td>
-                                                <c:choose>
-                                                    <c:when test="${slider.status}">
-                                                        <span style="color: green;">Active</span>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <span style="color: red;">Inactive</span>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </td>
-                                            <td>${slider.createdDate}</td>
-                                            <td>
-                                                <c:if test="${slider.updatedDate != null}">
-                                                    ${slider.updatedDate}
-                                                </c:if>
-                                            </td>
-                                            <td>
-                                                <!-- Nút Enable/Disable -->
-                                                <form method="post" action="slider">
-                                                    <input type="hidden" name="id" value="${slider.id}">
-                                                    <input type="hidden" name="status" value="${slider.status ? 0 : 1}">
-                                                    <button type="submit" 
-                                                            class="btn ${slider.status ? 'disable' : 'enable'}">
-                                                        ${slider.status ? 'Disable' : 'Enable'}
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <form method="post" action="DeleteSlider" style="display:inline;">
-                                                    <input type="hidden" name="id" value="${slider.id}">
-                                                    <button type="submit" class="btn delete">
-                                                        Delete
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <form method="get" action="updateslider" style="display:inline;">
-                                                    <input  type="hidden" name="id" value="${slider.id}">
-                                                    <button type="submit" class="btn update" style="display:inline;">
-                                                        Edit
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-
-                            <div class="col-lg-12 m-b20">
-                                <div class="pagination-bx rounded-sm gray clearfix">
-                                    <ul class="pagination">
-                                        <c:if test="${CURRENT_PAGE > 1}">
-                                            <li class="previous">
-                                                <a href="slider?page=${CURRENT_PAGE - 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
-                                                    <i class="ti-arrow-left"></i> Prev
-                                                </a>
-                                            </li>
-                                        </c:if>
-
-                                        <c:forEach begin="1" end="${TOTAL_PAGES}" var="i">
-                                            <li class="${i == CURRENT_PAGE ? 'active' : ''}">
-                                                <a href="slider?page=${i}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
-                                                    ${i}
-                                                </a>
-                                            </li>
-                                        </c:forEach>
-
-                                        <c:if test="${CURRENT_PAGE < TOTAL_PAGES}">
-                                            <li class="next">
-                                                <a href="slider?page=${CURRENT_PAGE + 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
-                                                    <i class="ti-arrow-right"></i> Next
-                                                </a>
-                                            </li>
-                                        </c:if>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -679,23 +459,61 @@
         <div class="ttr-overlay"></div>
 
         <!-- External JavaScripts -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
-        <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-        <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-        <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
-        <script src="assets/vendors/counter/waypoints-min.js"></script>
-        <script src="assets/vendors/counter/counterup.min.js"></script>
-        <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
-        <script src="assets/vendors/masonry/masonry.js"></script>
-        <script src="assets/vendors/masonry/filter.js"></script>
-        <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
-        <script src='assets/vendors/scroll/scrollbar.min.js'></script>
-        <script src="assets/js/functions.js"></script>
-        <script src="assets/vendors/chart/chart.min.js"></script>
-        <script src="assets/js/admin.js"></script>
+        <script src="assets2/js/jquery.min.js"></script>
+        <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="assets2/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="assets2/vendors/counter/waypoints-min.js"></script>
+        <script src="assets2/vendors/counter/counterup.min.js"></script>
+        <script src="assets2/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="assets2/vendors/masonry/masonry.js"></script>
+        <script src="assets2/vendors/masonry/filter.js"></script>
+        <script src="assets2/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src='assets2/vendors/scroll/scrollbar.min.js'></script>
+        <script src="assets2/js/functions.js"></script>
+        <script src="assets2/vendors/chart/chart.min.js"></script>
+        <script src="assets2/js/admin.js"></script>
+        <script src='assets2/vendors/switcher/switcher.js'></script>
+        <script>
+                                                                        // Pricing add
+                                                                        function newMenuItem() {
+                                                                            var newElem = $('tr.list-item').first().clone();
+                                                                            newElem.find('input').val('');
+                                                                            newElem.appendTo('table#item-add');
+                                                                        }
+                                                                        if ($("table#item-add").is('*')) {
+                                                                            $('.add-item').on('click', function (e) {
+                                                                                e.preventDefault();
+                                                                                newMenuItem();
+                                                                            });
+                                                                            $(document).on("click", "#item-add .delete", function (e) {
+                                                                                e.preventDefault();
+                                                                                $(this).parent().parent().parent().parent().remove();
+                                                                            });
+                                                                        }
+
+                                                                        function confirmCreateService() {
+                                                                            return confirm("Are you sure you want to create the service?");
+                                                                        }
+                                                                        function previewImage(event) {
+                                                                            var input = event.target;
+                                                                            var reader = new FileReader();
+
+                                                                            reader.onload = function () {
+                                                                                var img = document.getElementById('imagePreview');
+                                                                                img.src = reader.result;
+                                                                                img.style.display = 'block';
+                                                                            };
+
+                                                                            if (input.files && input.files[0]) {
+                                                                                reader.readAsDataURL(input.files[0]);
+                                                                            }
+                                                                        }
+
+        </script>
     </body>
 
-    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
+    <!-- Mirrored from educhamp.themetrades.com/demo/admin/add-listing.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:09:05 GMT -->
 </html>

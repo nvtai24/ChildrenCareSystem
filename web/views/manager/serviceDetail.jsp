@@ -1,11 +1,10 @@
 <%-- 
-    Document   : addslider
-    Created on : Feb 7, 2025, 10:16:33 AM
-    Author     : ADMIN
+    Document   : serviceCreate
+    Created on : Jan 23, 2025, 11:43:25 PM
+    Author     : Admin
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,17 +29,17 @@
 
         <!-- FAVICONS ICON ============================================= -->
         <link rel="icon" href="../error-404.html" type="image/x-icon" />
-        <link rel="shortcut icon" type="image/x-icon" href="assets/images/logochildren.jpg" />
+        <link rel="shortcut icon" type="image/x-icon" href="assets2/images/favicon.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>ChildrenCare</title>
+        <title>EduChamp : Education HTML Template </title>
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!--[if lt IE 9]>
-        <script src="assets/js/html5shiv.min.js"></script>
-        <script src="assets/js/respond.min.js"></script>
+        <script src="assets2/js/html5shiv.min.js"></script>
+        <script src="assets2/js/respond.min.js"></script>
         <![endif]-->
 
         <!-- All PLUGINS CSS ============================================= -->
@@ -73,31 +72,14 @@
                 <!--logo start -->
                 <div class="ttr-logo-box">
                     <div>
-                        <a href="/app" class="ttr-logo">
-
-                            <img alt=""  src="assets/images/logochildren.jpg" width="70" height="10">
+                        <a href="index.html" class="ttr-logo">
+                            <h2 style="color: white">Children Care System</h2>
                         </a>
                     </div>
                 </div>
                 <!--logo end -->
                 <div class="ttr-header-menu">
-                    <!-- header left menu start -->
-                    <ul class="ttr-header-navigation">
-                        <li>
-                            <a href="/app" class="ttr-material-button ttr-submenu-toggle">HOME</a>
-                        </li>
-                        <li>
 
-                            <div class="ttr-header-submenu">
-                                <ul>
-                                    <li><a href="../courses.html">Our Courses</a></li>
-                                    <li><a href="../event.html">New Event</a></li>
-                                    <li><a href="../membership.html">Membership</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- header left menu end -->
                 </div>
                 <div class="ttr-header-right ttr-with-seperator">
                     <!-- header right menu start -->
@@ -179,7 +161,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets2/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
                             <div class="ttr-header-submenu">
                                 <ul>
                                     <li><a href="user-profile.html">My profile</a></li>
@@ -219,6 +201,7 @@
                             </div>
                         </li>
                     </ul>
+
                     <!-- header right menu end -->
                 </div>
                 <!--header search panel start -->
@@ -242,11 +225,11 @@
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- side menu logo start -->
                 <div class="ttr-sidebar-logo">
-                    <a ><img alt="" src="assets/images/logochildren.jpg" width="70" height="17"></a>
-                    <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
-                            <i class="material-icons ttr-fixed-icon">gps_fixed</i>
-                            <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
-                    </div> -->
+                    <a href="#"><img alt="" src="assets2/images/logo.png" width="122" height="27"></a>
+                    <!--                    <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
+                                            <i class="material-icons ttr-fixed-icon">gps_fixed</i>
+                                            <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
+                                        </div> -->
                     <div class="ttr-sidebar-toggle-button">
                         <i class="ti-arrow-left"></i>
                     </div>
@@ -262,15 +245,15 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/app/slider" class="ttr-material-button">
+                            <a href="./ServiceListController" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Sliders</span>
+                                <span class="ttr-label">Services</span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-email"></i></span>
-                                <span class="ttr-label">Mailbox</span>
+                                <span class="ttr-label">Other </span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
@@ -288,7 +271,7 @@
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-calendar"></i></span>
-                                <span class="ttr-label">Calendar</span>
+                                <span class="ttr-label">Other</span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
@@ -303,25 +286,25 @@
                         <li>
                             <a href="bookmark.html" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-bookmark-alt"></i></span>
-                                <span class="ttr-label">Bookmarks</span>
+                                <span class="ttr-label">Other</span>
                             </a>
                         </li>
                         <li>
                             <a href="review.html" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-comments"></i></span>
-                                <span class="ttr-label">Review</span>
+                                <span class="ttr-label">Other</span>
                             </a>
                         </li>
                         <li>
                             <a href="add-listing.html" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-layout-accordion-list"></i></span>
-                                <span class="ttr-label">Add listing</span>
+                                <span class="ttr-label">Other</span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-user"></i></span>
-                                <span class="ttr-label">My Profile</span>
+                                <span class="ttr-label">Other</span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
@@ -346,10 +329,10 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">Add Slider</h4>
+                    <h4 class="breadcrumb-title">Service Detail</h4>
                     <ul class="db-breadcrumb-list">
-                        
-                        <li>Add Slider</li>
+                        <li><a href="./ServiceListController"><i class="fa fa-home"></i>Service List</a></li>
+                        <li>View</li>
                     </ul>
                 </div>	
                 <div class="row">
@@ -357,39 +340,115 @@
                     <div class="col-lg-12 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>Add Slider</h4>
+                                <h4>Service Detail</h4>
                             </div>
                             <div class="widget-inner">
-                                <form class="edit-profile m-b30" action="addslider" method="post" enctype="multipart/form-data">
+                                <form class="edit-profile m-b30"  name="serviceForm" d="numberForm"  action="ServiceUpdateController" method="POST" onsubmit="return confirmCreateService()" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="ml-auto">
-                                                <h3>Information</h3>
+                                                <h3>1. Basic info</h3>
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label class="col-form-label">Slider title</label>
+                                            <label class="col-form-label">Service name</label>
                                             <div>
-                                                <input name="title" class="form-control" type="text" value="" required>
+                                                <input class="form-control" type="text" name="name" placeholder="Enter a name"  value="${s.name}">
+                                                <input type="hidden" value="${s.id}" name="id" required>
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label class="col-form-label">Image</label>
+                                            <label class="col-form-label">Category</label>
                                             <div>
-                                                <input class="form-control" type="file" name="image" accept="image/*" required>
+                                                <select select name="idCategory" >
+                                                    <c:forEach items="${listCategory}" var="c">                                
+                                                        <option value="${c.id}" ${ s.category.id == c.id ? 'selected' : ''}>${c.name}</option>                                
+                                                    </c:forEach>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-6">
+                                            <label class="col-form-label">Service price</label>
+                                            <div>
+                                                <input class="form-control" type="number" 
+                                                       placeholder="Enter a number" 
+                                                       name ="price"
+                                                       value="${s.price}"
+                                                       required >
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label class="col-form-label">Service discount</label>
+                                            <div>
+                                                <input class="form-control" type="number" placeholder="Enter a number"  name="discount"
+                                                       value="${s.discount}"  required>
                                             </div>
                                         </div>
 
                                         <div class="seperator"></div>
-                                      
+
+                                        <div class="col-12 m-t20">
+                                            <div class="ml-auto m-b5">
+                                                <h3>2. Description</h3>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-12">
+
+                                            <label class="col-form-label">Service Brief Information</label>
+                                            <div>
+                                                <textarea class="form-control" name="briefInfo" placeholder="Enter a Brief Information" rows="3" required>${s.briefInfo}</textarea>                                               
+                                            </div>
+                                            <label class="col-form-label">Service description</label>
+                                            <div>
+                                                <textarea class="form-control" name="description" placeholder="Enter a description" rows="6" required>${requestScope.s.description}</textarea>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-12 m-t20">
+                                            <div class="ml-auto">
+                                                <h3 class="m-form__section">3. Add Item</h3>
+                                            </div>
+                                        </div>
                                         <div class="col-12">
-                                            <button class="btn-secondry add-item m-r5">          
-                                                <a style="color: white" href="slider"><<< Slider list</a>
-                                            </button>
-                                            <button type="submit" class="btn">Save changes</button>
+                                            <table id="item-add" style="width:100%;">
+                                                <tr class="list-item">
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label class="col-form-label">Thumbnail URL</label>
+
+                                                                <div>
+                                                                    <input type="file" name="thumbnail" accept="image/*"  onchange="previewImage(event)">
+                                                                    <input type="hidden" name="oldThumbnail" value="${s.thumbnail}">
+                                                                    <img id="imagePreview" src="${s.thumbnail}" alt="Image Preview" style=" width: 200px; height: auto; margin-top: 10px;">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 ">
+                                                                <label class="col-form-label">Status</label><br/>
+                                                                <div class="row-md-3 ">
+                                                                    <input type="radio" name="status"  value="1" ${ s.status == 1 ? 'checked' : ''}/>Active
+
+                                                                </div>
+                                                                <div class="row-md-3 ">
+                                                                    <input type="radio" name="status"  value="0" ${ s.status == 0 ? 'checked' : ''}/>Inactive
+                                                                </div>
+
+
+                                                            </div>
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-12">
+
+                                            <button type="submit" class="btn">Save changes</button> 
+                                            <h4 style="color: red;">${error}</h4>
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
@@ -417,24 +476,71 @@
         <script src="assets2/js/functions.js"></script>
         <script src="assets2/vendors/chart/chart.min.js"></script>
         <script src="assets2/js/admin.js"></script>
-        
+        <script src='assets2/vendors/switcher/switcher.js'></script>
         <script>
-            // Pricing add
-            function newMenuItem() {
-                var newElem = $('tr.list-item').first().clone();
-                newElem.find('input').val('');
-                newElem.appendTo('table#item-add');
-            }
-            if ($("table#item-add").is('*')) {
-                $('.add-item').on('click', function (e) {
-                    e.preventDefault();
-                    newMenuItem();
-                });
-                $(document).on("click", "#item-add .delete", function (e) {
-                    e.preventDefault();
-                    $(this).parent().parent().parent().parent().remove();
-                });
-            }
+                                                                        // Pricing add
+                                                                        function newMenuItem() {
+                                                                            var newElem = $('tr.list-item').first().clone();
+                                                                            newElem.find('input').val('');
+                                                                            newElem.appendTo('table#item-add');
+                                                                        }
+                                                                        if ($("table#item-add").is('*')) {
+                                                                            $('.add-item').on('click', function (e) {
+                                                                                e.preventDefault();
+                                                                                newMenuItem();
+                                                                            });
+                                                                            $(document).on("click", "#item-add .delete", function (e) {
+                                                                                e.preventDefault();
+                                                                                $(this).parent().parent().parent().parent().remove();
+                                                                            });
+                                                                        }
+
+                                                                        function confirmCreateService() {
+                                                                            return confirm("Are you sure you want to change the service?");
+                                                                        }
+                                                                        function previewImage(event) {
+                                                                            var input = event.target;
+                                                                            var reader = new FileReader();
+
+                                                                            reader.onload = function () {
+                                                                                var img = document.getElementById('imagePreview');
+                                                                                img.src = reader.result;
+                                                                                img.style.display = 'block';
+                                                                            };
+
+                                                                            if (input.files && input.files[0]) {
+                                                                                reader.readAsDataURL(input.files[0]);
+                                                                            }
+                                                                        }
+                                                                        function validateForm() {
+                                                                            let name = document.forms["serviceForm"]["name"].value.trim();
+                                                                            let description = document.forms["serviceForm"]["description"].value.trim();
+                                                                            let price = document.forms["serviceForm"]["price"].value.trim();
+                                                                            let discount = document.forms["serviceForm"]["discount"].value.trim();
+                                                                            let briefInfo = document.forms["serviceForm"]["briefInfo"].value.trim();
+
+                                                                            if (name === "" || description === "" || price === "" || discount === "" || briefInfo === "") {
+                                                                                alert("Please fill in all required fields.");
+                                                                                return false;
+                                                                            }
+
+                                                                            if (isNaN(price) || price <= 0) {
+                                                                                alert("Price must be a positive number.");
+                                                                                return false;
+                                                                            }
+
+                                                                            if (isNaN(discount) || discount < 0) {
+                                                                                alert("Discount must be a valid number and not negative.");
+                                                                                return false;
+                                                                            }
+
+                                                                            if (parseFloat(discount) > parseFloat(price)) {
+                                                                                alert("Discount cannot be greater than the price.");
+                                                                                return false;
+                                                                            }
+
+                                                                            return true;
+                                                                        }
         </script>
     </body>
 
