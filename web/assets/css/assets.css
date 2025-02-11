@@ -1,5 +1,5 @@
 /*=========================
-	All css
+        All css
 ==========================*/
 @import url("../vendors/bootstrap/css/bootstrap.min.css");
 @import url("../vendors/fontawesome/css/font-awesome.min.css");
@@ -11,7 +11,7 @@
 @import url("../vendors/switcher/switcher.css");
 
 /*=========================
-	All css
+        All css
 ==========================*/
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Raleway:100,200,300,400,500,600,700,800,900|Roboto:100,300,400,500,700,900|Rubik:300,400,500,700,900');
 
@@ -21,3 +21,8 @@ font-family: 'Raleway', sans-serif;
 font-family: 'Roboto', sans-serif;
 font-family: 'Rubik', sans-serif;
 */
+
+
+a {
+    text-decoration: none !important;
+}

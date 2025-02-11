@@ -66,7 +66,7 @@
             <!-- Content -->
             <div class="page-content bg-white">
                 <!-- inner page banner -->
-                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/courses/${POST.thumbnail});">
+                <div class="page-banner ovbl-dark" style="background-image:url(${POST.thumbnail});">
                     <div class="container">
                         <div class="page-banner-entry">
                             <h1 class="text-white">Blog Details</h1>
@@ -92,7 +92,7 @@
                                     <!-- blog start -->
                                     <div class="recent-news blog-lg">
                                         <div class="action-box blog-lg">
-                                            <img src="assets/images/courses/${POST.thumbnail}" alt="">
+                                            <img src="${POST.thumbnail}" alt="">
                                         </div>
                                         <div class="info-bx">
                                             <ul class="media-post">
@@ -154,7 +154,7 @@
 
                                                 <c:forEach var="post" items="${LISTPOSTS}">
                                                     <div class="widget-post clearfix">
-                                                        <div class="ttr-post-media"> <a href="blogdetail?id=${post.id}"><img src="assets/images/courses/${post.thumbnail}" width="200" height="143" alt=""></a> </div>
+                                                        <div class="ttr-post-media"> <a href="blogdetail?id=${post.id}"><img src="${post.thumbnail}" width="200" height="143" alt=""></a> </div>
                                                         <div class="ttr-post-info">
                                                             <div class="ttr-post-header">
                                                                 <h6 class="post-title"><a href="blogdetail?id=${post.id}">${post.title}</a></h6>
