@@ -1,8 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    
     <servlet>
         <servlet-name>ServiceListController</servlet-name>
         <servlet-class>controller.service.manager.ServiceListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceCreateController</servlet-name>
+        <servlet-class>controller.service.manager.ServiceCreateController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceUpdateController</servlet-name>
+        <servlet-class>controller.service.manager.ServiceUpdateController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceFilterController</servlet-name>
+        <servlet-class>controller.service.manager.ServiceFilterController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceSortController</servlet-name>
+        <servlet-class>controller.service.manager.ServiceSortController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceChangeStatusController</servlet-name>
+        <servlet-class>controller.service.manager.ServiceChangeStatusController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceSearchByNameController</servlet-name>
+        <servlet-class>controller.service.manager.ServiceSearchByNameController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceFilterByCategoryController</servlet-name>
+        <servlet-class>controller.service.manager.ServiceFilterByCategoryController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServiceListPublicController</servlet-name>
@@ -57,14 +86,6 @@
         <servlet-class>controller.service.publi.ServiceDetailsPublicController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteSlider</servlet-name>
-        <servlet-class>controller.slider.DeleteSlider</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServiceDetails</servlet-name>
-        <servlet-class>controller.service.manager.ServiceDetails</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>BlogDetailController</servlet-name>
         <servlet-class>controller.blog.BlogDetailController</servlet-class>
     </servlet>
@@ -77,17 +98,10 @@
         <servlet-class>controller.slider.UpdateSliderController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProfileController</servlet-name>
-        <servlet-class>controller.common.ProfileController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServiceDetailsPublicController</servlet-name>
-        <servlet-class>controller.service.publi.ServiceDetailsPublicController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>controller.auth.LogoutController</servlet-class>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>ServiceListController</servlet-name>
         <url-pattern>/ServiceListController</url-pattern>
@@ -159,5 +173,33 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceCreateController</servlet-name>
+        <url-pattern>/ServiceCreateController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceUpdateController</servlet-name>
+        <url-pattern>/ServiceUpdateController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceFilterController</servlet-name>
+        <url-pattern>/ServiceFilterController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceSortController</servlet-name>
+        <url-pattern>/ServiceSortController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceChangeStatusController</servlet-name>
+        <url-pattern>/ServiceChangeStatusController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceSearchByNameController</servlet-name>
+        <url-pattern>/ServiceSearchByNameController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceFilterByCategoryController</servlet-name>
+        <url-pattern>/ServiceFilterByCategoryController</url-pattern>
     </servlet-mapping>
 </web-app>
