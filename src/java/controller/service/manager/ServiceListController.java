@@ -6,13 +6,15 @@ package controller.service.manager;
 
 import dal.CategoryDAO;
 import dal.ServiceManagerDAO;
+import dal.CategoryDAO;
+import dal.ServiceManagerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import java.util.List;
 import model.Category;
 import model.Service;
 
@@ -28,7 +30,8 @@ public class ServiceListController extends HttpServlet {
         ServiceManagerDAO db = new ServiceManagerDAO();
         CategoryDAO dbCategory = new CategoryDAO();
         ArrayList<Service> list = db.list();
-        ArrayList<Category> listCategory = dbCategory.list();
+        List<Category> listCategory = dbCategory.getAllAvailabelCategories();
+
 
         request.setAttribute("listCategory", listCategory);
         request.setAttribute("list", list);
