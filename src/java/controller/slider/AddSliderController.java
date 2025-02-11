@@ -18,8 +18,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import model.Slider;
-import org.apache.tomcat.jakartaee.commons.io.FileUtils;
+
 
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 2, // 2MB
