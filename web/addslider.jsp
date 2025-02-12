@@ -30,7 +30,7 @@
 
         <!-- FAVICONS ICON ============================================= -->
         <link rel="icon" href="../error-404.html" type="image/x-icon" />
-        <link rel="shortcut icon" type="image/x-icon" href="assets/images/logochildren.jpg" />
+        <link rel="shortcut icon" type="image/x-icon" href="assets2/images/logochildren.jpg" />
 
         <!-- PAGE TITLE HERE ============================================= -->
         <title>ChildrenCare</title>
@@ -39,8 +39,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!--[if lt IE 9]>
-        <script src="assets/js/html5shiv.min.js"></script>
-        <script src="assets/js/respond.min.js"></script>
+        <script src="assets2/js/html5shiv.min.js"></script>
+        <script src="assets2/js/respond.min.js"></script>
         <![endif]-->
 
         <!-- All PLUGINS CSS ============================================= -->
@@ -75,7 +75,7 @@
                     <div>
                         <a href="/app" class="ttr-logo">
 
-                            <img alt=""  src="assets/images/logochildren.jpg" width="70" height="10">
+                            <img alt=""  src="assets2/images/logochildren.jpg" width="70" height="10">
                         </a>
                     </div>
                 </div>
@@ -179,7 +179,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets2/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
                             <div class="ttr-header-submenu">
                                 <ul>
                                     <li><a href="user-profile.html">My profile</a></li>
@@ -242,7 +242,7 @@
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- side menu logo start -->
                 <div class="ttr-sidebar-logo">
-                    <a ><img alt="" src="assets/images/logochildren.jpg" width="70" height="17"></a>
+                    <a ><img alt="" src="assets2/images/logochildren.jpg" width="70" height="17"></a>
                     <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
                             <i class="material-icons ttr-fixed-icon">gps_fixed</i>
                             <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>

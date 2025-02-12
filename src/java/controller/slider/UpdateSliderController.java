@@ -18,6 +18,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import model.Slider;
 
+
+
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB

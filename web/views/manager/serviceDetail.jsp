@@ -496,7 +496,8 @@
                                                                         }
 
                                                                         function confirmCreateService() {
-                                                                            return confirm("Are you sure you want to change the status?");
+
+                                                                            return confirm("Are you sure you want to change the service?");
                                                                         }
                                                                         function previewImage(event) {
                                                                             var input = event.target;
