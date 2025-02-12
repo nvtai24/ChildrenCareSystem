@@ -46,50 +46,6 @@
         }
     </script>
 </head>
-<body>
-    <div class="reservation-container mt-5">
-        <h2 class="text-center">Your Reservation Cart</h2>
-
-        <table class="reservation-table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Service Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total Cost</th>
-                    <th>Actions</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-            <form action="reservationDetail" method="get">
-                <c:forEach var="reservation" items="${requestScope.reservationDetails}">
-                    <tr>
-                        <td>${reservation.id}</td>
-                        <td>${reservation.service.name}</td>
-                        <td>$${reservation.price}</td>
-                        <td>
-                            <input type="number" id="quantity_${reservation.id}" value="${reservation.quantity}" min="1"
-                                   onchange="updateReservation(${reservation.id})">
-                        </td>
-                        <td id="totalCost_${reservation.id}">$${reservation.total}</td>
-                        <td>
-                            <button class="delete-btn btn-danger" onclick="deleteReservation(${reservation.id})">Delete</button>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </form>
-                
-            </tbody>
-        </table>
-
-        <h4 class="total-price">Total Price: $${totalPrice}</h4>
-
-        <div class="reservation-buttons">
-            <a href="services.jsp" class="btn btn-primary">Choose More Services</a>
-            <a href="reservation-contact.jsp" class="btn btn-success">Check Out</a>
-=======
 <body class="ttr-opened-sidebar ttr-pinned-sidebar">
     <header class="ttr-header">
         <div class="ttr-header-wrapper">
@@ -115,20 +71,17 @@
                             <table class="table table-bordered text-center">
                                 <thead>
                                     <tr class="table-warning">
-                                        <th>ID</th>
                                         <th>Service Name</th>
                                         <th>Price</th>
                                         <th>Quantity</th>
                                         <th>Total Cost</th>
                                         <th>Reserve Date</th>
                                         <th>Actions</th>
-                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach var="reservation" items="${requestScope.reservationDetails}">
                                         <tr>
-                                            <td>${reservation.id}</td>
                                             <td>${reservation.service.name}</td>
                                             <td>$${reservation.price}</td>
                                             <td>
@@ -139,7 +92,6 @@
                                             <td>
                                                 <button class="btn btn-danger" onclick="deleteReservation(${reservation.id})">Delete</button>
                                             </td>
-                                            <td>${reservation.reservation.status.statusName}</td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
