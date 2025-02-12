@@ -17,7 +17,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import model.Slider;
 import org.apache.tomcat.jakartaee.commons.io.FileUtils;
+
 
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 2, // 2MB
@@ -27,6 +29,12 @@ import org.apache.tomcat.jakartaee.commons.io.FileUtils;
 public class AddSliderController extends HttpServlet {
 
     private static final String UPLOAD_DIR = "web\\assets\\images\\slider";
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -80,16 +88,16 @@ public class AddSliderController extends HttpServlet {
 
         // Lưu vào database
         SliderDAO sliderDAO = new SliderDAO();
-        boolean result = sliderDAO.AddNewSlider(title, sanitizedFileName, backLink);
+        boolean result = sliderDAO.AddNewSlider(title, "assets/images/slider/" + fileName, backLink);
 
         HttpSession session = request.getSession();
         if (result) {
-            session.setAttribute("MESSAGE", "Thêm slider thành công!");
+            session.setAttribute("MESSAGE", "Add slider successfully!");
         } else {
-            session.setAttribute("MESSAGE", "Thêm slider thất bại!");
+            session.setAttribute("MESSAGE", "Add slider failed!");
         }
 
-        response.sendRedirect("SliderListController");
+        response.sendRedirect("slider");
 
     }
 

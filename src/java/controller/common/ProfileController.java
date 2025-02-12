@@ -33,10 +33,10 @@ public class ProfileController extends HttpServlet {
     /**
      * Handles the HTTP <code>GET</code> method.
      *
-     * @param request  servlet request
+     * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -58,10 +58,10 @@ public class ProfileController extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request  servlet request
+     * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -142,8 +142,14 @@ public class ProfileController extends HttpServlet {
         // Lấy lại profile cập nhật và gửi qua request
         pDB = new ProfileDAO();
         Profile updatedProfile = pDB.getProfileByUserId(id);
-        request.setAttribute("profile", updatedProfile);
-        request.getRequestDispatcher("profile.jsp").forward(request, response);
+        currentUser.setProfile(updatedProfile);
+
+        session.setAttribute("account", currentUser);
+
+//        response.sendRedirect("/app");
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().write("{\"status\": \"success\", \"message\": \"Profile updated successfully.\", \"avatar\": \"" + avatarPath + "\"}");
+
     }
 
 }
