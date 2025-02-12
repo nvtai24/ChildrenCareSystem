@@ -64,7 +64,7 @@ public class ServiceListPublicController extends HttpServlet {
 
         if (info != null && !info.isBlank()) {
             services = sDB.getAllAvailableServicesByInfo(info);
-            totalServices = services.size(); // Không phân trang nếu tìm kiếm
+            totalServices = services.size(); 
             request.setAttribute("info", info);
         } else if (raw_cid != null) {
             int cid = Integer.parseInt(raw_cid);

@@ -131,8 +131,9 @@
             <div id="loading-icon-bx"></div>
 
             <!-- Header Top ==== -->
-            <jsp:include page="header.jsp"/>
+            <jsp:include page="header2.jsp"/>
             <!-- header END ==== -->
+
             <!-- Content -->
             <div class="page-content bg-white">
                 <!-- inner page banner -->
@@ -177,7 +178,7 @@
                                             <div class="col-md-4 col-lg-4 col-sm-6 m-b30">
                                                 <div class="cours-bx">
                                                     <div class="action-box">
-                                                        <img src="assets/images/courses/${post.thumbnail}" alt="Blog Image">
+                                                        <img src="${post.thumbnail}" alt="Blog Image">
                                                         <a href="blogdetail?id=${post.id}" class="btn">Read More</a>
                                                     </div>
                                                     <div class="info-bx text-center">
@@ -346,7 +347,7 @@
         <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/contact.js"></script>
-        
+
     </body>
 
 </html>

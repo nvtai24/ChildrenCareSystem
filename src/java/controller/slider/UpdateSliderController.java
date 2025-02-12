@@ -113,7 +113,7 @@ public class UpdateSliderController extends HttpServlet {
             Slider slider = new Slider();
             slider.setTitle(title);
             slider.setId(sliderId);
-            slider.setImageUrl(fileName);
+            slider.setImageUrl("assets/images/slider/" + fileName);
 
             boolean result = sliderDAO.updateSlider(slider);
 
