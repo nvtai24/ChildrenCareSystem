@@ -104,7 +104,7 @@
     
     <servlet-mapping>
         <servlet-name>ServiceListController</servlet-name>
-        <url-pattern>/ServiceListController</url-pattern>
+        <url-pattern>/services-manager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceListPublicController</servlet-name>
@@ -176,30 +176,30 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceCreateController</servlet-name>
-        <url-pattern>/ServiceCreateController</url-pattern>
+        <url-pattern>/servicecreate-manager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceUpdateController</servlet-name>
-        <url-pattern>/ServiceUpdateController</url-pattern>
+        <url-pattern>/serviceupdate-manager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceFilterController</servlet-name>
-        <url-pattern>/ServiceFilterController</url-pattern>
+        <url-pattern>/servicefilter-status-manager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceSortController</servlet-name>
-        <url-pattern>/ServiceSortController</url-pattern>
+        <url-pattern>/servicesort-manager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceChangeStatusController</servlet-name>
-        <url-pattern>/ServiceChangeStatusController</url-pattern>
+        <url-pattern>/servicechangestatus-manager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceSearchByNameController</servlet-name>
-        <url-pattern>/ServiceSearchByNameController</url-pattern>
+        <url-pattern>/servicesearch-manager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceFilterByCategoryController</servlet-name>
-        <url-pattern>/ServiceFilterByCategoryController</url-pattern>
+        <url-pattern>/servicefilter-cate-manager</url-pattern>
     </servlet-mapping>
 </web-app>

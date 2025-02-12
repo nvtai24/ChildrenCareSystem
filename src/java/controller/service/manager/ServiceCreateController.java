@@ -143,7 +143,7 @@ public class ServiceCreateController extends HttpServlet {
             }
 
             // Redirect về danh sách dịch vụ
-            response.sendRedirect("ServiceListController");
+            response.sendRedirect("services-manager");
 
         } catch (NumberFormatException e) {
             errorMessage = "Invalid number format!";

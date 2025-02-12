@@ -32,7 +32,7 @@ public class ServiceSearchByNameController extends HttpServlet {
     throws ServletException, IOException {
         String nameService = request.getParameter("nameService");
         if(nameService == null){
-            response.sendRedirect("ServiceListController");
+            response.sendRedirect("services-manager");
         }
         
         ServiceManagerDAO db = new ServiceManagerDAO();

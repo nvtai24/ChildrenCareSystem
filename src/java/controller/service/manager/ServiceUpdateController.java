@@ -47,7 +47,7 @@ public class ServiceUpdateController extends HttpServlet {
             if (session != null) {
                 session.invalidate(); // Hủy toàn bộ session
             }
-            response.sendRedirect("ServiceListController");
+            response.sendRedirect("services-manager");
         } catch (Exception e) {
             ServiceManagerDAO db = new ServiceManagerDAO();
             CategoryDAO dbCategory = new CategoryDAO();
@@ -65,7 +65,7 @@ public class ServiceUpdateController extends HttpServlet {
                 session.invalidate(); // Hủy toàn bộ session
             }
 
-            request.getRequestDispatcher("./views/manager/serviceDetail").forward(request, response);
+            request.getRequestDispatcher("./views/manager/serviceDetail.jsp").forward(request, response);
         }
     }
 

@@ -6,8 +6,6 @@ package controller.service.manager;
 
 import dal.CategoryDAO;
 import dal.ServiceManagerDAO;
-import dal.CategoryDAO;
-import dal.ServiceManagerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -32,7 +30,6 @@ public class ServiceListController extends HttpServlet {
         CategoryDAO dbCategory = new CategoryDAO();
         ArrayList<Service> list = db.list();
         List<Category> listCategory = dbCategory.getAllAvailabelCategories();
-
 
         request.setAttribute("listCategory", listCategory);
         request.setAttribute("list", list);

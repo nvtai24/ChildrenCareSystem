@@ -70,13 +70,13 @@
                 </div>
                 <!--sidebar menu toggler end -->
                 <!--logo start -->
-                <div class="ttr-logo-box">
-                    <div>
-                        <a href="index.html" class="ttr-logo">
-                            <h2 style="color: white">Children Care System</h2>
-                        </a>
-                    </div>
-                </div>
+                			<div class="ttr-logo-box">
+				<div>
+					<a href="index.html" class="ttr-logo">						
+						<img  src="assets/images/logochildren.jpg" width="50px" height="30px">
+					</a>
+				</div>
+			</div>
                 <!--logo end -->
                 <div class="ttr-header-menu">
 
@@ -161,7 +161,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets2/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="${account.avarta}" width="32" height="32"></span></a>
                             <div class="ttr-header-submenu">
                                 <ul>
                                     <li><a href="user-profile.html">My profile</a></li>
@@ -225,7 +225,7 @@
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- side menu logo start -->
                 <div class="ttr-sidebar-logo">
-                    <a href="#"><img alt="" src="assets2/images/logo.png" width="122" height="27"></a>
+                    <a href="#"><img  src="assets/images/logochildren.jpg" width="45px" height="auto"></a>
                     <!--                    <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
                                             <i class="material-icons ttr-fixed-icon">gps_fixed</i>
                                             <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
@@ -331,7 +331,7 @@
                 <div class="db-breadcrumb">
                     <h4 class="breadcrumb-title">Service Detail</h4>
                     <ul class="db-breadcrumb-list">
-                        <li><a href="./ServiceListController"><i class="fa fa-home"></i>Service List</a></li>
+                        <li><a href="./services-manager"><i class="fa fa-home"></i>Service List</a></li>
                         <li>View</li>
                     </ul>
                 </div>	
@@ -343,7 +343,7 @@
                                 <h4>Service Detail</h4>
                             </div>
                             <div class="widget-inner">
-                                <form class="edit-profile m-b30"  name="serviceForm" d="numberForm"  action="ServiceUpdateController" method="POST" onsubmit="return confirmCreateService()" enctype="multipart/form-data">
+                                <form class="edit-profile m-b30"  name="serviceForm" d="numberForm"  action="serviceupdate-manager" method="POST" onsubmit="return confirmCreateService()" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="ml-auto">
@@ -496,7 +496,7 @@
                                                                         }
 
                                                                         function confirmCreateService() {
-                                                                            return confirm("Are you sure you want to change the service?");
+                                                                            return confirm("Are you sure you want to change the status?");
                                                                         }
                                                                         function previewImage(event) {
                                                                             var input = event.target;
