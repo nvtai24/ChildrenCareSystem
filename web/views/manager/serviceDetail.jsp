@@ -70,13 +70,13 @@
                 </div>
                 <!--sidebar menu toggler end -->
                 <!--logo start -->
-                			<div class="ttr-logo-box">
-				<div>
-					<a href="index.html" class="ttr-logo">						
-						<img  src="assets/images/logochildren.jpg" width="50px" height="30px">
-					</a>
-				</div>
-			</div>
+                <div class="ttr-logo-box">
+                    <div>
+                        <a href="index.html" class="ttr-logo">						
+                            <img  src="assets/images/logochildren.jpg" width="50px" height="30px">
+                        </a>
+                    </div>
+                </div>
                 <!--logo end -->
                 <div class="ttr-header-menu">
 
@@ -161,7 +161,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="${account.avarta}" width="32" height="32"></span></a>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="${sessionScope.account.profile.avatar}" width="32" height="32"></span></a>
                             <div class="ttr-header-submenu">
                                 <ul>
                                     <li><a href="user-profile.html">My profile</a></li>
@@ -343,7 +343,7 @@
                                 <h4>Service Detail</h4>
                             </div>
                             <div class="widget-inner">
-                                <form class="edit-profile m-b30"  name="serviceForm" d="numberForm"  action="serviceupdate-manager" method="POST" onsubmit="return confirmCreateService()" enctype="multipart/form-data">
+                                <form class="edit-profile m-b30" name="serviceForm" action="serviceupdate-manager" method="POST" onsubmit="return validateForm()" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="ml-auto">
@@ -372,11 +372,7 @@
                                         <div class="form-group col-6">
                                             <label class="col-form-label">Service price</label>
                                             <div>
-                                                <input class="form-control" type="number" 
-                                                       placeholder="Enter a number" 
-                                                       name ="price"
-                                                       value="${s.price}"
-                                                       required >
+                                                <input class="form-control" type="number" name="price" placeholder="Enter a positive number" value="${s.price}" min="0" step="any" required ">
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
@@ -420,8 +416,9 @@
                                                                 <label class="col-form-label">Thumbnail URL</label>
 
                                                                 <div>
-                                                                    <input type="file" name="thumbnail" accept="image/*"  onchange="previewImage(event)">
-                                                                    <input type="hidden" name="oldThumbnail" value="${s.thumbnail}">
+                                                                    <label for="thumbnail" class="btn btn-light">Choose Thumbnail</label>
+                                                                    <input type="file" name="thumbnail" accept="image/*" id="thumbnail" onchange="previewImage(event)" style="display: none">
+                                                                    <input type="hidden" name="oldThumbnail" value="${s.thumbnail}" >
                                                                     <img id="imagePreview" src="${s.thumbnail}" alt="Image Preview" style=" width: 200px; height: auto; margin-top: 10px;">
                                                                 </div>
                                                             </div>
@@ -445,8 +442,7 @@
                                         </div>
                                         <div class="col-12">
 
-                                            <button type="submit" class="btn">Save changes</button> 
-                                            <h4 style="color: red;">${error}</h4>
+                                            <button type="submit" class="btn">Save changes</button>                                             
                                         </div>
                                     </div>
                                 </form>
@@ -477,28 +473,12 @@
         <script src="assets2/vendors/chart/chart.min.js"></script>
         <script src="assets2/js/admin.js"></script>
         <script src='assets2/vendors/switcher/switcher.js'></script>
-        <script>
-                                                                        // Pricing add
-                                                                        function newMenuItem() {
-                                                                            var newElem = $('tr.list-item').first().clone();
-                                                                            newElem.find('input').val('');
-                                                                            newElem.appendTo('table#item-add');
-                                                                        }
-                                                                        if ($("table#item-add").is('*')) {
-                                                                            $('.add-item').on('click', function (e) {
-                                                                                e.preventDefault();
-                                                                                newMenuItem();
-                                                                            });
-                                                                            $(document).on("click", "#item-add .delete", function (e) {
-                                                                                e.preventDefault();
-                                                                                $(this).parent().parent().parent().parent().remove();
-                                                                            });
-                                                                        }
-
-                                                                        function confirmCreateService() {
-
-                                                                            return confirm("Are you sure you want to change the service?");
-                                                                        }
+        <c:if test="${requestScope.error != null}">
+            <script>
+                                                                        alert('<%= request.getAttribute("error") %>');
+            </script>
+        </c:if>
+        <script>                                                                    
                                                                         function previewImage(event) {
                                                                             var input = event.target;
                                                                             var reader = new FileReader();
@@ -539,7 +519,7 @@
                                                                                 alert("Discount cannot be greater than the price.");
                                                                                 return false;
                                                                             }
-
+                                                                            alert("Update successfully.");
                                                                             return true;
                                                                         }
         </script>

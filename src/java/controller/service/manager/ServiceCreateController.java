@@ -42,7 +42,9 @@ public class ServiceCreateController extends HttpServlet {
             throws ServletException, IOException {
 
         ServiceManagerDAO db = new ServiceManagerDAO();
-
+        CategoryDAO dbCategory = new CategoryDAO();
+        List<Category> list = dbCategory.getAllAvailabelCategories();
+        request.setAttribute("listCategory", list);
         // Lấy dữ liệu từ form
         String raw_categoryId = request.getParameter("idCategory");
         String raw_name = request.getParameter("name");
