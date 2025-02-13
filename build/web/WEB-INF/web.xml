@@ -101,7 +101,10 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>controller.auth.LogoutController</servlet-class>
     </servlet>
-    
+    <servlet>
+        <servlet-name>ReservationDetailDelete</servlet-name>
+        <servlet-class>controller.reservation.ReservationDetailDelete</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServiceListController</servlet-name>
         <url-pattern>/services-manager</url-pattern>
@@ -201,5 +204,9 @@
     <servlet-mapping>
         <servlet-name>ServiceFilterByCategoryController</servlet-name>
         <url-pattern>/servicefilter-cate-manager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservationDetailDelete</servlet-name>
+        <url-pattern>/ReservationDetailDelete</url-pattern>
     </servlet-mapping>
 </web-app>

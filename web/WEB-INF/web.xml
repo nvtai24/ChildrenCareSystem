@@ -101,7 +101,10 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>controller.auth.LogoutController</servlet-class>
     </servlet>
-    
+    <servlet>
+        <servlet-name>ReservationDetailDelete</servlet-name>
+        <servlet-class>controller.reservation.ReservationDetailDelete</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServiceListController</servlet-name>
         <url-pattern>/services-manager</url-pattern>

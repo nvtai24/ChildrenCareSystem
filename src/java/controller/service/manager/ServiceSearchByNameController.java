@@ -30,7 +30,7 @@ public class ServiceSearchByNameController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String nameService = request.getParameter("nameService");
+        String nameService = request.getParameter("nameService").trim();
         if(nameService == null){
             response.sendRedirect("services-manager");
         }

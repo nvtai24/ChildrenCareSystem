@@ -328,41 +328,17 @@
                 <div class="db-breadcrumb" style="display: flex; justify-content: space-between">
 
 
-                    <h4 class="breadcrumb-title">Service Management</h4>
-
-                    <h5 >Status </h5>
-                    <form method="GET" action="servicefilter-status-manager">
-
-                        <select select name="status" onchange="this.form.submit()">
-                            <option value="-1" ${ sessionScope.sessionStatus == -1 ? 'selected' : ''}>All Status</option>
-                            <option value="1" ${ sessionScope.sessionStatus == 1 ? 'selected' : ''}>Active</option>
-                            <option value="0" ${ sessionScope.sessionStatus == 0 ? 'selected' : ''}>Inactive</option>
-                        </select>
+                    <a href="./services-manager"><h4 class="breadcrumb-title">Service List</h4></a>
 
 
-                    </form>
-                    <h5 >Category </h5>
-                    <form method="GET" action="servicefilter-cate-manager">
-
-                        <select select name="idCategory" onchange="this.form.submit()">
-                            <option value="-1" ${ sessionScope.sessionCategoryId == -1 ? 'selected' : ''}>All Categories</option>
-
-                            <c:forEach items="${listCategory}" var="c">                                
-                                <option value="${c.id}" ${ sessionScope.sessionCategoryId == c.id ? 'selected' : ''}>${c.name}</option>                                
-                            </c:forEach>
-
-                        </select>
-
-
-                    </form>
                     <form style="margin-left: 10px;" action="servicesearch-manager" method="GET">
                         <ul class="db-breadcrumb-list">
                             <input type="text" placeholder="Search service" style="border: 1px solid #d1d5db;  border-radius: 4px;" name="nameService" value="${nameService}"/>
-                            <input type="submit" value="Find" class="btn green radius-xl"/>
+                            <input type="submit" value="Find" class="btn"/>
                         </ul>
                     </form>
                     <h1></h1>
-                    <a href="servicecreate-manager" class="btn green radius-xl" style=" margin-left:  10px; margin-right: 10px">
+                    <a href="servicecreate-manager" class="btn " style=" margin-left:  10px; margin-right: 10px">
                         Add New Service
                     </a>
 
@@ -372,11 +348,35 @@
                 </div>	
                 <div class="widget-box">
                     <div class="wc-title d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0">Service List</h4>
+                        
+                        <h5 >Sort by </h5>
+                        <form method="GET" action="servicefilter-status-manager">
 
+                            <select select name="status" onchange="this.form.submit()">
+                                <option value="-1" ${ sessionScope.sessionStatus == -1 ? 'selected' : ''}>All Status</option>
+                                <option value="1" ${ sessionScope.sessionStatus == 1 ? 'selected' : ''}>Active</option>
+                                <option value="0" ${ sessionScope.sessionStatus == 0 ? 'selected' : ''}>Inactive</option>
+                            </select>
+
+                        </form>
+                        
+                        <form method="GET" action="servicefilter-cate-manager">
+
+                            <select select name="idCategory" onchange="this.form.submit()">
+                                <option value="-1" ${ sessionScope.sessionCategoryId == -1 ? 'selected' : ''}>All Categories</option>
+
+                                <c:forEach items="${listCategory}" var="c">                                
+                                    <option value="${c.id}" ${ sessionScope.sessionCategoryId == c.id ? 'selected' : ''}>${c.name}</option>                                
+                                </c:forEach>
+
+                            </select>
+
+
+                        </form>
                         <!-- Sorting Form -->
+                        
                         <form method="GET" action="servicesort-manager" class="d-flex align-items-center">
-                            <label class="font-weight-bold mb-0 mr-2">Sort By:</label>
+                            <label class="font-weight-bold mb-0 mr-2"></label>
 
                             <select class="form-control form-control-sm mr-2" name="field">
                                 <option value="name" ${field eq 'name' ? 'selected' : ''}>Name</option>
@@ -484,42 +484,42 @@
 
     <!-- Custom Scripts -->
     <script>
-                                                function confirmChangeStatus() {
-                                                    return confirm("Are you sure you want to change the status?");
+                                            function confirmChangeStatus() {
+                                                return confirm("Are you sure you want to change the status?");
+                                            }
+
+                                            $(document).ready(function () {
+
+                                                $('#serviceTable').DataTable({
+                                                    "paging": true,
+                                                    "lengthMenu": [5, 10, 20, 50],
+                                                    "searching": false,
+                                                    "ordering": false,
+                                                    "info": false
+                                                });
+
+
+                                                if ($(".selectpicker").length) {
+                                                    $(".selectpicker").selectpicker();
                                                 }
 
-                                                $(document).ready(function () {
-                                                    
-                                                    $('#serviceTable').DataTable({
-                                                        "paging": true,
-                                                        "lengthMenu": [5, 10, 20, 50],
-                                                        "searching": false,
-                                                        "ordering": false,
-                                                        "info": false
+
+                                                if ($(".owl-carousel").length) {
+                                                    $(".owl-carousel").owlCarousel({
+                                                        loop: true,
+                                                        margin: 10,
+                                                        nav: true,
+                                                        dots: true,
+                                                        autoplay: true,
+                                                        autoplayTimeout: 3000,
+                                                        responsive: {
+                                                            0: {items: 1},
+                                                            600: {items: 2},
+                                                            1000: {items: 3}
+                                                        }
                                                     });
-
-                                                    
-                                                    if ($(".selectpicker").length) {
-                                                        $(".selectpicker").selectpicker();
-                                                    }
-
-                                                    
-                                                    if ($(".owl-carousel").length) {
-                                                        $(".owl-carousel").owlCarousel({
-                                                            loop: true,
-                                                            margin: 10,
-                                                            nav: true,
-                                                            dots: true,
-                                                            autoplay: true,
-                                                            autoplayTimeout: 3000,
-                                                            responsive: {
-                                                                0: {items: 1},
-                                                                600: {items: 2},
-                                                                1000: {items: 3}
-                                                            }
-                                                        });
-                                                    }
-                                                });
+                                                }
+                                            });
     </script>
 
 </body>
