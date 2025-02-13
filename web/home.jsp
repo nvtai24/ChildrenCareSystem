@@ -235,7 +235,7 @@
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
             <!-- Header Top ==== -->
-            <jsp:include page="header.jsp"/>
+            <jsp:include page="header2.jsp"/>
             <!-- Header Top END ==== -->
             
             <div class="page-content bg-white">
