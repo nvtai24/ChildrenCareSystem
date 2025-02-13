@@ -31,7 +31,7 @@ public class ServiceChangeStatusController extends HttpServlet {
         int id = Integer.parseInt(raw_id);
         ServiceManagerDAO db = new ServiceManagerDAO();
         db.updateStatusById(id);
-        response.sendRedirect("ServiceListController");
+        response.sendRedirect("services-manager");
     }
 
 }

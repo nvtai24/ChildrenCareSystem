@@ -70,7 +70,7 @@
                 <div class="ttr-logo-box">
                     <div>
                         <a href="index.html" class="ttr-logo">
-                            <h2 style="color: white">Children Care System</h2>
+                            <img  src="assets/images/logochildren.jpg" width="50px" height="30px">
                         </a>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets2/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="${sessionScope.account.profile.avatar}" width="32" height="32"></span></a>
                             <div class="ttr-header-submenu">
                                 <ul>
                                     <li><a href="user-profile.html">My profile</a></li>
@@ -222,7 +222,7 @@
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- side menu logo start -->
                 <div class="ttr-sidebar-logo">
-                    <a href="#"><img alt="" src="assets2/images/logo.png" width="122" height="27"></a>
+                    <a href="#"><img  src="assets/images/logochildren.jpg" width="45px" height="auto"></a>
                     <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
                             <i class="material-icons ttr-fixed-icon">gps_fixed</i>
                             <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
@@ -331,7 +331,7 @@
                     <h4 class="breadcrumb-title">Service Management</h4>
 
                     <h5 >Status </h5>
-                    <form method="GET" action="ServiceFilterController">
+                    <form method="GET" action="servicefilter-status-manager">
 
                         <select select name="status" onchange="this.form.submit()">
                             <option value="-1" ${ sessionScope.sessionStatus == -1 ? 'selected' : ''}>All Status</option>
@@ -342,7 +342,7 @@
 
                     </form>
                     <h5 >Category </h5>
-                    <form method="GET" action="ServiceFilterByCategoryController">
+                    <form method="GET" action="servicefilter-cate-manager">
 
                         <select select name="idCategory" onchange="this.form.submit()">
                             <option value="-1" ${ sessionScope.sessionCategoryId == -1 ? 'selected' : ''}>All Categories</option>
@@ -355,14 +355,14 @@
 
 
                     </form>
-                    <form style="margin-left: 10px;" action="ServiceSearchByNameController" method="GET">
+                    <form style="margin-left: 10px;" action="servicesearch-manager" method="GET">
                         <ul class="db-breadcrumb-list">
                             <input type="text" placeholder="Search service" style="border: 1px solid #d1d5db;  border-radius: 4px;" name="nameService" value="${nameService}"/>
                             <input type="submit" value="Find" class="btn green radius-xl"/>
                         </ul>
                     </form>
                     <h1></h1>
-                    <a href="ServiceCreateController" class="btn green radius-xl" style=" margin-left:  10px; margin-right: 10px">
+                    <a href="servicecreate-manager" class="btn green radius-xl" style=" margin-left:  10px; margin-right: 10px">
                         Add New Service
                     </a>
 
@@ -375,7 +375,7 @@
                         <h4 class="mb-0">Service List</h4>
 
                         <!-- Sorting Form -->
-                        <form method="GET" action="ServiceSortController" class="d-flex align-items-center">
+                        <form method="GET" action="servicesort-manager" class="d-flex align-items-center">
                             <label class="font-weight-bold mb-0 mr-2">Sort By:</label>
 
                             <select class="form-control form-control-sm mr-2" name="field">
@@ -424,13 +424,13 @@
                                         </span>
                                     </td>
                                     <td class="text-center text-nowrap">
-                                        <form action="ServiceChangeStatusController" method="POST" onsubmit="return confirmChangeStatus()" class="d-inline">
+                                        <form action="servicechangestatus-manager" method="POST" onsubmit="return confirmChangeStatus()" class="d-inline">
                                             <input type="hidden" name="id" value="${s.id}">
                                             <button type="submit" class="btn btn-sm ${s.status == 1 ? 'btn-danger' : 'btn-success'}">
                                                 ${s.status == 1 ? 'Deactivate' : 'Activate'}
                                             </button>
                                         </form>
-                                        <a href="ServiceUpdateController?id=${s.id}" class="btn btn-sm btn-info">View</a>
+                                        <a href="serviceupdate-manager?id=${s.id}" class="btn btn-sm btn-info">View</a>
                                     </td>
 
 

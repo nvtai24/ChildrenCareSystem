@@ -43,7 +43,8 @@ public class ReservationDetailDAO extends DBContext {
                 + "JOIN reservation r ON rd.reservation_id = r.id \n"
                 + "JOIN service s ON rd.service_id = s.id \n"
                 + "JOIN reservationStatus rs ON r.status_id = rs.id \n"
-                + "WHERE r.customer_id = ?;";
+                + "WHERE r.customer_id = ? "
+                + "AND r.status_id IN (1, 2);";
 
         try (ResultSet rs = executeQuery(query, userId)) {
             while (rs.next()) {
@@ -132,13 +133,23 @@ public class ReservationDetailDAO extends DBContext {
     /**
      * Deletes a reservation detail by ID.
      */
-    public boolean deleteReservationDetail(int id) {
+    public void deleteReservationDetail(int id) {
         String query = "DELETE FROM reservationdetail WHERE id = ?";
         try {
-            return executeUpdate(query, id) > 0;
+            PreparedStatement stm = connection.prepareStatement(query);
+            stm.setInt(1, id);
+            stm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
+//    public boolean deleteReservationDetail(int id) {
+//        String query = "DELETE FROM reservationdetail WHERE id = ?";
+//        try {
+//            return executeUpdate(query, id) > 0;
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
 }

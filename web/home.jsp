@@ -1,191 +1,243 @@
 <%-- 
-    Document   : home
-    Created on : Jan 26, 2025, 5:01:02 PM
-    Author     : ADMIN
+    Document   : home2
+    Created on : Feb 11, 2025, 10:33:33 PM
+    Author     : Nvtai
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
-    <style>
-        .recent-news-carousel .item {
-            width: 100%; /* Chiều rộng 100% của container */
-            display: flex;
-            justify-content: center; /* Canh giữa các item */
-            flex: 0 0 33%; /* Đảm bảo các item có chiều rộng đều nhau (3 item trên mỗi hàng) */
-            padding: 10px; /* Khoảng cách giữa các item */
-        }
-
-        /* Đảm bảo tất cả các blog có chiều cao và chiều rộng bằng nhau */
-        .recent-news {
-            width: 100%; /* Chiều rộng bằng 100% */
-            height: 500px; /* Chiều cao cố định cho blog */
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between; /* Đảm bảo các phần tử bên trong được căn chỉnh đều */
-            overflow: hidden; /* Ẩn những phần tử vượt ra ngoài */
-        }
-
-        /* Hình ảnh sẽ chiếm 100% chiều rộng và chiều cao cố định */
-        .recent-news .action-box {
-            height: 500px; /* Chiều cao cố định cho ảnh */
-            width: 100%; /* Chiều rộng bằng 100% */
-            overflow: hidden; /* Ẩn phần ảnh vượt quá chiều cao */
-        }
-
-        .recent-news .action-box img {
-            width: 100%; /* Chiều rộng của ảnh bằng với chiều rộng của container */
-            height: 100%; /* Chiều cao của ảnh bằng với chiều cao của container */
-            object-fit: cover; /* Đảm bảo ảnh lấp đầy không gian mà không bị méo */
-        }
-
-        /* Căn chỉnh phần tiêu đề và mô tả sao cho đều nhau */
-        .recent-news .info-bx {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between; /* Đảm bảo các phần tử con được căn chỉnh đều nhau */
-            height: 100%; /* Đảm bảo container chiếm hết chiều cao */
-        }
-
-        /* Tiêu đề sẽ có kích thước cố định và căn chỉnh */
-        .recent-news .info-bx .post-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-        /* Mô tả nội dung sẽ bị giới hạn dòng */
-        .recent-news .info-bx p {
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 3; /* Giới hạn 3 dòng nội dung */
-            -webkit-box-orient: vertical;
-        }
-        .courses-carousel .cours-bx {
-            display: flex;
-            flex-direction: column;
-            height: 400px;
-            border: 1px solid #ddd;
-            box-sizing: border-box;
-            overflow: hidden;
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .courses-carousel .action-box {
-            flex-shrink: 0;
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        .courses-carousel .action-box img {
-            width: 100%;
-            height: 155px;
-            border-radius: 8px;
-        }
-
-
-
-        .courses-carousel .info-bx {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;  /* Căn phần tử từ trên xuống, không gian sẽ được chia đều */
-            height: auto; /* Đảm bảo chiều cao tự động để phù hợp với nội dung */
-            
-            flex-grow: 1;  /* Để các phần tử bên trong có thể chiếm không gian tự do */
-        }
-
-        /* Phần tiêu đề */
-        .courses-carousel h5 {
-            margin-bottom: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            white-space: normal; /* Đảm bảo tiêu đề có thể xuống dòng */
-            overflow: visible;   /* Hiển thị toàn bộ nội dung mà không bị cắt */
-            text-overflow: clip; /* Không cắt chữ */
-            word-wrap: break-word; /* Đảm bảo chữ sẽ xuống dòng khi dài quá */
-        }
-
-        /* Phần nội dung (span) */
-        .courses-carousel span {
-            display: -webkit-box;
-            -webkit-line-clamp: 3; /* Giới hạn 3 dòng cho nội dung */
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-size: 14px;
-            color: #555;
-        }
-
-        /* Giới hạn chiều cao nếu cần */
-        @media (max-width: 768px) {
-            .courses-carousel .info-bx {
-                height: auto;  /* Cho phép chiều cao thay đổi theo nội dung */
-            }
-
-            .courses-carousel h5, .courses-carousel span {
-                white-space: normal;
-            }
-        }
-
-
-    </style>
     <head>
+        <!-- META ============================================= -->
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="robots" content="" />
 
-        <link rel="shortcut icon" type="image/x-icon" href="assets/images/logochildren.jpg" />
+        <!-- DESCRIPTION -->
+        <meta name="description" content="EduChamp : Education HTML Template" />
+
+        <!-- OG -->
+        <meta property="og:title" content="EduChamp : Education HTML Template" />
+        <meta
+            property="og:description"
+            content="EduChamp : Education HTML Template"
+            />
+        <meta property="og:image" content="" />
+        <meta name="format-detection" content="telephone=no" />
+
+        <!-- FAVICONS ICON ============================================= -->
+        <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
+        <link
+            rel="shortcut icon"
+            type="image/x-icon"
+            href="assets/images/favicon.png"
+            />
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>ChildrenCare </title>
+        <title>EduChamp : Education HTML Template</title>
+
+        <!-- MOBILE SPECIFIC ============================================= -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!--[if lt IE 9]>
+          <script src="assets/js/html5shiv.min.js"></script>
+          <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
 
         <!-- All PLUGINS CSS ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/assets.css" />
 
         <!-- TYPOGRAPHY ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets/css/typography.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/typography.css" />
 
         <!-- SHORTCODES ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets/css/shortcodes/shortcodes.css">
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="assets/css/shortcodes/shortcodes.css"
+            />
 
         <!-- STYLESHEETS ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-        <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
-
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+        <link
+            class="skin"
+            rel="stylesheet"
+            type="text/css"
+            href="assets/css/color/color-1.css"
+            />
 
         <!-- REVOLUTION SLIDER CSS ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets/vendors/revolution/css/layers.css">
-        <link rel="stylesheet" type="text/css" href="assets/vendors/revolution/css/settings.css">
-        <link rel="stylesheet" type="text/css" href="assets/vendors/revolution/css/navigation.css">
-        <!-- REVOLUTION SLIDER END -->	
-    </head>
-    <style>
-        a {
-            text-decoration: none !important;
-        }
-    </style>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="assets/vendors/revolution/css/layers.css"
+            />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="assets/vendors/revolution/css/settings.css"
+            />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="assets/vendors/revolution/css/navigation.css"
+            />
+        <!-- REVOLUTION SLIDER END -->
 
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="assets/css/shortcodes/button.css"
+            />
+
+        <style>
+            .recent-news-carousel .item {
+                width: 100%; /* Chiều rộng 100% của container */
+                display: flex;
+                justify-content: center; /* Canh giữa các item */
+                flex: 0 0 33%; /* Đảm bảo các item có chiều rộng đều nhau (3 item trên mỗi hàng) */
+                padding: 10px; /* Khoảng cách giữa các item */
+            }
+
+            /* Đảm bảo tất cả các blog có chiều cao và chiều rộng bằng nhau */
+            .recent-news {
+                width: 100%; /* Chiều rộng bằng 100% */
+                height: 500px; /* Chiều cao cố định cho blog */
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between; /* Đảm bảo các phần tử bên trong được căn chỉnh đều */
+                overflow: hidden; /* Ẩn những phần tử vượt ra ngoài */
+            }
+
+            /* Hình ảnh sẽ chiếm 100% chiều rộng và chiều cao cố định */
+            .recent-news .action-box {
+                height: 500px; /* Chiều cao cố định cho ảnh */
+                width: 100%; /* Chiều rộng bằng 100% */
+                overflow: hidden; /* Ẩn phần ảnh vượt quá chiều cao */
+            }
+
+            .recent-news .action-box img {
+                width: 100%; /* Chiều rộng của ảnh bằng với chiều rộng của container */
+                height: 100%; /* Chiều cao của ảnh bằng với chiều cao của container */
+                object-fit: cover; /* Đảm bảo ảnh lấp đầy không gian mà không bị méo */
+            }
+
+            /* Căn chỉnh phần tiêu đề và mô tả sao cho đều nhau */
+            .recent-news .info-bx {
+                padding: 15px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between; /* Đảm bảo các phần tử con được căn chỉnh đều nhau */
+                height: 100%; /* Đảm bảo container chiếm hết chiều cao */
+            }
+
+            /* Tiêu đề sẽ có kích thước cố định và căn chỉnh */
+            .recent-news .info-bx .post-title {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+
+            /* Mô tả nội dung sẽ bị giới hạn dòng */
+            .recent-news .info-bx p {
+                font-size: 14px;
+                line-height: 1.6;
+                margin-bottom: 10px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 3; /* Giới hạn 3 dòng nội dung */
+                -webkit-box-orient: vertical;
+            }
+            .courses-carousel .cours-bx {
+                display: flex;
+                flex-direction: column;
+                height: 400px;
+                border: 1px solid #ddd;
+                box-sizing: border-box;
+                overflow: hidden;
+                background-color: #f9f9f9;
+                padding: 15px;
+                border-radius: 8px;
+            }
+
+            .courses-carousel .action-box {
+                flex-shrink: 0;
+                margin-bottom: 15px;
+                position: relative;
+            }
+
+            .courses-carousel .action-box img {
+                width: 100%;
+                height: 155px;
+                border-radius: 8px;
+            }
+
+
+
+            .courses-carousel .info-bx {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;  /* Căn phần tử từ trên xuống, không gian sẽ được chia đều */
+                height: auto; /* Đảm bảo chiều cao tự động để phù hợp với nội dung */
+
+                flex-grow: 1;  /* Để các phần tử bên trong có thể chiếm không gian tự do */
+            }
+
+            /* Phần tiêu đề */
+            .courses-carousel h5 {
+                margin-bottom: 10px;
+                font-size: 15px;
+                font-weight: 600;
+                white-space: normal; /* Đảm bảo tiêu đề có thể xuống dòng */
+                overflow: visible;   /* Hiển thị toàn bộ nội dung mà không bị cắt */
+                text-overflow: clip; /* Không cắt chữ */
+                word-wrap: break-word; /* Đảm bảo chữ sẽ xuống dòng khi dài quá */
+            }
+
+            /* Phần nội dung (span) */
+            .courses-carousel span {
+                display: -webkit-box;
+                -webkit-line-clamp: 3; /* Giới hạn 3 dòng cho nội dung */
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-size: 14px;
+                color: #555;
+            }
+
+            /* Giới hạn chiều cao nếu cần */
+            @media (max-width: 768px) {
+                .courses-carousel .info-bx {
+                    height: auto;  /* Cho phép chiều cao thay đổi theo nội dung */
+                }
+
+                .courses-carousel h5, .courses-carousel span {
+                    white-space: normal;
+                }
+            }
+
+        </style>
+
+
+    </head>
     <body id="bg">
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
-
             <!-- Header Top ==== -->
             <jsp:include page="header.jsp"/>
             <!-- Header Top END ==== -->
-
-            <!-- Content -->
+            
             <div class="page-content bg-white">
                 <!-- Main Slider -->
                 <div class="rev-slider">
@@ -322,10 +374,7 @@
                     </div>  
                 </div>  
 
-
-                <!-- Main Slider -->
                 <div class="content-block">
-
                     <div class="section-area content-inner service-info-bx">
                         <div class="container">
                             <div class="row">
@@ -373,7 +422,6 @@
                             <div class="row">
                                 <div class="col-md-12 heading-bx left">
                                     <h2 class="title-head">Services</h2>
-
                                 </div>
                             </div>
                             <div class="row">
@@ -381,11 +429,10 @@
                                     class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0"
                                     >
                                     <c:forEach items="${SERVICES}" var="service">
-                                        <div class="item">
+                                        <div class="item" onclick="window.location.href = 'service?id=${service.id}'" style="cursor: pointer;">
                                             <div class="cours-bx">
                                                 <div class="action-box">
-                                                    <img src="assets/images/our-services/${service.thumbnail}" alt="" />
-                                                    <a href="#" class="btn">Read More</a>
+                                                    <img src="${service.thumbnail}" alt="" />
                                                 </div>
                                                 <div class="info-bx text-center">
                                                     <h5>
@@ -416,7 +463,7 @@
                             <div class="row">
                                 <div class="col-md-12 heading-bx left">
 
-                                    
+
                                     <h2 class="title-head">Blog</h2>
 
 
@@ -428,7 +475,7 @@
                                         <div class="item">
                                             <div class="recent-news">
                                                 <div class="action-box">
-                                                    <a href="blogdetail?id=${post.id}"><img src="assets/images/courses/${post.thumbnail}" alt=""></a>
+                                                    <a href="blogdetail?id=${post.id}"><img src="${post.thumbnail}" alt=""></a>
                                                 </div>
                                                 <div class="info-bx">
                                                     <ul class="media-post">
@@ -452,153 +499,331 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Popular Courses END -->
 
-                    <!-- Footer ==== -->
-                    <jsp:include page="footer.jsp"/>
 
-                    <!-- Footer END ==== -->
                 </div>
-
-                <!-- External JavaScripts -->
-                <script src="assets/js/jquery.min.js"></script>
-                <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
-                <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
-                <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-                <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-                <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
-                <script src="assets/vendors/counter/waypoints-min.js"></script>
-                <script src="assets/vendors/counter/counterup.min.js"></script>
-                <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
-                <script src="assets/vendors/masonry/masonry.js"></script>
-                <script src="assets/vendors/masonry/filter.js"></script>
-                <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
-                <script src="assets/js/functions.js"></script>
-                <script src="assets/js/contact.js"></script>
-
-                <!-- Revolution JavaScripts Files -->
-                <script src="assets/vendors/revolution/js/jquery.themepunch.tools.min.js"></script>
-                <script src="assets/vendors/revolution/js/jquery.themepunch.revolution.min.js"></script>
-                <!-- Slider revolution 5.0 Extensions  (Load Extensions only on Local File Systems !  The following part can be removed on Server for On Demand Loading) -->
-                <script src="assets/vendors/revolution/js/extensions/revolution.extension.actions.min.js"></script>
-                <script src="assets/vendors/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
-                <script src="assets/vendors/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
-                <script src="assets/vendors/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
-                <script src="assets/vendors/revolution/js/extensions/revolution.extension.migration.min.js"></script>
-                <script src="assets/vendors/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
-                <script src="assets/vendors/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
-                <script src="assets/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
-                <script src="assets/vendors/revolution/js/extensions/revolution.extension.video.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-                <script>
-                    jQuery(document).ready(function () {
-                        var ttrevapi;
-                        var tpj = jQuery;
-                        if (tpj("#rev_slider_486_1").revolution == undefined) {
-                            revslider_showDoubleJqueryError("#rev_slider_486_1");
-                        } else {
-                            ttrevapi = tpj("#rev_slider_486_1").show().revolution({
-                                sliderType: "standard",
-                                jsFileLocation: "assets/vendors/revolution/js/",
-                                sliderLayout: "fullwidth",
-                                dottedOverlay: "none",
-                                delay: 9000,
-                                navigation: {
-                                    keyboardNavigation: "on",
-                                    keyboard_direction: "horizontal",
-                                    mouseScrollNavigation: "off",
-                                    mouseScrollReverse: "default",
-                                    onHoverStop: "on",
-                                    touch: {
-                                        touchenabled: "on",
-                                        swipe_threshold: 75,
-                                        swipe_min_touches: 1,
-                                        swipe_direction: "horizontal",
-                                        drag_block_vertical: false
-                                    }
-                                    ,
-                                    arrows: {
-                                        style: "uranus",
-                                        enable: true,
-                                        hide_onmobile: false,
-                                        hide_onleave: false,
-                                        tmp: '',
-                                        left: {
-                                            h_align: "left",
-                                            v_align: "center",
-                                            h_offset: 10,
-                                            v_offset: 0
-                                        },
-                                        right: {
-                                            h_align: "right",
-                                            v_align: "center",
-                                            h_offset: 10,
-                                            v_offset: 0
-                                        }
-                                    },
-
-                                },
-                                viewPort: {
-                                    enable: true,
-                                    outof: "pause",
-                                    visible_area: "80%",
-                                    presize: false
-                                },
-                                responsiveLevels: [1240, 1024, 778, 480],
-                                visibilityLevels: [1240, 1024, 778, 480],
-                                gridwidth: [1240, 1024, 778, 480],
-                                gridheight: [768, 600, 600, 600],
-                                lazyType: "none",
-                                parallax: {
-                                    type: "scroll",
-                                    origo: "enterpoint",
-                                    speed: 400,
-                                    levels: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 46, 47, 48, 49, 50, 55],
-                                    type: "scroll",
-                                },
-                                shadow: 0,
-                                spinner: "off",
-                                stopLoop: "off",
-                                stopAfterLoops: -1,
-                                stopAtSlide: -1,
-                                shuffle: "off",
-                                autoHeight: "off",
-                                hideThumbsOnMobile: "off",
-                                hideSliderAtLimit: 0,
-                                hideCaptionAtLimit: 0,
-                                hideAllCaptionAtLilmit: 0,
-                                debugMode: false,
-                                fallbacks: {
-                                    simplifyAll: "off",
-                                    nextSlideOnWindowFocus: "off",
-                                    disableFocusListener: false,
-                                }
-                            });
-                        }
-                    });
-                </script>
-
-                <script>
-                    // JavaScript để thay đổi ảnh đại diện ngay khi người dùng chọn ảnh mới
-                    const avatarInput = document.getElementById('avatarInput');
-                    const avatarImage = document.getElementById('avatarImage');
-
-                    avatarInput.addEventListener('change', function (event) {
-                        const file = event.target.files[0];
-                        if (file) {
-                            const reader = new FileReader();
-                            reader.onload = function (e) {
-                                avatarImage.src = e.target.result; // Cập nhật ảnh đại diện ngay lập tức
-                            };
-                            reader.readAsDataURL(file); // Đọc ảnh dưới dạng URL và thay đổi ảnh
-                        }
-                    });
-                </script>
+                <!-- Content END-->
+                <!-- Footer ==== -->
+                <footer>
+                    <div class="footer-top">
+                        <div class="pt-exebar">
+                            <div class="container">
+                                <div class="d-flex align-items-stretch">
+                                    <div class="pt-logo mr-auto">
+                                        <a href="index.html"
+                                           ><img src="assets/images/logo-white.png" alt=""
+                                              /></a>
+                                    </div>
+                                    <div class="pt-social-link">
+                                        <ul class="list-inline m-a0">
+                                            <li>
+                                                <a href="#" class="btn-link"
+                                                   ><i class="fa fa-facebook"></i
+                                                    ></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="btn-link"
+                                                   ><i class="fa fa-twitter"></i
+                                                    ></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="btn-link"
+                                                   ><i class="fa fa-linkedin"></i
+                                                    ></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="btn-link"
+                                                   ><i class="fa fa-google-plus"></i
+                                                    ></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="pt-btn-join">
+                                        <a href="#" class="btn">Join Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-12 col-sm-12 footer-col-4">
+                                    <div class="widget">
+                                        <h5 class="footer-title">Sign Up For A Newsletter</h5>
+                                        <p class="text-capitalize m-b20">
+                                            Weekly Breaking news analysis and cutting edge advices on
+                                            job searching.
+                                        </p>
+                                        <div class="subscribe-form m-b20">
+                                            <form
+                                                class="subscription-form"
+                                                action="http://educhamp.themetrades.com/demo/assets/script/mailchamp.php"
+                                                method="post"
+                                                >
+                                                <div class="ajax-message"></div>
+                                                <div class="input-group">
+                                                    <input
+                                                        name="email"
+                                                        required="required"
+                                                        class="form-control"
+                                                        placeholder="Your Email Address"
+                                                        type="email"
+                                                        />
+                                                    <span class="input-group-btn">
+                                                        <button
+                                                            name="submit"
+                                                            value="Submit"
+                                                            type="submit"
+                                                            class="btn"
+                                                            >
+                                                            <i class="fa fa-arrow-right"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-5 col-md-7 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-4 col-lg-4 col-md-4 col-sm-4">
+                                            <div class="widget footer_widget">
+                                                <h5 class="footer-title">Company</h5>
+                                                <ul>
+                                                    <li><a href="index.html">Home</a></li>
+                                                    <li><a href="about-1.html">About</a></li>
+                                                    <li><a href="faq-1.html">FAQs</a></li>
+                                                    <li><a href="contact-1.html">Contact</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 col-lg-4 col-md-4 col-sm-4">
+                                            <div class="widget footer_widget">
+                                                <h5 class="footer-title">Get In Touch</h5>
+                                                <ul>
+                                                    <li>
+                                                        <a
+                                                            href="http://educhamp.themetrades.com/admin/index.html"
+                                                            >Dashboard</a
+                                                        >
+                                                    </li>
+                                                    <li><a href="blog-classic-grid.html">Blog</a></li>
+                                                    <li><a href="portfolio.html">Portfolio</a></li>
+                                                    <li><a href="event.html">Event</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 col-lg-4 col-md-4 col-sm-4">
+                                            <div class="widget footer_widget">
+                                                <h5 class="footer-title">Courses</h5>
+                                                <ul>
+                                                    <li><a href="courses.html">Courses</a></li>
+                                                    <li><a href="courses-details.html">Details</a></li>
+                                                    <li><a href="membership.html">Membership</a></li>
+                                                    <li><a href="profile.html">Profile</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-3 col-md-5 col-sm-12 footer-col-4">
+                                    <div class="widget widget_gallery gallery-grid-4">
+                                        <h5 class="footer-title">Our Gallery</h5>
+                                        <ul class="magnific-image">
+                                            <li>
+                                                <a
+                                                    href="assets/images/gallery/pic1.jpg"
+                                                    class="magnific-anchor"
+                                                    ><img src="assets/images/gallery/pic1.jpg" alt=""
+                                                      /></a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href="assets/images/gallery/pic2.jpg"
+                                                    class="magnific-anchor"
+                                                    ><img src="assets/images/gallery/pic2.jpg" alt=""
+                                                      /></a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href="assets/images/gallery/pic3.jpg"
+                                                    class="magnific-anchor"
+                                                    ><img src="assets/images/gallery/pic3.jpg" alt=""
+                                                      /></a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href="assets/images/gallery/pic4.jpg"
+                                                    class="magnific-anchor"
+                                                    ><img src="assets/images/gallery/pic4.jpg" alt=""
+                                                      /></a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href="assets/images/gallery/pic5.jpg"
+                                                    class="magnific-anchor"
+                                                    ><img src="assets/images/gallery/pic5.jpg" alt=""
+                                                      /></a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href="assets/images/gallery/pic6.jpg"
+                                                    class="magnific-anchor"
+                                                    ><img src="assets/images/gallery/pic6.jpg" alt=""
+                                                      /></a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href="assets/images/gallery/pic7.jpg"
+                                                    class="magnific-anchor"
+                                                    ><img src="assets/images/gallery/pic7.jpg" alt=""
+                                                      /></a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href="assets/images/gallery/pic8.jpg"
+                                                    class="magnific-anchor"
+                                                    ><img src="assets/images/gallery/pic8.jpg" alt=""
+                                                      /></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                                    <a target="_blank" href="https://www.templateshub.net"
+                                       >Templates Hub</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- Footer END ==== -->
+                <button class="back-to-top fa fa-chevron-up"></button>
             </div>
-    </body>
 
+            <!-- External JavaScripts -->
+            <script src="assets/js/jquery.min.js"></script>
+            <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
+            <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+            <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+            <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+            <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
+            <script src="assets/vendors/counter/waypoints-min.js"></script>
+            <script src="assets/vendors/counter/counterup.min.js"></script>
+            <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
+            <script src="assets/vendors/masonry/masonry.js"></script>
+            <script src="assets/vendors/masonry/filter.js"></script>
+            <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
+            <script src="assets/js/functions.js"></script>
+            <script src="assets/js/contact.js"></script>
+            <!-- Revolution JavaScripts Files -->
+            <script src="assets/vendors/revolution/js/jquery.themepunch.tools.min.js"></script>
+            <script src="assets/vendors/revolution/js/jquery.themepunch.revolution.min.js"></script>
+            <!-- Slider revolution 5.0 Extensions  (Load Extensions only on Local File Systems !  The following part can be removed on Server for On Demand Loading) -->
+            <script src="assets/vendors/revolution/js/extensions/revolution.extension.actions.min.js"></script>
+            <script src="assets/vendors/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+            <script src="assets/vendors/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
+            <script src="assets/vendors/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+            <script src="assets/vendors/revolution/js/extensions/revolution.extension.migration.min.js"></script>
+            <script src="assets/vendors/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+            <script src="assets/vendors/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
+            <script src="assets/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+            <script src="assets/vendors/revolution/js/extensions/revolution.extension.video.min.js"></script>
+            <script>
+                                            jQuery(document).ready(function () {
+                                                var ttrevapi;
+                                                var tpj = jQuery;
+                                                if (tpj("#rev_slider_486_1").revolution == undefined) {
+                                                    revslider_showDoubleJqueryError("#rev_slider_486_1");
+                                                } else {
+                                                    ttrevapi = tpj("#rev_slider_486_1")
+                                                            .show()
+                                                            .revolution({
+                                                                sliderType: "standard",
+                                                                jsFileLocation: "assets/vendors/revolution/js/",
+                                                                sliderLayout: "fullwidth",
+                                                                dottedOverlay: "none",
+                                                                delay: 9000,
+                                                                navigation: {
+                                                                    keyboardNavigation: "on",
+                                                                    keyboard_direction: "horizontal",
+                                                                    mouseScrollNavigation: "off",
+                                                                    mouseScrollReverse: "default",
+                                                                    onHoverStop: "on",
+                                                                    touch: {
+                                                                        touchenabled: "on",
+                                                                        swipe_threshold: 75,
+                                                                        swipe_min_touches: 1,
+                                                                        swipe_direction: "horizontal",
+                                                                        drag_block_vertical: false,
+                                                                    },
+                                                                    arrows: {
+                                                                        style: "uranus",
+                                                                        enable: true,
+                                                                        hide_onmobile: false,
+                                                                        hide_onleave: false,
+                                                                        tmp: "",
+                                                                        left: {
+                                                                            h_align: "left",
+                                                                            v_align: "center",
+                                                                            h_offset: 10,
+                                                                            v_offset: 0,
+                                                                        },
+                                                                        right: {
+                                                                            h_align: "right",
+                                                                            v_align: "center",
+                                                                            h_offset: 10,
+                                                                            v_offset: 0,
+                                                                        },
+                                                                    },
+                                                                },
+                                                                viewPort: {
+                                                                    enable: true,
+                                                                    outof: "pause",
+                                                                    visible_area: "80%",
+                                                                    presize: false,
+                                                                },
+                                                                responsiveLevels: [1240, 1024, 778, 480],
+                                                                visibilityLevels: [1240, 1024, 778, 480],
+                                                                gridwidth: [1240, 1024, 778, 480],
+                                                                gridheight: [768, 600, 600, 600],
+                                                                lazyType: "none",
+                                                                parallax: {
+                                                                    type: "scroll",
+                                                                    origo: "enterpoint",
+                                                                    speed: 400,
+                                                                    levels: [
+                                                                        5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 46, 47, 48, 49, 50, 55,
+                                                                    ],
+                                                                    type: "scroll",
+                                                                },
+                                                                shadow: 0,
+                                                                spinner: "off",
+                                                                stopLoop: "off",
+                                                                stopAfterLoops: -1,
+                                                                stopAtSlide: -1,
+                                                                shuffle: "off",
+                                                                autoHeight: "off",
+                                                                hideThumbsOnMobile: "off",
+                                                                hideSliderAtLimit: 0,
+                                                                hideCaptionAtLimit: 0,
+                                                                hideAllCaptionAtLilmit: 0,
+                                                                debugMode: false,
+                                                                fallbacks: {
+                                                                    simplifyAll: "off",
+                                                                    nextSlideOnWindowFocus: "off",
+                                                                    disableFocusListener: false,
+                                                                },
+                                                            });
+                                                }
+                                            });
+            </script>
+    </body>
 </html>
 

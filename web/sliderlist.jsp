@@ -592,7 +592,7 @@
                                         <tr>
                                             <td>${status.index + 1}</td>
                                             <td>${slider.title}</td>
-                                            <td><img src="assets/images/slider/${slider.imageUrl}" alt=""/></td>
+                                            <td><img src="${slider.imageUrl}" alt=""/></td>
                                             <td>
                                                 <c:choose>
                                                     <c:when test="${slider.status}">

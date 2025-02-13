@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import model.Slider;
 
 
 
@@ -87,7 +88,7 @@ public class AddSliderController extends HttpServlet {
 
         // Lưu vào database
         SliderDAO sliderDAO = new SliderDAO();
-        boolean result = sliderDAO.AddNewSlider(title, sanitizedFileName, backLink);
+        boolean result = sliderDAO.AddNewSlider(title, "assets/images/slider/" + fileName, backLink);
 
         HttpSession session = request.getSession();
         if (result) {

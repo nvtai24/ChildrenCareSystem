@@ -202,8 +202,4 @@
         <servlet-name>ServiceFilterByCategoryController</servlet-name>
         <url-pattern>/servicefilter-cate-manager</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReservationDetailDelete</servlet-name>
-        <url-pattern>/ReservationDetailDelete</url-pattern>
-    </servlet-mapping>
 </web-app>

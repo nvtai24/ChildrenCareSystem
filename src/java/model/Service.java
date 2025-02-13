@@ -32,4 +32,6 @@ public class Service {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private List<ReservationDetail> reservationDetails;
+    
+    
 }
