@@ -38,7 +38,7 @@
                                     <!-- Avatar -->
                                     <div class="col-md-4 text-center">
                                         <div class="user-profile-thumb" style="width: 150px; height: 150px;">
-                                            <img id="avatarImage" src="${sessionScope.account.profile.avatar}" alt="Avatar" style="max-width: 150px;"/>
+                                            <img src="${sessionScope.account.profile.avatar}" id="avatarImage" alt="User Avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
                                         </div>
                                         <!-- Chỉnh sửa nút Choose File -->
                                         <div class="custom-file">
@@ -131,36 +131,32 @@
         </script>
 
         <script>
-            var originalAvatar = $("#avatarImage").attr("src"); // Lưu ảnh gốc ban đầu
+            var originalAvatar = $("#avatarImage").attr("src"); 
 
-            // Bắt sự kiện khi nhấn Reset
             $(".edit-profile").on("reset", function () {
                 setTimeout(function () {
-                    $("#avatarImage").attr("src", originalAvatar); // Gán lại ảnh gốc
-                    $("#avatarInput").val(""); // Xóa giá trị của input file
-                }, 10); // Đợi một chút để form reset hoàn tất
+                    $("#avatarImage").attr("src", originalAvatar); 
+                    $("#avatarInput").val("");
+                }, 10);
             });
         </script>
 
         <script>
             $(document).ready(function () {
-                // Bắt sự kiện khi submit form
                 $(".edit-profile").submit(function (event) {
-                    event.preventDefault(); // Ngăn chặn hành động submit mặc định
+                    event.preventDefault();
 
-                    var formData = new FormData(this); // Lấy dữ liệu form
+                    var formData = new FormData(this); 
 
                     $.ajax({
-                        url: "profile", // URL của Servlet xử lý
+                        url: "profile",
                         type: "POST",
                         data: formData,
-                        processData: false, // Không xử lý dữ liệu thành chuỗi query string
-                        contentType: false, // Không thiết lập header content-type
+                        processData: false, 
+                        contentType: false,
                         success: function (response) {
-                            // Hiển thị thông báo thành công
                             alert("Profile updated successfully!");
 
-                            // Cập nhật lại ảnh đại diện nếu có thay đổi
                             if (formData.get("avatar").name) {
                                 const reader = new FileReader();
                                 reader.onload = function (e) {
