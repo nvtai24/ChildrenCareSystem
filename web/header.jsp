@@ -8,7 +8,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <header class="header rs-nav header-transparent">
+        <header class="header rs-nav">
             <jsp:include page="top-bar.jsp" />
 
             <!-- Navigation Menu ==== -->
@@ -57,8 +57,8 @@
                             <ul class="navbar-nav" style="display: flex; align-items: center; gap: 10px; margin: 0; padding: 0; list-style: none; flex-direction: row-reverse;">
                                 <c:if test="${sessionScope.account != null}" >
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link d-flex align-items-center" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: flex; align-items: center;">
-                                            <img src="${sessionScope.account.profile.avatar}" id="userAvatar" alt="User Avatar" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+                                        <a class="nav-link d-flex align-items-center" href="#" id="userAvatar" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: flex; align-items: center;">
+                                            <img src="${sessionScope.account.profile.avatar}" alt="User Avatar" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="userAvatar">
                                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#profileModal">Edit Profile</a>
@@ -68,7 +68,7 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" href="reservationDetail" style="color: white;">
+                                        <a class="nav-link" href="reservationDetail" style="color: black;">
                                             <i class="fa fa-cart-plus" style="font-size: 18px;"></i>
                                         </a>
                                     </li>
@@ -76,8 +76,8 @@
 
                                 <c:if test="${sessionScope.account == null}">
                                     <!-- Nếu chưa đăng nhập, chỉ hiển thị Login & Register -->
-                                    <li class="nav-item"><a class="nav-link" href="login" style="text-decoration: none; color: white;">Login</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="register" style="text-decoration: none; color: white;">Register</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="login" style="text-decoration: none; color: black;">Login</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="register" style="text-decoration: none; color: black;">Register</a></li>
                                     </c:if>   
                             </ul>
 
