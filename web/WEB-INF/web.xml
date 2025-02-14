@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-    
+    <servlet-mapping>
+        <servlet-name>ErrorHandleController</servlet-name>
+        <url-pattern>/error-handle</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>ServiceListController</servlet-name>
         <servlet-class>controller.service.manager.ServiceListController</servlet-class>
@@ -104,6 +107,10 @@
     <servlet>
         <servlet-name>ReservationDetailDelete</servlet-name>
         <servlet-class>controller.reservation.ReservationDetailDelete</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ErrorHandleController</servlet-name>
+        <servlet-class>exception.ErrorHandleController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServiceListController</servlet-name>
@@ -209,4 +216,8 @@
         <servlet-name>ReservationDetailDelete</servlet-name>
         <url-pattern>/ReservationDetailDelete</url-pattern>
     </servlet-mapping>
+    
+    <error-page>
+        <location>/error-handle</location>
+    </error-page>
 </web-app>

@@ -19,7 +19,7 @@
                         <div class="d-flex align-items-stretch">
                             <div class="pt-logo mr-auto">
                                 <div class="menu-logo">
-                                    <a href="/app"><img src="assets/images/logochildren.jpg" alt ></a>
+                                    <a href="/app"><img src="assets/images/logo.png" alt ></a>
                                 </div>
                             </div>
                             <div class="pt-social-link">

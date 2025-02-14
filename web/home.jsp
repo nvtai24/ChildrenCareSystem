@@ -16,24 +16,13 @@
         <meta name="author" content="" />
         <meta name="robots" content="" />
 
-        <!-- DESCRIPTION -->
-        <meta name="description" content="EduChamp : Education HTML Template" />
-
-        <!-- OG -->
-        <meta property="og:title" content="EduChamp : Education HTML Template" />
-        <meta
-            property="og:description"
-            content="EduChamp : Education HTML Template"
-            />
-        <meta property="og:image" content="" />
-        <meta name="format-detection" content="telephone=no" />
 
         <!-- FAVICONS ICON ============================================= -->
-        <link rel="icon" href="assets/images/logochildren.jpg" type="image/x-icon" />
+        <link rel="icon" href="assets/images/logo.png" type="image/x-icon" />
         <link
             rel="shortcut icon"
             type="image/x-icon"
-            href="assets/images/logochildren.jpg"
+            href="assets/images/logo.png"
             />
 
         <!-- PAGE TITLE HERE ============================================= -->

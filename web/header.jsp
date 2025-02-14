@@ -18,7 +18,7 @@
                         <!-- Header Logo ==== -->
                         <div class="menu-logo">
                             <a href="/app"
-                               ><img src="assets/images/logochildren.jpg" alt
+                               ><img src="assets/images/logo.png" alt
                                   /></a>
                         </div>
 
