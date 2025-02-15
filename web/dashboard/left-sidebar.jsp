@@ -21,7 +21,7 @@
                 </li>
                 
                 <li>
-                    <a href="courses.html" class="ttr-material-button">
+                    <a href="settings" class="ttr-material-button">
                         <span class="ttr-icon"><i class="fa fa-cogs"></i></span>
                         <span class="ttr-label">Setting</span>
                     </a>
@@ -71,7 +71,7 @@
 
                
                 <li>
-                    <a href="" class="ttr-material-button">
+                    <a href="profile" class="ttr-material-button">
                         <span class="ttr-icon"><i class="fa fa-user"></i></span>
                         <span class="ttr-label">My Profile</span>
                     </a>

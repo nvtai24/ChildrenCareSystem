@@ -30,7 +30,7 @@ public class AdminDashboardController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        request.getRequestDispatcher("dashboard/admin/dashboard.jsp").forward(request, response);
+        request.getRequestDispatcher("dashboard/dashboard.jsp").forward(request, response);
     }
 
     /**

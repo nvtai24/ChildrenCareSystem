@@ -42,11 +42,11 @@
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
         <!-- header start -->
-        <jsp:include page="../header.jsp"/>
+        <jsp:include page="header.jsp"/>
         <!-- header end -->
 
         <!-- Left sidebar menu start -->
-        <jsp:include page="../left-sidebar.jsp"/>
+        <jsp:include page="left-sidebar.jsp"/>
         <!-- Left sidebar menu end -->
 
         <!--Main container start -->

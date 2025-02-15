@@ -4,23 +4,18 @@
  */
 package controller.dashboard.admin;
 
-import dal.RoleDAO;
-import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import model.auth.Role;
-import model.auth.User;
 
 /**
  *
  * @author Nvtai
  */
-public class UserListDashboardController extends HttpServlet {
+public class SettingDashboardController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -34,17 +29,8 @@ public class UserListDashboardController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        UserDAO uDB = new UserDAO();
-        ArrayList<User> users = uDB.listAllUsers();
-
-        RoleDAO rDB = new RoleDAO();
-        ArrayList<Role> roles = rDB.listAllAvailableRole();
-
-        request.setAttribute("users", users);
-        request.setAttribute("roles", roles);
-
-        request.getRequestDispatcher("dashboard/users.jsp").forward(request, response);
+        
+        request.getRequestDispatcher("dashboard/settings.jsp").forward(request, response);
     }
 
     /**

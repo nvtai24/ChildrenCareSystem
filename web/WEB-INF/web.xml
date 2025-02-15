@@ -8,6 +8,14 @@
         <servlet-name>UserListDashboardController</servlet-name>
         <servlet-class>controller.dashboard.admin.UserListDashboardController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DashboardProfileController</servlet-name>
+        <servlet-class>controller.dashboard.DashboardProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SettingDashboardController</servlet-name>
+        <servlet-class>controller.dashboard.admin.SettingDashboardController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
         <url-pattern>/error-handle</url-pattern>
@@ -90,7 +98,7 @@
     </servlet>
     <servlet>
         <servlet-name>ProfileController</servlet-name>
-        <servlet-class>controller.common.ProfileController</servlet-class>
+        <servlet-class>controller.common.AjaxProfileController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServiceDetailsPublicController</servlet-name>
@@ -166,7 +174,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProfileController</servlet-name>
-        <url-pattern>/profile</url-pattern>
+        <url-pattern>/ajax-profile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceDetailsPublicController</servlet-name>
@@ -243,6 +251,14 @@
     <error-page>
         <location>/error-handle</location>
     </error-page>
+    <servlet-mapping>
+        <servlet-name>DashboardProfileController</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SettingDashboardController</servlet-name>
+        <url-pattern>/settings</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
