@@ -42,9 +42,8 @@ public class ServiceListPublicController extends HttpServlet {
         String info = request.getParameter("info");
         String raw_cid = request.getParameter("cid");
 
-        // Phân trang
-        int pageSize = 6; // Số lượng dịch vụ hiển thị trên mỗi trang
-        int page = 1; // Mặc định trang đầu tiên
+        int pageSize = 6;
+        int page = 1;
 
         String pageParam = request.getParameter("page");
         if (pageParam != null) {

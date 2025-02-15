@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.*;
 import model.Profile;
+import model.auth.Role;
 import model.auth.User;
 
 public class UserDAO {
@@ -28,7 +29,7 @@ public class UserDAO {
         User user = null;
         PreparedStatement stm = null;
         try {
-            String sql = "SELECT `id`, `username`, `password`, `email` FROM `user` WHERE `username` = ? AND `password` = ?";
+            String sql = "SELECT `id`, `username`, `password`, `email`, `role_id` FROM `user` WHERE `username` = ? AND `password` = ?";
             stm = dbContext.connection.prepareStatement(sql);
             stm.setString(1, username);
             stm.setString(2, password);
@@ -37,10 +38,15 @@ public class UserDAO {
                 user = new User();
                 int id = rs.getInt("id");
                 String email = rs.getString("email");
+                int roleId = rs.getInt("role_id");
                 
                 user.setId(id);
                 user.setUsername(username);
                 user.setEmail(email);
+                
+                Role r = new Role();
+                r.setId(roleId);
+                user.setRole(r);
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
