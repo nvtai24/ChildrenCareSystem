@@ -131,11 +131,11 @@
         </script>
 
         <script>
-            var originalAvatar = $("#avatarImage").attr("src"); 
+            var originalAvatar = $("#avatarImage").attr("src");
 
             $(".edit-profile").on("reset", function () {
                 setTimeout(function () {
-                    $("#avatarImage").attr("src", originalAvatar); 
+                    $("#avatarImage").attr("src", originalAvatar);
                     $("#avatarInput").val("");
                 }, 10);
             });
@@ -146,13 +146,13 @@
                 $(".edit-profile").submit(function (event) {
                     event.preventDefault();
 
-                    var formData = new FormData(this); 
+                    var formData = new FormData(this);
 
                     $.ajax({
                         url: "profile",
                         type: "POST",
                         data: formData,
-                        processData: false, 
+                        processData: false,
                         contentType: false,
                         success: function (response) {
                             alert("Profile updated successfully!");
@@ -172,7 +172,6 @@
                 });
             });
         </script>
-
 
     </body>
     <!-- Mirrored from educhamp.themetrades.com/demo/admin/user-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->

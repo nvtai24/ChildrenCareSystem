@@ -21,7 +21,7 @@ import model.auth.User;
  *
  * @author Nvtai
  */
-@WebFilter(filterName = "AuthFilter", urlPatterns = {"/*"})
+//@WebFilter(filterName = "AuthFilter", urlPatterns = {"/*"})
 public class AuthFilter implements Filter {
 
     @Override

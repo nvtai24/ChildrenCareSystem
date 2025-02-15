@@ -12,10 +12,6 @@
         <!-- META ============================================= -->
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="keywords" content="" />
-        <meta name="author" content="" />
-        <meta name="robots" content="" />
-
 
         <!-- FAVICONS ICON ============================================= -->
         <link rel="icon" href="assets/images/logo.png" type="image/x-icon" />
@@ -31,10 +27,6 @@
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <!--[if lt IE 9]>
-          <script src="assets/js/html5shiv.min.js"></script>
-          <script src="assets/js/respond.min.js"></script>
-        <![endif]-->
 
         <!-- All PLUGINS CSS ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/assets.css" />
@@ -224,7 +216,7 @@
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
             <!-- Header Top ==== -->
-            <jsp:include page="header2.jsp"/>
+            <jsp:include page="header.jsp"/>
             <!-- Header Top END ==== -->
             
             <div class="page-content bg-white">

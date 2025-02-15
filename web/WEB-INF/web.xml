@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <servlet>
+        <servlet-name>DashboardNavigationController</servlet-name>
+        <servlet-class>controller.dashboard.DashboardNavigationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserListDashboardController</servlet-name>
+        <servlet-class>controller.dashboard.admin.UserListDashboardController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
         <url-pattern>/error-handle</url-pattern>
@@ -112,6 +120,10 @@
         <servlet-name>ErrorHandleController</servlet-name>
         <servlet-class>exception.ErrorHandleController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminDashboardController</servlet-name>
+        <servlet-class>controller.dashboard.admin.AdminDashboardController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServiceListController</servlet-name>
         <url-pattern>/services-manager</url-pattern>
@@ -216,8 +228,22 @@
         <servlet-name>ReservationDetailDelete</servlet-name>
         <url-pattern>/ReservationDetailDelete</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>AdminDashboardController</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardNavigationController</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserListDashboardController</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
     <error-page>
         <location>/error-handle</location>
     </error-page>
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
 </web-app>
