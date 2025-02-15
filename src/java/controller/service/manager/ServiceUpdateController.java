@@ -32,7 +32,7 @@ public class ServiceUpdateController extends HttpServlet {
 
         request.setAttribute("s", service);
         request.setAttribute("listCategory", listCategory);
-        request.getRequestDispatcher("./views/manager/serviceDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("../views/manager/serviceDetail.jsp").forward(request, response);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ServiceUpdateController extends HttpServlet {
             if (session != null) {
                 session.invalidate(); // Hủy toàn bộ session
             }
-            response.sendRedirect("services-manager");
+            response.sendRedirect("../services/manager");
         } catch (Exception e) {
             ServiceManagerDAO db = new ServiceManagerDAO();
             CategoryDAO dbCategory = new CategoryDAO();
@@ -65,7 +65,7 @@ public class ServiceUpdateController extends HttpServlet {
                 session.invalidate(); // Hủy toàn bộ session
             }
 
-            request.getRequestDispatcher("./views/manager/serviceDetail.jsp").forward(request, response);
+            request.getRequestDispatcher("../views/manager/serviceDetail.jsp").forward(request, response);
         }
     }
 
@@ -115,7 +115,7 @@ public class ServiceUpdateController extends HttpServlet {
         String filePath = uploadPath + File.separator + fileName;
         filePart.write(filePath);
 
-        return request.getContextPath() + "/assets/images/services/" + fileName;
+        return  "assets/images/services/" + fileName;
     }
 
     private String getFileName(Part part) {

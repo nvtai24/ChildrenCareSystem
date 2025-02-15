@@ -22,7 +22,7 @@ import model.Service;
  *
  * @author Admin
  */
-public class ServiceSearchByNameController extends HttpServlet {
+public class ServiceSearchByName extends HttpServlet {
    
 
 
@@ -43,7 +43,7 @@ public class ServiceSearchByNameController extends HttpServlet {
         
         request.setAttribute("list", list);
         request.setAttribute("nameService", nameService);
-        request.getRequestDispatcher("./views/manager/serviceList.jsp").forward(request, response);
+        request.getRequestDispatcher("../views/manager/serviceList.jsp").forward(request, response);
         
         
     } 

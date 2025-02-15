@@ -28,8 +28,12 @@
         <meta name="format-detection" content="telephone=no">
 
         <!-- FAVICONS ICON ============================================= -->
-        <link rel="icon" href="../error-404.html" type="image/x-icon" />
-        <link rel="shortcut icon" type="image/x-icon" href="assets2/images/favicon.png" />
+        <link rel="icon" href="${pageContext.request.contextPath}/assets/images/logochildren.jpg" type="image/x-icon" />
+        <link
+            rel="shortcut icon"
+            type="image/x-icon"
+            href="${pageContext.request.contextPath}/assets/images/logochildren.jpg"
+            />
 
         <!-- PAGE TITLE HERE ============================================= -->
         <title>EduChamp : Education HTML Template </title>
@@ -38,24 +42,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!--[if lt IE 9]>
-        <script src="assets2/js/html5shiv.min.js"></script>
-        <script src="assets2/js/respond.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/js/html5shiv.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/js/respond.min.js"></script>
         <![endif]-->
 
         <!-- All PLUGINS CSS ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/assets.css">
-        <link rel="stylesheet" type="text/css" href="assets2/vendors/calendar/fullcalendar.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/assets.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/vendors/calendar/fullcalendar.css">
 
         <!-- TYPOGRAPHY ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/typography.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/typography.css">
 
         <!-- SHORTCODES ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/shortcodes/shortcodes.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/shortcodes/shortcodes.css">
 
         <!-- STYLESHEETS ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/style.css">
-        <link rel="stylesheet" type="text/css" href="assets2/css/dashboard.css">
-        <link class="skin" rel="stylesheet" type="text/css" href="assets2/css/color/color-1.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/style.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/dashboard.css">
+        <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/color/color-1.css">
 
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
@@ -73,7 +77,7 @@
                 <div class="ttr-logo-box">
                     <div>
                         <a href="index.html" class="ttr-logo">						
-                            <img  src="assets/images/logochildren.jpg" width="50px" height="30px">
+                            <img  src="${pageContext.request.contextPath}/assets/images/logochildren.jpg" width="50px" height="30px">
                         </a>
                     </div>
                 </div>
@@ -161,7 +165,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="${sessionScope.account.profile.avatar}" width="32" height="32"></span></a>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="${pageContext.request.contextPath}/${sessionScope.account.profile.avatar}" width="32" height="32"></span></a>
                             <div class="ttr-header-submenu">
                                 <ul>
                                     <li><a href="user-profile.html">My profile</a></li>
@@ -225,7 +229,7 @@
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- side menu logo start -->
                 <div class="ttr-sidebar-logo">
-                    <a href="#"><img  src="assets/images/logochildren.jpg" width="45px" height="auto"></a>
+                    <a href="#"><img  src="${pageContext.request.contextPath}/assets/images/logochildren.jpg" width="45px" height="auto"></a>
                     <!--                    <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
                                             <i class="material-icons ttr-fixed-icon">gps_fixed</i>
                                             <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
@@ -245,7 +249,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="./ServiceListController" class="ttr-material-button">
+                            <a href="../services/manager" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-book"></i></span>
                                 <span class="ttr-label">Services</span>
                             </a>
@@ -331,7 +335,7 @@
                 <div class="db-breadcrumb">
                     <h4 class="breadcrumb-title">Service Detail</h4>
                     <ul class="db-breadcrumb-list">
-                        <li><a href="./services-manager"><i class="fa fa-home"></i>Service List</a></li>
+                        <li><a href="../services/manager"><i class="fa fa-home"></i>Service List</a></li>
                         <li>View</li>
                     </ul>
                 </div>	
@@ -343,7 +347,7 @@
                                 <h4>Service Detail</h4>
                             </div>
                             <div class="widget-inner">
-                                <form class="edit-profile m-b30" name="serviceForm" action="serviceupdate-manager" method="POST" onsubmit="return validateForm()" enctype="multipart/form-data">
+                                <form class="edit-profile m-b30" name="serviceForm" action="../serviceupdate/manager" method="POST" onsubmit="return validateForm()" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="ml-auto">
@@ -419,7 +423,7 @@
                                                                     <label for="thumbnail" class="btn btn-light">Choose Thumbnail</label>
                                                                     <input type="file" name="thumbnail" accept="image/*" id="thumbnail" onchange="previewImage(event)" style="display: none">
                                                                     <input type="hidden" name="oldThumbnail" value="${s.thumbnail}" >
-                                                                    <img id="imagePreview" src="${s.thumbnail}" alt="Image Preview" style=" width: 200px; height: auto; margin-top: 10px;">
+                                                                    <img id="imagePreview" src="${pageContext.request.contextPath}/${s.thumbnail}" alt="Image Preview" style=" width: 200px; height: auto; margin-top: 10px;">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 ">
@@ -456,72 +460,72 @@
         <div class="ttr-overlay"></div>
 
         <!-- External JavaScripts -->
-        <script src="assets2/js/jquery.min.js"></script>
-        <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
-        <script src="assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-        <script src="assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-        <script src="assets2/vendors/magnific-popup/magnific-popup.js"></script>
-        <script src="assets2/vendors/counter/waypoints-min.js"></script>
-        <script src="assets2/vendors/counter/counterup.min.js"></script>
-        <script src="assets2/vendors/imagesloaded/imagesloaded.js"></script>
-        <script src="assets2/vendors/masonry/masonry.js"></script>
-        <script src="assets2/vendors/masonry/filter.js"></script>
-        <script src="assets2/vendors/owl-carousel/owl.carousel.js"></script>
-        <script src='assets2/vendors/scroll/scrollbar.min.js'></script>
-        <script src="assets2/js/functions.js"></script>
-        <script src="assets2/vendors/chart/chart.min.js"></script>
-        <script src="assets2/js/admin.js"></script>
-        <script src='assets2/vendors/switcher/switcher.js'></script>
+        <script src="${pageContext.request.contextPath}/assets2/js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/counter/waypoints-min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/counter/counterup.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/masonry/masonry.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/masonry/filter.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src='${pageContext.request.contextPath}/assets2/vendors/scroll/scrollbar.min.js'></script>
+        <script src="${pageContext.request.contextPath}/assets2/js/functions.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/chart/chart.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
+        <script src='${pageContext.request.contextPath}/assets2/vendors/switcher/switcher.js'></script>
         <c:if test="${requestScope.error != null}">
             <script>
                                                                         alert('<%= request.getAttribute("error") %>');
             </script>
         </c:if>
-        <script>                                                                    
-                                                                        function previewImage(event) {
-                                                                            var input = event.target;
-                                                                            var reader = new FileReader();
+        <script>
+            function previewImage(event) {
+                var input = event.target;
+                var reader = new FileReader();
 
-                                                                            reader.onload = function () {
-                                                                                var img = document.getElementById('imagePreview');
-                                                                                img.src = reader.result;
-                                                                                img.style.display = 'block';
-                                                                            };
+                reader.onload = function () {
+                    var img = document.getElementById('imagePreview');
+                    img.src = reader.result;
+                    img.style.display = 'block';
+                };
 
-                                                                            if (input.files && input.files[0]) {
-                                                                                reader.readAsDataURL(input.files[0]);
-                                                                            }
-                                                                        }
-                                                                        function validateForm() {
-                                                                            let name = document.forms["serviceForm"]["name"].value.trim();
-                                                                            let description = document.forms["serviceForm"]["description"].value.trim();
-                                                                            let price = document.forms["serviceForm"]["price"].value.trim();
-                                                                            let discount = document.forms["serviceForm"]["discount"].value.trim();
-                                                                            let briefInfo = document.forms["serviceForm"]["briefInfo"].value.trim();
+                if (input.files && input.files[0]) {
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            function validateForm() {
+                let name = document.forms["serviceForm"]["name"].value.trim();
+                let description = document.forms["serviceForm"]["description"].value.trim();
+                let price = document.forms["serviceForm"]["price"].value.trim();
+                let discount = document.forms["serviceForm"]["discount"].value.trim();
+                let briefInfo = document.forms["serviceForm"]["briefInfo"].value.trim();
 
-                                                                            if (name === "" || description === "" || price === "" || discount === "" || briefInfo === "") {
-                                                                                alert("Please fill in all required fields.");
-                                                                                return false;
-                                                                            }
+                if (name === "" || description === "" || price === "" || discount === "" || briefInfo === "") {
+                    alert("Please fill in all required fields.");
+                    return false;
+                }
 
-                                                                            if (isNaN(price) || price <= 0) {
-                                                                                alert("Price must be a positive number.");
-                                                                                return false;
-                                                                            }
+                if (isNaN(price) || price <= 0) {
+                    alert("Price must be a positive number.");
+                    return false;
+                }
 
-                                                                            if (isNaN(discount) || discount < 0) {
-                                                                                alert("Discount must be a valid number and not negative.");
-                                                                                return false;
-                                                                            }
+                if (isNaN(discount) || discount < 0) {
+                    alert("Discount must be a valid number and not negative.");
+                    return false;
+                }
 
-                                                                            if (parseFloat(discount) > parseFloat(price)) {
-                                                                                alert("Discount cannot be greater than the price.");
-                                                                                return false;
-                                                                            }
-                                                                            alert("Update successfully.");
-                                                                            return true;
-                                                                        }
+                if (parseFloat(discount) > parseFloat(price)) {
+                    alert("Discount cannot be greater than the price.");
+                    return false;
+                }
+                alert("Update successfully.");
+                return true;
+            }
         </script>
     </body>
 

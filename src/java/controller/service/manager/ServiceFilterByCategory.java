@@ -22,7 +22,7 @@ import model.Service;
  *
  * @author Admin
  */
-public class ServiceFilterByCategoryController extends HttpServlet {
+public class ServiceFilterByCategory extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -68,7 +68,7 @@ public class ServiceFilterByCategoryController extends HttpServlet {
         request.setAttribute("listCategory", listCategory);
 
         // Chuyển hướng đến JSP
-        request.getRequestDispatcher("./views/manager/serviceList.jsp").forward(request, response);
+        request.getRequestDispatcher("../views/manager/serviceList.jsp").forward(request, response);
     }
 
 }

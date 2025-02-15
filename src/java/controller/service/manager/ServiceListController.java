@@ -26,6 +26,42 @@ public class ServiceListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        getListServiceAndCate(request, response);
+        request.getRequestDispatcher("../views/manager/serviceList.jsp").forward(request, response);
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String getAct = req.getParameter("action");
+
+        switch (getAct) {
+            case "search" -> {
+                ServiceSearchByName ssbnc = new ServiceSearchByName();
+                ssbnc.doGet(req, resp);
+            }
+            case "category" -> {
+                ServiceFilterByCategory sfbcc = new ServiceFilterByCategory();
+                sfbcc.doGet(req, resp);
+            }
+            case "status" -> {
+                ServiceFilterStatus sfc = new ServiceFilterStatus();
+                sfc.doGet(req, resp);
+            }
+            case "change" -> {
+                ServiceChangeStatus scsc = new ServiceChangeStatus();
+                scsc.doPost(req, resp);
+            }
+            default -> {
+                getListServiceAndCate(req, resp);
+                req.getRequestDispatcher("../views/manager/serviceList.jsp").forward(req, resp);
+            }
+
+        }
+
+    }
+
+    private void getListServiceAndCate(HttpServletRequest request, HttpServletResponse response) {
+
         ServiceManagerDAO db = new ServiceManagerDAO();
         CategoryDAO dbCategory = new CategoryDAO();
         ArrayList<Service> list = db.list();
@@ -33,13 +69,7 @@ public class ServiceListController extends HttpServlet {
 
         request.setAttribute("listCategory", listCategory);
         request.setAttribute("list", list);
-
-        request.getRequestDispatcher("./views/manager/serviceList.jsp").forward(request, response);
     }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    
+    
 }
