@@ -26,42 +26,15 @@ import model.auth.User;
  * @author Nvtai
  */
 @MultipartConfig
-public class ProfileController extends HttpServlet {
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
-    // + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request  servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-
-        User currentUser = (User) session.getAttribute("account");
-
-        ProfileDAO db = new ProfileDAO();
-
-        Profile profile = db.getProfileByUserId(currentUser.getId());
-
-        request.setAttribute("profile", profile);
-
-        request.getRequestDispatcher("profile.jsp").forward(request, response);
-    }
+public class AjaxProfileController extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request  servlet request
+     * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -142,10 +115,13 @@ public class ProfileController extends HttpServlet {
         // Lấy lại profile cập nhật và gửi qua request
         pDB = new ProfileDAO();
         Profile updatedProfile = pDB.getProfileByUserId(id);
-        request.setAttribute("profile", updatedProfile);
+        currentUser.setProfile(updatedProfile);
 
-        // Chuyển tiếp đến trang profile.jsp
-        request.getRequestDispatcher("profile.jsp").forward(request, response);
+        session.setAttribute("account", currentUser);
+
+//        response.sendRedirect("/app");
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().write("{\"status\": \"success\", \"message\": \"Profile updated successfully.\", \"avatar\": \"" + avatarPath + "\"}");
     }
 
 }

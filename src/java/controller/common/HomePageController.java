@@ -87,7 +87,7 @@ public class HomePageController extends HttpServlet {
             } else {
                 System.out.println("Khong co listPost trong he thong");
             }
-
+            
             request.getRequestDispatcher("home.jsp").forward(request, response);
         } catch (Exception e) {
             System.out.println(e);

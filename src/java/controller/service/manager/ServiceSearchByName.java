@@ -22,7 +22,7 @@ import model.Service;
  *
  * @author Admin
  */
-public class ServiceSearchByNameController extends HttpServlet {
+public class ServiceSearchByName extends HttpServlet {
    
 
 
@@ -30,9 +30,9 @@ public class ServiceSearchByNameController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String nameService = request.getParameter("nameService");
+        String nameService = request.getParameter("nameService").trim();
         if(nameService == null){
-            response.sendRedirect("ServiceListController");
+            response.sendRedirect("services-manager");
         }
         
         ServiceManagerDAO db = new ServiceManagerDAO();
@@ -43,7 +43,7 @@ public class ServiceSearchByNameController extends HttpServlet {
         
         request.setAttribute("list", list);
         request.setAttribute("nameService", nameService);
-        request.getRequestDispatcher("./views/manager/serviceList.jsp").forward(request, response);
+        request.getRequestDispatcher("../views/manager/serviceList.jsp").forward(request, response);
         
         
     } 

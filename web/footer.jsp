@@ -19,7 +19,7 @@
                         <div class="d-flex align-items-stretch">
                             <div class="pt-logo mr-auto">
                                 <div class="menu-logo">
-                                    <a href="/app"><img src="assets/images/logochildren.jpg" alt ></a>
+                                    <a href="/app"><img src="assets/images/logo.png" alt ></a>
                                 </div>
                             </div>
                             <div class="pt-social-link">
@@ -81,9 +81,9 @@
                                 </div>
                                 <div class="col-4 col-lg-4 col-md-4 col-sm-4">
                                     <div class="widget footer_widget">
-                                        <h5 class="footer-title">Courses</h5>
+                                        <h5 class="footer-title">Services</h5>
                                         <ul>
-                                            <li><a href="courses.html">Courses</a></li>
+                                            <li><a href="courses.html">Services</a></li>
                                             <li><a href="courses-details.html">Details</a></li>
                                             <li><a href="membership.html">Membership</a></li>
                                             <li><a href="profile.html">Profile</a></li>

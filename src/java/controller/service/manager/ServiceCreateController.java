@@ -34,7 +34,7 @@ public class ServiceCreateController extends HttpServlet {
         CategoryDAO dbCategory = new CategoryDAO();
         List<Category> list = dbCategory.getAllAvailabelCategories();
         request.setAttribute("listCategory", list);
-        request.getRequestDispatcher("./views/manager/serviceCreate.jsp").forward(request, response);
+        request.getRequestDispatcher("../views/manager/serviceCreate.jsp").forward(request, response);
     }
 
     @Override
@@ -42,7 +42,9 @@ public class ServiceCreateController extends HttpServlet {
             throws ServletException, IOException {
 
         ServiceManagerDAO db = new ServiceManagerDAO();
-
+        CategoryDAO dbCategory = new CategoryDAO();
+        List<Category> list = dbCategory.getAllAvailabelCategories();
+        request.setAttribute("listCategory", list);
         // Lấy dữ liệu từ form
         String raw_categoryId = request.getParameter("idCategory");
         String raw_name = request.getParameter("name");
@@ -91,7 +93,7 @@ public class ServiceCreateController extends HttpServlet {
         }
 
         // Tạo URL để lưu vào database
-        String fileURL = request.getContextPath() + "/assets/images/services/" + fileName;
+        String fileURL =  "assets/images/services/" + fileName;
 
         // Khởi tạo đối tượng Service
         Service s = new Service();
@@ -143,16 +145,16 @@ public class ServiceCreateController extends HttpServlet {
             }
 
             // Redirect về danh sách dịch vụ
-            response.sendRedirect("ServiceListController");
+            response.sendRedirect("../services/manager");
 
         } catch (NumberFormatException e) {
             errorMessage = "Invalid number format!";
             request.setAttribute("error", errorMessage);
-            request.getRequestDispatcher("./views/manager/serviceCreate.jsp").forward(request, response);
+            request.getRequestDispatcher("../views/manager/serviceCreate.jsp").forward(request, response);
 
         } catch (IllegalArgumentException e) {
             request.setAttribute("error", errorMessage);
-            request.getRequestDispatcher("./views/manager/serviceCreate.jsp").forward(request, response);
+            request.getRequestDispatcher("../views/manager/serviceCreate.jsp").forward(request, response);
         }
     }
 
