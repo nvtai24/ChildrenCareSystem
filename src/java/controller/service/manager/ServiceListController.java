@@ -27,7 +27,7 @@ public class ServiceListController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         getListServiceAndCate(request, response);
-        request.getRequestDispatcher("../views/manager/serviceList.jsp").forward(request, response);
+        request.getRequestDispatcher("../dashboard/manager/serviceList.jsp").forward(request, response);
     }
     
     @Override
@@ -53,7 +53,7 @@ public class ServiceListController extends HttpServlet {
             }
             default -> {
                 getListServiceAndCate(req, resp);
-                req.getRequestDispatcher("../views/manager/serviceList.jsp").forward(req, resp);
+                req.getRequestDispatcher("../dashboard/manager/serviceList.jsp").forward(req, resp);
             }
 
         }

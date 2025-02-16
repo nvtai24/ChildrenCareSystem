@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import model.auth.Role;
 import model.auth.User;
 
@@ -146,7 +147,7 @@ public class UserDAO extends DBContext {
                 Role r = new Role();
                 r.setRoleName(roleName);
                 u.setRole(r);
-                
+
                 users.add(u);
             }
 
@@ -161,5 +162,152 @@ public class UserDAO extends DBContext {
         }
 
         return users;
+    }
+
+    public ArrayList<User> getListUserByStatusAndRole(int status, int roleId) {
+        DBContext db = new DBContext();
+        ArrayList<User> list = new ArrayList<>();
+        String sql = "select u.id,u.username,u.password,u.email,u.role_id,u.status,u.created_date,u.updated_date,r.role_name from user u join role r on u.role_id = r.id ";
+
+        // Danh sách tham số
+        List<Object> params = new ArrayList<>();
+        if (status != -1 || roleId != -1) {
+            sql += " WHERE ";
+            if (status != -1) {
+                sql += " u.status = ? ";
+                params.add(status);
+            }
+            if (roleId != -1) {
+                if (!params.isEmpty()) {
+                    sql += " AND ";
+                }
+                sql += " u.role_id = ? ";
+                params.add(roleId);
+            }
+        }
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = db.connection.prepareStatement(sql);
+
+            // Gán tham số động
+            for (int i = 0; i < params.size(); i++) {
+                if (params.get(i) instanceof Integer) {
+                    ps.setInt(i + 1, (Integer) params.get(i));
+                } else if (params.get(i) instanceof Integer) {
+                    ps.setInt(i + 1, (Integer) params.get(i));
+                }
+            }
+
+            // Thực thi truy vấn
+            rs = ps.executeQuery();
+
+            // Lặp qua kết quả
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("u.id"));
+                u.setUsername(rs.getString("u.username"));
+                u.setEmail(rs.getString("u.email"));
+                u.setStatus(rs.getString("u.status").equalsIgnoreCase("1"));
+                u.setCreatedDate(rs.getTimestamp("u.created_date").toLocalDateTime());
+                u.setUpdatedDate(rs.getTimestamp("u.updated_date").toLocalDateTime());
+
+                Role r = new Role();
+                r.setId(rs.getInt("u.role_id"));
+                r.setRoleName(rs.getString("r.role_name"));
+
+                u.setRole(r);
+                list.add(u);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return list;
+    }
+
+    public ArrayList<User> getUserBySearch(String title) {
+        DBContext db = new DBContext();
+        ArrayList<User> list = new ArrayList<>();
+        String sql = "select u.id,u.username,u.password,u.email,u.role_id,u.status,u.created_date,u.updated_date,r.role_name from user u join role r on u.role_id = r.id ";
+        ResultSet rs = null;
+        String titleValue = "";
+        if (title != null) {
+            titleValue = "%" + title + "%";
+            sql += "WHERE u.username LIKE ? "
+                    + "OR u.email LIKE ? "
+                    + "OR r.role_name LIKE ? "
+                    + "OR u.id LIKE ?";
+        }
+
+        try {
+            if (title != null) {
+                rs = db.executeQuery(sql, titleValue, titleValue, titleValue, titleValue);
+            } else {
+                rs = db.executeQuery(sql);
+            }
+
+            while (rs.next()) {
+
+                User u = new User();
+                u.setId(rs.getInt("u.id"));
+                u.setUsername(rs.getString("u.username"));
+                u.setEmail(rs.getString("u.email"));
+                u.setStatus(rs.getString("u.status").equalsIgnoreCase("1"));
+                u.setCreatedDate(rs.getTimestamp("u.created_date").toLocalDateTime());
+                u.setUpdatedDate(rs.getTimestamp("u.updated_date").toLocalDateTime());
+
+                Role r = new Role();
+                r.setId(rs.getInt("u.role_id"));
+                r.setRoleName(rs.getString("r.role_name"));
+
+                u.setRole(r);
+                list.add(u);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+        return list;
+    }
+
+    public void UpdateStatusByUser(int id, int status) {
+        DBContext db = new DBContext();
+        String sql = "Update user set status = ? where id = ? ";
+        int changeStatus = (status == 1 ? 0 : 1);
+
+        try {
+            db.executeUpdate(sql, changeStatus, id);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                db.connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 }

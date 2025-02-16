@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>UserListDashboardController</servlet-name>
-        <servlet-class>controller.dashboard.admin.UserListDashboardController</servlet-class>
+        <servlet-class>controller.dashboard.admin.user.UserListDashboardController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DashboardProfileController</servlet-name>

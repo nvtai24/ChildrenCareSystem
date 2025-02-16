@@ -14,7 +14,7 @@
         <nav class="ttr-sidebar-navi">
             <ul>
                 <li>
-                    <a href="dashboard" class="ttr-material-button">
+                    <a href="/app/dashboard" class="ttr-material-button">
                         <span class="ttr-icon"><i class="fa fa-home"></i></span>
                         <span class="ttr-label">Dashboard</span>
                     </a>
@@ -35,7 +35,7 @@
                 </li>
                 
                 <li>
-                    <a href="index.html" class="ttr-material-button">
+                    <a href="services/manager" class="ttr-material-button">
                         <span class="ttr-icon"><i class="fa fa-medkit"></i></span>
                         <span class="ttr-label">Service</span>
                     </a>
@@ -56,7 +56,7 @@
                 </li>
 
                 <li>
-                    <a href="users" class="ttr-material-button">
+                    <a href="/app/users" class="ttr-material-button">
                         <span class="ttr-icon"><i class="fa fa-users" aria-hidden="true"></i></span>
                         <span class="ttr-label">User</span>
                     </a>
@@ -71,7 +71,7 @@
 
                
                 <li>
-                    <a href="profile" class="ttr-material-button">
+                    <a href="/app/profile" class="ttr-material-button">
                         <span class="ttr-icon"><i class="fa fa-user"></i></span>
                         <span class="ttr-label">My Profile</span>
                     </a>
