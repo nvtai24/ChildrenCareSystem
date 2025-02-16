@@ -68,21 +68,14 @@ public class RegisterController extends HttpServlet {
             response.getWriter().write("<script>alert('Email already exists!'); window.location='register.html';</script>");
             return;
         }
-        String verificationToken = UUID.randomUUID().toString();
         // Tạo user mới
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setPassword(password); // Không mã hóa mật khẩu (theo yêu cầu)
         newUser.setEmail(email);
-        newUser.setVerificationToken(verificationToken);
-        newUser.setVerified(false);
         // Thực hiện đăng ký
         boolean isRegistered = userDAO.register(newUser);
         if (isRegistered) {
-            // Send verification email
-            String verificationLink = "http://localhost:8080/app/verify?token=" + verificationToken;
-            OAuth2EmailService.sendVerificationEmail(email, verificationLink);
-
             // Redirect to login with success message
             response.sendRedirect("login.html?success=1");
         } else {

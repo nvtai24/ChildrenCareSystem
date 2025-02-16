@@ -54,13 +54,11 @@ public class UserDAO extends DBContext {
     }
 
     public boolean register(User user) {
-        String sql = "INSERT INTO `user` (`username`, `password`, `email`, `verification_token`, `verified`) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO `user` (`username`, `password`, `email`) VALUES (?, ?, ?)";
         try (PreparedStatement ps = dbContext.connection.prepareStatement(sql)) {
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getEmail());
-            ps.setString(4, user.getVerificationToken());
-            ps.setBoolean(5, false);  // Mặc định chưa xác minh
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
