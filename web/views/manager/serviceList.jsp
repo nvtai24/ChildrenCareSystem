@@ -34,11 +34,11 @@
         <title>Children Care</title>
 
         <!-- FAVICONS ICON ============================================= -->
-        <link rel="icon" href="${pageContext.request.contextPath}/assets/images/logochildren.jpg" type="image/x-icon" />
+        <link rel="icon" href="${pageContext.request.contextPath}/assets/images/logo.png" type="image/x-icon" />
         <link
             rel="shortcut icon"
             type="image/x-icon"
-            href="${pageContext.request.contextPath}/assets/images/logochildren.jpg"
+            href="${pageContext.request.contextPath}/assets/images/logo.png"
             />
 
         <!-- All PLUGINS CSS ============================================= -->
@@ -99,7 +99,7 @@
                 <div class="ttr-logo-box">
                     <div>
                         <a href="index.html" class="ttr-logo">
-                            <img  src="${pageContext.request.contextPath}/assets/images/logochildren.jpg" width="50px" height="30px">
+                            <img  src="${pageContext.request.contextPath}/assets/images/logo.png" width="50px" height="30px">
                         </a>
                     </div>
                 </div>
@@ -250,8 +250,8 @@
         <div class="ttr-sidebar">
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- side menu logo start -->
-                <div class="ttr-sidebar-logo">
-                    <a href="#"><img  src="${pageContext.request.contextPath}/assets/images/logochildren.jpg" width="45px" height="auto"></a>
+                <div class="ttr-sidebar-logo">                    
+                    <a href="#"><img  src="${pageContext.request.contextPath}/assets/images/logo.png" width="45px" height="auto" style="margin-top: -10px"></a>
                     <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
                             <i class="material-icons ttr-fixed-icon">gps_fixed</i>
                             <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
@@ -354,33 +354,17 @@
         <!--Main container start -->
         <main class="ttr-wrapper">
             <div class="container-fluid">
-                <div class="db-breadcrumb" style="display: flex; justify-content: space-between">
+                <div class="db-breadcrumb " style="display: flex;">
 
-
-                    <a href="../services/manager"><h4 class="breadcrumb-title">Service List</h4></a>
-
-
-                    <form style="margin-left: 10px;" action="../services/manager" method="POST">
-                        <ul class="db-breadcrumb-list">
-                            <input type="hidden" name="action" value="search"/>
-                            <input type="text" placeholder="Search service" style="border: 1px solid #d1d5db;  border-radius: 4px;" name="nameService" value="${nameService}"/>
-                            <input type="submit" value="Find" class="btn"/>
-                        </ul>
-                    </form>
-                    <h1></h1>
-                    <a href="../servicecreate/manager" class="btn " style=" margin-left:  10px; margin-right: 10px">
-                        Add New Service
-                    </a>
-
-
-
+                    <a href="../services/manager"><h4 class="breadcrumb-title">Service List</h4></a>                    
+                    <a href="../servicecreate/manager" class="btn " style=" margin-left:  10px; margin-right: 10px">Add New Service</a>
 
                 </div>	
                 <div class="widget-box">
                     <div class="wc-title d-flex align-items-center justify-content-between">
-                        
 
-                        <div class="d-flex ml-auto">
+
+                        <div class="d-flex">
                             <!-- Form 1: Status -->
                             <form method="POST" action="../services/manager" class="mr-2">
                                 <input name="action" value="status" type="hidden"/>
@@ -400,6 +384,14 @@
                                         <option value="${c.id}" ${ sessionScope.sessionCategoryId == c.id ? 'selected' : ''}>${c.name}</option>
                                     </c:forEach>
                                 </select>
+                            </form>
+                            <!-- Form 3: Search -->
+                            <form style="margin-left: 10px;" action="../services/manager" method="POST">
+                                <ul class="db-breadcrumb-list">
+                                    <input type="hidden" name="action" value="search"/>
+                                    <input type="text" placeholder="Search service" style="border: 1px solid #d1d5db;  border-radius: 4px;" name="nameService" value="${nameService}"/>
+                                    <input type="submit" value="Find" class="btn"/>
+                                </ul>
                             </form>
                         </div>
                     </div>

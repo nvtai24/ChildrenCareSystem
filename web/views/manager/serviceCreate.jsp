@@ -27,11 +27,11 @@
         <meta name="format-detection" content="telephone=no">
 
         <!-- FAVICONS ICON ============================================= -->
-        <link rel="icon" href="${pageContext.request.contextPath}/assets/images/logochildren.jpg" type="image/x-icon" />
+        <link rel="icon" href="${pageContext.request.contextPath}/assets/images/logo.png" type="image/x-icon" />
         <link
             rel="shortcut icon"
             type="image/x-icon"
-            href="${pageContext.request.contextPath}/assets/images/logochildren.jpg"
+            href="${pageContext.request.contextPath}/assets/images/logo.png"
             />
 
         <!-- PAGE TITLE HERE ============================================= -->
@@ -76,7 +76,7 @@
                 <div class="ttr-logo-box">
                     <div>
                         <a href="index.html" class="ttr-logo">
-                            <img  src="${pageContext.request.contextPath}/assets/images/logochildren.jpg" width="50px" height="30px">
+                            <img  src="${pageContext.request.contextPath}/assets/images/logo.png" width="50px" height="30px">
                         </a>
                     </div>
                 </div>
@@ -228,7 +228,7 @@
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- side menu logo start -->
                 <div class="ttr-sidebar-logo">
-                    <a href="#"><img  src="${pageContext.request.contextPath}/assets/images/logochildren.jpg" width="45px" height="auto"></a>
+                    <a href="#"><img  src="${pageContext.request.contextPath}/assets/images/logo.png" width="45px" height="auto" style="margin-top: -10px"></a>
                     <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
                             <i class="material-icons ttr-fixed-icon">gps_fixed</i>
                             <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
