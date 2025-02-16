@@ -384,8 +384,8 @@
                                         <option value="${c.id}" ${ sessionScope.sessionCategoryId == c.id ? 'selected' : ''}>${c.name}</option>
                                     </c:forEach>
                                 </select>
-                            </form>
-                            <!-- Form 3: Search -->
+                            </form> 
+                                    <!-- Form 3: Search -->
                             <form style="margin-left: 10px;" action="../services/manager" method="POST">
                                 <ul class="db-breadcrumb-list">
                                     <input type="hidden" name="action" value="search"/>
