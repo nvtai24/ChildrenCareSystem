@@ -18,7 +18,7 @@
                         <!-- Header Logo ==== -->
                         <div class="menu-logo">
                             <a href="/app"
-                               ><img src="assets/images/logo.png" alt
+                               ><img src="assets/images/logo.png"
                                   /></a>
                         </div>
 
@@ -51,6 +51,13 @@
                                         <li><a href="blog-details.html">Blog Details</a></li>
                                     </ul>
                                 </li>
+
+
+                                <c:if test="${sessionScope.account != null && sessionScope.account.role.id !=3}">
+                                    <li><a href="dashboard">Dashboard</a></li>
+                                    </c:if>
+
+
                             </ul>
 
 
@@ -60,7 +67,7 @@
                                         <a class="nav-link d-flex align-items-center" href="#" id="userAvatar" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: flex; align-items: center;">
                                             <img src="${sessionScope.account.profile.avatar}" alt="User Avatar" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="userAvatar">
+                                        <div class="dropdown-menu dropdown-menu-right shadow" style="min-width: auto" aria-labelledby="userAvatar">
                                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#profileModal">Edit Profile</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item text-danger" href="logout">Logout</a>
@@ -69,9 +76,17 @@
 
                                     <li class="nav-item">
                                         <a class="nav-link" href="reservationDetail" style="color: black;">
-                                            <i class="fa fa-cart-plus" style="font-size: 18px;"></i>
+                                            <i class="fa fa-calendar-plus-o" aria-hidden="true" style="font-size: 20px" title="My Reservation"></i>
                                         </a>
                                     </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#" style="color: black;">
+                                            <i class="fa fa-history" aria-hidden="true" style="font-size: 20px" title="History"></i>
+                                        </a>
+                                    </li>
+
+
                                 </c:if>
 
                                 <c:if test="${sessionScope.account == null}">
