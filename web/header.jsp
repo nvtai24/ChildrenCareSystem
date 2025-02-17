@@ -73,7 +73,7 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" href="reservationDetail" style="color: black;">
+                                        <a class="nav-link" href="reservation/detail" style="color: black;">
                                             <i class="fa fa-calendar-plus-o" aria-hidden="true" style="font-size: 20px" title="My Reservation"></i>
                                         </a>
                                     </li>
