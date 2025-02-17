@@ -105,7 +105,7 @@
             flex-direction: column;
             justify-content: flex-start;  /* Căn phần tử từ trên xuống, không gian sẽ được chia đều */
             height: auto; /* Đảm bảo chiều cao tự động để phù hợp với nội dung */
-            
+
             flex-grow: 1;  /* Để các phần tử bên trong có thể chiếm không gian tự do */
         }
 
@@ -183,6 +183,7 @@
 
             <!-- Header Top ==== -->
             <jsp:include page="header.jsp"/>
+
             <!-- Header Top END ==== -->
 
             <!-- Content -->
@@ -227,26 +228,26 @@
                                              data-no-retina />
 
                                         <!-- LAYER NR. 1 -->
-                                        <div class="tp-caption tp-shape tp-shapewrapper " 
-                                             id="slide-100-layer-1" 
-                                             data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
-                                             data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" 
-                                             data-width="full"
-                                             data-height="full"
-                                             data-whitespace="nowrap"
-                                             data-type="shape" 
-                                             data-basealign="slide" 
-                                             data-responsive_offset="off" 
-                                             data-responsive="off"
-                                             data-frames='[{"from":"opacity:0;","speed":1,"to":"o:1;","delay":0,"ease":"Power4.easeOut"},{"delay":"wait","speed":1,"to":"opacity:0;","ease":"Power4.easeOut"}]'
-                                             data-textAlign="['left','left','left','left']"
-                                             data-paddingtop="[0,0,0,0]"
-                                             data-paddingright="[0,0,0,0]"
-                                             data-paddingbottom="[0,0,0,0]"
-                                             data-paddingleft="[0,0,0,0]"
-                                             style="z-index: 5;background-color:rgba(2, 0, 11, 0.80);border-color:rgba(0, 0, 0, 0);border-width:0px;"> </div>	
+                                        <a href="${slider.backLink}"><div class="tp-caption tp-shape tp-shapewrapper " 
+                                                                          id="slide-100-layer-1" 
+                                                                          data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+                                                                          data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" 
+                                                                          data-width="full"
+                                                                          data-height="full"
+                                                                          data-whitespace="nowrap"
+                                                                          data-type="shape" 
+                                                                          data-basealign="slide" 
+                                                                          data-responsive_offset="off" 
+                                                                          data-responsive="off"
+                                                                          data-frames='[{"from":"opacity:0;","speed":1,"to":"o:1;","delay":0,"ease":"Power4.easeOut"},{"delay":"wait","speed":1,"to":"opacity:0;","ease":"Power4.easeOut"}]'
+                                                                          data-textAlign="['left','left','left','left']"
+                                                                          data-paddingtop="[0,0,0,0]"
+                                                                          data-paddingright="[0,0,0,0]"
+                                                                          data-paddingbottom="[0,0,0,0]"
+                                                                          data-paddingleft="[0,0,0,0]"
+                                                                          style="z-index: 5;background-color:rgba(2, 0, 11, 0.80);border-color:rgba(0, 0, 0, 0);border-width:0px;"> </div></a>
                                         <!-- LAYER NR. 2 -->
-                                        <div class="tp-caption Newspaper-Title   tp-resizeme" 
+                                        <a href="${slider.backLink}"><div class="tp-caption Newspaper-Title   tp-resizeme" 
                                              id="slide-100-layer-2" 
                                              data-x="['center','center','center','center']" 
                                              data-hoffset="['0','0','0','0']" 
@@ -267,10 +268,10 @@
                                              data-paddingleft="[0,0,0,0]"
                                              style="z-index: 6; font-family:rubik; font-weight:700; text-align:center; white-space: normal;">
                                             ${slider.title}
-                                        </div>
+                                            </div></a>
 
                                         <!-- LAYER NR. 3 -->
-                                        <div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
+                                        <a href="${slider.backLink}"><div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
                                              id="slide-100-layer-3" 
                                              data-x="['center','center','center','center']" 
                                              data-hoffset="['0','0','0','0']" 
@@ -289,10 +290,10 @@
                                              data-paddingleft="[0,0,0,0]"
                                              style="z-index: 7; white-space: nowrap; color:#fff; font-family:rubik; font-size:18px; font-weight:400;">
                                             ${slider.title}
-                                        </div>
+                                            </div></a>
 
                                         <!-- LAYER NR. 3 -->
-                                        <div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
+                                        <a href="${slider.backLink}"><div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
                                              id="slide-100-layer-4" 
                                              data-x="['center','center','center','center']" 
                                              data-hoffset="['0','0','0','0']" 
@@ -311,7 +312,7 @@
                                              data-paddingleft="[0,0,0,0]"
                                              style="z-index: 7; text-transform:capitalize; white-space: unset; color:#fff; font-family:rubik; font-size:18px; line-height:28px; font-weight:400;">
                                             We always provide the best service for you
-                                        </div>
+                                            </div></a>
                                         <!-- LAYER NR. 4 -->
 
                                     </li>
@@ -368,6 +369,7 @@
                             </div>
                         </div>
                     </div>
+                   
                     <div class="section-area section-sp2 popular-courses-bx">
                         <div class="container">
                             <div class="row">
@@ -385,7 +387,6 @@
                                             <div class="cours-bx">
                                                 <div class="action-box">
                                                     <img src="${service.thumbnail}" alt="" />
-                                                    <a href="#" class="btn">Read More</a>
                                                 </div>
                                                 <div class="info-bx text-center">
                                                     <h5>
@@ -416,7 +417,7 @@
                             <div class="row">
                                 <div class="col-md-12 heading-bx left">
 
-                                    
+
                                     <h2 class="title-head">Blog</h2>
 
 
@@ -428,21 +429,19 @@
                                         <div class="item">
                                             <div class="recent-news">
                                                 <div class="action-box">
-                                                    <a href="blogdetail?id=${post.id}"><img src="${post.thumbnail}" alt=""></a>
+                                                    <a href="blog?id=${post.id}"><img src="${post.thumbnail}" alt=""></a>
                                                 </div>
                                                 <div class="info-bx">
                                                     <ul class="media-post">
-                                                        <li>
-                                                            <a><i class="fa fa-calendar"></i>${post.createdDate}</a>
-                                                        </li>
+                                                        <li><a><i class="fa fa-calendar"></i>${post.createdDate}</a></li>
+                                                        <li><a><i class="fa fa-user"></i>By ${post.username}</a></li>
                                                     </ul>
                                                     <h5 class="post-title">
-                                                        <a href="blogdetail?id=${post.id}">${post.title}</a
-                                                        >
+                                                        <a href="blog?id=${post.id}">${post.title}</a>
                                                     </h5>
                                                     <p>${post.content}</p>
                                                     <div class="post-extra">
-                                                        <a href="blogdetail?id=${post.id}">READ MORE</a>
+                                                        <a href="blog?id=${post.id}">READ MORE</a>
                                                     </div>
                                                 </div>
                                             </div>

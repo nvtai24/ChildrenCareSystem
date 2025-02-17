@@ -51,20 +51,23 @@ public class UpdateSliderController extends HttpServlet {
             // Lấy ID slider từ request
             int sliderId = Integer.parseInt(request.getParameter("id"));
             String title = request.getParameter("title");
+            String backlink = request.getParameter("backlink");
 
-            Part filePart = request.getPart("image"); // Lấy file ảnh
+            // Lấy phần thông tin ảnh (nếu có)
+            Part filePart = request.getPart("image"); // Lấy file ảnh từ form
 
             // Khai báo DAO
             SliderDAO sliderDAO = new SliderDAO();
             Slider existingSlider = sliderDAO.GetSliderById(sliderId);
 
             String fileName = null;
-            boolean isUpdatingImage = (filePart != null && filePart.getSize() > 0);
+            boolean isUpdatingImage = (filePart != null && filePart.getSize() > 0); // Kiểm tra nếu có file ảnh mới
 
+            // Nếu có ảnh mới được chọn, xử lý lưu ảnh mới
             if (isUpdatingImage) {
                 // Lấy tên file mới
                 fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                String sanitizedFileName = fileName.replaceAll("\\s+", "_");
+                String sanitizedFileName = fileName.replaceAll("\\s+", "_"); // Đảm bảo tên file không có khoảng trắng
 
                 // Đường dẫn thư mục lưu ảnh
                 String appPath = getServletContext().getRealPath("/");
@@ -87,12 +90,12 @@ public class UpdateSliderController extends HttpServlet {
                 // Kiểm tra xem ảnh đã tồn tại trong folder hay chưa
                 File existingFile = new File(webFolder, sanitizedFileName);
                 if (!existingFile.exists()) {
-                    // Nếu ảnh mới chưa tồn tại, lưu nó
+                    // Nếu ảnh mới chưa tồn tại, lưu nó vào thư mục
                     File webImageFile = new File(webFolder, sanitizedFileName);
                     File buildImageFile = new File(buildFolder, sanitizedFileName);
 
                     filePart.write(webImageFile.getAbsolutePath());
-                    Files.copy(webImageFile.toPath(), buildImageFile.toPath());
+                    Files.copy(webImageFile.toPath(), buildImageFile.toPath()); // Sao chép file vào thư mục build
 
                     System.out.println("File saved to: " + webImageFile.getAbsolutePath());
                     System.out.println("File also copied to: " + buildImageFile.getAbsolutePath());
@@ -101,18 +104,20 @@ public class UpdateSliderController extends HttpServlet {
                 }
 
                 // Cập nhật fileName để lưu vào database
-                fileName = sanitizedFileName;
+                fileName = "assets/images/slider/" + sanitizedFileName;
             } else {
-                // Không có ảnh mới, giữ nguyên ảnh cũ
-                fileName = existingSlider.getImageUrl();
+                // Nếu không có ảnh mới, sử dụng ảnh cũ mà không thay đổi đường dẫn "assets/images/slider/"
+                fileName = existingSlider.getImageUrl();  // Giữ nguyên ảnh cũ
             }
 
-            // Cập nhật thông tin vào database
+            // Cập nhật thông tin vào đối tượng Slider
             Slider slider = new Slider();
             slider.setTitle(title);
             slider.setId(sliderId);
-            slider.setImageUrl("assets/images/slider/" + fileName);
+            slider.setBackLink(backlink);
+            slider.setImageUrl(fileName); // Lưu đường dẫn ảnh vào database
 
+            // Cập nhật Slider trong database
             boolean result = sliderDAO.updateSlider(slider);
 
             HttpSession session = request.getSession();
@@ -122,12 +127,12 @@ public class UpdateSliderController extends HttpServlet {
                 session.setAttribute("MESSAGE", "Update slider failed");
             }
 
-            response.sendRedirect("slider");
+            // Chuyển hướng về trang slider sau khi cập nhật
+            response.sendRedirect("sliders");
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi cập nhật slider.");
         }
-
     }
 
     /**

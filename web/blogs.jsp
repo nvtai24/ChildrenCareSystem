@@ -9,35 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <style>
-        .cours-bx {
-            display: flex;
-            flex-direction: column;
-            height: 100%; /* Đảm bảo blog có chiều cao bằng nhau */
-        }
 
-        .action-box img {
-            width: 100%;
-            height: 180px; /* Đặt chiều cao cố định cho ảnh */
-            object-fit: cover; /* Cắt ảnh phù hợp để không bị méo */
-        }
-
-        .info-bx {
-            flex-grow: 1; /* Đảm bảo phần nội dung co giãn để các blog có cùng chiều cao */
-            display: flex;
-            flex-direction: column;
-        }
-
-        .info-bx h5 {
-            min-height: 50px; /* Đặt chiều cao tối thiểu để căn tiêu đề */
-        }
-
-        .info-bx span {
-            flex-grow: 1;
-            display: -webkit-box;
-            -webkit-line-clamp: 3; /* Giới hạn content hiển thị 3 dòng */
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
         .form-search{
             display: flex;
             flex-direction: column;
@@ -76,6 +48,130 @@
         .form-search button:hover{
             background: #0056b3;
         }
+
+
+        /* ----- Cấu trúc chung của blog ----- */
+        .recent-news-carousel {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* ----- Mỗi bài blog ----- */
+        .recent-news {
+            width: 100%;
+            max-width: 350px; /* Đảm bảo bài viết có chiều rộng cố định */
+            height: 400px; /* Giữ cho các bài blog đồng nhất */
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .recent-news:hover {
+            transform: translateY(-5px);
+        }
+
+        /* ----- Ảnh bài blog ----- */
+        .recent-news .action-box {
+            width: 100%;
+            height: 200px; /* Giữ ảnh cố định */
+            overflow: hidden;
+        }
+
+        .recent-news .action-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Đảm bảo ảnh không méo */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .recent-news .action-box img:hover {
+            transform: scale(1.05);
+        }
+
+        /* ----- Nội dung bài blog ----- */
+        .recent-news .info-bx {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* ----- Tiêu đề bài viết ----- */
+        .recent-news .info-bx .post-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        /* ----- Mô tả bài viết ----- */
+        .recent-news .info-bx p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Giới hạn 2 dòng */
+            -webkit-box-orient: vertical;
+        }
+
+        /* ----- Phần thông tin (ngày & tác giả) ----- */
+        .media-post {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .media-post li {
+            display: flex;
+            align-items: center;
+        }
+
+        .media-post li i {
+            margin-right: 5px;
+            color: #555;
+        }
+
+        /* ----- Button Read More ----- */
+        .post-extra {
+            margin-top: auto;
+        }
+
+        .post-extra a {
+            font-size: 14px;
+            font-weight: bold;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .post-extra a:hover {
+            text-decoration: underline;
+        }
+
+        /* ----- Responsive trên màn hình nhỏ ----- */
+        @media (max-width: 768px) {
+            .recent-news {
+                width: 100%; /* Bài viết sẽ chiếm toàn bộ chiều rộng */
+                max-width: none;
+            }
+        }
+
+
+
 
     </style>
 
@@ -156,66 +252,71 @@
                 <!-- inner page banner END -->
                 <div class="content-block">
                     <!-- About Us -->
+
                     <div class="section-area section-sp1">
                         <div class="container">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
-                                    <div class="widget courses-search-bx placeani">
-                                        <!-- Form tìm kiếm -->
-                                        <form method="get" action="blog" class="form-search">
-                                            <div>
-                                                <input type="text" id="search" name="search" value="${param.search}" placeholder="Search by title">
-                                            </div>
-                                            <div>
-                                                <button type="submit">Search</button>
-                                            </div>
-                                        </form>                                    </div>
+                            <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+                                <div class="widget courses-search-bx placeani">
+
+                                    <form method="get" action="blogs" class="form-search">
+                                        <div>
+                                            <input type="text" id="search" name="search" value="${param.search}" >
+                                        </div>
+                                        <div>
+                                            <button type="submit">Search</button>
+                                        </div>
+                                    </form>                                    
                                 </div>
-                                <div class="col-lg-9 col-md-8 col-sm-12">
-                                    <div class="row">
-                                        <c:forEach var="post" items="${POSTS}">
-                                            <div class="col-md-4 col-lg-4 col-sm-6 m-b30">
-                                                <div class="cours-bx">
-                                                    <div class="action-box">
-                                                        <img src="assets/images/courses/${post.thumbnail}" alt="Blog Image">
-                                                        <a href="blogdetail?id=${post.id}" class="btn">Read More</a>
-                                                    </div>
-                                                    <div class="info-bx text-center">
-                                                        <h5><a href="blogdetail?id=${post.id}">${post.title}</a></h5>
-                                                        <span>${post.content}</span>
-                                                    </div>
+                            </div>
+                            <div class="ttr-blog-grid-3 row" id="masonry">
+                                <c:forEach items="${POSTS}" var="post">
+                                    <div class="post action-card col-lg-4 col-md-6 col-sm-12 col-xs-12 m-b40">
+                                        <div class="recent-news">
+
+                                            <div class="action-box">
+                                                <a href="blog?id=${post.id}"><img src="${post.thumbnail}" alt=""></a>
+                                            </div>
+                                            <div class="info-bx">
+                                                <ul class="media-post">
+                                                    <li><a><i class="fa fa-calendar"></i>${post.createdDate}</a></li>    
+                                                    <li><a><i class="fa fa-user"></i>By ${post.username}</a></li>
+                                                </ul>
+                                                <h5 class="post-title"><a href="blog?id=${post.id}">${post.title}</a></h5>
+                                                <p>${post.content}</p>
+                                                <div class="post-extra">
+                                                    <a href="blog?id=${post.id}" class="btn-link">READ MORE</a>
                                                 </div>
                                             </div>
-                                        </c:forEach>
-                                        <div class="col-lg-12 m-b20">
-                                            <div class="pagination-bx rounded-sm gray clearfix">
-                                                <ul class="pagination">
-                                                    <c:if test="${CURRENT_PAGE > 1}">
-                                                        <li class="previous">
-                                                            <a href="blog?page=${CURRENT_PAGE - 1}&search=${param.search}"><i class="ti-arrow-left"></i> Prev</a>
-                                                        </li>
-                                                    </c:if>
 
-                                                    <c:forEach begin="1" end="${TOTAL_PAGES}" var="i">
-                                                        <li class="${i == CURRENT_PAGE ? 'active' : ''}">
-                                                            <a href="blog?page=${i}&search=${param.search}">
-                                                                ${i}
-                                                            </a>
-                                                        </li>
-                                                    </c:forEach>
-
-                                                    <c:if test="${CURRENT_PAGE < TOTAL_PAGES}">
-                                                        <li class="previous">
-                                                            <a href="blog?page=${CURRENT_PAGE + 1}&search=${param.search}"><i class="ti-arrow-right"></i> Next</a>
-                                                        </li>
-                                                    </c:if>
-                                                </ul>
-                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </c:forEach>
 
                             </div>
+                            <!-- Pagination ==== -->
+                            <div class="pagination-bx rounded-sm gray clearfix">
+                                <ul class="pagination">
+                                    <c:if test="${CURRENT_PAGE > 1}">
+                                        <li class="previous">
+                                            <a href="blogs?page=${CURRENT_PAGE - 1}&search=${param.search}"><i class="ti-arrow-left"></i> Prev</a>
+                                        </li>
+                                    </c:if>
+
+                                    <c:forEach begin="1" end="${TOTAL_PAGES}" var="i">
+                                        <li class="${i == CURRENT_PAGE ? 'active' : ''}">
+                                            <a href="blogs?page=${i}&search=${param.search}">
+                                                ${i}
+                                            </a>
+                                        </li>
+                                    </c:forEach>
+
+                                    <c:if test="${CURRENT_PAGE < TOTAL_PAGES}">
+                                        <li class="previous">
+                                            <a href="blogs?page=${CURRENT_PAGE + 1}&search=${param.search}"><i class="ti-arrow-right"></i> Next</a>
+                                        </li>
+                                    </c:if>                                </ul>
+                            </div>
+                            <!-- Pagination END ==== -->
                         </div>
                     </div>
                 </div>
@@ -346,7 +447,7 @@
         <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/contact.js"></script>
-        
+
     </body>
 
 </html>

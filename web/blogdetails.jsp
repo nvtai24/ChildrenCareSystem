@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,7 +67,7 @@
             <!-- Content -->
             <div class="page-content bg-white">
                 <!-- inner page banner -->
-                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/courses/${POST.thumbnail});">
+                <div class="page-banner ovbl-dark" style="background-image:url(${POST.thumbnail});">
                     <div class="container">
                         <div class="page-banner-entry">
                             <h1 class="text-white">Blog Details</h1>
@@ -92,12 +93,12 @@
                                     <!-- blog start -->
                                     <div class="recent-news blog-lg">
                                         <div class="action-box blog-lg">
-                                            <img src="assets/images/courses/${POST.thumbnail}" alt="">
+                                            <img src="${POST.thumbnail}" alt="">
                                         </div>
                                         <div class="info-bx">
                                             <ul class="media-post">
                                                 <li><a><i class="fa fa-calendar"></i>${POST.createdDate}</a></li>
-                                                <li><a><i class="fa fa-comments-o"></i>.....</a></li>
+                                                <li><a><i class="fa fa-user"></i>By ${POST.username}</a></li>
                                             </ul>
                                             <h5 class="post-title"><a >${POST.title}</a></h5>
                                             <p>${POST.content}</p>
@@ -154,14 +155,14 @@
 
                                                 <c:forEach var="post" items="${LISTPOSTS}">
                                                     <div class="widget-post clearfix">
-                                                        <div class="ttr-post-media"> <a href="blogdetail?id=${post.id}"><img src="assets/images/courses/${post.thumbnail}" width="200" height="143" alt=""></a> </div>
+                                                        <div class="ttr-post-media"> <a href="blog?id=${post.id}"><img src="${post.thumbnail}" width="200" height="143" alt=""></a> </div>
                                                         <div class="ttr-post-info">
                                                             <div class="ttr-post-header">
-                                                                <h6 class="post-title"><a href="blogdetail?id=${post.id}">${post.title}</a></h6>
+                                                                <h6 class="post-title"><a href="blog?id=${post.id}">${post.title}</a></h6>
                                                             </div>
                                                             <ul class="media-post">
                                                                 <li><a><i class="fa fa-calendar"></i>${post.createdDate}</a></li>
-                                                                <li><a><i class="fa fa-comments-o"></i>...</a></li>
+                                                                
                                                             </ul>
                                                         </div>
                                                     </div>

@@ -79,7 +79,7 @@ public class DeleteSlider extends HttpServlet {
             sliderDAO.deleteSlider(sliderId);
 
             // Quay lại danh sách slider
-            response.sendRedirect("slider");
+            response.sendRedirect("sliders");
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error deleting slider");

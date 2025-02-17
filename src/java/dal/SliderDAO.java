@@ -79,9 +79,9 @@ public class SliderDAO extends DBContext {
     }
 
     public boolean updateSlider(Slider slider) {
-        String query = "UPDATE slider SET title = ?, image_url = ? WHERE id = ? ";
+        String query = "UPDATE slider SET title = ?, image_url = ?, back_link=? WHERE id = ? ";
         try {
-            int result = executeUpdate(query, slider.getTitle(), slider.getImageUrl(), slider.getId());
+            int result = executeUpdate(query, slider.getTitle(), slider.getImageUrl(), slider.getBackLink(), slider.getId());
             if (result > 0) {
                 return true;
             }
