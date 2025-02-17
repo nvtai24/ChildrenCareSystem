@@ -262,7 +262,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/app/slider" class="ttr-material-button">
+                            <a href="/app/sliders" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-book"></i></span>
                                 <span class="ttr-label">Sliders</span>
                             </a>
@@ -348,7 +348,7 @@
                 <div class="db-breadcrumb">
                     <h4 class="breadcrumb-title">Edit Slider</h4>
                     <ul class="db-breadcrumb-list">
-                        
+
                         <li>Edit Slider</li>
                     </ul>
                 </div>	
@@ -360,7 +360,7 @@
                                 <h4>Edit Slider -  ${SLIDER.title}</h4>
                             </div>
                             <div class="widget-inner">
-                                <form class="edit-profile m-b30" action="updateslider" method="post" enctype="multipart/form-data">
+                                <form class="edit-profile m-b30" action="sliders-update" method="post" enctype="multipart/form-data">
                                     <input type="hidden" name="id" value="${SLIDER.id}"><br>
                                     <div class="row">
                                         <div class="col-12">
@@ -375,21 +375,36 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
+                                            <label class="col-form-label">Back Link</label>
+                                            <div>
+                                                <input name="backlink" class="form-control" type="text" value="${SLIDER.backLink}" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-6">
                                             <label class="col-form-label">Image</label>
                                             <div>
-                                                <input class="form-control" type="file" name="image" accept="image/*" required>
+                                                <!-- Hiển thị ảnh hiện tại nếu có -->
+                                                <img src="${SLIDER.imageUrl}" alt="Slider Image" class="img-thumbnail" width="150">
+
+                                                <!-- Input cho phép chọn ảnh mới -->
+                                                <input class="form-control" type="file" name="image" accept="image/*">
                                             </div>
                                         </div>
 
                                         <div class="seperator"></div>
-                                       
+
                                         <div class="col-12">
-                                            
+
                                             <button type="submit" class="btn">Save changes</button>
+
                                         </div>
                                     </div>
 
                                 </form>
+                                <button class="btn-secondry add-item m-r5">          
+                                    <a style="color: white" href="slider"><< Slider List</a>
+                                </button>
+
                             </div>
                         </div>
                     </div>
@@ -416,7 +431,7 @@
         <script src="assets2/js/functions.js"></script>
         <script src="assets2/vendors/chart/chart.min.js"></script>
         <script src="assets2/js/admin.js"></script>
-        
+
         <script>
             // Pricing add
             function newMenuItem() {

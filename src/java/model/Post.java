@@ -26,6 +26,7 @@ public class Post {
     private String title;
     private String content;
     private String thumbnail;
+    private String username;
     private boolean status;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;

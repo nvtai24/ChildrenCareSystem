@@ -11,15 +11,17 @@ import java.util.List;
 import model.Post;
 import model.Service;
 
-
 /**
  *
  * @author Nvtai
  */
 public class PostDAO extends DBContext {
+
     public List<Post> getAllPosts() {
         List<Post> posts = new ArrayList<>();
-        String query = "SELECT * FROM childrencare.post";
+        String query = "SELECT post.id, post.title, post.content, post.thumbnail, post.status,  post.created_date, post.updated_date, user.username  \n"
+                + "FROM post  \n"
+                + "JOIN user ON post.author_id = user.id WHERE post.status = 1";
 
         try {
             ResultSet rs = executeQuery(query);
@@ -30,6 +32,7 @@ public class PostDAO extends DBContext {
                 post.setTitle(rs.getString("title"));
                 post.setContent(rs.getString("content"));
                 post.setThumbnail(rs.getString("thumbnail"));
+                post.setUsername(rs.getString("username"));
                 post.setStatus(rs.getBoolean("status"));
                 post.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
                 if (rs.getTimestamp("updated_date") != null) {
@@ -42,6 +45,8 @@ public class PostDAO extends DBContext {
         }
         return posts;
     }
+
+
     public int getPostCount(String search, Boolean status) {
         String query = "SELECT COUNT(*) AS total FROM post WHERE title LIKE ?";
 
@@ -69,46 +74,49 @@ public class PostDAO extends DBContext {
     }
 
     public List<Post> getPostsByPageSearchAndStatus(int page, int postsPerPage, String search, Boolean status) {
-    List<Post> posts = new ArrayList<>();
-    String query = "SELECT * FROM post WHERE title LIKE ?";
+        List<Post> posts = new ArrayList<>();
+        String query = "SELECT post.id, post.title, post.content, post.thumbnail, post.status,  post.created_date, post.updated_date, user.username  \n"
+                + "FROM post  \n"
+                + "JOIN user ON post.author_id = user.id   WHERE post.title LIKE ?";
 
-    // Nếu có trạng thái, thêm điều kiện lọc
-    if (status != null) {
-        query += " AND status = ?";
-    }
-
-    query += " ORDER BY created_date DESC LIMIT ? OFFSET ?";
-
-    try {
-        int offset = (page - 1) * postsPerPage;
-
-        ResultSet rs;
+        // Nếu có trạng thái, thêm điều kiện lọc
         if (status != null) {
-            rs = executeQuery(query, "%" + search + "%", status, postsPerPage, offset);
-        } else {
-            rs = executeQuery(query, "%" + search + "%", postsPerPage, offset);
+            query += " AND post.status = ?";
         }
 
-        while (rs.next()) {
-            Post post = new Post();
-            post.setId(rs.getInt("id"));
-            post.setTitle(rs.getString("title"));
-            post.setContent(rs.getString("content"));
-            post.setThumbnail(rs.getString("thumbnail"));
-            post.setStatus(rs.getBoolean("status"));
-            post.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
+        query += " ORDER BY post.created_date DESC LIMIT ? OFFSET ?";
 
-            if (rs.getTimestamp("updated_date") != null) {
-                post.setUpdatedDate(rs.getTimestamp("updated_date").toLocalDateTime());
+        try {
+            int offset = (page - 1) * postsPerPage;
+
+            ResultSet rs;
+            if (status != null) {
+                rs = executeQuery(query, "%" + search + "%", status, postsPerPage, offset);
+            } else {
+                rs = executeQuery(query, "%" + search + "%", postsPerPage, offset);
             }
 
-            posts.add(post);
+            while (rs.next()) {
+                Post post = new Post();
+                post.setId(rs.getInt("id"));
+                post.setTitle(rs.getString("title"));
+                post.setContent(rs.getString("content"));
+                post.setThumbnail(rs.getString("thumbnail"));
+                post.setUsername(rs.getString("username"));
+                post.setStatus(rs.getBoolean("status"));
+                post.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
+
+                if (rs.getTimestamp("updated_date") != null) {
+                    post.setUpdatedDate(rs.getTimestamp("updated_date").toLocalDateTime());
+                }
+
+                posts.add(post);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return posts;
     }
-    return posts;
-}
 
     public List<Post> getTop3Post() {
         List<Post> posts = new ArrayList<>();
@@ -137,7 +145,11 @@ public class PostDAO extends DBContext {
     }
 
     public Post getPostById(int id) {
-        String query = "SELECT * FROM childrencare.post WHERE id = ?";
+        String query = "SELECT post.id, post.title, post.content, post.thumbnail, post.status, "
+                + "post.created_date, post.updated_date, user.username "
+                + "FROM post "
+                + "JOIN user ON post.author_id = user.id "
+                + "WHERE post.id = ?";
 
         try {
             ResultSet rs = executeQuery(query, id);
@@ -149,6 +161,7 @@ public class PostDAO extends DBContext {
                 post.setContent(rs.getString("content"));
                 post.setThumbnail(rs.getString("thumbnail"));
                 post.setStatus(rs.getBoolean("status"));
+                post.setUsername(rs.getString("username"));
                 post.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
                 if (rs.getTimestamp("updated_date") != null) {
                     post.setUpdatedDate(rs.getTimestamp("updated_date").toLocalDateTime());
@@ -160,4 +173,5 @@ public class PostDAO extends DBContext {
         }
         return null;
     }
+    
 }
