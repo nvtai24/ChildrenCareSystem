@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+
     <servlet>
         <servlet-name>DashboardNavigationController</servlet-name>
         <servlet-class>controller.dashboard.DashboardNavigationController</servlet-class>
@@ -43,10 +44,6 @@
     <servlet>
         <servlet-name>RegisterController</servlet-name>
         <servlet-class>controller.auth.RegisterController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ReservationListController</servlet-name>
-        <servlet-class>controller.reservation.ReservationListController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SliderListController</servlet-name>
@@ -129,16 +126,12 @@
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ReservationListController</servlet-name>
-        <url-pattern>/ReservationListController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>SliderListController</servlet-name>
-        <url-pattern>/slider</url-pattern>
+        <url-pattern>/sliders</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BlogListController</servlet-name>
-        <url-pattern>/blog</url-pattern>
+        <url-pattern>/blogs</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomePageController</servlet-name>
@@ -150,7 +143,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReservationDetailController</servlet-name>
-        <url-pattern>/reservationDetail</url-pattern>
+        <url-pattern>/reservation/detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProfileController</servlet-name>
@@ -170,7 +163,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BlogDetailController</servlet-name>
-        <url-pattern>/blogdetail</url-pattern>
+        <url-pattern>/blog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddSliderController</servlet-name>
@@ -178,7 +171,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateSliderController</servlet-name>
-        <url-pattern>/updateslider</url-pattern>
+        <url-pattern>/sliders-update</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>

@@ -97,7 +97,7 @@ public class AddSliderController extends HttpServlet {
             session.setAttribute("MESSAGE", "Add slider failed!");
         }
 
-        response.sendRedirect("slider");
+        response.sendRedirect("sliders");
 
     }
 

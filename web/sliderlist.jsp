@@ -164,23 +164,27 @@
         }
 
         td:nth-child(4), th:nth-child(4) {
-            width: 6%;
+            width: 10%;
             text-align: center;
         }
         td:nth-child(5), th:nth-child(5) {
-            width: 10%;
+            width: 5%;
             text-align: center;
         }
         td:nth-child(6), th:nth-child(6) {
-            width: 10%;
+            width: 8%;
             text-align: center;
         }
 
         td:nth-child(7), th:nth-child(7) {
-            width: 10%;
+            width: 8%;
             text-align: center;
         }
         td:nth-child(8), th:nth-child(8) {
+            width: 8%;
+            text-align: center;
+        }
+        td:nth-child(9), th:nth-child(9) {
             width: 6%;
             text-align: center;
         }
@@ -444,7 +448,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/app/slider" class="ttr-material-button">
+                            <a href="/app/sliders" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-book"></i></span>
                                 <span class="ttr-label">Sliders</span>
                             </a>
@@ -548,13 +552,13 @@
                             <div class="filter-search-container">
 
                                 <!-- Form tìm kiếm -->
-                                <form method="get" action="slider" class="form-search">
+                                <form method="get" action="sliders" class="form-search">
                                     <input type="text" id="search" name="search" value="${param.search}" placeholder="Search by title">
                                     <button type="submit">Search</button>
                                 </form>
 
                                 <!-- Form lọc trạng thái -->
-                                <form method="get" action="slider" class="form-filter">
+                                <form method="get" action="sliders" class="form-filter">
                                     <select name="status" id="status">
                                         <option value="" ${empty param.status ? "selected" : ""}>All</option>
                                         <option value="true" ${param.status == "true" ? "selected" : ""}>Active</option>
@@ -578,6 +582,7 @@
                                         <th>#</th>
                                         <th>Title</th>
                                         <th>Image</th>
+                                        <th>BackLink</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th>Updated Date</th>
@@ -593,6 +598,7 @@
                                             <td>${status.index + 1}</td>
                                             <td>${slider.title}</td>
                                             <td><img src="${slider.imageUrl}" alt=""/></td>
+                                            <td>${slider.backLink}</td>
                                             <td>
                                                 <c:choose>
                                                     <c:when test="${slider.status}">
@@ -611,7 +617,7 @@
                                             </td>
                                             <td>
                                                 <!-- Nút Enable/Disable -->
-                                                <form method="post" action="slider">
+                                                <form method="post" action="sliders">
                                                     <input type="hidden" name="id" value="${slider.id}">
                                                     <input type="hidden" name="status" value="${slider.status ? 0 : 1}">
                                                     <button type="submit" 
@@ -629,7 +635,7 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                <form method="get" action="updateslider" style="display:inline;">
+                                                <form method="get" action="sliders-update" style="display:inline;">
                                                     <input  type="hidden" name="id" value="${slider.id}">
                                                     <button type="submit" class="btn update" style="display:inline;">
                                                         Edit
@@ -646,7 +652,7 @@
                                     <ul class="pagination">
                                         <c:if test="${CURRENT_PAGE > 1}">
                                             <li class="previous">
-                                                <a href="slider?page=${CURRENT_PAGE - 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
+                                                <a href="sliders?page=${CURRENT_PAGE - 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
                                                     <i class="ti-arrow-left"></i> Prev
                                                 </a>
                                             </li>
@@ -654,7 +660,7 @@
 
                                         <c:forEach begin="1" end="${TOTAL_PAGES}" var="i">
                                             <li class="${i == CURRENT_PAGE ? 'active' : ''}">
-                                                <a href="slider?page=${i}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
+                                                <a href="sliders?page=${i}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
                                                     ${i}
                                                 </a>
                                             </li>
@@ -662,7 +668,7 @@
 
                                         <c:if test="${CURRENT_PAGE < TOTAL_PAGES}">
                                             <li class="next">
-                                                <a href="slider?page=${CURRENT_PAGE + 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
+                                                <a href="sliders?page=${CURRENT_PAGE + 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
                                                     <i class="ti-arrow-right"></i> Next
                                                 </a>
                                             </li>

@@ -116,7 +116,7 @@
                     <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="${pageContext.request.contextPath}/${sessionScope.account.profile.avatar}" width="32" height="32"></span></a>
                     <div class="ttr-header-submenu">
                         <ul>
-                            <li><a href="#">My Profile</a></li>
+                            <li><a href="profile">My Profile</a></li>
                             <li><a href="logout" style="color: red">Log Out</a></li>
                         </ul>
                     </div>

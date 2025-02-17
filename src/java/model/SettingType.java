@@ -4,13 +4,11 @@
  */
 package model;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import model.auth.User;
 
 /**
  *
@@ -20,15 +18,8 @@ import model.auth.User;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Post {
+public class SettingType {
     private int id;
-    private User author;
-    private String title;
-    private String content;
-    private String thumbnail;
-    private String username;
-    private boolean status;
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
-    private List<Label> labels;
+    private String name;
+    private ArrayList<Setting> settings;
 }
