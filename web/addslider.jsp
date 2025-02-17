@@ -262,7 +262,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/app/slider" class="ttr-material-button">
+                            <a href="/app/sliders" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-book"></i></span>
                                 <span class="ttr-label">Sliders</span>
                             </a>
@@ -348,7 +348,7 @@
                 <div class="db-breadcrumb">
                     <h4 class="breadcrumb-title">Add Slider</h4>
                     <ul class="db-breadcrumb-list">
-                        
+
                         <li>Add Slider</li>
                     </ul>
                 </div>	
@@ -374,6 +374,12 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
+                                            <label class="col-form-label">Back Link</label>
+                                            <div>
+                                                <input name="backLink" class="form-control" type="text" value="" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-6">
                                             <label class="col-form-label">Image</label>
                                             <div>
                                                 <input class="form-control" type="file" name="image" accept="image/*" required>
@@ -381,62 +387,69 @@
                                         </div>
 
                                         <div class="seperator"></div>
-                                      
+
                                         <div class="col-12">
-                                            <button class="btn-secondry add-item m-r5">          
-                                                <a style="color: white" href="slider"><<< Slider list</a>
-                                            </button>
+                                            
                                             <button type="submit" class="btn">Save changes</button>
+
                                         </div>
+
                                     </div>
 
+                                    
                                 </form>
-                            </div>
+
+                                <button class="btn-secondry add-item m-r5">          
+                                    <a style="color: white" href="slider"><< Slider List</a>
+                                </button>
+                                
+                            
                         </div>
                     </div>
-                    <!-- Your Profile Views Chart END-->
                 </div>
+                <!-- Your Profile Views Chart END-->
             </div>
-        </main>
-        <div class="ttr-overlay"></div>
+        </div>
+    </main>
+    <div class="ttr-overlay"></div>
 
-        <!-- External JavaScripts -->
-        <script src="assets2/js/jquery.min.js"></script>
-        <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
-        <script src="assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-        <script src="assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-        <script src="assets2/vendors/magnific-popup/magnific-popup.js"></script>
-        <script src="assets2/vendors/counter/waypoints-min.js"></script>
-        <script src="assets2/vendors/counter/counterup.min.js"></script>
-        <script src="assets2/vendors/imagesloaded/imagesloaded.js"></script>
-        <script src="assets2/vendors/masonry/masonry.js"></script>
-        <script src="assets2/vendors/masonry/filter.js"></script>
-        <script src="assets2/vendors/owl-carousel/owl.carousel.js"></script>
-        <script src='assets2/vendors/scroll/scrollbar.min.js'></script>
-        <script src="assets2/js/functions.js"></script>
-        <script src="assets2/vendors/chart/chart.min.js"></script>
-        <script src="assets2/js/admin.js"></script>
-        
-        <script>
-            // Pricing add
-            function newMenuItem() {
-                var newElem = $('tr.list-item').first().clone();
-                newElem.find('input').val('');
-                newElem.appendTo('table#item-add');
-            }
-            if ($("table#item-add").is('*')) {
-                $('.add-item').on('click', function (e) {
-                    e.preventDefault();
-                    newMenuItem();
-                });
-                $(document).on("click", "#item-add .delete", function (e) {
-                    e.preventDefault();
-                    $(this).parent().parent().parent().parent().remove();
-                });
-            }
-        </script>
-    </body>
+    <!-- External JavaScripts -->
+    <script src="assets2/js/jquery.min.js"></script>
+    <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
+    <script src="assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+    <script src="assets2/vendors/magnific-popup/magnific-popup.js"></script>
+    <script src="assets2/vendors/counter/waypoints-min.js"></script>
+    <script src="assets2/vendors/counter/counterup.min.js"></script>
+    <script src="assets2/vendors/imagesloaded/imagesloaded.js"></script>
+    <script src="assets2/vendors/masonry/masonry.js"></script>
+    <script src="assets2/vendors/masonry/filter.js"></script>
+    <script src="assets2/vendors/owl-carousel/owl.carousel.js"></script>
+    <script src='assets2/vendors/scroll/scrollbar.min.js'></script>
+    <script src="assets2/js/functions.js"></script>
+    <script src="assets2/vendors/chart/chart.min.js"></script>
+    <script src="assets2/js/admin.js"></script>
 
-    <!-- Mirrored from educhamp.themetrades.com/demo/admin/add-listing.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:09:05 GMT -->
+    <script>
+        // Pricing add
+        function newMenuItem() {
+            var newElem = $('tr.list-item').first().clone();
+            newElem.find('input').val('');
+            newElem.appendTo('table#item-add');
+        }
+        if ($("table#item-add").is('*')) {
+            $('.add-item').on('click', function (e) {
+                e.preventDefault();
+                newMenuItem();
+            });
+            $(document).on("click", "#item-add .delete", function (e) {
+                e.preventDefault();
+                $(this).parent().parent().parent().parent().remove();
+            });
+        }
+    </script>
+</body>
+
+<!-- Mirrored from educhamp.themetrades.com/demo/admin/add-listing.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:09:05 GMT -->
 </html>

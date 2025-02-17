@@ -78,13 +78,7 @@ public class BlogListController extends HttpServlet {
             }
 
             // Lấy danh sách dịch vụ nếu có (không liên quan đến bài post nhưng bạn đang load nó)
-            ServiceDAO serviceDAO = new ServiceDAO();
-            List<Service> listService = serviceDAO.getAllAvailableServices();
-            if (listService != null && !listService.isEmpty()) {
-                request.setAttribute("SERVICES", listService);
-            } else {
-                System.out.println("Không có service trong hệ thống");
-            }
+            
 
             // Số bài viết tối đa trên mỗi trang
             int postsPerPage = 6;
@@ -95,12 +89,14 @@ public class BlogListController extends HttpServlet {
 
             // Tính tổng số trang
             int totalPages = (int) Math.ceil((double) totalPosts / postsPerPage);
-
+            
             // Lấy danh sách bài viết theo trang, tìm kiếm và trạng thái
             List<Post> listPosts = postDAO.getPostsByPageSearchAndStatus(page, postsPerPage, search, status);
-
+            
             // Gửi dữ liệu lên JSP
+            
             request.setAttribute("POSTS", listPosts);
+            
             request.setAttribute("CURRENT_PAGE", page);
             request.setAttribute("TOTAL_PAGES", totalPages);
             request.setAttribute("SEARCH", search);
