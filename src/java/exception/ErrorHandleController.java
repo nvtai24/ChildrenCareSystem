@@ -57,7 +57,6 @@ public class ErrorHandleController extends HttpServlet {
         request.setAttribute("noti1", noti1);
         request.setAttribute("noti2", noti2);
 
-
         request.getRequestDispatcher("error.jsp").forward(request, response);
     }
 

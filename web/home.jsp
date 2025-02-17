@@ -164,8 +164,6 @@
                 border-radius: 8px;
             }
 
-
-
             .courses-carousel .info-bx {
                 display: flex;
                 flex-direction: column;
@@ -207,9 +205,7 @@
                     white-space: normal;
                 }
             }
-
         </style>
-
 
     </head>
     <body id="bg">
