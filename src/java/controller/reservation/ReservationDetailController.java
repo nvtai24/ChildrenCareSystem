@@ -40,7 +40,7 @@ public class ReservationDetailController extends HttpServlet {
 
         request.setAttribute("reservationDetails", reservationDetails);
         request.setAttribute("totalPrice", totalReservationPrice);
-        request.getRequestDispatcher("reservationDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("../reservationDetail.jsp").forward(request, response);
     }
 
     /**
