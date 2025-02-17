@@ -30,7 +30,7 @@
 
         <!-- FAVICONS ICON ============================================= -->
         <link rel="icon" href="../error-404.html" type="image/x-icon" />
-        <link rel="shortcut icon" type="image/x-icon" href="assets2/images/logochildren.jpg" />
+        <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
         <title>ChildrenCare</title>
@@ -75,7 +75,7 @@
                     <div>
                         <a href="/app" class="ttr-logo">
 
-                            <img alt=""  src="assets2/images/logochildren.jpg" width="70" height="10">
+                            <img alt=""  src="assets/images/logo.png" width="70" height="10">
                         </a>
                     </div>
                 </div>
@@ -242,7 +242,7 @@
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- side menu logo start -->
                 <div class="ttr-sidebar-logo">
-                    <a ><img alt="" src="assets2/images/logochildren.jpg" width="70" height="17"></a>
+                    <a ><img alt="" src="assets/images/logo.png" width="70" height="17"></a>
                     <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
                             <i class="material-icons ttr-fixed-icon">gps_fixed</i>
                             <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>

@@ -28,7 +28,7 @@
                             <ul class="nav navbar-nav">
                                 <li><a href="/app">Home</a></li>
                                 <li><a href="services">Services</a></li>
-                                <li><a href="blog">Blogs</a></li>
+                                <li><a href="blogs">Blogs</a></li>
                                 <li>
                                     <a href="javascript:;"
                                        >Contact us <i class="fa fa-chevron-down"></i
