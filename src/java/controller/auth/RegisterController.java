@@ -81,7 +81,7 @@ public class RegisterController extends HttpServlet {
         } else {
             // Registration failed
             request.setAttribute("error", "Registration failed. Please try again.");
-            request.getRequestDispatcher("register.html").forward(request, response);
+            request.getRequestDispatcher("register.jsp").forward(request, response);
         }
     }
 }

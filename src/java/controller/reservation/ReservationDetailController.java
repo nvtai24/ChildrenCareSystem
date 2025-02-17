@@ -64,7 +64,7 @@ public class ReservationDetailController extends HttpServlet {
             reservationdetailDAO.deleteReservationDetail(reservationId);
         }
 
-        response.sendRedirect("reservationDetail");
+        response.sendRedirect("reservation/detail");
     }
 
 }
