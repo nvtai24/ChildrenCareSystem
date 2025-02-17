@@ -46,10 +46,6 @@
         <servlet-class>controller.auth.RegisterController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ReservationListController</servlet-name>
-        <servlet-class>controller.reservation.ReservationListController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SliderListController</servlet-name>
         <servlet-class>controller.slider.SliderListController</servlet-class>
     </servlet>
@@ -128,10 +124,6 @@
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReservationListController</servlet-name>
-        <url-pattern>/ReservationListController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SliderListController</servlet-name>

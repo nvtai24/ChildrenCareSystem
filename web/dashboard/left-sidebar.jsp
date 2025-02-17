@@ -29,7 +29,7 @@
                 
                 <li>
                     <a href="courses.html" class="ttr-material-button">
-                        <span class="ttr-icon"><i class="fa fa-list"></i></span>
+                        <span class="ttr-icon"><i class="fa fa-calendar"></i></span>
                         <span class="ttr-label">Reservation</span>
                     </a>
                 </li>
@@ -57,14 +57,14 @@
 
                 <li>
                     <a href="users" class="ttr-material-button">
-                        <span class="ttr-icon"><i class="fa fa-users" aria-hidden="true"></i></span>
+                        <span class="ttr-icon"><i class="fa fa-users"></i></span>
                         <span class="ttr-label">User</span>
                     </a>
                 </li>
                 
                 <li>
                     <a href="index.html" class="ttr-material-button">
-                        <span class="ttr-icon"><i class="fa fa-address-book" aria-hidden="true"></i></span>
+                        <span class="ttr-icon"><i class="fa fa-address-book"></i></span>
                         <span class="ttr-label">Customer</span>
                     </a>
                 </li>

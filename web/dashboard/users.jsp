@@ -53,7 +53,7 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="">User List</h4>
+                    <h3 class="">User List</h3>
                 </div>	
 
                 <div class="toolbar">

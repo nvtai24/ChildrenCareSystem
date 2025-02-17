@@ -21,14 +21,15 @@ public class CategoryDAO extends DBContext {
     public List<Category> getAllAvailabelCategories() {
         List<Category> result = new ArrayList<>();
 
-        String query = "SELECT `id`, `name`, `description` FROM `category` WHERE status = 1";
+        String query = "select * from setting\n"
+                + "where type_id = 1 and status = 1";
 
         try {
             ResultSet rs = executeQuery(query);
 
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
+                int id = rs.getInt("setting_id");
+                String name = rs.getString("value");
                 String description = rs.getString("description");
 
                 Category c = new Category();
@@ -54,13 +55,14 @@ public class CategoryDAO extends DBContext {
     public Category getCategoryById(int cid) {
         Category c = null;
 
-        String query = "SELECT `name`, `description` FROM `category` WHERE id = ?";
+        String query = "select value, description from setting\n"
+                + "where setting_id = ?";
 
         try {
             ResultSet rs = executeQuery(query, cid);
 
             if (rs.next()) {
-                String name = rs.getString("name");
+                String name = rs.getString("value");
                 String description = rs.getString("description");
 
                 c = new Category();
