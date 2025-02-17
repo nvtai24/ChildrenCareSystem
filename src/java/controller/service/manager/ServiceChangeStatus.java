@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author Admin
  */
-public class ServiceChangeStatusController extends HttpServlet {
+public class ServiceChangeStatus extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -31,7 +31,7 @@ public class ServiceChangeStatusController extends HttpServlet {
         int id = Integer.parseInt(raw_id);
         ServiceManagerDAO db = new ServiceManagerDAO();
         db.updateStatusById(id);
-        response.sendRedirect("ServiceListController");
+        response.sendRedirect("../services/manager");
     }
 
 }

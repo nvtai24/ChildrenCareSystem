@@ -159,13 +159,13 @@ public class ServiceManagerDAO extends DBContext {
 
         // Sử dụng LIKE để tìm kiếm tên dịch vụ với ký tự đại diện "%"
         String sql = "select s.id,s.category_id,c.name,s.name,s.description,s.brief_info,s.price,s.discount,s.thumbnail,s.status \n"
-                + "from service s join category c on s.category_id = c.id WHERE s.name LIKE ?";
+                + "from service s join category c on s.category_id = c.id WHERE s.name LIKE ? OR s.brief_info LIKE ? ;";
 
         try {
             // Thêm dấu "%" vào tên dịch vụ để tìm kiếm theo chuỗi
             nameService = "%" + nameService + "%";
 
-            ResultSet rs = db.executeQuery(sql, nameService);
+            ResultSet rs = db.executeQuery(sql, nameService,nameService);
 
             while (rs.next()) {
                 // Lấy thông tin và thêm vào danh sách

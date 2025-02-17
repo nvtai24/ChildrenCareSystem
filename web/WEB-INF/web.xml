@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+
+    <servlet>
+        <servlet-name>DashboardNavigationController</servlet-name>
+        <servlet-class>controller.dashboard.DashboardNavigationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserListDashboardController</servlet-name>
+        <servlet-class>controller.dashboard.admin.UserListDashboardController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DashboardProfileController</servlet-name>
+        <servlet-class>controller.dashboard.DashboardProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SettingDashboardController</servlet-name>
+        <servlet-class>controller.dashboard.admin.SettingDashboardController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ErrorHandleController</servlet-name>
+        <url-pattern>/error-handle</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>ServiceListController</servlet-name>
         <servlet-class>controller.service.manager.ServiceListController</servlet-class>
@@ -11,26 +32,6 @@
     <servlet>
         <servlet-name>ServiceUpdateController</servlet-name>
         <servlet-class>controller.service.manager.ServiceUpdateController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServiceFilterController</servlet-name>
-        <servlet-class>controller.service.manager.ServiceFilterController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServiceSortController</servlet-name>
-        <servlet-class>controller.service.manager.ServiceSortController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServiceChangeStatusController</servlet-name>
-        <servlet-class>controller.service.manager.ServiceChangeStatusController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServiceSearchByNameController</servlet-name>
-        <servlet-class>controller.service.manager.ServiceSearchByNameController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServiceFilterByCategoryController</servlet-name>
-        <servlet-class>controller.service.manager.ServiceFilterByCategoryController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServiceListPublicController</servlet-name>
@@ -78,7 +79,7 @@
     </servlet>
     <servlet>
         <servlet-name>ProfileController</servlet-name>
-        <servlet-class>controller.common.ProfileController</servlet-class>
+        <servlet-class>controller.common.AjaxProfileController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServiceDetailsPublicController</servlet-name>
@@ -101,20 +102,20 @@
         <servlet-class>controller.auth.LogoutController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>BackLinkServlet</servlet-name>
-        <servlet-class>controller.slider.BackLinkPost</servlet-class>
+        <servlet-name>ReservationDetailDelete</servlet-name>
+        <servlet-class>controller.reservation.ReservationDetailDelete</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>BackLinkService</servlet-name>
-        <servlet-class>controller.slider.BackLinkService</servlet-class>
+        <servlet-name>ErrorHandleController</servlet-name>
+        <servlet-class>exception.ErrorHandleController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SearchServlet</servlet-name>
-        <servlet-class>controller.common.SearchServlet</servlet-class>
+        <servlet-name>AdminDashboardController</servlet-name>
+        <servlet-class>controller.dashboard.admin.AdminDashboardController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServiceListController</servlet-name>
-        <url-pattern>/ServiceListController</url-pattern>
+        <url-pattern>/services/manager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceListPublicController</servlet-name>
@@ -154,7 +155,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProfileController</servlet-name>
-        <url-pattern>/profile</url-pattern>
+        <url-pattern>/ajax-profile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceDetailsPublicController</servlet-name>
@@ -186,30 +187,40 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceCreateController</servlet-name>
-        <url-pattern>/ServiceCreateController</url-pattern>
+        <url-pattern>/servicecreate/manager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceUpdateController</servlet-name>
-        <url-pattern>/ServiceUpdateController</url-pattern>
+        <url-pattern>/serviceupdate/manager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServiceFilterController</servlet-name>
-        <url-pattern>/ServiceFilterController</url-pattern>
+        <servlet-name>ReservationDetailDelete</servlet-name>
+        <url-pattern>/ReservationDetailDelete</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServiceSortController</servlet-name>
-        <url-pattern>/ServiceSortController</url-pattern>
+        <servlet-name>AdminDashboardController</servlet-name>
+        <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServiceChangeStatusController</servlet-name>
-        <url-pattern>/ServiceChangeStatusController</url-pattern>
+        <servlet-name>DashboardNavigationController</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServiceSearchByNameController</servlet-name>
-        <url-pattern>/ServiceSearchByNameController</url-pattern>
+        <servlet-name>UserListDashboardController</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
+    <error-page>
+        <location>/error-handle</location>
+    </error-page>
+    <servlet-mapping>
+        <servlet-name>DashboardProfileController</servlet-name>
+        <url-pattern>/profile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServiceFilterByCategoryController</servlet-name>
-        <url-pattern>/ServiceFilterByCategoryController</url-pattern>
+        <servlet-name>SettingDashboardController</servlet-name>
+        <url-pattern>/settings</url-pattern>
     </servlet-mapping>
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
 </web-app>

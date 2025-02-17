@@ -31,29 +31,58 @@
         <meta name="format-detection" content="telephone=no">
 
         <!-- PAGE TITLE ============================================= -->
-        <title>EduChamp : Education HTML Template</title>
+        <title>Children Care</title>
 
         <!-- FAVICONS ICON ============================================= -->
-        <link rel="icon" href="assets2/images/favicon.png" type="image/x-icon" />
-        <link rel="shortcut icon" type="image/x-icon" href="assets2/images/favicon.png" />
+        <link rel="icon" href="${pageContext.request.contextPath}/assets/images/logo.png" type="image/x-icon" />
+        <link
+            rel="shortcut icon"
+            type="image/x-icon"
+            href="${pageContext.request.contextPath}/assets/images/logo.png"
+            />
 
         <!-- All PLUGINS CSS ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/assets.css">
-        <link rel="stylesheet" type="text/css" href="assets2/vendors/calendar/fullcalendar.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/assets.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/vendors/calendar/fullcalendar.css">
 
         <!-- TYPOGRAPHY ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/typography.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/typography.css">
 
         <!-- SHORTCODES ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/shortcodes/shortcodes.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/shortcodes/shortcodes.css">
 
         <!-- MAIN STYLESHEETS ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/style.css">
-        <link rel="stylesheet" type="text/css" href="assets2/css/dashboard.css">
-        <link class="skin" rel="stylesheet" type="text/css" href="assets2/css/color/color-1.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/style.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/dashboard.css">
+        <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/color/color-1.css">
 
         <!-- DATA TABLES ============================================= -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+        <style>
+
+            div.dataTables_wrapper div.dataTables_paginate {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                padding: 15px 0;
+                font-size: 14px;
+            }
+
+
+            .dt-paging {
+                text-align: center;
+                margin-top: 0;
+                padding-top: 10px;
+            }
+
+
+            .paginate_button {
+                padding: 5px 10px;
+                margin: 0 5px;
+            }
+        </style>
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
@@ -70,7 +99,7 @@
                 <div class="ttr-logo-box">
                     <div>
                         <a href="index.html" class="ttr-logo">
-                            <h2 style="color: white">Children Care System</h2>
+                            <img  src="${pageContext.request.contextPath}/assets/images/logo.png" width="50px" height="30px">
                         </a>
                     </div>
                 </div>
@@ -158,7 +187,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets2/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="${pageContext.request.contextPath}/${sessionScope.account.profile.avatar}" width="32" height="32"></span></a>
                             <div class="ttr-header-submenu">
                                 <ul>
                                     <li><a href="user-profile.html">My profile</a></li>
@@ -221,8 +250,8 @@
         <div class="ttr-sidebar">
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- side menu logo start -->
-                <div class="ttr-sidebar-logo">
-                    <a href="#"><img alt="" src="assets2/images/logo.png" width="122" height="27"></a>
+                <div class="ttr-sidebar-logo">                    
+                    <a href="#"><img  src="${pageContext.request.contextPath}/assets/images/logo.png" width="45px" height="auto" style="margin-top: -10px"></a>
                     <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
                             <i class="material-icons ttr-fixed-icon">gps_fixed</i>
                             <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
@@ -325,71 +354,49 @@
         <!--Main container start -->
         <main class="ttr-wrapper">
             <div class="container-fluid">
-                <div class="db-breadcrumb" style="display: flex; justify-content: space-between">
+                <div class="db-breadcrumb " style="display: flex;">
 
-
-                    <h4 class="breadcrumb-title">Service Management</h4>
-
-                    <h5 >Status </h5>
-                    <form method="GET" action="ServiceFilterController">
-
-                        <select select name="status" onchange="this.form.submit()">
-                            <option value="-1" ${ sessionScope.sessionStatus == -1 ? 'selected' : ''}>All Status</option>
-                            <option value="1" ${ sessionScope.sessionStatus == 1 ? 'selected' : ''}>Active</option>
-                            <option value="0" ${ sessionScope.sessionStatus == 0 ? 'selected' : ''}>Inactive</option>
-                        </select>
-
-
-                    </form>
-                    <h5 >Category </h5>
-                    <form method="GET" action="ServiceFilterByCategoryController">
-
-                        <select select name="idCategory" onchange="this.form.submit()">
-                            <option value="-1" ${ sessionScope.sessionCategoryId == -1 ? 'selected' : ''}>All Categories</option>
-
-                            <c:forEach items="${listCategory}" var="c">                                
-                                <option value="${c.id}" ${ sessionScope.sessionCategoryId == c.id ? 'selected' : ''}>${c.name}</option>                                
-                            </c:forEach>
-
-                        </select>
-
-
-                    </form>
-                    <form style="margin-left: 10px;" action="ServiceSearchByNameController" method="GET">
-                        <ul class="db-breadcrumb-list">
-                            <input type="text" placeholder="Search service" style="border: 1px solid #d1d5db;  border-radius: 4px;" name="nameService" value="${nameService}"/>
-                            <input type="submit" value="Find" class="btn green radius-xl"/>
-                        </ul>
-                    </form>
-                    <h1></h1>
-                    <a href="ServiceCreateController" class="btn green radius-xl" style=" margin-left:  10px; margin-right: 10px">
-                        Add New Service
-                    </a>
-
-
-
+                    <a href="../services/manager"><h4 class="breadcrumb-title">Service List</h4></a>                    
+                    <a href="../servicecreate/manager" class="btn " style=" margin-left:  10px; margin-right: 10px">Add New Service</a>
 
                 </div>	
                 <div class="widget-box">
                     <div class="wc-title d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0">Service List</h4>
 
-                        <!-- Sorting Form -->
-                        <form method="GET" action="ServiceSortController" class="d-flex align-items-center">
-                            <label class="font-weight-bold mb-0 mr-2">Sort By:</label>
 
-                            <select class="form-control form-control-sm mr-2" name="field">
-                                <option value="name" ${field eq 'name' ? 'selected' : ''}>Name</option>
-                                <option value="price" ${field eq 'price' ? 'selected' : ''}>Price</option>
-                                <option value="price-discount" ${field eq 'price-discount' ? 'selected' : ''}>Sale Price</option>
-                                <option value="brief_info" ${field eq 'brief_info' ? 'selected' : ''}>Brief Info</option>
-                            </select>
+                        <div class="d-flex">
+                            <!-- Form 1: Status -->
+                            <form method="POST" action="../services/manager" class="mr-2">
+                                <input name="action" value="status" type="hidden"/>
+                                <select name="status" onchange="this.form.submit()" class="form-control form-control-sm">
+                                    <option value="-1" ${ sessionScope.sessionStatus == -1 ? 'selected' : ''}>All Status</option>
+                                    <option value="1" ${ sessionScope.sessionStatus == 1 ? 'selected' : ''}>Active</option>
+                                    <option value="0" ${ sessionScope.sessionStatus == 0 ? 'selected' : ''}>Inactive</option>
+                                </select>
+                            </form>
 
-                            <button type="submit" class="btn btn-sm btn-success mr-1" name="order" value="asc"> Increase</button>
-                            <button type="submit" class="btn btn-sm btn-danger" name="order" value="desc"> Decrease</button>
-                        </form>
+                            <!-- Form 2: Category -->
+                            <form method="POST" action="../services/manager">
+                                <input name="action" value="category" type="hidden"/>
+                                <select name="idCategory" onchange="this.form.submit()" class="form-control form-control-sm">
+                                    <option value="-1" ${ sessionScope.sessionCategoryId == -1 ? 'selected' : ''}>All Categories</option>
+                                    <c:forEach items="${listCategory}" var="c">
+                                        <option value="${c.id}" ${ sessionScope.sessionCategoryId == c.id ? 'selected' : ''}>${c.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </form> 
+                                    <!-- Form 3: Search -->
+                            <form style="margin-left: 10px;" action="../services/manager" method="POST">
+                                <ul class="db-breadcrumb-list">
+                                    <input type="hidden" name="action" value="search"/>
+                                    <input type="text" placeholder="Search service" style="border: 1px solid #d1d5db;  border-radius: 4px;" name="nameService" value="${nameService}"/>
+                                    <input type="submit" value="Find" class="btn"/>
+                                </ul>
+                            </form>
+                        </div>
                     </div>
                 </div>
+
 
 
                 <div class="widget-inner">
@@ -412,7 +419,7 @@
                             <c:forEach items="${requestScope.list}" var="s">
                                 <tr>
                                     <td>${s.name}</td>
-                                    <td><img src="${s.thumbnail}" alt="No image" height="150px" width="150px"/></td>
+                                    <td><img src="${pageContext.request.contextPath}/${s.thumbnail}" alt="No image" height="150px" width="150px"/></td>
                                     <td>${s.category.name}</td>
                                     <td>$${s.price}</td>
                                     <td>$${s.discount}</td>
@@ -424,13 +431,14 @@
                                         </span>
                                     </td>
                                     <td class="text-center text-nowrap">
-                                        <form action="ServiceChangeStatusController" method="POST" onsubmit="return confirmChangeStatus()" class="d-inline">
+                                        <form action="../services/manager" method="POST" onsubmit="return confirmChangeStatus()" class="d-inline">
                                             <input type="hidden" name="id" value="${s.id}">
+                                            <input type="hidden" name="action" value="change">
                                             <button type="submit" class="btn btn-sm ${s.status == 1 ? 'btn-danger' : 'btn-success'}">
                                                 ${s.status == 1 ? 'Deactivate' : 'Activate'}
                                             </button>
                                         </form>
-                                        <a href="ServiceUpdateController?id=${s.id}" class="btn btn-sm btn-info">View</a>
+                                        <a href="../serviceupdate/manager?id=${s.id}" class="btn btn-sm btn-info">View</a>
                                     </td>
 
 
@@ -449,77 +457,81 @@
     <!-- External JavaScripts -->
     <!-- jQuery: -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="assets2/js/jquery.min.js"></script> 
+    <script src="${pageContext.request.contextPath}/assets2/js/jquery.min.js"></script> 
 
     <!-- Bootstrap & Plugin  -->
-    <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
-    <script src="assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-    <script src="assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+    <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/popper.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
 
     <!-- Owl Carousel -->
-    <script src="assets2/vendors/owl-carousel/owl.carousel.js"></script>
-    <script src="assets2/vendors/magnific-popup/magnific-popup.js"></script>
+    <script src="${pageContext.request.contextPath}/assets2/vendors/owl-carousel/owl.carousel.js"></script>
+    <script src="${pageContext.request.contextPath}/assets2/vendors/magnific-popup/magnific-popup.js"></script>
 
     <!-- Counter &  Scroll -->
-    <script src="assets2/vendors/counter/waypoints-min.js"></script>
-    <script src="assets2/vendors/counter/counterup.min.js"></script>
-    <script src='assets2/vendors/scroll/scrollbar.min.js'></script>
+    <script src="${pageContext.request.contextPath}/assets2/vendors/counter/waypoints-min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets2/vendors/counter/counterup.min.js"></script>
+    <script src='${pageContext.request.contextPath}/assets2/vendors/scroll/scrollbar.min.js'></script>
 
     <!-- Masonry & image -->
-    <script src="assets2/vendors/imagesloaded/imagesloaded.js"></script>
-    <script src="assets2/vendors/masonry/masonry.js"></script>
-    <script src="assets2/vendors/masonry/filter.js"></script>
+    <script src="${pageContext.request.contextPath}/assets2/vendors/imagesloaded/imagesloaded.js"></script>
+    <script src="${pageContext.request.contextPath}/assets2/vendors/masonry/masonry.js"></script>
+    <script src="${pageContext.request.contextPath}/assets2/vendors/masonry/filter.js"></script>
 
     <!-- DataTables  -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
     <!-- Chart & Admin Scripts -->
-    <script src="assets2/vendors/chart/chart.min.js"></script>
-    <script src="assets2/js/admin.js"></script>
+    <script src="${pageContext.request.contextPath}/assets2/vendors/chart/chart.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
 
     <!-- function website -->
-    <script src="assets2/js/functions.js"></script>
-    <script src='assets2/vendors/switcher/switcher.js'></script>
+    <script src="${pageContext.request.contextPath}/assets2/js/functions.js"></script>
+    <script src='${pageContext.request.contextPath}/assets2/vendors/switcher/switcher.js'></script>
 
     <!-- Custom Scripts -->
     <script>
-                                                function confirmChangeStatus() {
-                                                    return confirm("Are you sure you want to change the status?");
+                                            function confirmChangeStatus() {
+                                                return confirm("Are you sure you want to change the status?");
+                                            }
+
+                                            $(document).ready(function () {
+
+                                                $('#serviceTable').DataTable({
+                                                    "paging": true,
+                                                    "lengthMenu": [10],
+                                                    "searching": false,
+                                                    "ordering": true,
+                                                    "info": false,
+                                                    "columnDefs": [
+                                                        {"orderable": false, "targets": [1, 7, 8]}
+                                                    ],
+                                                    "dom": 't<"dt-paging"p>'
+                                                });
+
+
+                                                if ($(".selectpicker").length) {
+                                                    $(".selectpicker").selectpicker();
                                                 }
 
-                                                $(document).ready(function () {
-                                                    
-                                                    $('#serviceTable').DataTable({
-                                                        "paging": true,
-                                                        "lengthMenu": [5, 10, 20, 50],
-                                                        "searching": false,
-                                                        "ordering": false,
-                                                        "info": false
+
+                                                if ($(".owl-carousel").length) {
+                                                    $(".owl-carousel").owlCarousel({
+                                                        loop: true,
+                                                        margin: 10,
+                                                        nav: true,
+                                                        dots: true,
+                                                        autoplay: true,
+                                                        autoplayTimeout: 3000,
+                                                        responsive: {
+                                                            0: {items: 1},
+                                                            600: {items: 2},
+                                                            1000: {items: 3}
+                                                        }
                                                     });
-
-                                                    
-                                                    if ($(".selectpicker").length) {
-                                                        $(".selectpicker").selectpicker();
-                                                    }
-
-                                                    
-                                                    if ($(".owl-carousel").length) {
-                                                        $(".owl-carousel").owlCarousel({
-                                                            loop: true,
-                                                            margin: 10,
-                                                            nav: true,
-                                                            dots: true,
-                                                            autoplay: true,
-                                                            autoplayTimeout: 3000,
-                                                            responsive: {
-                                                                0: {items: 1},
-                                                                600: {items: 2},
-                                                                1000: {items: 3}
-                                                            }
-                                                        });
-                                                    }
-                                                });
+                                                }
+                                            });
     </script>
 
 </body>

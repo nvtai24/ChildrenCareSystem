@@ -22,7 +22,7 @@ import model.Service;
  *
  * @author Admin
  */
-public class ServiceFilterController extends HttpServlet {
+public class ServiceFilterStatus extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -66,7 +66,7 @@ public class ServiceFilterController extends HttpServlet {
         request.setAttribute("status", status);
 
         // Chuyển hướng đến JSP
-        request.getRequestDispatcher("./views/manager/serviceList.jsp").forward(request, response);
+        request.getRequestDispatcher("../views/manager/serviceList.jsp").forward(request, response);
     }
 
 }
