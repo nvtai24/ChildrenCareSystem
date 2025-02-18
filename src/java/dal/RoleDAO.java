@@ -111,7 +111,7 @@ public class RoleDAO extends DBContext {
 
                 r.getFeatures().add(f);
             }
-            
+
             roles.addAll(roleMap.values());
 
         } catch (SQLException ex) {

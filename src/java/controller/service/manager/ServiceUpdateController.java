@@ -32,7 +32,7 @@ public class ServiceUpdateController extends HttpServlet {
 
         request.setAttribute("s", service);
         request.setAttribute("listCategory", listCategory);
-        request.getRequestDispatcher("../views/manager/serviceDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("../dashboard/manager/serviceDetail.jsp").forward(request, response);
     }
 
     @Override
@@ -45,7 +45,8 @@ public class ServiceUpdateController extends HttpServlet {
             db.updateService(service);
             HttpSession session = request.getSession(false); // Không tạo mới nếu chưa có session
             if (session != null) {
-                session.invalidate(); // Hủy toàn bộ session
+                session.removeAttribute("sessionStatus");
+                session.removeAttribute("sessionCaterogyId");
             }
             response.sendRedirect("../services/manager");
         } catch (Exception e) {
@@ -65,7 +66,7 @@ public class ServiceUpdateController extends HttpServlet {
                 session.invalidate(); // Hủy toàn bộ session
             }
 
-            request.getRequestDispatcher("../views/manager/serviceDetail.jsp").forward(request, response);
+            request.getRequestDispatcher("../dashboard/manager/serviceDetail.jsp").forward(request, response);
         }
     }
 

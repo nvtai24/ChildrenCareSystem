@@ -34,7 +34,7 @@ public class ServiceCreateController extends HttpServlet {
         CategoryDAO dbCategory = new CategoryDAO();
         List<Category> list = dbCategory.getAllAvailabelCategories();
         request.setAttribute("listCategory", list);
-        request.getRequestDispatcher("../views/manager/serviceCreate.jsp").forward(request, response);
+        request.getRequestDispatcher("../dashboard/manager/serviceCreate.jsp").forward(request, response);
     }
 
     @Override
@@ -150,11 +150,11 @@ public class ServiceCreateController extends HttpServlet {
         } catch (NumberFormatException e) {
             errorMessage = "Invalid number format!";
             request.setAttribute("error", errorMessage);
-            request.getRequestDispatcher("../views/manager/serviceCreate.jsp").forward(request, response);
+            request.getRequestDispatcher("../dashboard/manager/serviceCreate.jsp").forward(request, response);
 
         } catch (IllegalArgumentException e) {
             request.setAttribute("error", errorMessage);
-            request.getRequestDispatcher("../views/manager/serviceCreate.jsp").forward(request, response);
+            request.getRequestDispatcher("../dashboard/manager/serviceCreate.jsp").forward(request, response);
         }
     }
 

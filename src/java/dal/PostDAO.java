@@ -46,7 +46,6 @@ public class PostDAO extends DBContext {
         return posts;
     }
 
-
     public int getPostCount(String search, Boolean status) {
         String query = "SELECT COUNT(*) AS total FROM post WHERE title LIKE ?";
 
@@ -173,5 +172,72 @@ public class PostDAO extends DBContext {
         }
         return null;
     }
-    
+
+    public void updateStatus(int postId, boolean newStatus) {
+        String query = "UPDATE post SET status = ? WHERE id = ?";
+        try {
+            executeUpdate(query, newStatus, postId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deletePost(int postId) {
+        String deletelabelquery = "DELETE FROM labelpost WHERE post_id = ?";
+        try {
+            executeUpdate(deletelabelquery, postId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String query = "DELETE FROM post WHERE id = ?";
+        try {
+            executeUpdate(query, postId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public List<Post> getPostsPageSearchAndStatus(int page, int postsPerPage, String search, Boolean status) {
+        List<Post> posts = new ArrayList<>();
+        String query = "SELECT post.id, post.title, post.content, post.thumbnail, post.status,  post.created_date, post.updated_date, user.username  \n"
+                + "FROM post  \n"
+                + "JOIN user ON post.author_id = user.id   WHERE post.title LIKE ?";
+
+        // Nếu có trạng thái, thêm điều kiện lọc
+        if (status != null) {
+            query += " AND post.status = ?";
+        }
+
+        query += " LIMIT ? OFFSET ?";
+
+        try {
+            int offset = (page - 1) * postsPerPage;
+
+            ResultSet rs;
+            if (status != null) {
+                rs = executeQuery(query, "%" + search + "%", status, postsPerPage, offset);
+            } else {
+                rs = executeQuery(query, "%" + search + "%", postsPerPage, offset);
+            }
+
+            while (rs.next()) {
+                Post post = new Post();
+                post.setId(rs.getInt("id"));
+                post.setTitle(rs.getString("title"));
+                post.setContent(rs.getString("content"));
+                post.setThumbnail(rs.getString("thumbnail"));
+                post.setUsername(rs.getString("username"));
+                post.setStatus(rs.getBoolean("status"));
+                post.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
+
+                if (rs.getTimestamp("updated_date") != null) {
+                    post.setUpdatedDate(rs.getTimestamp("updated_date").toLocalDateTime());
+                }
+
+                posts.add(post);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return posts;
+    }
 }
