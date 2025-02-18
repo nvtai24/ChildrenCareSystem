@@ -38,6 +38,33 @@
         <link rel="stylesheet" type="text/css" href="assets2/css/style.css">
         <link rel="stylesheet" type="text/css" href="assets2/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="assets2/css/color/color-1.css">
+        <!-- DATA TABLES ============================================= -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+        <style>
+
+            div.dataTables_wrapper div.dataTables_paginate {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                padding: 15px 0;
+                font-size: 14px;
+            }
+
+
+            .dt-paging {
+                text-align: center;
+                margin-top: 0;
+                padding-top: 10px;
+            }
+
+
+            .paginate_button {
+                padding: 5px 10px;
+                margin: 0 5px;
+            }
+        </style>
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
@@ -53,119 +80,105 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="">User List</h4>
+                    <h4 class="breadcrumb-title">User List</h4>
+                    <form action="users/add" method="Get">
+                        <button type="submit" class="btn btn-primary mb-2">
+                            <a>
+                                <i class="fa fa-plus-circle"> </i>
+                                Add New User
+                            </a>
+                        </button>
+                    </form>
                 </div>	
-
                 <div class="toolbar">
-                    <button type="submit" class="btn btn-primary mb-2">
-                        <a>
-                            <i class="fa fa-plus-circle"> </i>
-                            Add New User
-                        </a>
-                    </button>
 
-                    <form>
-                        <div class="form-row align-items-center">
+                    <div class="form-row align-items-center">
+                        <form action="users" method="POST" >
+                            <input type="hidden" name="action" value="role"/>
                             <div class="col-auto">
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Role</div>
                                     </div>
-                                    <select name="role">
-                                        <option value="-1">All</option>
+                                    <select name="role" onchange="this.form.submit()">
+                                        <option value="-1" ${sessionScope.sessionRoleId == -1 ? 'selected' : ''}>All</option>
                                         <c:forEach items="${requestScope.roles}" var="r">
-                                            <option value="${r.id}">${r.roleName}</option>
+                                            <option value="${r.id}" ${sessionScope.sessionRoleId == r.id ? 'selected' : ''}>${r.roleName}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
                             </div>
-
+                        </form>
+                        <form action="users" method="POST">
+                            <input type="hidden" name="action" value="status"/>
                             <div class="col-auto">
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Status</div>
                                     </div>
-                                    <select name="status">
-                                        <option value="-1">All</option>
-                                        <option value="1">Active</option>      
-                                        <option value="0">Inactive</option>
+                                    <select name="status" onchange="this.form.submit()">
+                                        <option value="-1" ${ sessionScope.sessionStatus == -1 ? 'selected' : ''}>All</option>
+                                        <option value="1" ${ sessionScope.sessionStatus == 1 ? 'selected' : ''}>Active</option>      
+                                        <option value="0" ${ sessionScope.sessionStatus == 0 ? 'selected' : ''}>Inactive</option>
                                     </select>
                                 </div>
                             </div>
-
-                            <div class="col-auto">
-                                <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Type anything...">
-                            </div>
-
-                            <div class="col-auto">
+                        </form>
+                        <form action="users" method="POST" class="d-flex align-items-center">
+                            <input type="hidden" name="action" value="search"/>
+                            <div class="input-group">
+                                <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Type anything..." value="${requestScope.title}" name="search">
                                 <button type="submit" class="btn btn-primary mb-2">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </button>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+
+                    </div>
+
                 </div>
 
-                <table class="table table-hover">
-                    <thead>
+
+
+                <table id="userTable" class="table table-striped table-hover" style="width:100%">
+                    <thead class="thead-light">
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Role</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Created Date</th>
-                            <th scope="col">Updated Date</th>
-                            <th scope="col">Action</th>
+                            <th>#</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Created Date</th>
+                            <th>Updated Date</th>
+                            <th class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach items="${requestScope.users}" var="u" varStatus="status">
                             <tr>
-                                <th scope="row">${status.index + 1}</th>
+                                <td>${status.index + 1}</td>
                                 <td>${u.username}</td>
                                 <td>${u.email}</td>
                                 <td>${u.role.roleName}</td>
                                 <td>
-                                    <c:if test="${u.status}">
-                                        <span class="badge badge-success">Active</span>
-                                    </c:if>
-
-                                    <c:if test="${!u.status}">
-                                        <span class="badge badge-danger">Inactive</span>
-                                    </c:if>
+                                    <span class="badge ${u.status ? 'badge-success' : 'badge-danger'}">
+                                        ${u.status ? 'Active' : 'Inactive'}
+                                    </span>
                                 </td>
                                 <td>${u.createdDate}</td>
                                 <td>${u.updatedDate}</td>
-
-                                <td>
-
-                                    <c:if test="${u.status}">
-                                        <button type="submit" class="btn red mb-2">
-                                            <a>
-                                                <i class="fa fa-refresh" aria-hidden="true"></i>
-                                                Inactive
-                                            </a>
+                                <td class="text-center text-nowrap">
+                                    <form action="users" method="POST" onsubmit="return confirmChangeStatus()" class="d-inline">
+                                        <input type="hidden" name="id" value="${u.id}">
+                                        <input type="hidden" name="status" value="${u.status}">
+                                        <input type="hidden" name="action" value="change">
+                                        <button type="submit" class="btn ${u.status ? 'red' : 'green'} mb-2">
+                                            <i class="fa fa-refresh" aria-hidden="true"></i> ${u.status ? 'Deactivate' : 'Activate'}
                                         </button>
-                                    </c:if>
-
-                                    <c:if test="${!u.status}">
-                                        <button type="submit" class="btn green mb-2">
-                                            <a>
-                                                <i class="fa fa-refresh" aria-hidden="true"></i>
-                                                Active
-                                            </a>
-                                        </button>
-                                    </c:if>
-
-
-
-                                    <button type="submit" class="btn green mb-2">
-                                        <a>
-                                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                                            Edit
-                                        </a>
-                                    </button>
+                                    </form>
+                                    <a href="users/update?id=${u.id}" class="btn green mb-2">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+                                    </a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -177,6 +190,7 @@
         <div class="ttr-overlay"></div>
 
         <!-- External JavaScripts -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="assets2/js/jquery.min.js"></script>
         <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
         <script src="assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
@@ -195,10 +209,27 @@
         <script src="assets2/js/admin.js"></script>
         <script src='assets2/vendors/calendar/moment.min.js'></script>
         <script src='assets2/vendors/calendar/fullcalendar.js'></script>
+        <!-- DataTables  -->
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script>
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
+                                        function confirmChangeStatus() {
+                                            return confirm("Are you sure you want to change the status?");
+                                        }
+                                        $(document).ready(function () {
+                                            $('[data-toggle="tooltip"]').tooltip();
+                                        });
+                                        $('#userTable').DataTable({
+                                            "paging": true,
+                                            "lengthMenu": [10],
+                                            "searching": false,
+                                            "ordering": true,
+                                            "info": false,
+                                            "columnDefs": [
+                                                {"orderable": false, "targets": [4, 7]}
+                                            ],
+                                            "dom": 't<"dt-paging"p>'
+                                        });
+
         </script>
     </body>
 

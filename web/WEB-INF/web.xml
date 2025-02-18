@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>UserListDashboardController</servlet-name>
-        <servlet-class>controller.dashboard.admin.UserListDashboardController</servlet-class>
+        <servlet-class>controller.dashboard.admin.user.UserListDashboardController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DashboardProfileController</servlet-name>
@@ -31,6 +31,12 @@
     <servlet>
         <servlet-name>UpdatePostController</servlet-name>
         <servlet-class>controller.blog.UpdatePostController</servlet-class>
+        <servlet-name>UserUpdateController</servlet-name>
+        <servlet-class>controller.dashboard.admin.user.UserUpdateController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserCreateController</servlet-name>
+        <servlet-class>controller.dashboard.admin.user.UserCreateController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
@@ -61,10 +67,6 @@
         <servlet-class>controller.auth.RegisterController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ReservationListController</servlet-name>
-        <servlet-class>controller.reservation.ReservationListController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SliderListController</servlet-name>
         <servlet-class>controller.slider.SliderListController</servlet-class>
     </servlet>
@@ -87,10 +89,6 @@
     <servlet>
         <servlet-name>DeleteSlider</servlet-name>
         <servlet-class>controller.slider.DeleteSlider</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServiceDetails</servlet-name>
-        <servlet-class>controller.service.manager.ServiceDetails</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProfileController</servlet-name>
@@ -145,10 +143,6 @@
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ReservationListController</servlet-name>
-        <url-pattern>/ReservationListController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>SliderListController</servlet-name>
         <url-pattern>/sliders</url-pattern>
     </servlet-mapping>
@@ -181,10 +175,6 @@
         <url-pattern>/DeleteSlider</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServiceDetails</servlet-name>
-        <url-pattern>/ServiceDetails</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>BlogDetailController</servlet-name>
         <url-pattern>/blog</url-pattern>
     </servlet-mapping>
@@ -202,11 +192,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceCreateController</servlet-name>
-        <url-pattern>/servicecreate/manager</url-pattern>
+        <url-pattern>/services/add</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServiceUpdateController</servlet-name>
-        <url-pattern>/serviceupdate/manager</url-pattern>
+        <url-pattern>/services/update</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReservationDetailDelete</servlet-name>
@@ -241,15 +231,23 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddPostController</servlet-name>
-        <url-pattern>/posts-add</url-pattern>
+        <url-pattern>/posts/add</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeletePostController</servlet-name>
-        <url-pattern>/posts-delete</url-pattern>
+        <url-pattern>/posts/delete</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdatePostController</servlet-name>
-        <url-pattern>/posts-update</url-pattern>
+        <url-pattern>/posts/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserUpdateController</servlet-name>
+        <url-pattern>/users/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserCreateController</servlet-name>
+        <url-pattern>/users/add</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

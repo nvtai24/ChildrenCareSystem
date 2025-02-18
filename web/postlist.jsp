@@ -618,7 +618,7 @@
 
                                             </td>
                                             <td>
-                                                <form method="post" action="posts-delete" style="display:inline;">
+                                                <form method="post" action="posts/delete" style="display:inline;">
                                                     <input type="hidden" name="id" value="${post.id}">
                                                     <button type="submit" class="btn delete">
                                                         Delete
@@ -626,7 +626,7 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                <form method="get" action="sliders-update" style="display:inline;">
+                                                <form method="get" action="posts/update" style="display:inline;">
                                                     <input  type="hidden" name="id" value="${slider.id}">
                                                     <button type="submit" class="btn update" style="display:inline;">
                                                         Edit
