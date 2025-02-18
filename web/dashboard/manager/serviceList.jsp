@@ -102,7 +102,7 @@
                 <div class="db-breadcrumb " style="display: flex;">
 
                     <a href="../services/manager"><h4 class="breadcrumb-title">Service List</h4></a>                    
-                    <a href="../servicecreate/manager" class="btn " style=" margin-left:  10px; margin-right: 10px"><i class="fa fa-plus-circle"> </i>Add New Service</a>
+                    <a href="../services/add" class="btn " style=" margin-left:  10px; margin-right: 10px"><i class="fa fa-plus-circle"> </i>Add New Service</a>
 
                 </div>	
                 <div class="widget-box">
@@ -200,7 +200,7 @@
                                             ${s.status == 1 ? '<i class="fa fa-refresh" aria-hidden="true"></i> Deactivate' : '<i class="fa fa-pencil" aria-hidden="true"></i> Activate'}
                                         </button>
                                     </form>
-                                    <a href="../serviceupdate/manager?id=${s.id}" class="btn green mb-2"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                                    <a href="../services/update?id=${s.id}" class="btn green mb-2"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
                                 </td>
 
 

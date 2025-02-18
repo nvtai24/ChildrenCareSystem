@@ -88,7 +88,7 @@
                                 <h4>Add Service</h4>
                             </div>
                             <div class="widget-inner">
-                                <form class="edit-profile m-b30" name="serviceForm" id="numberForm" action="../servicecreate/manager" method="POST" enctype="multipart/form-data">
+                                <form class="edit-profile m-b30" name="serviceForm" id="numberForm" action="../services/add" method="POST" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="ml-auto">

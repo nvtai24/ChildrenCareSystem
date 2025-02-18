@@ -36,7 +36,7 @@
             />
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>EduChamp : Education HTML Template </title>
+        <title>Children Care</title>
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -89,7 +89,7 @@
                                 <h4>Service Detail</h4>
                             </div>
                             <div class="widget-inner">
-                                <form class="edit-profile m-b30" name="serviceForm" action="../serviceupdate/manager" method="POST" onsubmit="return validateForm()" enctype="multipart/form-data">
+                                <form class="edit-profile m-b30" name="serviceForm" action="../services/update" method="POST" onsubmit="return validateForm()" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="ml-auto">
