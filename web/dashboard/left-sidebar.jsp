@@ -28,28 +28,28 @@
                 </li>
                 
                 <li>
-                    <a href="courses.html" class="ttr-material-button">
+                    <a href="reservations" class="ttr-material-button">
                         <span class="ttr-icon"><i class="fa fa-calendar"></i></span>
                         <span class="ttr-label">Reservation</span>
                     </a>
                 </li>
                 
                 <li>
-                    <a href="index.html" class="ttr-material-button">
+                    <a href="services/manager" class="ttr-material-button">
                         <span class="ttr-icon"><i class="fa fa-medkit"></i></span>
                         <span class="ttr-label">Service</span>
                     </a>
                 </li>
                 
                 <li>
-                    <a href="index.html" class="ttr-material-button">
+                    <a href="feedbacks" class="ttr-material-button">
                         <span class="ttr-icon"><i class="fa fa-comments"></i></span>
                         <span class="ttr-label">Feedback</span>
                     </a>
                 </li>
                 
                 <li>
-                    <a href="index.html" class="ttr-material-button">
+                    <a href="posts" class="ttr-material-button">
                         <span class="ttr-icon"><i class="fa fa-tags"></i></span>
                         <span class="ttr-label">Post</span>
                     </a>
@@ -63,13 +63,12 @@
                 </li>
                 
                 <li>
-                    <a href="index.html" class="ttr-material-button">
+                    <a href="customers" class="ttr-material-button">
                         <span class="ttr-icon"><i class="fa fa-address-book"></i></span>
                         <span class="ttr-label">Customer</span>
                     </a>
                 </li>
 
-               
                 <li>
                     <a href="profile" class="ttr-material-button">
                         <span class="ttr-icon"><i class="fa fa-user"></i></span>

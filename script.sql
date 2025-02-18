@@ -29,7 +29,7 @@ CREATE TABLE `feature` (
   `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,6 +38,7 @@ CREATE TABLE `feature` (
 
 LOCK TABLES `feature` WRITE;
 /*!40000 ALTER TABLE `feature` DISABLE KEYS */;
+INSERT INTO `feature` VALUES (2,'Reservation Details','/reservation/detail','',_binary ''),(3,'Reservation Contact','/reservation/contact','',_binary ''),(4,'Reservation Completion','/reservation/completion','',_binary ''),(5,'My reservations','/my-reservation','',_binary ''),(6,'Reservation Information','/reservation/info','',_binary ''),(7,'Posts List','/posts','',_binary ''),(8,'Post Details','/post','',_binary ''),(9,'Sliders List','/sliders','',_binary ''),(10,'Slider Details','/slider','',_binary ''),(11,'Services List (Manager)','/services/manager','',_binary ''),(12,'Service Details (Manager)','/services/update','',_binary ''),(13,'Customers List','/customers','',_binary ''),(14,'Customer Details','/customer','',_binary ''),(15,'Feedbacks List','/feedbacks','',_binary ''),(16,'Feedback Details','/feedback','',_binary ''),(17,'Reservations List','/reservations','',_binary ''),(18,'Reservation Details','/reservation','',_binary ''),(19,'Medical examination','/medical','',_binary ''),(20,'Admin Dashboard','/admin','',_binary ''),(21,'Users List','/users','',_binary ''),(22,'User Details','/user','',_binary ''),(23,'Settings List','/settings','',_binary ''),(24,'Setting Details','/setting','',_binary ''),(25,'Feedback','/reservation/feedback','',_binary ''),(26,'Add Service','/services/add',' ',_binary ''),(27,'Reservation Information','/reservation/info',NULL,_binary '');
 /*!40000 ALTER TABLE `feature` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -313,7 +314,7 @@ CREATE TABLE `reservationstatus` (
 
 LOCK TABLES `reservationstatus` WRITE;
 /*!40000 ALTER TABLE `reservationstatus` DISABLE KEYS */;
-INSERT INTO `reservationstatus` VALUES (1,'Pending'),(2,'Confirmed'),(3,'Completed'),(4,'Cancelled'),(5,'In cart');
+INSERT INTO `reservationstatus` VALUES (1,'Pending'),(2,'Confirmed'),(3,'Completed'),(4,'Cancelled');
 /*!40000 ALTER TABLE `reservationstatus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -367,6 +368,7 @@ CREATE TABLE `rolefeature` (
 
 LOCK TABLES `rolefeature` WRITE;
 /*!40000 ALTER TABLE `rolefeature` DISABLE KEYS */;
+INSERT INTO `rolefeature` VALUES (1,20,1),(1,21,1),(1,22,1),(1,23,1),(1,24,1),(2,17,1),(2,18,1),(2,19,1),(3,2,1),(3,3,1),(3,4,1),(3,5,1),(3,25,1),(3,27,1),(4,7,1),(4,8,1),(4,9,1),(4,10,1),(4,11,1),(4,12,1),(4,13,1),(4,14,1),(4,15,1),(4,16,1),(4,26,1);
 /*!40000 ALTER TABLE `rolefeature` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -525,6 +527,33 @@ LOCK TABLES `user` WRITE;
 INSERT INTO `user` VALUES (1,'admin','123','admin@childrencare.com',1,1,'2025-01-31 23:46:55','2025-02-10 09:19:58'),(2,'doctor1','123','doctor1@childrencare.com',2,1,'2025-01-31 23:46:55','2025-02-10 09:19:58'),(3,'parent1','123','parent1@childrencare.com',3,1,'2025-01-31 23:46:55','2025-02-10 09:19:58'),(4,'staff1','123','staff1@childrencare.com',4,1,'2025-01-31 23:46:55','2025-02-10 09:19:58'),(5,'parent2','123','parent2@gmail.com',3,1,'2025-02-03 12:27:52','2025-02-10 09:19:58'),(6,'parent3','123','parent3@gmail.com',3,1,'2025-02-03 12:28:17','2025-02-10 09:19:58'),(7,'parent4','123','parent$@gmail.com',3,1,'2025-02-03 12:28:38','2025-02-10 09:19:58');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `wishlist`
+--
+
+DROP TABLE IF EXISTS `wishlist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `wishlist` (
+  `user_id` int NOT NULL,
+  `service_id` int NOT NULL,
+  `quantity` int DEFAULT NULL,
+  PRIMARY KEY (`user_id`,`service_id`),
+  KEY `service_id` (`service_id`),
+  CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wishlist`
+--
+
+LOCK TABLES `wishlist` WRITE;
+/*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -535,4 +564,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-17 10:20:43
+-- Dump completed on 2025-02-18  7:54:28
