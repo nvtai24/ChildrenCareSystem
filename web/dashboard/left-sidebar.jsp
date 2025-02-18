@@ -35,7 +35,7 @@
                 </li>
                 
                 <li>
-                    <a href="services/manager" class="ttr-material-button">
+                    <a href="/app/services/manager" class="ttr-material-button">
                         <span class="ttr-icon"><i class="fa fa-medkit"></i></span>
                         <span class="ttr-label">Service</span>
                     </a>

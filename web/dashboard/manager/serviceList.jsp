@@ -183,8 +183,8 @@
                                 <td><img src="${pageContext.request.contextPath}/${s.thumbnail}" alt="No image" height="150px" width="150px"/></td>
                                 <td>${s.category.name}</td>
                                 <td>$${s.price}</td>
-                                <td>$${s.discount}</td>
-                                <td><strong class="text-primary">$${s.price - s.discount}</strong></td>
+                                <td>${s.discount}%</td>
+                                <td><strong class="text-primary">$${s.price - (s.discount*s.price)/100 }</strong></td>
                                 <td>${s.briefInfo}</td>
                                 <td>
                                     <span class="badge ${s.status == 1 ? 'badge-success' : 'badge-danger'}">
