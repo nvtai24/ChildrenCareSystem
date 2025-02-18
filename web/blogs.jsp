@@ -260,7 +260,7 @@
 
                                     <form method="get" action="blogs" class="form-search">
                                         <div>
-                                            <input type="text" id="search" name="search" value="${param.search}" >
+                                            <input type="text" id="search" name="search" value="${param.search}" placeholder="Type anything..." >
                                         </div>
                                         <div>
                                             <button type="submit">Search</button>

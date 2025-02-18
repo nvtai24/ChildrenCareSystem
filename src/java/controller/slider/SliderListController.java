@@ -38,7 +38,7 @@ public class SliderListController extends HttpServlet {
             }
 
             // Số slider tối đa trên mỗi trang
-            int slidersPerPage = 3;
+            int slidersPerPage = 10;
 
             // Tính tổng số slider theo tìm kiếm & trạng thái
             int totalSliders = sliderDAO.getSliderCount(search, status);

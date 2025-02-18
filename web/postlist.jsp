@@ -1,6 +1,6 @@
 <%-- 
-    Document   : sliderlist
-    Created on : Jan 26, 2025, 10:28:59 PM
+    Document   : postlist
+    Created on : Feb 18, 2025, 9:07:45 PM
     Author     : ADMIN
 --%>
 
@@ -128,7 +128,7 @@
         }
         table {
             width: 100%;
-            max-width: 1500px;
+            max-width: 1600px;
             border-collapse: collapse;
             margin: 20px auto;
             table-layout: fixed;
@@ -149,48 +149,48 @@
 
 
         td:first-child, th:first-child {
-            width: 3%;
+            width: 5%;
             text-align: center;
         }
 
         td:nth-child(2), th:nth-child(2) {
-            width: 15%;
+            width: 10%;
             text-align: center;
         }
 
         td:nth-child(3), th:nth-child(3) {
-            width: 12%;
+            width: 18%;
             text-align: center;
         }
 
         td:nth-child(4), th:nth-child(4) {
-            width: 10%;
+            width: 18%;
             text-align: center;
         }
         td:nth-child(5), th:nth-child(5) {
-            width: 5%;
+            width: 30%;
             text-align: center;
         }
         td:nth-child(6), th:nth-child(6) {
-            width: 8%;
+            width: 13%;
             text-align: center;
         }
 
         td:nth-child(7), th:nth-child(7) {
-            width: 8%;
+            width: 13%;
             text-align: center;
         }
         td:nth-child(8), th:nth-child(8) {
-            width: 8%;
+            width: 9%;
             text-align: center;
         }
         td:nth-child(9), th:nth-child(9) {
-            width: 6%;
+            width: 10%;
             text-align: center;
         }
 
         td:last-child, th:last-child {
-            width: 6%;
+            width: 9%;
             text-align: center;
         }
     </style>
@@ -448,9 +448,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/app/sliders" class="ttr-material-button">
+                            <a href="/app/posts" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Sliders</span>
+                                <span class="ttr-label">Posts</span>
                             </a>
                         </li>
                         <li>
@@ -533,7 +533,7 @@
             <div class="container-fluid">
                 <div class="db-breadcrumb">
 
-                    <h4 class="breadcrumb-title">SLIDERS</h4>
+                    <h4 class="breadcrumb-title">POSTS</h4>
 
                 </div>	
                 <div class="row">
@@ -541,7 +541,7 @@
                     <div class="col-lg-12 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>Slider List</h4>
+                                <h4>Post List</h4>
                                 <c:if test="${sessionScope.MESSAGE != null}">
                                     <div class="alert alert-success">${sessionScope.MESSAGE}</div>
                                 </c:if>
@@ -552,13 +552,13 @@
                             <div class="filter-search-container">
 
                                 <!-- Form tìm kiếm -->
-                                <form method="get" action="sliders" class="form-search">
+                                <form method="get" action="posts" class="form-search">
                                     <input type="text" id="search" name="search" value="${param.search}" placeholder="Type anything...">
                                     <button type="submit">Search</button>
                                 </form>
 
                                 <!-- Form lọc trạng thái -->
-                                <form method="get" action="sliders" class="form-filter">
+                                <form method="get" action="posts" class="form-filter">
                                     <select name="status" id="status">
                                         <option value="" ${empty param.status ? "selected" : ""}>All</option>
                                         <option value="true" ${param.status == "true" ? "selected" : ""}>Active</option>
@@ -567,9 +567,9 @@
                                     <button type="submit">Apply</button>
                                 </form>
                                 <form class="form-add">
-                                        <button type="button" onclick="window.location.href = 'addslider.jsp';"> 
-                                            Add New Slider
-                                        </button>    
+                                    <button type="button" onclick="window.location.href = 'addslider.jsp';"> 
+                                        Add New Post
+                                    </button>    
                                 </form>
 
                             </div>
@@ -579,10 +579,10 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Author</th>
                                         <th>Title</th>
                                         <th>Image</th>
-                                        <th>BackLink</th>
-                                        <th>Status</th>
+                                        <th>Content</th>
                                         <th>Created Date</th>
                                         <th>Updated Date</th>
                                         <th>Action</th>
@@ -592,42 +592,34 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="slider" items="${SLIDERS}" varStatus="status">
+                                    <c:forEach var="post" items="${POSTS}" varStatus="status">
                                         <tr>
                                             <td>${status.index + 1}</td>
-                                            <td>${slider.title}</td>
-                                            <td><img src="${slider.imageUrl}" alt=""/></td>
-                                            <td>${slider.backLink}</td>
+                                            <td>${post.username}</td>
+                                            <td>${post.title}</td>
+                                            <td><img src="${post.thumbnail}" alt=""/></td>
+                                            <td>${post.content}</td>
+                                            <td>${post.createdDate}</td>
                                             <td>
-                                                <c:choose>
-                                                    <c:when test="${slider.status}">
-                                                        <span style="color: green;">Active</span>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <span style="color: red;">Inactive</span>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </td>
-                                            <td>${slider.createdDate}</td>
-                                            <td>
-                                                <c:if test="${slider.updatedDate != null}">
-                                                    ${slider.updatedDate}
+                                                <c:if test="${post.updatedDate != null}">
+                                                    ${post.updatedDate}
                                                 </c:if>
                                             </td>
                                             <td>
                                                 <!-- Nút Enable/Disable -->
-                                                <form method="post" action="sliders">
-                                                    <input type="hidden" name="id" value="${slider.id}">
-                                                    <input type="hidden" name="status" value="${slider.status ? 0 : 1}">
+                                                <form method="post" action="posts">
+                                                    <input type="hidden" name="id" value="${post.id}">
+                                                    <input type="hidden" name="status" value="${post.status ? 0 : 1}">
                                                     <button type="submit" 
-                                                            class="btn ${slider.status ? 'disable' : 'enable'}">
-                                                        ${slider.status ? 'Hide' : 'Show'}
+                                                            class="btn ${post.status ? 'disable' : 'enable'}">
+                                                        ${post.status ? 'Hide' : 'Show'}
                                                     </button>
                                                 </form>
+
                                             </td>
                                             <td>
-                                                <form method="post" action="DeleteSlider" style="display:inline;">
-                                                    <input type="hidden" name="id" value="${slider.id}">
+                                                <form method="post" action="posts-delete" style="display:inline;">
+                                                    <input type="hidden" name="id" value="${post.id}">
                                                     <button type="submit" class="btn delete">
                                                         Delete
                                                     </button>
@@ -651,7 +643,7 @@
                                     <ul class="pagination">
                                         <c:if test="${CURRENT_PAGE > 1}">
                                             <li class="previous">
-                                                <a href="sliders?page=${CURRENT_PAGE - 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
+                                                <a href="posts?page=${CURRENT_PAGE - 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
                                                     <i class="ti-arrow-left"></i> Prev
                                                 </a>
                                             </li>
@@ -659,7 +651,7 @@
 
                                         <c:forEach begin="1" end="${TOTAL_PAGES}" var="i">
                                             <li class="${i == CURRENT_PAGE ? 'active' : ''}">
-                                                <a href="sliders?page=${i}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
+                                                <a href="posts?page=${i}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
                                                     ${i}
                                                 </a>
                                             </li>
@@ -667,7 +659,7 @@
 
                                         <c:if test="${CURRENT_PAGE < TOTAL_PAGES}">
                                             <li class="next">
-                                                <a href="sliders?page=${CURRENT_PAGE + 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
+                                                <a href="posts?page=${CURRENT_PAGE + 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
                                                     <i class="ti-arrow-right"></i> Next
                                                 </a>
                                             </li>
@@ -704,3 +696,4 @@
 
     <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
 </html>
+
