@@ -77,10 +77,6 @@
         <servlet-class>controller.slider.DeleteSlider</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServiceDetails</servlet-name>
-        <servlet-class>controller.service.manager.ServiceDetails</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ProfileController</servlet-name>
         <servlet-class>controller.common.AjaxProfileController</servlet-class>
     </servlet>
@@ -163,10 +159,6 @@
     <servlet-mapping>
         <servlet-name>DeleteSlider</servlet-name>
         <url-pattern>/DeleteSlider</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServiceDetails</servlet-name>
-        <url-pattern>/ServiceDetails</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BlogDetailController</servlet-name>
