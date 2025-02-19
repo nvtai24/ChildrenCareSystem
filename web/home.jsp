@@ -211,6 +211,7 @@
     <body id="bg">
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
+            
             <!-- Header Top ==== -->
             <jsp:include page="header.jsp"/>
 

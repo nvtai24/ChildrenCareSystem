@@ -51,6 +51,8 @@ public class LoginController extends HttpServlet {
             request.getSession().setAttribute("permissions", permissions);
             request.getSession().setAttribute("account", user);
             
+            request.getSession().setAttribute("id", user.getId());
+            
             response.sendRedirect("/app");
         } else {
             response.sendRedirect("login");

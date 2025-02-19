@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <!--    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>filter.AuthFilter</filter-class>
+    </filter>-->
+    <!--    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/reservation/detail</url-pattern>
+        <url-pattern>/reservation/contact</url-pattern>
+        <url-pattern>/reservation/completion</url-pattern>
+        <url-pattern>/my-reservation</url-pattern>
+        <url-pattern>/reservation/info</url-pattern>
+        <url-pattern>/posts</url-pattern>
+        <url-pattern>/post</url-pattern>
+        <url-pattern>/sliders</url-pattern>
+        <url-pattern>/slider</url-pattern>
+        <url-pattern>/services/manager</url-pattern>
+        <url-pattern>/services/update</url-pattern>
+        <url-pattern>/customers</url-pattern>
+        <url-pattern>/customer</url-pattern>
+        <url-pattern>/feedbacks</url-pattern>
+        <url-pattern>/feedback</url-pattern>
+        <url-pattern>/reservations</url-pattern>
+        <url-pattern>/reservation</url-pattern>
+        <url-pattern>/medical</url-pattern>
+        <url-pattern>/admin</url-pattern>
+        <url-pattern>/users</url-pattern>
+        <url-pattern>/user</url-pattern>
+        <url-pattern>/settings</url-pattern>
+        <url-pattern>/setting</url-pattern>
+        <url-pattern>/reservation/feedback</url-pattern>
+        <url-pattern>/services/ads</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>-->
     <servlet>
         <servlet-name>DashboardNavigationController</servlet-name>
         <servlet-class>controller.dashboard.DashboardNavigationController</servlet-class>
@@ -15,6 +49,38 @@
     <servlet>
         <servlet-name>SettingDashboardController</servlet-name>
         <servlet-class>controller.dashboard.admin.SettingDashboardController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddToWishlistController</servlet-name>
+        <servlet-class>controller.wishlist.AddToWishlistController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteItemController</servlet-name>
+        <servlet-class>controller.wishlist.DeleteItemController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeQuantityController</servlet-name>
+        <servlet-class>controller.wishlist.ChangeQuantityController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReservationContactController</servlet-name>
+        <servlet-class>controller.reservation.ReservationContactController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostListController</servlet-name>
+        <servlet-class>controller.blog.PostListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddPostController</servlet-name>
+        <servlet-class>controller.blog.AddPostController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeletePostController</servlet-name>
+        <servlet-class>controller.blog.DeletePostController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdatePostController</servlet-name>
+        <servlet-class>controller.blog.UpdatePostController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserUpdateController</servlet-name>
@@ -210,6 +276,38 @@
     <servlet-mapping>
         <servlet-name>SettingDashboardController</servlet-name>
         <url-pattern>/settings</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToWishlistController</servlet-name>
+        <url-pattern>/wishlist/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteItemController</servlet-name>
+        <url-pattern>/wishlist/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeQuantityController</servlet-name>
+        <url-pattern>/wishlist/change</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservationContactController</servlet-name>
+        <url-pattern>/reservation/contact</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostListController</servlet-name>
+        <url-pattern>/posts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddPostController</servlet-name>
+        <url-pattern>/posts/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeletePostController</servlet-name>
+        <url-pattern>/posts/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePostController</servlet-name>
+        <url-pattern>/posts/update</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserUpdateController</servlet-name>
