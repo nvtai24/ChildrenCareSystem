@@ -13,8 +13,10 @@ import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import model.Profile;
 import model.auth.Role;
 import model.auth.User;
+import java.sql.Timestamp;
 
 public class UserDAO extends DBContext {
 
@@ -54,11 +56,25 @@ public class UserDAO extends DBContext {
     }
 
     public boolean register(User user) {
-        String sql = "INSERT INTO `user` (`username`, `password`, `email`) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO `user` (`username`, `password`, `email` ,`role_id`) VALUES (?, ?, ?, 3)";
         try (PreparedStatement ps = dbContext.connection.prepareStatement(sql)) {
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getEmail());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public boolean register(User user, int role_Id) {
+        String sql = "INSERT INTO `user` (`username`, `password`, `email` ,`role_id`) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement ps = dbContext.connection.prepareStatement(sql)) {
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getEmail());
+            ps.setInt(4, role_Id);
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -129,8 +145,13 @@ public class UserDAO extends DBContext {
                 String username = rs.getString("username");
                 String email = rs.getString("email");
                 boolean status = rs.getInt("status") == 1;
-                LocalDateTime createdDate = rs.getTimestamp("created_date").toLocalDateTime();
-                LocalDateTime updatedDate = rs.getTimestamp("updated_date").toLocalDateTime();
+
+                Timestamp createdTimestamp = rs.getTimestamp("created_date");
+                Timestamp updatedTimestamp = rs.getTimestamp("updated_date");
+
+                LocalDateTime createdDate = (createdTimestamp != null) ? createdTimestamp.toLocalDateTime() : null;
+                LocalDateTime updatedDate = (updatedTimestamp != null) ? updatedTimestamp.toLocalDateTime() : null;
+
                 String roleName = rs.getString("role_name");
 
                 User u = new User().builder()
@@ -151,6 +172,7 @@ public class UserDAO extends DBContext {
 
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+
         } finally {
             try {
                 connection.close();
@@ -209,8 +231,10 @@ public class UserDAO extends DBContext {
                 u.setEmail(rs.getString("u.email"));
                 u.setStatus(rs.getString("u.status").equalsIgnoreCase("1"));
                 u.setCreatedDate(rs.getTimestamp("u.created_date").toLocalDateTime());
-                u.setUpdatedDate(rs.getTimestamp("u.updated_date").toLocalDateTime());
 
+                Timestamp updatedTimestamp = rs.getTimestamp("updated_date");
+                LocalDateTime updatedDate = (updatedTimestamp != null) ? updatedTimestamp.toLocalDateTime() : null;
+                u.setUpdatedDate(updatedDate);
                 Role r = new Role();
                 r.setId(rs.getInt("u.role_id"));
                 r.setRoleName(rs.getString("r.role_name"));
@@ -265,7 +289,8 @@ public class UserDAO extends DBContext {
                 u.setEmail(rs.getString("u.email"));
                 u.setStatus(rs.getString("u.status").equalsIgnoreCase("1"));
                 u.setCreatedDate(rs.getTimestamp("u.created_date").toLocalDateTime());
-                u.setUpdatedDate(rs.getTimestamp("u.updated_date").toLocalDateTime());
+                Timestamp updatedTimestamp = rs.getTimestamp("updated_date");
+                u.setUpdatedDate(updatedTimestamp != null ? updatedTimestamp.toLocalDateTime() : null);
 
                 Role r = new Role();
                 r.setId(rs.getInt("u.role_id"));
@@ -306,6 +331,77 @@ public class UserDAO extends DBContext {
                 Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
     }
+
+    public User get(int idUser) {
+        User user = null;
+        PreparedStatement stm = null;
+        try {
+            String sql = "select u.id,"
+                    + "username"
+                    + ",email"
+                    + ",role_id"
+                    + ",role_name"
+                    + ",full_name"
+                    + ",gender"
+                    + ",dob"
+                    + ",address"
+                    + ",phone"
+                    + ",avatar "
+                    + "from user u left join profile p on u.id = p.userid join role r on u.role_id = r.id where u.id = ?;";
+            stm = dbContext.connection.prepareStatement(sql);
+            stm.setInt(1, idUser);
+
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("u.id"));
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+
+                Role r = new Role();
+
+                r.setId(rs.getInt("role_id"));
+                r.setRoleName(rs.getString("role_name"));
+
+                user.setRole(r);
+
+                Profile p = new Profile();
+                p.setFullName(rs.getString("full_name"));
+                p.setGender(rs.getInt("gender") == 1);
+                p.setDob(rs.getDate("dob"));
+                p.setAddress(rs.getString("address"));
+                p.setPhone(rs.getString("phone"));
+                p.setAvatar(rs.getString("avatar"));
+
+                user.setProfile(p);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return user;
+    }
+
+    public void updateRoleUser(int idUser, int roleId) {
+        DBContext db = new DBContext();
+        String sql = "UPDATE user SET role_id = ?, updated_date = ? WHERE id = ?";
+        try {
+            db.executeUpdate(sql, roleId, Timestamp.valueOf(LocalDateTime.now()), idUser);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
 }

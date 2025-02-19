@@ -80,13 +80,15 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <a href="../services/manager"><h4 class="breadcrumb-title">User List</h4></a>
-                    <button type="submit" class="btn btn-primary mb-2">
-                        <a>
-                            <i class="fa fa-plus-circle"> </i>
-                            Add New User
-                        </a>
-                    </button>
+                    <h4 class="breadcrumb-title">User List</h4>
+                    <form action="users/add" method="Get">
+                        <button type="submit" class="btn btn-primary mb-2">
+                            <a>
+                                <i class="fa fa-plus-circle"> </i>
+                                Add New User
+                            </a>
+                        </button>
+                    </form>
                 </div>	
                 <div class="toolbar">
 
@@ -174,11 +176,8 @@
                                             <i class="fa fa-refresh" aria-hidden="true"></i> ${u.status ? 'Deactivate' : 'Activate'}
                                         </button>
                                     </form>
-                                    <a href="#" class="btn green mb-2">
+                                    <a href="users/update?id=${u.id}" class="btn green mb-2">
                                         <i class="fa fa-pencil" aria-hidden="true"></i> Edit
-                                    </a>
-                                    <a href="#" class="btn green mb-2">
-                                        <i class="fa fa-user-circle" aria-hidden="true"></i> Profile
                                     </a>
                                 </td>
                             </tr>

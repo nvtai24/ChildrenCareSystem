@@ -28,7 +28,7 @@
                             <ul class="nav navbar-nav">
                                 <li><a href="/app">Home</a></li>
                                 <li><a href="services">Services</a></li>
-                                <li><a href="blog">Blogs</a></li>
+                                <li><a href="blogs">Blogs</a></li>
                                 <li>
                                     <a href="javascript:;"
                                        >Contact us <i class="fa fa-chevron-down"></i
@@ -56,8 +56,6 @@
                                 <c:if test="${sessionScope.account != null && sessionScope.account.role.id !=3}">
                                     <li><a href="dashboard">Dashboard</a></li>
                                     </c:if>
-
-
                             </ul>
 
 
@@ -75,7 +73,7 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" href="reservationDetail" style="color: black;">
+                                        <a class="nav-link" href="reservation/detail" style="color: black;">
                                             <i class="fa fa-calendar-plus-o" aria-hidden="true" style="font-size: 20px" title="My Reservation"></i>
                                         </a>
                                     </li>
