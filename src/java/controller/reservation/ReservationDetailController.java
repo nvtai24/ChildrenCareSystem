@@ -5,6 +5,7 @@
 package controller.reservation;
 
 import dal.ReservationDetailDAO;
+import dal.WishListDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,8 +13,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import model.ReservationDetail;
+import model.WishList;
 import model.auth.User;
 
 /**
@@ -35,11 +38,12 @@ public class ReservationDetailController extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("account");
         int userId = user.getId();
-        List<ReservationDetail> reservationDetails = reservationdetailDAO.getUserReservations(userId);
-        double totalReservationPrice = reservationdetailDAO.getTotalReservationPrice(userId);
 
-        request.setAttribute("reservationDetails", reservationDetails);
-        request.setAttribute("totalPrice", totalReservationPrice);
+        WishListDAO wlDB = new WishListDAO();
+        ArrayList<WishList> items = wlDB.listAllWishlistItems(userId);
+
+        request.setAttribute("items", items);
+
         request.getRequestDispatcher("../reservationDetail.jsp").forward(request, response);
     }
 
@@ -54,17 +58,7 @@ public class ReservationDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        int reservationId = Integer.parseInt(request.getParameter("reservationId"));
 
-        if ("save".equals(action)) {  // Xử lý lưu số lượng mới
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
-            reservationdetailDAO.updateReservationDetail(reservationId, quantity);
-        } else if ("delete".equals(action)) {  // Xử lý xóa
-            reservationdetailDAO.deleteReservationDetail(reservationId);
-        }
-
-        response.sendRedirect("reservation/detail");
     }
 
 }

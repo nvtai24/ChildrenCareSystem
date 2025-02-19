@@ -68,7 +68,7 @@ public class ServiceFilterByCategory extends HttpServlet {
         request.setAttribute("listCategory", listCategory);
 
         // Chuyển hướng đến JSP
-        request.getRequestDispatcher("../views/manager/serviceList.jsp").forward(request, response);
+        request.getRequestDispatcher("../dashboard/manager/serviceList.jsp").forward(request, response);
     }
 
 }

@@ -1,17 +1,312 @@
 <%-- 
     Document   : reservation-contact
-    Created on : Feb 7, 2025, 5:14:40 PM
-    Author     : admin
+    Created on : Feb 19, 2025, 11:40:26 AM
+    Author     : Nvtai
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <!-- META ============================================= -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="robots" content="" />
+
+
+        <!-- FAVICONS ICON ============================================= -->
+        <link rel="icon" href="assets/images/logo.png" type="image/x-icon" />
+        <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png" />
+
+        <!-- PAGE TITLE HERE ============================================= -->
+        <title>Children Care</title>
+        <base href="${pageContext.request.contextPath}/">
+
+
+        <!-- MOBILE SPECIFIC ============================================= -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- All PLUGINS CSS ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
+
+        <!-- TYPOGRAPHY ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/typography.css">
+
+        <!-- SHORTCODES ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/shortcodes/shortcodes.css">
+
+        <!-- STYLESHEETS ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
+
+        <style>
+            .fixed-size-img {
+                width: 200px;  /* Thay đổi kích thước theo nhu cầu */
+                height: 100px; /* Thay đổi kích thước theo nhu cầu */
+                object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+            }
+
+        </style>
+
     </head>
-    <body>
-        <h1>Inter2</h1>
+    <body id="bg">
+        <div class="page-wraper">
+            <div id="loading-icon-bx"></div>
+
+            <!-- Header Top ==== -->
+            <jsp:include page="header.jsp"/>
+            <!-- header END ==== -->
+
+            <!-- Content -->
+            <div class="page-content bg-white">
+                <!-- inner page banner -->
+                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
+                    <div class="container">
+                        <div class="page-banner-entry">
+                            <h1 class="text-white">Reservation Details</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="breadcrumb-row">
+                    <div class="container">
+                        <a href="/app/reservation/detail" class="btn green"> <i class="fa fa-arrow-left"></i> Back</a>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <!-- About Us -->
+                    <div class="section-area section-sp1">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-md-10">
+                                    <div class="card p-4">
+                                        <div class="card-body">
+                                            <h3 class="text-dark font-weight-bold">Inquiry Form</h3>
+                                            <p class="text-muted">We will get in touch with you shortly</p>
+                                            <form>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="firstName">First Name</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="firstName"
+                                                            placeholder="First Name"
+                                                            required
+                                                            />
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="lastName">Last Name</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="lastName"
+                                                            placeholder="Last Name"
+                                                            required
+                                                            />
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="phone">Phone Number</label>
+                                                        <input
+                                                            type="tel"
+                                                            class="form-control"
+                                                            id="phone"
+                                                            placeholder="(000) 000-0000"
+                                                            />
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="email">Your E-mail Address</label>
+                                                        <input
+                                                            type="email"
+                                                            class="form-control"
+                                                            id="email"
+                                                            placeholder="ex: myname@example.com"
+                                                            required
+                                                            />
+                                                        <small class="text-muted">example@example.com</small>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="message">Leave Your Message</label>
+                                                    <textarea
+                                                        class="form-control"
+                                                        id="message"
+                                                        rows="4"
+                                                        placeholder="Type your message here"
+                                                        required
+                                                        ></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary btn-block">
+                                                    Continue
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <jsp:include page="footer.jsp"/>
+        </div>
+
+        <script>
+            document.getElementById('select-all').addEventListener('change', function () {
+                let checkboxes = document.querySelectorAll('.item-checkbox');
+                checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+            });
+        </script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                function updateTotalPrice(row) {
+                    let quantityInput = row.querySelector(".quantity");
+                    let salePriceElement = row.querySelector(".sale-price");
+                    let totalPriceElement = row.querySelector(".total-price");
+
+                    let price = parseFloat(salePriceElement.dataset.price);
+                    let discount = parseFloat(salePriceElement.dataset.discount);
+                    let salePrice = (price * (1 - discount / 100)).toFixed(1);
+                    let quantity = parseInt(quantityInput.value);
+
+                    let totalPrice = (salePrice * quantity).toFixed(1);
+                    totalPriceElement.innerText = "$" + totalPrice;
+
+                    updateSelectedTotal(); // Cập nhật tổng giá trị của sản phẩm đã chọn
+                }
+
+                function updateSelectedTotal() {
+                    let total = 0;
+                    document.querySelectorAll(".item-row").forEach(row => {
+                        let checkbox = row.querySelector(".item-checkbox");
+                        let totalPriceElement = row.querySelector(".total-price");
+
+                        if (checkbox.checked) {
+                            total += parseFloat(totalPriceElement.innerText.replace("$", ""));
+                        }
+                    });
+
+                    document.getElementById("total-price").innerText = "$" + total.toFixed(1);
+                }
+
+                // Xử lý sự kiện khi thay đổi số lượng
+                document.querySelectorAll(".item-row").forEach(row => {
+                    let quantityInput = row.querySelector(".quantity");
+                    let decreaseBtn = row.querySelector(".decrease");
+                    let increaseBtn = row.querySelector(".increase");
+                    let checkbox = row.querySelector(".item-checkbox");
+
+                    // Khi số lượng thay đổi
+                    quantityInput.addEventListener("input", function () {
+                        if (quantityInput.value < 1)
+                            quantityInput.value = 1;
+                        updateTotalPrice(row);
+                    });
+
+                    // Giảm số lượng
+                    decreaseBtn.addEventListener("click", function () {
+                        if (quantityInput.value >= 1) {
+//                            quantityInput.value--;
+                            updateTotalPrice(row);
+                        }
+                    });
+
+                    // Tăng số lượng
+                    increaseBtn.addEventListener("click", function () {
+//                        quantityInput.value++;
+                        updateTotalPrice(row);
+                    });
+
+                    // Khi checkbox thay đổi trạng thái
+                    checkbox.addEventListener("change", function () {
+                        updateSelectedTotal();
+                    });
+                });
+
+                // Xử lý chọn tất cả
+                document.getElementById("select-all").addEventListener("change", function () {
+                    let isChecked = this.checked;
+                    document.querySelectorAll(".item-checkbox").forEach(checkbox => {
+                        checkbox.checked = isChecked;
+                    });
+                    updateSelectedTotal();
+                });
+            });
+        </script>
+
+        <script>
+            function changeQuantityItem(uid, sid, btn, change) {
+                // Tìm phần tử input số lượng trong cùng hàng với nút bấm
+                let quantityInput = btn.parentElement.querySelector(".quantity");
+
+                // Lấy giá trị số lượng hiện tại
+                let currentQuantity = parseInt(quantityInput.value);
+
+                // Tính toán số lượng mới
+                let newQuantity = currentQuantity + change;
+
+                // Đảm bảo số lượng không nhỏ hơn 1
+                if (newQuantity < 1) {
+                    newQuantity = 1;
+                }
+
+                // Cập nhật số lượng mới trên giao diện ngay lập tức
+                quantityInput.value = newQuantity;
+
+                console.log(uid + ' ' + sid + ' ' + newQuantity);
+
+                // Gửi dữ liệu cập nhật lên server
+                $.ajax({
+                    url: '/app/wishlist/change',
+                    type: 'POST',
+                    data: {
+                        uid: uid,
+                        sid: sid,
+                        quantity: newQuantity
+                    },
+                    success: function (response) {
+                        console.log("Cập nhật thành công!");
+
+                        // Cập nhật lại giá trị quantity cho nút tăng/giảm
+                        btn.previousElementSibling.value = newQuantity; // Cập nhật input number
+                    },
+                    error: function () {
+                        console.log("Lỗi khi cập nhật số lượng!");
+                    }
+                });
+            }
+        </script>
+
+        <!-- External JavaScripts -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="assets/vendors/counter/waypoints-min.js"></script>
+        <script src="assets/vendors/counter/counterup.min.js"></script>
+        <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="assets/vendors/masonry/masonry.js"></script>
+        <script src="assets/vendors/masonry/filter.js"></script>
+        <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src="assets/js/functions.js"></script>
+        <script src="assets/js/contact.js"></script>
+
     </body>
+
 </html>

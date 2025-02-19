@@ -2,25 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.dashboard.admin;
+package controller.reservation;
 
-import dal.RoleDAO;
-import dal.SettingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import model.SettingType;
-import model.auth.Role;
 
 /**
  *
  * @author Nvtai
  */
-public class SettingDashboardController extends HttpServlet {
+public class ReservationContactController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -34,16 +29,9 @@ public class SettingDashboardController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        SettingDAO sDB = new SettingDAO();
-        ArrayList<SettingType> settingTypes = sDB.listAllSettings();
-        request.setAttribute("settingTypes", settingTypes);
-
-        RoleDAO rDB = new RoleDAO();
-        ArrayList<Role> roles = rDB.listAllAvailableRole();
-        request.setAttribute("roles", roles);
-
-        request.getRequestDispatcher("dashboard/settings.jsp").forward(request, response);
+        
+        request.getRequestDispatcher("../reservation-contact.jsp").forward(request, response);
+        
     }
 
     /**
@@ -57,6 +45,7 @@ public class SettingDashboardController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
     }
 
 }

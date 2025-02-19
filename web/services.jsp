@@ -17,13 +17,15 @@
         <meta name="author" content="" />
         <meta name="robots" content="" />
 
-       
+
         <!-- FAVICONS ICON ============================================= -->
         <link rel="icon" href="assets/images/logo.png" type="image/x-icon" />
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
         <title>Children Care</title>
+        <base href="${pageContext.request.contextPath}/">
+
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -123,7 +125,7 @@
                                                             <ul>
                                                                 <li class="price">
                                                                     <del>$${r.price}</del>
-                                                                    <h5 class="text-danger">$${r.price - r.discount}</h5>
+                                                                    <h5 class="text-danger">$${r.price * (1 - r.discount / 100)}</h5>
                                                                 </li>
                                                                 <!--<li class="review">03 Review</li>-->
                                                             </ul>
@@ -136,17 +138,13 @@
                                 </div>
                                 <div class="col-lg-9 col-md-8 col-sm-12">
                                     <div class="row">
-
                                         <c:forEach items="${requestScope.services}" var="s">
-                                            <div class="col-md-6 col-lg-4 col-sm-6 mb-4" onclick="window.location.href = 'service?id=${s.id}'" style="cursor: pointer;">
-
+                                            <div class="col-md-6 col-lg-4 col-sm-6 mb-4">
                                                 <div class="card h-100 shadow-sm">
-
-                                                    <img src="${s.thumbnail}" class="card-img-top" alt="${s.name}" style="height: 200px; width: 100%; object-fit: cover;">
-
+                                                    <img src="${s.thumbnail}" class="card-img-top" alt="${s.name}" style="height: 200px; width: 100%; object-fit: cover;" onclick="window.location.href = 'service?id=${s.id}'" style="cursor: pointer;">
                                                     <div class="card-body d-flex flex-column">
                                                         <div style="height: 70px;">
-                                                            <h5 class="card-title text-center">${s.name}</h5>
+                                                            <h5 class="card-title text-center" onclick="window.location.href = 'service?id=${s.id}'" style="cursor: pointer;">${s.name}</h5>
                                                         </div>
                                                         <p class="text-center text-muted">${s.category.name}</p>
                                                         <div class="mt-auto">
@@ -154,8 +152,39 @@
                                                                 <del class="text-muted">$${s.price}</del> 
                                                                 <strong class="text-danger">$${s.price - s.discount}</strong>
                                                             </p>
-                                                            <button class="btn btn-success w-100" onclick="addToCart(event, '${s.id}', '${s.name}', '${s.price - s.discount}')">
-                                                                <i class="fa fa-cart-plus"></i> Add to Cart
+
+                                                            <!--                                                            <form action="wishlist/add" method="post">
+                                                                                                                            <input type="hidden" id="id" name="uid" value="${sessionScope.account.id}">
+                                                                                                                            <input type="hidden" id="id" name="sid" value="${s.id}">
+                                                            
+                                                                                                                            <button type="submit" class="btn btn-success w-100 mb-2" onclick="addToWishlist(${s.id})">
+                                                                                                                                Add Appointment
+                                                                                                                            </button>
+                                                                                                                        </form>-->
+
+                                                            <button type="button" class="btn btn-success w-100 mb-2" onclick="addToWishlist(${sessionScope.account.id}, ${s.id})">
+                                                                Add Appointment
+                                                            </button>
+
+                                                            <script>
+                                                                function addToWishlist(userId, serviceId) {
+                                                                    $.ajax({
+                                                                        url: 'wishlist/add', // URL của API
+                                                                        type: 'POST',
+                                                                        data: {sid: serviceId,
+                                                                            uid: userId}, // Gửi dữ liệu serviceId
+                                                                        success: function (response) {
+                                                                            alert('Added to wishlist successfully!');
+                                                                        },
+                                                                        error: function (xhr, status, error) {
+                                                                            alert('Failed to add to wishlist. Please try again!');
+                                                                        }
+                                                                    });
+                                                                }
+                                                            </script>
+
+                                                            <button class="btn btn-success w-100")">
+                                                                Book Now
                                                             </button>
                                                         </div>
                                                     </div>
@@ -163,26 +192,24 @@
                                             </div>
                                         </c:forEach>
 
-
                                         <c:if test="${requestScope.cid == null && requestScope.info == null}">
                                             <div class="col-lg-12 m-b20">
                                                 <div class="pagination-bx rounded-sm gray clearfix">
                                                     <ul class="pagination">
                                                         <c:if test="${requestScope.currentPage > 1}">
-                                                            <li class="previous"><a href="?page=${requestScope.currentPage -1}"><i class="ti-arrow-left"></i> Prev</a></li>
+                                                            <li class="previous"><a href="services?page=${requestScope.currentPage -1}"><i class="ti-arrow-left"></i> Prev</a></li>
                                                             </c:if>
-                                                        <li class="active"><a href="?page=${requestScope.currentPage}">${requestScope.currentPage }</a></li>
+                                                        <li class="active"><a href="services?page=${requestScope.currentPage}">${requestScope.currentPage }</a></li>
 
 
                                                         <c:if test="${requestScope.currentPage + 1 <= requestScope.totalPages}">
-                                                            <li><a href="?page=${requestScope.currentPage + 1}">${requestScope.currentPage + 1}</a></li>
+                                                            <li><a href="services?page=${requestScope.currentPage + 1}">${requestScope.currentPage + 1}</a></li>
                                                             </c:if>
 
                                                         <c:if test="${requestScope.currentPage + 2 <= requestScope.totalPages}">
-                                                            <li><a href="?page=${requestScope.currentPage + 2}">${requestScope.currentPage + 2}</a></li>
-                                                            <li class="next"><a href="?page=${requestScope.currentPage + 1}">Next <i class="ti-arrow-right"></i></a></li>
-
-                                                        </c:if>
+                                                            <li><a href="services?page=${requestScope.currentPage + 2}">${requestScope.currentPage + 2}</a></li>
+                                                            <li class="next"><a href="services?page=${requestScope.currentPage + 1}">Next <i class="ti-arrow-right"></i></a></li>
+                                                                </c:if>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -195,14 +222,12 @@
                     </div>
                 </div>
                 <!-- contact area END -->
-
             </div>
             <!-- Content END-->
 
             <!-- Footer ==== -->
             <jsp:include page="footer.jsp"/>
             <!-- Footer END ==== -->
-            <button class="back-to-top fa fa-chevron-up" ></button>
         </div>
         <!-- External JavaScripts -->
         <script src="assets/js/jquery.min.js"></script>
@@ -220,19 +245,6 @@
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/contact.js"></script>
 
-
-
-        <script>
-                                                                function addToCart(event, id, name, price) {
-                                                                    // Ngừng sự kiện click truyền lên cha (ngừng điều hướng)
-                                                                    event.stopPropagation();
-
-                                                                    // Tiến hành thêm sản phẩm vào giỏ hàng
-                                                                    console.log(`Added ${name} to the cart!`);
-                                                                    // Bạn có thể thêm logic để thêm vào giỏ hàng ở đây
-                                                                }
-
-        </script>
     </body>
 
 </html>

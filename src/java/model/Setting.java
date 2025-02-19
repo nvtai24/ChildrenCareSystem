@@ -4,7 +4,6 @@
  */
 package model;
 
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,11 +19,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Setting {
     private int id;
-    private String settingKey;
+    private SettingType settingType;
     private String settingValue;
-    private String settingType;
     private String description;
     private boolean status;
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
 }

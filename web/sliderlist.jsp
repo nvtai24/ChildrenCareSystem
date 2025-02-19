@@ -128,7 +128,7 @@
         }
         table {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1500px;
             border-collapse: collapse;
             margin: 20px auto;
             table-layout: fixed;
@@ -215,7 +215,7 @@
 
         <!-- FAVICONS ICON ============================================= -->
         <link rel="icon" href="../error-404.html" type="image/x-icon" />
-        <link rel="shortcut icon" type="image/x-icon" href="assets/images/logochildren.jpg" />
+        <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
         <title>ChildrenCare </title>
@@ -260,7 +260,7 @@
                     <div>
                         <a href="/app" class="ttr-logo">
 
-                            <img alt=""  src="assets/images/logochildren.jpg" width="70" height="10">
+                            <img alt=""  src="assets/images/logo.png" width="70" height="10">
                         </a>
                     </div>
                 </div>
@@ -428,7 +428,7 @@
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- side menu logo start -->
                 <div class="ttr-sidebar-logo">
-                    <a ><img alt="" src="assets/images/logochildren.jpg" width="70" height="17"></a>
+                    <a ><img alt="" src="assets/images/logo.png" width="70" height="17"></a>
                     <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
                             <i class="material-icons ttr-fixed-icon">gps_fixed</i>
                             <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
@@ -553,7 +553,7 @@
 
                                 <!-- Form tìm kiếm -->
                                 <form method="get" action="sliders" class="form-search">
-                                    <input type="text" id="search" name="search" value="${param.search}" placeholder="Search by title">
+                                    <input type="text" id="search" name="search" value="${param.search}" placeholder="Type anything...">
                                     <button type="submit">Search</button>
                                 </form>
 
@@ -567,10 +567,9 @@
                                     <button type="submit">Apply</button>
                                 </form>
                                 <form class="form-add">
-                                    <button type="button" onclick="window.location.href = 'addslider.jsp';">
-                                        Add New Slider
-                                    </button>
-
+                                        <button type="button" onclick="window.location.href = 'addslider.jsp';"> 
+                                            Add New Slider
+                                        </button>    
                                 </form>
 
                             </div>
@@ -622,7 +621,7 @@
                                                     <input type="hidden" name="status" value="${slider.status ? 0 : 1}">
                                                     <button type="submit" 
                                                             class="btn ${slider.status ? 'disable' : 'enable'}">
-                                                        ${slider.status ? 'Disable' : 'Enable'}
+                                                        ${slider.status ? 'Hide' : 'Show'}
                                                     </button>
                                                 </form>
                                             </td>

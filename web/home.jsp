@@ -164,8 +164,6 @@
                 border-radius: 8px;
             }
 
-
-
             .courses-carousel .info-bx {
                 display: flex;
                 flex-direction: column;
@@ -207,14 +205,13 @@
                     white-space: normal;
                 }
             }
-
         </style>
-
 
     </head>
     <body id="bg">
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
+            
             <!-- Header Top ==== -->
             <jsp:include page="header.jsp"/>
 

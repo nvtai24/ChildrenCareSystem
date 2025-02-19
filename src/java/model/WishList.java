@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model.auth;
+package model;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import model.auth.User;
 
 /**
  *
@@ -18,10 +18,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Role {
-    private Integer id;
-    private String roleName;
-    private String description;
-    private Boolean status;
-    private List<Feature> features;
+public class WishList {
+    private User user;
+    private Service service;
+    private int quantity;
 }
