@@ -61,7 +61,7 @@
                             <h2 class="title-head">Sign Up <span>Now</span></h2>
                             <p>Login Your Account <a href="login">Click here</a></p>
                         </div>	
-                        <form class="contact-bx" action="register" method="POST" onsubmit="return validateForm()">
+                        <form class="contact-bx" action="register" method="POST">
                             <div class="row placeani">
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -86,6 +86,7 @@
                                         <div class="input-group"> 
                                             <label>Your Password</label>
                                             <input name="dzPassword" type="password" class="form-control" required="" id="password">
+                                            <small id="passwordError" style="color:red;"></small>
                                         </div>
                                     </div>
                                 </div>
@@ -103,12 +104,12 @@
                                     <button name="submit" type="submit" value="Submit" class="btn button-md">Sign Up</button>
                                 </div>
                                 <div class="col-lg-12">
-                                <p id="successMessage" class="success-text" style="display: none;">? Registration successful! Check your email to verify your account.</p>
-                            </div>
+                                    <p id="successMessage" class="success-text" style="display: none;">? Registration successful! Check your email to verify your account.</p>
+                                </div>
                                 <div class="col-lg-12">
                                     <h6>Sign Up with Social media</h6>
                                     <div class="d-flex">
-<!--                                        <a class="btn flex-fill m-r5 facebook" href="#"><i class="fa fa-facebook"></i>Facebook</a>-->
+                                        <!--                                        <a class="btn flex-fill m-r5 facebook" href="#"><i class="fa fa-facebook"></i>Facebook</a>-->
                                         <a class="btn flex-fill m-l5 google-plus" href="#"><i class="fa fa-google-plus"></i>Google</a>
                                     </div>
                                 </div>
@@ -135,51 +136,70 @@
         <script src="assets/js/contact.js"></script>
         <script src='assets/vendors/switcher/switcher.js'></script>
     </body>
-<script>
-        function validateForm() {
-            var password = document.getElementById("password").value;
-            var confirmPassword = document.getElementById("confirmPassword").value;
-            var error = document.getElementById("passwordError");
-
-            if (password !== confirmPassword) {
-                error.textContent = "Passwords do not match!";
-                return false;
-            }
-            error.textContent = "";
-            return true;
-        }
-
-        $(document).ready(function() {
-            $("#username").on("blur", function() {
+    <script>
+        $(document).ready(function () {
+            $("#username").on("input", function () {
                 var username = $(this).val();
-                $.ajax({
-                    url: "register",
-                    type: "POST",
-                    data: { action: "checkUsername", username: username },
-                    success: function(response) {
-                        if (response === "exists") {
-                            $("#usernameError").text("Username already taken.");
-                        } else {
-                            $("#usernameError").text("");
+                var usernameRegex = /^[A-Za-z0-9]{5,30}$/; 
+                if (!usernameRegex.test(username)) {
+                    $("#usernameError").text("Username must be 5-30 characters and cannot contain spaces.");
+                } else {
+                    $("#usernameError").text(""); 
+                    $.ajax({
+                        url: "register",
+                        type: "POST",
+                        data: {action: "checkUsername", username: username},
+                        success: function (response) {
+                            if (response === "exists") {
+                                $("#usernameError").text("Username already exists.");
+                            } else {
+                                $("#usernameError").text("");
+                            }
                         }
-                    }
-                });
+                    });
+                }
             });
 
-            $("#email").on("blur", function() {
+            $("#email").on("input", function () {
                 var email = $(this).val();
-                $.ajax({
-                    url: "register",
-                    type: "POST",
-                    data: { action: "checkEmail", email: email },
-                    success: function(response) {
-                        if (response === "exists") {
-                            $("#emailError").text("Email already in use.");
-                        } else {
-                            $("#emailError").text("");
+                var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                if (!emailRegex.test(email)) {
+                    $("#emailError").text("Invalid email format.");
+                } else {
+                    $("#emailError").text(""); 
+                    $.ajax({
+                        url: "register",
+                        type: "POST",
+                        data: {action: "checkEmail", email: email},
+                        success: function (response) {
+                            if (response === "exists") {
+                                $("#emailError").text("Email already exists.");
+                            } else {
+                                $("#emailError").text("");
+                            }
                         }
-                    }
-                });
+                    });
+                }
+            });
+
+            $("#password").on("input", function () {
+                var password = $(this).val();
+                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,15}$/; 
+                if (!passwordRegex.test(password)) {
+                    $("#passwordError").text("Password must be 8-15 characters with at least one uppercase letter, one lowercase letter, and one number.");
+                } else {
+                    $("#passwordError").text(""); 
+                }
+            });
+
+            $("#confirmPassword").on("input", function () {
+                var password = $("#password").val();
+                var confirmPassword = $(this).val();
+                if (password !== confirmPassword) {
+                    $("#confirmPasswordError").text("Passwords do not match!");
+                } else {
+                    $("#confirmPasswordError").text(""); 
+                }
             });
         });
     </script>

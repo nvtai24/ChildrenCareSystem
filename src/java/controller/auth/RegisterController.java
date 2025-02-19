@@ -22,7 +22,7 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("register.html").forward(request, response);
+        request.getRequestDispatcher("register.jsp").forward(request, response);
     }
 
     /**
@@ -57,29 +57,40 @@ public class RegisterController extends HttpServlet {
         String username = request.getParameter("dzName");
         String password = request.getParameter("dzPassword");
         String email = request.getParameter("dzEmail");
+        
+        if (username.length() < 5 || username.length() > 30 || username.contains(" ")) {
+            request.setAttribute("usernameError", "Username must be 5-30 characters and cannot contain spaces.");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+            return;
+        }
 
-        // Kiểm tra username đã tồn tại chưa
+        if (password.length() < 8 || password.length() > 15 || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,15}$")) {
+            request.setAttribute("passwordError", "Password must be 8-15 characters with at least one uppercase letter, one lowercase letter, and one number.");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+            return;
+        }
+
         if (userDAO.checkUsernameExists(username)) {
-            response.getWriter().write("<script>alert('Username already exists!'); window.location='register.html';</script>");
+            request.setAttribute("usernameError", "Username already exists.");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
 
         if (userDAO.checkEmailExists(email)) {
-            response.getWriter().write("<script>alert('Email already exists!'); window.location='register.html';</script>");
+            request.setAttribute("emailError", "Email already exists.");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
-        // Tạo user mới
+        
         User newUser = new User();
         newUser.setUsername(username);
-        newUser.setPassword(password); // Không mã hóa mật khẩu (theo yêu cầu)
+        newUser.setPassword(password);
         newUser.setEmail(email);
-        // Thực hiện đăng ký
+        
         boolean isRegistered = userDAO.register(newUser);
         if (isRegistered) {
-            // Redirect to login with success message
             response.sendRedirect("login.html?success=1");
         } else {
-            // Registration failed
             request.setAttribute("error", "Registration failed. Please try again.");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
