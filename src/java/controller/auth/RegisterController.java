@@ -92,7 +92,7 @@ public class RegisterController extends HttpServlet {
             response.sendRedirect("login.html?success=1");
         } else {
             request.setAttribute("error", "Registration failed. Please try again.");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
+            request.getRequestDispatcher("../register.jsp").forward(request, response);
         }
     }
 }
