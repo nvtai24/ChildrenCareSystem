@@ -29,7 +29,9 @@ public class ReservationContactController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        request.getRequestDispatcher("../reservation-contact.jsp").forward(request, response);
+        
     }
 
     /**

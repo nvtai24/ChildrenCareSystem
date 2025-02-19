@@ -158,7 +158,7 @@
                                     <div class="row pt-3">
                                         <div class="col-md-6 text-right font-weight-bold">Total:</div>
                                         <div class="col-md-2 font-weight-bold" id="total-price">$0.0</div>
-                                        <button class=" col-md-2 btn blue">Checkout</button>
+                                        <a href="/app/reservation/contact" class=" col-md-2 btn green" style="color: white">Checkout</a>
                                     </div>
                                 </div>
 
@@ -226,7 +226,7 @@
 
                     // Giảm số lượng
                     decreaseBtn.addEventListener("click", function () {
-                        if (quantityInput.value > 1) {
+                        if (quantityInput.value >= 1) {
 //                            quantityInput.value--;
                             updateTotalPrice(row);
                         }

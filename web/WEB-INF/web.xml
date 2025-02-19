@@ -292,6 +292,7 @@
     <servlet-mapping>
         <servlet-name>ReservationContactController</servlet-name>
         <url-pattern>/reservation/contact</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PostListController</servlet-name>
         <url-pattern>/posts</url-pattern>
