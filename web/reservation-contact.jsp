@@ -26,7 +26,6 @@
         <title>Children Care</title>
         <base href="${pageContext.request.contextPath}/">
 
-
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -69,31 +68,41 @@
             <!-- Content -->
             <div class="page-content bg-white">
                 <!-- inner page banner -->
-                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
+<!--                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
                     <div class="container">
                         <div class="page-banner-entry">
                             <h1 class="text-white">Reservation Details</h1>
                         </div>
                     </div>
-                </div>
+                </div>-->
+
 
                 <div class="breadcrumb-row">
                     <div class="container">
-                        <a href="/app/reservation/detail" class="btn green"> <i class="fa fa-arrow-left"></i> Back</a>
+                        <ul class="list-inline">
+                            <li><a href="/app"><i class="fa fa-home"></i> Home</a></li>
+                            <li>Booking</li>
+                        </ul>
                     </div>
                 </div>
 
                 <div class="content-block">
                     <!-- About Us -->
-                    <div class="section-area section-sp1">
+                    <div class="section-area section-sp4">
                         <div class="container">
                             <div class="row justify-content-center">
+
                                 <div class="col-md-10">
                                     <div class="card p-4">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 35%"></div>
+                                        </div>
+
                                         <div class="card-body">
-                                            <h3 class="text-dark font-weight-bold">Inquiry Form</h3>
+                                            <h3 class="text-dark font-weight-bold">Reservation Form</h3>
                                             <p class="text-muted">We will get in touch with you shortly</p>
                                             <form>
+                                                <!-- Name Fields -->
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label for="firstName">First Name</label>
@@ -105,8 +114,9 @@
                                                             required
                                                             />
                                                     </div>
+
                                                     <div class="form-group col-md-6">
-                                                        <label for="lastName">Last Name</label>
+                                                        <label for="firstName">Last Name</label>
                                                         <input
                                                             type="text"
                                                             class="form-control"
@@ -115,44 +125,105 @@
                                                             required
                                                             />
                                                     </div>
+
                                                 </div>
-                                                <div class="form-row">
-                                                    <div class="form-group col-md-6">
-                                                        <label for="phone">Phone Number</label>
-                                                        <input
-                                                            type="tel"
-                                                            class="form-control"
-                                                            id="phone"
-                                                            placeholder="(000) 000-0000"
-                                                            />
+
+                                                <form>
+                                                    <!-- Name Fields -->
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="firstName">Date</label>
+                                                            <input
+                                                                type="date"
+                                                                class="form-control"
+                                                                id="date"
+                                                                required
+                                                                />
+                                                        </div>
+
+                                                        <div class="form-group col-md-6">
+                                                            <label for="firstName">Time</label>
+                                                            <input
+                                                                type="time"
+                                                                class="form-control"
+                                                                id="date"
+                                                                required
+                                                                />
+                                                        </div>
                                                     </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label for="email">Your E-mail Address</label>
-                                                        <input
-                                                            type="email"
+                                                    
+                                                    <!-- Contact Fields -->
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="phone">Phone Number</label>
+                                                            <input
+                                                                type="tel"
+                                                                class="form-control"
+                                                                id="phone"
+                                                                placeholder="(000) 000-0000"
+                                                                />
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="email">E-mail <small class="text-muted">(Optional)</small></label>
+                                                            <input
+                                                                type="email"
+                                                                class="form-control"
+                                                                id="email"
+                                                                placeholder="ex: myname@example.com"
+                                                                required
+                                                                />
+                                                            
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Message -->
+                                                    <div class="form-group">
+                                                        <label for="message">Leave Your Message</label>
+                                                        <textarea
                                                             class="form-control"
-                                                            id="email"
-                                                            placeholder="ex: myname@example.com"
+                                                            id="message"
+                                                            rows="4"
+                                                            placeholder="Type your message here"
                                                             required
-                                                            />
-                                                        <small class="text-muted">example@example.com</small>
+                                                            style="resize: none"
+                                                            ></textarea>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="message">Leave Your Message</label>
-                                                    <textarea
-                                                        class="form-control"
-                                                        id="message"
-                                                        rows="4"
-                                                        placeholder="Type your message here"
-                                                        required
-                                                        ></textarea>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary btn-block">
-                                                    Continue
-                                                </button>
-                                            </form>
+
+                                                    <!-- Payment Method Selection -->
+                                                    <div class="form-group">
+                                                        <label for="email">Payment Method</label>
+                                                        <br>
+                                                        <div class="form-check form-check-inline mr-4">
+                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                            <label class="form-check-label" for="inlineRadio1">Cash</label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline mr-4">
+                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                            <label class="form-check-label" for="inlineRadio2">Online Banking</label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" disabled>
+                                                            <label class="form-check-label" for="inlineRadio3"> Other (disabled)</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Buttons -->
+                                                    <div class="form-row">
+                                                        <div class="col-md-6">
+                                                            <button type="button" class="btn btn-danger btn-block red">
+                                                                Back
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <button type="submit" class="btn btn-success btn-block green">
+                                                                Continue
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                         </div>
+
+
                                     </div>
                                 </div>
                             </div>

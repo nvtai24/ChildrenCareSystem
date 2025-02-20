@@ -22,7 +22,8 @@ import model.auth.User;
 @Builder
 public class Profile {
     private User user;
-    private String fullName;
+    private String firstName;
+    private String lastName;
     private boolean gender;
     private Date dob;
     private String address;
