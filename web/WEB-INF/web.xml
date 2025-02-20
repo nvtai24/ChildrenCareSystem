@@ -90,6 +90,18 @@
         <servlet-name>UserCreateController</servlet-name>
         <servlet-class>controller.dashboard.admin.user.UserCreateController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerListController</servlet-name>
+        <servlet-class>controller.customer.manager.CustomerListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerDetailController</servlet-name>
+        <servlet-class>controller.customer.manager.CustomerDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerCreateController</servlet-name>
+        <servlet-class>controller.customer.manager.CustomerCreateController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
         <url-pattern>/error-handle</url-pattern>
@@ -316,6 +328,18 @@
     <servlet-mapping>
         <servlet-name>UserCreateController</servlet-name>
         <url-pattern>/users/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerListController</servlet-name>
+        <url-pattern>/customers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerDetailController</servlet-name>
+        <url-pattern>/customer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerCreateController</servlet-name>
+        <url-pattern>/customer/add</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

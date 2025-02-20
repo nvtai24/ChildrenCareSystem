@@ -404,4 +404,215 @@ public class UserDAO extends DBContext {
         }
     }
 
+    public ArrayList<User> getCustomerList() {
+        DBContext db = new DBContext();
+        ArrayList<User> list = new ArrayList<>();
+        String sql = "SELECT u.id, u.username, u.email, u.status, "
+                + "r.id AS role_id, r.role_name, "
+                + "p.full_name, p.gender, p.dob, p.address, p.phone, p.avatar, "
+                + "u.created_date, u.updated_date "
+                + "FROM user u "
+                + "JOIN role r ON u.role_id = r.id "
+                + "LEFT JOIN profile p ON u.id = p.userid "
+                + "WHERE r.role_name = 'customer';";
+
+        ResultSet rs = null;
+        try {
+            rs = db.executeQuery(sql);
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setUsername(rs.getString("username"));
+                u.setEmail(rs.getString("email"));
+                u.setStatus(rs.getString("status") != null && rs.getString("status").equalsIgnoreCase("1"));
+                u.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
+
+                Timestamp updatedTimestamp = rs.getTimestamp("updated_date");
+                u.setUpdatedDate(updatedTimestamp != null ? updatedTimestamp.toLocalDateTime() : null);
+
+                Role r = new Role();
+                r.setId(rs.getInt("role_id"));
+                r.setRoleName(rs.getString("role_name"));
+                u.setRole(r);
+
+                Profile p = new Profile();
+                p.setFullName(rs.getString("full_name"));
+                p.setGender(rs.getString("gender") != null && rs.getString("gender").equalsIgnoreCase("1"));
+                p.setDob(rs.getDate("dob"));
+                p.setAddress(rs.getString("address"));
+                p.setPhone(rs.getString("phone"));
+                p.setAvatar(rs.getString("avatar"));
+
+                u.setProfile(p);
+                list.add(u); // Thêm đối tượng User vào danh sách
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (db.connection != null) {
+                    db.connection.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return list;
+    }
+
+    public ArrayList<User> getCustomerListByStatus(int status) {
+        DBContext db = new DBContext();
+        ArrayList<User> list = new ArrayList<>();
+        String sql = "SELECT u.id, u.username, u.email, u.status, "
+                + "r.id AS role_id, r.role_name, "
+                + "p.full_name, p.gender, p.dob, p.address, p.phone, p.avatar, "
+                + "u.created_date, u.updated_date "
+                + "FROM user u "
+                + "JOIN role r ON u.role_id = r.id "
+                + "LEFT JOIN profile p ON u.id = p.userid "
+                + "WHERE r.role_name = 'customer' ";
+
+        if (status != -1) {
+            sql += "AND u.status = ?"; // Điều kiện nếu status không phải -1
+        }
+
+        ResultSet rs = null;
+        try {
+            PreparedStatement ps = db.connection.prepareStatement(sql);
+            if (status != -1) {
+                ps.setInt(1, status); // Gán giá trị status nếu khác -1
+            }
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setUsername(rs.getString("username"));
+                u.setEmail(rs.getString("email"));
+                u.setStatus(rs.getString("status") != null && rs.getString("status").equalsIgnoreCase("1"));
+                u.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
+
+                Timestamp updatedTimestamp = rs.getTimestamp("updated_date");
+                u.setUpdatedDate(updatedTimestamp != null ? updatedTimestamp.toLocalDateTime() : null);
+
+                Role r = new Role();
+                r.setId(rs.getInt("role_id"));
+                r.setRoleName(rs.getString("role_name"));
+                u.setRole(r);
+
+                Profile p = new Profile();
+                p.setFullName(rs.getString("full_name"));
+                p.setGender(rs.getString("gender") != null && rs.getString("gender").equalsIgnoreCase("1"));
+                p.setDob(rs.getDate("dob"));
+                p.setAddress(rs.getString("address"));
+                p.setPhone(rs.getString("phone"));
+                p.setAvatar(rs.getString("avatar"));
+
+                u.setProfile(p);
+                list.add(u); // Thêm đối tượng User vào danh sách
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (db.connection != null) {
+                    db.connection.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return list;
+    }
+
+    public ArrayList<User> searchCustomer(String searchTerm) {
+        DBContext db = new DBContext();
+        ArrayList<User> list = new ArrayList<>();
+        String sql = "SELECT u.id, u.username, u.email, u.status, "
+                + "r.id AS role_id, r.role_name, "
+                + "p.full_name, p.gender, p.dob, p.address, p.phone, p.avatar, "
+                + "u.created_date, u.updated_date "
+                + "FROM user u "
+                + "JOIN role r ON u.role_id = r.id "
+                + "LEFT JOIN profile p ON u.id = p.userid "
+                + "WHERE r.role_name = 'customer' ";
+
+        // Nếu searchTerm là null hoặc rỗng, không thêm điều kiện tìm kiếm
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            String searchTermValue = "%" + searchTerm + "%"; // Tạo điều kiện tìm kiếm với phần từ khóa
+
+            // Thêm điều kiện tìm kiếm cho các trường id, fullname, phone, email
+            sql += "AND (u.id LIKE ? "
+                    + "OR p.full_name LIKE ? "
+                    + "OR p.phone LIKE ? "
+                    + "OR u.email LIKE ?)";
+        }
+
+        ResultSet rs = null;
+
+        try {
+            PreparedStatement ps = db.connection.prepareStatement(sql);
+
+            if (searchTerm != null && !searchTerm.isEmpty()) {
+                String searchTermValue = "%" + searchTerm + "%"; // Tạo điều kiện tìm kiếm với phần từ khóa
+                ps.setString(1, searchTermValue);  // Gán điều kiện tìm kiếm cho id
+                ps.setString(2, searchTermValue);  // Gán điều kiện tìm kiếm cho full_name
+                ps.setString(3, searchTermValue);  // Gán điều kiện tìm kiếm cho phone
+                ps.setString(4, searchTermValue);  // Gán điều kiện tìm kiếm cho email
+            }
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setUsername(rs.getString("username"));
+                u.setEmail(rs.getString("email"));
+                u.setStatus(rs.getString("status") != null && rs.getString("status").equalsIgnoreCase("1"));
+                u.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
+
+                Timestamp updatedTimestamp = rs.getTimestamp("updated_date");
+                u.setUpdatedDate(updatedTimestamp != null ? updatedTimestamp.toLocalDateTime() : null);
+
+                Role r = new Role();
+                r.setId(rs.getInt("role_id"));
+                r.setRoleName(rs.getString("role_name"));
+                u.setRole(r);
+
+                Profile p = new Profile();
+                p.setFullName(rs.getString("full_name"));
+                p.setGender(rs.getString("gender") != null && rs.getString("gender").equalsIgnoreCase("1"));
+                p.setDob(rs.getDate("dob"));
+                p.setAddress(rs.getString("address"));
+                p.setPhone(rs.getString("phone"));
+                p.setAvatar(rs.getString("avatar"));
+
+                u.setProfile(p);
+                list.add(u); // Thêm đối tượng User vào danh sách
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (db.connection != null) {
+                    db.connection.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return list;
+    }
+
 }

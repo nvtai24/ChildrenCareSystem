@@ -1,7 +1,7 @@
 <%-- 
-    Document   : serviceCreate
-    Created on : Jan 23, 2025, 11:43:25 PM
-    Author     : Admin
+    Document   : customerDetail
+    Created on : Feb 19, 2025, 10:55:48 PM
+    Author     : milo9
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -118,23 +118,23 @@
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
         <!-- header start -->
-        <jsp:include page="header.jsp"/>         
+        <jsp:include page="../../dashboard/header.jsp"/>         
         <!-- header end -->
         <!-- Left sidebar menu start -->
-        <jsp:include page="left-sidebar.jsp"/>                         
+        <jsp:include page="../../dashboard/left-sidebar.jsp"/>                           
         <!-- Left sidebar menu end -->
 
         <!--Main container start -->
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">User Detail</h4>
+                    <h4 class="breadcrumb-title">Customer Detail</h4>
                     <ul class="db-breadcrumb-list">
-                        <li><a href="../users"><i class="fa fa-home"></i>User List</a></li>
+                        <li><a href="customers"><i class="fa fa-home"></i>Customer List</a></li>
                         <li>Edit</li>
                     </ul>
                 </div>    
-                <form action="../users/update" method="POST" enctype="multipart/form-data">
+                <form action="customer" method="POST" enctype="multipart/form-data">
                     <div class="container">
                         <!-- Left Side: Profile Info and Avatar -->
                         
@@ -153,7 +153,7 @@
                             <!-- Hidden File Input -->
                             <input type="file" id="avatarInput" name="avatar" accept="image/*" style="display: none;" onchange="previewAvatar(event)">                            
                             <p><strong>Role </strong>
-                                <select name="role">
+                                <select name="role" disabled>
                                     <c:forEach items="${roles}" var="r">
                                         <option value="${r.id}" ${user.role.id == r.id ? 'selected' : ''}>${r.roleName}</option>                                      
                                     </c:forEach>

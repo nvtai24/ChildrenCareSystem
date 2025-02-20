@@ -1,7 +1,7 @@
 <%-- 
-    Document   : userCreate
-    Created on : Feb 18, 2025, 5:04:13 PM
-    Author     : Admin
+    Document   : customerCreate
+    Created on : Feb 19, 2025, 10:56:02 PM
+    Author     : milo9
 --%>
 
 
@@ -90,26 +90,26 @@
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
         <!-- header start -->
-        <jsp:include page="header.jsp"/>         
+        <jsp:include page="../../dashboard/header.jsp"/>         
         <!-- header end -->
         <!-- Left sidebar menu start -->
-        <jsp:include page="left-sidebar.jsp"/>                         
+        <jsp:include page="../../dashboard/left-sidebar.jsp"/>                           
         <!-- Left sidebar menu end -->
 
         <!--Main container start -->
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">Create user</h4>
+                    <h4 class="breadcrumb-title">Create customer</h4>
                     <ul class="db-breadcrumb-list">
-                        <li><a href="../users"><i class="fa fa-home"></i>User List</a></li>
+                        <li><a href="../customers"><i class="fa fa-home"></i>Customer List</a></li>
                         <li>Add</li>
                     </ul>
                 </div>    
 
-                <form class="contact-bx" action="../users/add" method="POST" onsubmit="return validateForm()">
+                <form class="contact-bx" action="../customer/add" method="POST" onsubmit="return validateForm()">
                     <div class="form-container">
-                        <h4 class="text-center">Create new user</h4>
+                        <h4 class="text-center">Create new customer</h4>
 
                         <!-- Username -->
                         <div class="form-group">
@@ -125,15 +125,6 @@
                             <small id="emailError" class="error-text"></small>
                         </div>
 
-                        <!-- Role -->
-                        <div class="form-group">
-                            <label for="email">Role</label>
-                            <select name="role_id">
-                                <c:forEach items="${roles}" var="r">
-                                    <option value="${r.id}">${r.roleName}</option>
-                                </c:forEach>
-                            </select>                    
-                        </div>
 
                         <!-- Password -->
                         <div class="form-group">
@@ -196,7 +187,7 @@
                         $("#username").on("blur", function () {
                             var username = $(this).val();
                             $.ajax({
-                                url: "../users/add",
+                                url: "../customer/add",
                                 type: "POST",
                                 data: {action: "checkUsername", username: username},
                                 success: function (response) {
@@ -212,7 +203,7 @@
                         $("#email").on("blur", function () {
                             var email = $(this).val();
                             $.ajax({
-                                url: "../users/add",
+                                url: "../customer/add",
                                 type: "POST",
                                 data: {action: "checkEmail", email: email},
                                 success: function (response) {
@@ -228,4 +219,3 @@
         </script>
     </body>
 </html>
-
