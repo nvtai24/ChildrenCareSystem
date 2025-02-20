@@ -4,12 +4,17 @@
  */
 package controller.reservation;
 
+import dal.WishListDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import model.WishList;
+import model.auth.User;
 
 /**
  *
@@ -29,9 +34,26 @@ public class ReservationContactController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
+        HttpSession sesion = request.getSession();
+        User account = (User) sesion.getAttribute("account");
+        int uid = account.getId();
+
+        String[] rawSids = request.getParameterValues("serviceId");
+
+        ArrayList<WishList> wishlist = new ArrayList<>();
+
+        WishListDAO wldb = new WishListDAO();
+
+        for (int i = 0; i < rawSids.length; i++) {
+            int sid = Integer.parseInt(rawSids[i]);
+            WishList wl = wldb.getWishListItem(uid, sid);
+            wishlist.add(wl);
+        }
+
+        request.setAttribute("wishlist", wishlist);
         request.getRequestDispatcher("../reservation-contact.jsp").forward(request, response);
-        
+
     }
 
     /**

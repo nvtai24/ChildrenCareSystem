@@ -51,9 +51,16 @@
                                     <!-- Profile Fields -->
                                     <div class="col-md-8">
                                         <div class="form-group row mb-3">
-                                            <label class="col-sm-4 col-form-label">Full Name</label>
+                                            <label class="col-sm-4 col-form-label">First Name</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control" type="text" value="${sessionScope.account.profile.fullName}" name="fullname">
+                                                <input class="form-control" type="text" value="${sessionScope.account.profile.firstName}" name="firstname">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row mb-3">
+                                            <label class="col-sm-4 col-form-label">Last Name</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" type="text" value="${sessionScope.account.profile.lastName}" name="lastname">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
@@ -149,7 +156,7 @@
                     var formData = new FormData(this);
 
                     $.ajax({
-                        url: "profile",
+                        url: "ajax-profile",
                         type: "POST",
                         data: formData,
                         processData: false,

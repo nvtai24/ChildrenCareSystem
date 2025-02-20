@@ -342,7 +342,8 @@ public class UserDAO extends DBContext {
                     + ",email"
                     + ",role_id"
                     + ",role_name"
-                    + ",full_name"
+                    + ",firstname"
+                    + ",lastname"
                     + ",gender"
                     + ",dob"
                     + ",address"
@@ -367,7 +368,8 @@ public class UserDAO extends DBContext {
                 user.setRole(r);
 
                 Profile p = new Profile();
-                p.setFullName(rs.getString("full_name"));
+                p.setFirstName(rs.getString("firstname"));
+                p.setLastName(rs.getString("lastname"));
                 p.setGender(rs.getInt("gender") == 1);
                 p.setDob(rs.getDate("dob"));
                 p.setAddress(rs.getString("address"));
