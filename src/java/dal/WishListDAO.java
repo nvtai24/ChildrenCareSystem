@@ -23,23 +23,23 @@ public class WishListDAO extends DBContext {
     public WishList getWishListItem(int userId, int serviceId) {
         WishList wishlist = null;
 
-        String query = "SELECT `wishlist`.`user_id`,\n"
-                + "    `wishlist`.`service_id`,\n"
-                + "    `wishlist`.`quantity`\n"
-                + "FROM `childrencare`.`wishlist`"
-                + "WHERE user_id = ? and service_id = ?";
+        String query = "select s.price, wl.quantity from wishlist wl\n"
+                + "join service s on wl.service_id = s.id\n"
+                + "where wl.user_id = ? and wl.service_id = ?";
 
         try {
             ResultSet rs = executeQuery(query, userId, serviceId);
 
             if (rs.next()) {
                 int quantity = rs.getInt("quantity");
-
+                double sPrice = rs.getDouble("price");
+                
                 User u = new User();
                 u.setId(userId);
 
                 Service s = new Service();
                 s.setId(serviceId);
+                s.setPrice(sPrice);
 
                 wishlist = new WishList(u, s, quantity);
             }

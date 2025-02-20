@@ -81,7 +81,7 @@
                     <div class="container">
                         <ul class="list-inline">
                             <li><a href="/app"><i class="fa fa-home"></i> Home</a></li>
-                            <li>Booking</li>
+                            <li>Appointment</li>
                         </ul>
                     </div>
                 </div>

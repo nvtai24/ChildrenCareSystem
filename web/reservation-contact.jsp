@@ -47,15 +47,6 @@
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
 
-        <style>
-            .fixed-size-img {
-                width: 200px;  /* Thay đổi kích thước theo nhu cầu */
-                height: 100px; /* Thay đổi kích thước theo nhu cầu */
-                object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
-            }
-
-        </style>
-
     </head>
     <body id="bg">
         <div class="page-wraper">
@@ -68,20 +59,20 @@
             <!-- Content -->
             <div class="page-content bg-white">
                 <!-- inner page banner -->
-<!--                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
-                    <div class="container">
-                        <div class="page-banner-entry">
-                            <h1 class="text-white">Reservation Details</h1>
-                        </div>
-                    </div>
-                </div>-->
+                <!--                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
+                                    <div class="container">
+                                        <div class="page-banner-entry">
+                                            <h1 class="text-white">Reservation Details</h1>
+                                        </div>
+                                    </div>
+                                </div>-->
 
 
                 <div class="breadcrumb-row">
                     <div class="container">
                         <ul class="list-inline">
                             <li><a href="/app"><i class="fa fa-home"></i> Home</a></li>
-                            <li>Booking</li>
+                            <li>Appointment</li>
                         </ul>
                     </div>
                 </div>
@@ -101,7 +92,7 @@
                                         <div class="card-body">
                                             <h3 class="text-dark font-weight-bold">Reservation Form</h3>
                                             <p class="text-muted">We will get in touch with you shortly</p>
-                                            <form>
+                                            <form method="get" action="/app/reservation/complete">
                                                 <!-- Name Fields -->
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
@@ -110,7 +101,9 @@
                                                             type="text"
                                                             class="form-control"
                                                             id="firstName"
+                                                            name="firstname"
                                                             placeholder="First Name"
+                                                            value="${requestScope.p.firstName}"
                                                             required
                                                             />
                                                     </div>
@@ -121,7 +114,9 @@
                                                             type="text"
                                                             class="form-control"
                                                             id="lastName"
+                                                            name="lastname"
                                                             placeholder="Last Name"
+                                                            value="${requestScope.p.lastName}"
                                                             required
                                                             />
                                                     </div>
@@ -132,26 +127,28 @@
                                                     <!-- Name Fields -->
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label for="firstName">Date</label>
+                                                            <label for="date">Date</label>
                                                             <input
                                                                 type="date"
                                                                 class="form-control"
                                                                 id="date"
+                                                                name="date"
                                                                 required
                                                                 />
                                                         </div>
 
                                                         <div class="form-group col-md-6">
-                                                            <label for="firstName">Time</label>
+                                                            <label for="time">Time</label>
                                                             <input
                                                                 type="time"
                                                                 class="form-control"
-                                                                id="date"
+                                                                id="time"
+                                                                name="time"
                                                                 required
                                                                 />
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <!-- Contact Fields -->
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
@@ -160,7 +157,10 @@
                                                                 type="tel"
                                                                 class="form-control"
                                                                 id="phone"
+                                                                name="phone"
                                                                 placeholder="(000) 000-0000"
+                                                                value="${requestScope.p.phone}"
+                                                                required
                                                                 />
                                                         </div>
                                                         <div class="form-group col-md-6">
@@ -169,10 +169,11 @@
                                                                 type="email"
                                                                 class="form-control"
                                                                 id="email"
+                                                                name="email"
                                                                 placeholder="ex: myname@example.com"
-                                                                required
+                                                                value="${sessionScope.account.email}"
                                                                 />
-                                                            
+
                                                         </div>
                                                     </div>
 
@@ -184,7 +185,7 @@
                                                             id="message"
                                                             rows="4"
                                                             placeholder="Type your message here"
-                                                            required
+                                                            name="note"
                                                             style="resize: none"
                                                             ></textarea>
                                                     </div>
@@ -194,16 +195,12 @@
                                                         <label for="email">Payment Method</label>
                                                         <br>
                                                         <div class="form-check form-check-inline mr-4">
-                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                                            <label class="form-check-label" for="inlineRadio1">Cash</label>
+                                                            <input class="form-check-input" type="radio" name="payment" id="cash" value="cash" checked>
+                                                            <label class="form-check-label" for="cash">Cash</label>
                                                         </div>
                                                         <div class="form-check form-check-inline mr-4">
-                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                            <label class="form-check-label" for="inlineRadio2">Online Banking</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" disabled>
-                                                            <label class="form-check-label" for="inlineRadio3"> Other (disabled)</label>
+                                                            <input class="form-check-input" type="radio" name="payment" id="banking" value="banking">
+                                                            <label class="form-check-label" for="banking">Online Banking</label>
                                                         </div>
                                                     </div>
 
