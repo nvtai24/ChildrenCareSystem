@@ -25,7 +25,7 @@ public class OAuth2EmailService {
     private static final String SMTP_SERVER = "smtp.gmail.com";
     private static final int SMTP_PORT = 587;
     private static final String EMAIL_FROM = "dominhanh235@gmail.com";
-    private static final String ACCESS_TOKEN = "ya29.a0AXeO80TQy31TVVGhpNqNxuQB1AyEmIkmMlt5svwpgJq3om7ASq52HwBZ6PJElN8yTHU58xL4GPt66n4tcwpAAxCs5yDrJ5uQ_CM3vr0zIMsHMZ0AkW8O4eoLyTjLemWgr5zOoEzbKn2FkP_IwbZ_CLt1Fz-QOLROdMMVCEGJaCgYKASkSARASFQHGX2MiqpHxTyxZC0xdGB6wylzslQ0175";  // Lấy từ OAuth2
+    private static final String ACCESS_TOKEN = "Minhanh140904";  // Lấy từ OAuth2
 
     public static void sendVerificationEmail(String to, String verificationLink) {
         try {

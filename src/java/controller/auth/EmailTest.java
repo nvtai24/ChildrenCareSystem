@@ -22,7 +22,7 @@ public class EmailTest {
 
         Session session = Session.getDefaultInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(from, "ya29.a0AXeO80SRZLGaHntCBkUsunr-gG-V8z8Utsu6wkLMGS33Z_KaxvYi_JOf4E9jk0SqEWP1Z0eKkGm7g1zY7I8dJWi0EW-GitL92xGxAPyuGiAU7JOz8z5QWtEglllOb4p5MFq-AbvicHgajVaBXZeXcrL0hqXi6-LrbGigAdZ6aCgYKASkSARASFQHGX2Mi3wGZmc7XfHeYFGGEjY01Mw0175");
+                return new PasswordAuthentication(from, "Minhanh140904");
             }
         });
 
