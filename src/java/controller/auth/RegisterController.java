@@ -4,6 +4,7 @@
  */
 package controller.auth;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import dal.UserDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -82,6 +83,8 @@ public class RegisterController extends HttpServlet {
             return;
         }
         
+        //String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setPassword(password);
@@ -89,7 +92,7 @@ public class RegisterController extends HttpServlet {
         
         boolean isRegistered = userDAO.register(newUser);
         if (isRegistered) {
-            response.sendRedirect("login.html?success=1");
+            response.sendRedirect("login.jsp");
         } else {
             request.setAttribute("error", "Registration failed. Please try again.");
             request.getRequestDispatcher("../register.jsp").forward(request, response);
