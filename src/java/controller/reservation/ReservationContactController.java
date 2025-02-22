@@ -57,7 +57,6 @@ public class ReservationContactController extends HttpServlet {
                 request.setAttribute("p", p);
                 session.setAttribute("items", wishlist);
                 request.getRequestDispatcher("../reservation-contact.jsp").forward(request, response);
-
         }
 
         /**

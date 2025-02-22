@@ -7,7 +7,6 @@ package controller.reservation;
 import dal.ReservationDAO;
 import dal.WishListDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,10 +16,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Map;
 import model.Reservation;
 import model.ReservationDetail;
-import model.Service;
 import model.WishList;
 import model.auth.User;
 
@@ -53,13 +50,13 @@ public class ReservationCompletionController extends HttpServlet {
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
         String note = request.getParameter("note");
-        String paymentStr = request.getParameter("payment");
+//        String paymentStr = request.getParameter("payment");
 
         LocalDate date = LocalDate.parse(dateStr);
         LocalTime time = LocalTime.parse(timeStr);
         LocalDateTime reserveDate = LocalDateTime.of(date, time);
-        
-        boolean payment = paymentStr.equalsIgnoreCase("banking");
+
+//        boolean payment = paymentStr.equalsIgnoreCase("banking");
 
         Reservation r = new Reservation().builder()
                 .customer(current)
@@ -69,7 +66,7 @@ public class ReservationCompletionController extends HttpServlet {
                 .phone(phone)
                 .email(email != null ? email : "")
                 .note(note != null ? note : "")
-                .banking(payment)
+//                .banking(payment)
                 .build();
 
         ArrayList<WishList> items = (ArrayList<WishList>) session.getAttribute("items");
@@ -84,11 +81,14 @@ public class ReservationCompletionController extends HttpServlet {
             details.add(rd);
 //            wlDB.deleteWishlistItem(item.getUser().getId(), item.getService().getId());
         }
-        
+
         r.setDetails(details);
-        
-        ReservationDAO rDB = new ReservationDAO();
-        rDB.insertReservation(r);
+
+//        ReservationDAO rDB = new ReservationDAO();
+//        rDB.insertReservation(r);
+        session.setAttribute("r", r);
+
+        request.getRequestDispatcher("../reservation-completion.jsp").forward(request, response);
     }
 
     /**

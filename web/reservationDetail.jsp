@@ -144,6 +144,7 @@
                                                 </div>
                                             </div>
                                         </c:forEach>
+                                        
 
                                         <div class="row pt-3">
                                             <div class="col-md-6 text-right font-weight-bold">Total:</div>

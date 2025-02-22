@@ -58,39 +58,24 @@
 
             <!-- Content -->
             <div class="page-content bg-white">
-                <!-- inner page banner -->
-                <!--                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
-                                    <div class="container">
-                                        <div class="page-banner-entry">
-                                            <h1 class="text-white">Reservation Details</h1>
-                                        </div>
-                                    </div>
-                                </div>-->
-
-
-                <div class="breadcrumb-row">
-                    <div class="container">
-                        <ul class="list-inline">
-                            <li><a href="/app"><i class="fa fa-home"></i> Home</a></li>
-                            <li>Appointment</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="content-block">
-                    <!-- About Us -->
-                    <div class="section-area section-sp4">
+                <div class="content-block mb-2">
+                    <div class="section-area">
                         <div class="container">
-                            <div class="row justify-content-center">
+                            <div class="breadcrumb-row">
+                                <div class="container">
+                                    <ul class="list-inline">
+                                        <li><a href="/app"><i class="fa fa-home"></i> Home</a></li>
+                                        <li>Appointment</li>
+                                        <li>Contact</li>
+                                    </ul>
+                                </div>
+                            </div>
 
-                                <div class="col-md-10">
+                            <div class="row justify-content-center mt-2">
+                                <div class="col-md-12">
                                     <div class="card p-4">
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 35%"></div>
-                                        </div>
-
                                         <div class="card-body">
-                                            <h3 class="text-dark font-weight-bold">Reservation Form</h3>
+                                            <h4 class="text-dark font-weight-bold">Reservation Form</h4>
                                             <p class="text-muted">We will get in touch with you shortly</p>
                                             <form method="get" action="/app/reservation/complete">
                                                 <!-- Name Fields -->
@@ -190,19 +175,19 @@
                                                             ></textarea>
                                                     </div>
 
-                                                    <!-- Payment Method Selection -->
-                                                    <div class="form-group">
-                                                        <label for="email">Payment Method</label>
-                                                        <br>
-                                                        <div class="form-check form-check-inline mr-4">
-                                                            <input class="form-check-input" type="radio" name="payment" id="cash" value="cash" checked>
-                                                            <label class="form-check-label" for="cash">Cash</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline mr-4">
-                                                            <input class="form-check-input" type="radio" name="payment" id="banking" value="banking">
-                                                            <label class="form-check-label" for="banking">Online Banking</label>
-                                                        </div>
-                                                    </div>
+                                                    <!--                                                     Payment Method Selection 
+                                                                                                        <div class="form-group">
+                                                                                                            <label for="email">Payment Method</label>
+                                                                                                            <br>
+                                                                                                            <div class="form-check form-check-inline mr-4">
+                                                                                                                <input class="form-check-input" type="radio" name="payment" id="cash" value="cash" checked>
+                                                                                                                <label class="form-check-label" for="cash">Cash</label>
+                                                                                                            </div>
+                                                                                                            <div class="form-check form-check-inline mr-4">
+                                                                                                                <input class="form-check-input" type="radio" name="payment" id="banking" value="banking">
+                                                                                                                <label class="form-check-label" for="banking">Online Banking</label>
+                                                                                                            </div>
+                                                                                                        </div>-->
 
                                                     <!-- Buttons -->
                                                     <div class="form-row">
@@ -219,8 +204,6 @@
                                                     </div>
                                                 </form>
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
