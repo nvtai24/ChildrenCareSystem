@@ -23,7 +23,7 @@ public class WishListDAO extends DBContext {
     public WishList getWishListItem(int userId, int serviceId) {
         WishList wishlist = null;
 
-        String query = "select s.price, wl.quantity from wishlist wl\n"
+        String query = "select s.thumbnail, s.price, wl.quantity, s.name from wishlist wl\n"
                 + "join service s on wl.service_id = s.id\n"
                 + "where wl.user_id = ? and wl.service_id = ?";
 
@@ -31,8 +31,10 @@ public class WishListDAO extends DBContext {
             ResultSet rs = executeQuery(query, userId, serviceId);
 
             if (rs.next()) {
+                String thumbnail = rs.getString("thumbnail");
                 int quantity = rs.getInt("quantity");
                 double sPrice = rs.getDouble("price");
+                String name = rs.getString("name");
                 
                 User u = new User();
                 u.setId(userId);
@@ -40,6 +42,8 @@ public class WishListDAO extends DBContext {
                 Service s = new Service();
                 s.setId(serviceId);
                 s.setPrice(sPrice);
+                s.setName(name);
+                s.setThumbnail(thumbnail);
 
                 wishlist = new WishList(u, s, quantity);
             }
