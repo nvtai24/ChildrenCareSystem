@@ -68,7 +68,6 @@ CREATE TABLE `feedback` (
 
 LOCK TABLES `feedback` WRITE;
 /*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
-INSERT INTO `feedback` VALUES (1,5,'Great service, very professional!',_binary '','2025-02-04 12:00:00',NULL),(2,4,'Good experience, but waiting time was a bit long.',_binary '','2025-02-05 15:00:00',NULL),(3,5,'The vaccination process was smooth and quick.',_binary '','2025-02-06 11:30:00',NULL),(4,3,'The annual checkup was fine, but could be more detailed.',_binary '','2025-02-07 12:00:00',NULL),(5,4,'Injury treatment was effective, but a bit expensive.',_binary '','2025-02-08 14:00:00',NULL),(6,5,'Flu shot was fast and painless.',_binary '','2025-02-09 10:00:00',NULL),(7,5,'Weight management session was very informative!',_binary '','2025-02-10 11:15:00',NULL),(8,3,'Behavioral therapy session was quite helpful.',_binary '','2025-02-11 13:45:00',NULL),(9,4,'Braces consultation was very useful!',_binary '','2025-02-12 09:30:00',NULL),(10,5,'Diet plan recommendations were great!',_binary '','2025-02-13 15:30:00',NULL);
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,7 +129,6 @@ CREATE TABLE `medicalexamination` (
 
 LOCK TABLES `medicalexamination` WRITE;
 /*!40000 ALTER TABLE `medicalexamination` DISABLE KEYS */;
-INSERT INTO `medicalexamination` VALUES (1,1,2,'2023-10-15 10:30:00','Healthy','No issues found during the checkup.',1,'2025-01-31 23:46:55',NULL),(2,2,2,'2023-10-20 14:30:00','Vaccinated','Child received all scheduled vaccinations.',1,'2025-01-31 23:46:55',NULL),(3,3,2,'2023-10-25 09:30:00','Nutritional Advice','Provided dietary recommendations.',1,'2025-01-31 23:46:55',NULL);
 /*!40000 ALTER TABLE `medicalexamination` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,7 +158,6 @@ CREATE TABLE `medicalprescription` (
 
 LOCK TABLES `medicalprescription` WRITE;
 /*!40000 ALTER TABLE `medicalprescription` DISABLE KEYS */;
-INSERT INTO `medicalprescription` VALUES (1,1,'Multivitamin',1,'Take once daily with meals.','2025-01-31 23:46:55'),(2,3,'Calcium Supplement',1,'Take once daily with breakfast.','2025-01-31 23:46:55');
 /*!40000 ALTER TABLE `medicalprescription` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,7 +202,8 @@ DROP TABLE IF EXISTS `profile`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `profile` (
   `userid` int NOT NULL AUTO_INCREMENT,
-  `full_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `firstname` varchar(100) DEFAULT NULL,
+  `lastname` varchar(100) DEFAULT NULL,
   `gender` tinyint(1) DEFAULT NULL,
   `dob` date DEFAULT NULL,
   `address` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
@@ -224,7 +222,7 @@ CREATE TABLE `profile` (
 
 LOCK TABLES `profile` WRITE;
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
-INSERT INTO `profile` VALUES (1,'doi ten',1,'2004-11-20','ABC Street','9999999999999','assets/images/profile/profile_1.jpg','2025-01-31 23:46:55','2025-02-16 01:39:33'),(2,'Dr. John Doe',1,'1975-05-15','456 Health Lane kkk','124356789','assets/images/profile/profile_2.jpg','2025-01-31 23:46:55','2025-02-10 08:33:13'),(3,'Jane Smith',0,'1985-08-20','789 Parent Road','345-678-9012','assets/images/profile/profile_3.jpg','2025-01-31 23:46:55','2025-02-05 16:03:32'),(4,'Staff Member',1,'1990-03-10','101 Staff Avenue','456-789-0123','assets/images/profile/profile_4.jpg','2025-01-31 23:46:55','2025-02-05 16:03:32');
+INSERT INTO `profile` VALUES (1,'Tai','Nguyen Van',1,'2004-11-20','ABC Street','9999999999999','assets/images/profile/profile_1.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(2,'Anh','Do Minh',1,'1975-05-15','456 Health Lane kkk','124356789','assets/images/profile/profile_2.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(3,'Quyen','Nguyen Duc',0,'1985-08-20','789 Parent Road','345-678-9012','assets/images/profile/profile_3.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(4,'Long','Nguyen Hoang',1,'1990-03-10','101 Staff Avenue','456-789-0123','assets/images/profile/profile_4.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47');
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -238,18 +236,22 @@ DROP TABLE IF EXISTS `reservation`;
 CREATE TABLE `reservation` (
   `id` int NOT NULL AUTO_INCREMENT,
   `customer_id` int NOT NULL,
-  `status_id` int NOT NULL,
-  `reserved_date` datetime NOT NULL,
-  `notes` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `first_name` varchar(100) DEFAULT NULL,
+  `last_name` varchar(100) DEFAULT NULL,
+  `reserve_date` datetime NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `note` varchar(500) DEFAULT NULL,
+  `banking` bit(1) NOT NULL DEFAULT b'1',
+  `status_id` int NOT NULL DEFAULT '1',
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `status_id` (`status_id`),
   KEY `IX_Reservation_Customer` (`customer_id`),
-  KEY `IX_Reservation_Date` (`reserved_date`),
   CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`),
   CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `reservationstatus` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -258,7 +260,6 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (1,3,1,'2023-10-15 10:00:00','Regular checkup for my child.','2025-01-31 23:46:55',NULL),(2,3,2,'2023-10-20 14:00:00','Vaccination appointment.','2025-01-31 23:46:55',NULL),(3,3,3,'2023-10-25 09:00:00','Nutrition consultation.','2025-01-31 23:46:55',NULL),(4,3,1,'2025-02-04 09:00:00','General health checkup','2025-02-03 15:30:00',NULL),(5,6,2,'2025-02-05 14:00:00','Teeth whitening','2025-02-03 16:00:00',NULL),(6,7,3,'2025-02-06 10:00:00','MMR vaccination','2025-02-03 16:45:00',NULL),(7,3,1,'2025-02-07 11:00:00','Annual hezzalth screening','2025-02-03 17:00:00',NULL),(8,6,2,'2025-02-08 13:00:00','Injury treatment','2025-02-03 17:15:00',NULL),(9,3,1,'2025-02-09 09:30:00','Flu vaccination','2025-02-03 17:45:00',NULL),(10,6,3,'2025-02-10 10:00:00','Weight management consultation','2025-02-03 18:00:00',NULL),(11,7,2,'2025-02-11 11:30:00','Behavioral therapy session','2025-02-03 18:15:00',NULL),(12,3,1,'2025-02-12 08:45:00','Dental braces consultation','2025-02-03 18:30:00',NULL),(13,6,3,'2025-02-13 14:15:00','Allergy testing and diet plan','2025-02-03 18:45:00',NULL);
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,13 +276,16 @@ CREATE TABLE `reservationdetail` (
   `service_id` int DEFAULT NULL,
   `quantity` int DEFAULT '1',
   `price` decimal(10,2) DEFAULT NULL,
-  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `status` bit(1) DEFAULT b'0',
+  `staff_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `reservation_id` (`reservation_id`),
   KEY `service_id` (`service_id`),
-  CONSTRAINT `reservationdetail_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`),
-  CONSTRAINT `reservationdetail_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `reservationdetail_ibfk_3_idx` (`staff_id`),
+  CONSTRAINT `reservationdetail_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `reservationdetail_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`),
+  CONSTRAINT `reservationdetail_ibfk_3` FOREIGN KEY (`staff_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -290,7 +294,6 @@ CREATE TABLE `reservationdetail` (
 
 LOCK TABLES `reservationdetail` WRITE;
 /*!40000 ALTER TABLE `reservationdetail` DISABLE KEYS */;
-INSERT INTO `reservationdetail` VALUES (1,1,1,1,50.00,'2025-01-31 23:46:55'),(2,2,2,1,120.00,'2025-01-31 23:46:55'),(3,3,3,1,80.00,'2025-01-31 23:46:55'),(4,1,1,1,100.00,'2025-02-03 15:30:00'),(5,2,10,1,100.00,'2025-02-03 16:00:00'),(6,3,4,1,60.00,'2025-02-03 16:45:00'),(7,4,2,1,150.00,'2025-02-03 17:00:00'),(8,5,12,1,150.00,'2025-02-03 17:15:00'),(9,6,3,1,40.00,'2025-02-03 17:45:00'),(10,7,6,1,90.00,'2025-02-03 18:00:00'),(11,8,17,1,120.00,'2025-02-03 18:15:00'),(12,9,9,1,50.00,'2025-02-03 18:30:00');
 /*!40000 ALTER TABLE `reservationdetail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -552,6 +555,7 @@ CREATE TABLE `wishlist` (
 
 LOCK TABLES `wishlist` WRITE;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
+INSERT INTO `wishlist` VALUES (1,2,2),(1,4,4),(1,6,1);
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -564,4 +568,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-18  7:54:28
+-- Dump completed on 2025-02-21  1:33:14

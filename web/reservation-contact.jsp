@@ -26,7 +26,6 @@
         <title>Children Care</title>
         <base href="${pageContext.request.contextPath}/">
 
-
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -48,15 +47,6 @@
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
 
-        <style>
-            .fixed-size-img {
-                width: 200px;  /* Thay đổi kích thước theo nhu cầu */
-                height: 100px; /* Thay đổi kích thước theo nhu cầu */
-                object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
-            }
-
-        </style>
-
     </head>
     <body id="bg">
         <div class="page-wraper">
@@ -69,31 +59,41 @@
             <!-- Content -->
             <div class="page-content bg-white">
                 <!-- inner page banner -->
-                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
-                    <div class="container">
-                        <div class="page-banner-entry">
-                            <h1 class="text-white">Reservation Details</h1>
-                        </div>
-                    </div>
-                </div>
+                <!--                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
+                                    <div class="container">
+                                        <div class="page-banner-entry">
+                                            <h1 class="text-white">Reservation Details</h1>
+                                        </div>
+                                    </div>
+                                </div>-->
+
 
                 <div class="breadcrumb-row">
                     <div class="container">
-                        <a href="/app/reservation/detail" class="btn green"> <i class="fa fa-arrow-left"></i> Back</a>
+                        <ul class="list-inline">
+                            <li><a href="/app"><i class="fa fa-home"></i> Home</a></li>
+                            <li>Appointment</li>
+                        </ul>
                     </div>
                 </div>
 
                 <div class="content-block">
                     <!-- About Us -->
-                    <div class="section-area section-sp1">
+                    <div class="section-area section-sp4">
                         <div class="container">
                             <div class="row justify-content-center">
+
                                 <div class="col-md-10">
                                     <div class="card p-4">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 35%"></div>
+                                        </div>
+
                                         <div class="card-body">
-                                            <h3 class="text-dark font-weight-bold">Inquiry Form</h3>
+                                            <h3 class="text-dark font-weight-bold">Reservation Form</h3>
                                             <p class="text-muted">We will get in touch with you shortly</p>
-                                            <form>
+                                            <form method="get" action="/app/reservation/complete">
+                                                <!-- Name Fields -->
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label for="firstName">First Name</label>
@@ -101,58 +101,126 @@
                                                             type="text"
                                                             class="form-control"
                                                             id="firstName"
+                                                            name="firstname"
                                                             placeholder="First Name"
+                                                            value="${requestScope.p.firstName}"
                                                             required
                                                             />
                                                     </div>
+
                                                     <div class="form-group col-md-6">
-                                                        <label for="lastName">Last Name</label>
+                                                        <label for="firstName">Last Name</label>
                                                         <input
                                                             type="text"
                                                             class="form-control"
                                                             id="lastName"
+                                                            name="lastname"
                                                             placeholder="Last Name"
+                                                            value="${requestScope.p.lastName}"
                                                             required
                                                             />
                                                     </div>
+
                                                 </div>
-                                                <div class="form-row">
-                                                    <div class="form-group col-md-6">
-                                                        <label for="phone">Phone Number</label>
-                                                        <input
-                                                            type="tel"
-                                                            class="form-control"
-                                                            id="phone"
-                                                            placeholder="(000) 000-0000"
-                                                            />
+
+                                                <form>
+                                                    <!-- Name Fields -->
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="date">Date</label>
+                                                            <input
+                                                                type="date"
+                                                                class="form-control"
+                                                                id="date"
+                                                                name="date"
+                                                                required
+                                                                />
+                                                        </div>
+
+                                                        <div class="form-group col-md-6">
+                                                            <label for="time">Time</label>
+                                                            <input
+                                                                type="time"
+                                                                class="form-control"
+                                                                id="time"
+                                                                name="time"
+                                                                required
+                                                                />
+                                                        </div>
                                                     </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label for="email">Your E-mail Address</label>
-                                                        <input
-                                                            type="email"
-                                                            class="form-control"
-                                                            id="email"
-                                                            placeholder="ex: myname@example.com"
-                                                            required
-                                                            />
-                                                        <small class="text-muted">example@example.com</small>
+
+                                                    <!-- Contact Fields -->
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="phone">Phone Number</label>
+                                                            <input
+                                                                type="tel"
+                                                                class="form-control"
+                                                                id="phone"
+                                                                name="phone"
+                                                                placeholder="(000) 000-0000"
+                                                                value="${requestScope.p.phone}"
+                                                                required
+                                                                />
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="email">E-mail <small class="text-muted">(Optional)</small></label>
+                                                            <input
+                                                                type="email"
+                                                                class="form-control"
+                                                                id="email"
+                                                                name="email"
+                                                                placeholder="ex: myname@example.com"
+                                                                value="${sessionScope.account.email}"
+                                                                />
+
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="message">Leave Your Message</label>
-                                                    <textarea
-                                                        class="form-control"
-                                                        id="message"
-                                                        rows="4"
-                                                        placeholder="Type your message here"
-                                                        required
-                                                        ></textarea>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary btn-block">
-                                                    Continue
-                                                </button>
-                                            </form>
+
+                                                    <!-- Message -->
+                                                    <div class="form-group">
+                                                        <label for="message">Leave Your Message</label>
+                                                        <textarea
+                                                            class="form-control"
+                                                            id="message"
+                                                            rows="4"
+                                                            placeholder="Type your message here"
+                                                            name="note"
+                                                            style="resize: none"
+                                                            ></textarea>
+                                                    </div>
+
+                                                    <!-- Payment Method Selection -->
+                                                    <div class="form-group">
+                                                        <label for="email">Payment Method</label>
+                                                        <br>
+                                                        <div class="form-check form-check-inline mr-4">
+                                                            <input class="form-check-input" type="radio" name="payment" id="cash" value="cash" checked>
+                                                            <label class="form-check-label" for="cash">Cash</label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline mr-4">
+                                                            <input class="form-check-input" type="radio" name="payment" id="banking" value="banking">
+                                                            <label class="form-check-label" for="banking">Online Banking</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Buttons -->
+                                                    <div class="form-row">
+                                                        <div class="col-md-6">
+                                                            <button type="button" class="btn btn-danger btn-block red">
+                                                                Back
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <button type="submit" class="btn btn-success btn-block green">
+                                                                Continue
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                         </div>
+
+
                                     </div>
                                 </div>
                             </div>

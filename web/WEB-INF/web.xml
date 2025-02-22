@@ -102,6 +102,10 @@
         <servlet-name>CustomerCreateController</servlet-name>
         <servlet-class>controller.customer.manager.CustomerCreateController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReservationCompletionController</servlet-name>
+        <servlet-class>controller.reservation.ReservationCompletionController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
         <url-pattern>/error-handle</url-pattern>
@@ -177,10 +181,6 @@
     <servlet>
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>controller.auth.LogoutController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ReservationDetailDelete</servlet-name>
-        <servlet-class>controller.reservation.ReservationDetailDelete</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ErrorHandleController</servlet-name>
@@ -263,10 +263,6 @@
         <url-pattern>/services/update</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ReservationDetailDelete</servlet-name>
-        <url-pattern>/ReservationDetailDelete</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AdminDashboardController</servlet-name>
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
@@ -341,7 +337,11 @@
         <servlet-name>CustomerCreateController</servlet-name>
         <url-pattern>/customer/add</url-pattern>
     </servlet-mapping>
-    <session-config>
+    <servlet-mapping>
+        <servlet-name>ReservationCompletionController</servlet-name>
+        <url-pattern>/reservation/complete</url-pattern>
+    </servlet-mapping>
+    <!--    <session-config>
         <session-timeout>30</session-timeout>
-    </session-config>
+    </session-config>-->
 </web-app>

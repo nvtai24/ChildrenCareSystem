@@ -25,7 +25,7 @@ public class FeedbackDAO extends DBContext {
     public List<Feedback> listFeedbacksOfService(int sid) {
         List<Feedback> result = new ArrayList<>();
 
-        String sql = "select f.rating, f.comment, p.full_name, p.avatar from reservationdetail rd \n"
+        String sql = "select f.rating, f.comment, p.firstname, p.lastname, p.avatar from reservationdetail rd \n"
                 + "join reservation r on rd.reservation_id = r.id\n"
                 + "join feedback f on rd.id = f.reservationdetail_id\n"
                 + "join user u on r.customer_id = u.id\n"
@@ -38,7 +38,8 @@ public class FeedbackDAO extends DBContext {
             while (rs.next()) {
                 int rating = rs.getInt("rating");
                 String comment = rs.getString("comment");
-                String fullName = rs.getString("full_name");
+                String firstName = rs.getString("firstname");
+                String lastName = rs.getString("lastname");
                 String avatar = rs.getString("avatar");
 
                 Feedback f = new Feedback();
@@ -53,7 +54,8 @@ public class FeedbackDAO extends DBContext {
 
                 Profile p = new Profile();
                 p.setAvatar(avatar);
-                p.setFullName(fullName);
+                p.setFirstName(firstName);
+                p.setLastName(lastName);
 
                 u.setProfile(p);
                 r.setCustomer(u);
@@ -80,7 +82,7 @@ public class FeedbackDAO extends DBContext {
     public List<Feedback> listFeedbacksOfServiceByRating(int sid, int rating) {
         List<Feedback> result = new ArrayList<>();
 
-        String sql = "select f.comment, p.full_name, p.avatar from reservationdetail rd \n"
+        String sql = "select f.comment, p.firstname, p.lastname, p.avatar from reservationdetail rd \n"
                 + "join reservation r on rd.reservation_id = r.id\n"
                 + "join feedback f on rd.id = f.reservationdetail_id\n"
                 + "join user u on r.customer_id = u.id\n"
@@ -92,7 +94,8 @@ public class FeedbackDAO extends DBContext {
 
             while (rs.next()) {
                 String comment = rs.getString("comment");
-                String fullName = rs.getString("full_name");
+                String firstName = rs.getString("firstname");
+                String lastName = rs.getString("lastname");
                 String avatar = rs.getString("avatar");
 
                 Feedback f = new Feedback();
@@ -107,7 +110,8 @@ public class FeedbackDAO extends DBContext {
 
                 Profile p = new Profile();
                 p.setAvatar(avatar);
-                p.setFullName(fullName);
+                p.setFirstName(firstName);
+                p.setLastName(lastName);
 
                 u.setProfile(p);
                 r.setCustomer(u);

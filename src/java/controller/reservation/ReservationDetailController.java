@@ -7,15 +7,12 @@ package controller.reservation;
 import dal.ReservationDetailDAO;
 import dal.WishListDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.List;
-import model.ReservationDetail;
 import model.WishList;
 import model.auth.User;
 
@@ -24,13 +21,6 @@ import model.auth.User;
  * @author admin
  */
 public class ReservationDetailController extends HttpServlet {
-
-    private static final long serialVersionUID = 1L;
-    private ReservationDetailDAO reservationdetailDAO;
-
-    public void init() {
-        reservationdetailDAO = new ReservationDetailDAO();
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
