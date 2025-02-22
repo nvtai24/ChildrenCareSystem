@@ -130,13 +130,14 @@
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input name="dzPassword" type="password" class="form-control" id="password" required>
+                            <small id="passwordError" class="error-text"></small>
                         </div>
 
                         <!-- Confirm Password -->
                         <div class="form-group">
                             <label for="confirmPassword">Confirm Password</label>
                             <input type="password" class="form-control" id="confirmPassword" required>
-                            <small id="passwordError" class="error-text"></small>
+                            <small id="confirmPasswordError" class="error-text"></small>
                         </div>
 
                         <!-- Submit Button -->
@@ -171,51 +172,108 @@
         <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
         <script src='${pageContext.request.contextPath}/assets2/vendors/switcher/switcher.js'></script>
         <script>
-                    function validateForm() {
-                        var password = document.getElementById("password").value;
-                        var confirmPassword = document.getElementById("confirmPassword").value;
-                        var error = document.getElementById("passwordError");
-
-                        if (password !== confirmPassword) {
-                            error.textContent = "Passwords do not match!";
-                            return false;
-                        }
-                        error.textContent = "";
-                        return true;
-                    }
                     $(document).ready(function () {
-                        $("#username").on("blur", function () {
+                        var isValid = true;
+
+                        $("#username").on("input", function () {
                             var username = $(this).val();
-                            $.ajax({
-                                url: "../customer/add",
-                                type: "POST",
-                                data: {action: "checkUsername", username: username},
-                                success: function (response) {
-                                    if (response === "exists") {
-                                        $("#usernameError").text("Username already taken.");
-                                    } else {
-                                        $("#usernameError").text("");
+                            var usernameRegex = /^[A-Za-z0-9]{5,30}$/;
+                            if (!usernameRegex.test(username)) {
+                                $("#usernameError").text("Username must be 5-30 characters and cannot contain spaces.");
+                                isValid = false;
+                            } else {
+                                $("#usernameError").text("");
+                                $.ajax({
+                                    url: "../customer/add",
+                                    type: "POST",
+                                    data: {action: "checkUsername", username: username},
+                                    success: function (response) {
+                                        if (response === "exists") {
+                                            $("#usernameError").text("Username already exists.");
+                                            isValid = false;
+                                        } else {
+                                            $("#usernameError").text("");
+                                            isValid = true;
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
                         });
 
-                        $("#email").on("blur", function () {
+                        $("#email").on("input", function () {
                             var email = $(this).val();
-                            $.ajax({
-                                url: "../customer/add",
-                                type: "POST",
-                                data: {action: "checkEmail", email: email},
-                                success: function (response) {
-                                    if (response === "exists") {
-                                        $("#emailError").text("Email already in use.");
-                                    } else {
-                                        $("#emailError").text("");
+                            var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                            if (!emailRegex.test(email)) {
+                                $("#emailError").text("Invalid email format.");
+                                isValid = false;
+                            } else {
+                                $("#emailError").text("");
+                                $.ajax({
+                                    url: "../customer/add",
+                                    type: "POST",
+                                    data: {action: "checkEmail", email: email},
+                                    success: function (response) {
+                                        if (response === "exists") {
+                                            $("#emailError").text("Email already exists.");
+                                            isValid = false;
+                                        } else {
+                                            $("#emailError").text("");
+                                            isValid = true;
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
+                        });
+
+                        $("#password").on("input", function () {
+                            var password = $(this).val();
+                            var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,15}$/;
+                            if (!passwordRegex.test(password)) {
+                                $("#passwordError").text("Password must be 8-15 characters with at least one uppercase letter, one lowercase letter, and one number.");
+                                isValid = false;
+                            } else {
+                                $("#passwordError").text("");
+                                isValid = true;
+                            }
+
+
+                            validateConfirmPassword();
+                        });
+
+                        $("#confirmPassword").on("input", function () {
+                            validateConfirmPassword();
+                        });
+
+                        function validateConfirmPassword() {
+                            var password = $("#password").val();
+                            var confirmPassword = $("#confirmPassword").val();
+                            if (password !== confirmPassword) {
+                                $("#confirmPasswordError").text("Passwords do not match!");
+                                isValid = false;
+                            } else {
+                                $("#confirmPasswordError").text("");
+                                isValid = true;
+                            }
+                        }
+
+                        $("form").on("submit", function (e) {
+                            isValid = true;
+
+                            if ($("#usernameError").text() !== "" ||
+                                    $("#emailError").text() !== "" ||
+                                    $("#passwordError").text() !== "" ||
+                                    $("#confirmPasswordError").text() !== "") {
+                                isValid = false;
+                            }
+
+                            if (!isValid) {
+                                e.preventDefault();
+                                alert("Please correct the errors before submitting.");
+                            }
                         });
                     });
+
+
         </script>
     </body>
 </html>

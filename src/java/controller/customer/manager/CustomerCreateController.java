@@ -50,16 +50,7 @@ public class CustomerCreateController extends HttpServlet {
         String username = request.getParameter("dzName");
         String password = request.getParameter("dzPassword");
         String email = request.getParameter("dzEmail");
-        // Kiểm tra username đã tồn tại chưa
-        if (userDAO.checkUsernameExists(username)) {
-            response.getWriter().write("<script>alert('Username already exists!'); window.location='register.html';</script>");
-            return;
-        }
 
-        if (userDAO.checkEmailExists(email)) {
-            response.getWriter().write("<script>alert('Email already exists!'); window.location='register.html';</script>");
-            return;
-        }
         // Tạo user mới
         User newUser = new User();
         newUser.setUsername(username);
@@ -74,7 +65,7 @@ public class CustomerCreateController extends HttpServlet {
         } else {
             // Registration failed
             request.setAttribute("error", "Add user failed. Please try again.");
-            request.getRequestDispatcher("customerCreate.jsp").forward(request, response);
+            request.getRequestDispatcher("../dashboard/manager/customerCreate.jsp").forward(request, response);
         }
     }
 }
