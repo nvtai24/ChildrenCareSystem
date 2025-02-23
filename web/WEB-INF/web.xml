@@ -91,8 +91,16 @@
         <servlet-class>controller.dashboard.admin.user.UserCreateController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ReservationCompletionController</servlet-name>
-        <servlet-class>controller.reservation.ReservationCompletionController</servlet-class>
+        <servlet-name>ReservationConfirmController</servlet-name>
+        <servlet-class>controller.reservation.ReservationConfirmController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentController</servlet-name>
+        <servlet-class>vnpay.PaymentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VnpayReturnController</servlet-name>
+        <servlet-class>vnpay.VnpayReturnController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
@@ -262,6 +270,14 @@
         <servlet-name>UserListDashboardController</servlet-name>
         <url-pattern>/users</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentController</servlet-name>
+        <url-pattern>/reservation/payment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VnpayReturnController</servlet-name>
+        <url-pattern>/reservation/return</url-pattern>
+    </servlet-mapping>
     <error-page>
         <location>/error-handle</location>
     </error-page>
@@ -314,8 +330,8 @@
         <url-pattern>/users/add</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ReservationCompletionController</servlet-name>
-        <url-pattern>/reservation/complete</url-pattern>
+        <servlet-name>ReservationConfirmController</servlet-name>
+        <url-pattern>/reservation/confirm</url-pattern>
     </servlet-mapping>
     <!--    <session-config>
         <session-timeout>30</session-timeout>

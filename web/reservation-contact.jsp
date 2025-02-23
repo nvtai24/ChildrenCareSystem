@@ -77,7 +77,7 @@
                                         <div class="card-body">
                                             <h4 class="text-dark font-weight-bold">Reservation Form</h4>
                                             <p class="text-muted">We will get in touch with you shortly</p>
-                                            <form method="get" action="/app/reservation/complete">
+                                            <form method="get" action="/app/reservation/confirm">
                                                 <!-- Name Fields -->
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
@@ -119,7 +119,8 @@
                                                                 id="date"
                                                                 name="date"
                                                                 required
-                                                                />
+                                                                value="2025-03-10"
+                                                            />
                                                         </div>
 
                                                         <div class="form-group col-md-6">
@@ -130,7 +131,8 @@
                                                                 id="time"
                                                                 name="time"
                                                                 required
-                                                                />
+                                                                value="14:30"
+                                                            />
                                                         </div>
                                                     </div>
 

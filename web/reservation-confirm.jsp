@@ -117,16 +117,14 @@
                                                         <th>Total</th>
                                                     </tr>
                                                 </thead>
-                                                <c:set var="totalPrice" value="0"/>
                                                 <tbody>
                                                     <c:forEach items="${sessionScope.r.details}" var="item">
                                                         <c:set var="lineTotal" value="${item.price * item.quantity}"/>
-                                                        <c:set var="totalPrice" value="${totalPrice + lineTotal}"/>
                                                         <tr>
                                                             <td>${item.service.name}</td>
                                                             <td>${item.quantity}</td>
                                                             <td>$${item.price}</td>
-                                                            <td>$${lineTotal}</td>
+                                                            <td>$${item.price * item.quantity}</td>
                                                         </tr>
                                                     </c:forEach>
                                                 </tbody>
@@ -135,17 +133,17 @@
                                                         <td colspan="3" class="text-right">
                                                             <strong>Total Amount:</strong>
                                                         </td>
-                                                        <td><strong>$${totalPrice}</strong></td>
+                                                        <td><strong>$${sessionScope.amount}</strong></td>
                                                     </tr>
                                                 </tfoot>
                                             </table>
                                         </div>
-                                                    
+
                                         <div class="section-header">
                                             <h4 class="text-dark font-weight-bold">Payment</h4>
                                         </div>
                                         <div class="card-body">
-                                            <form action="#" method="post">
+                                            <form action="/app/reservation/payment" id="submitForm" method="get">
                                                 <div class="form-check mb-3">
                                                     <input
                                                         class="form-check-input"
@@ -159,6 +157,7 @@
                                                         Cash on Arrival
                                                     </label>
                                                 </div>
+                                                
                                                 <div class="form-check mb-3">
                                                     <input
                                                         class="form-check-input"
@@ -172,6 +171,8 @@
                                                     </label>
                                                 </div>
 
+                                                <input type="hidden" name="amount" value="${sessionScope.amount}">
+
                                                 <div class="form-row">
                                                     <div class="col-md-6">
                                                         <button type="button" class="btn btn-danger btn-block red">
@@ -179,7 +180,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <button type="submit" class="btn btn-success btn-block green">
+                                                        <button type="submit" id="submitButton" class="btn btn-success btn-block green">
                                                             Confirm
                                                         </button>
                                                     </div>
@@ -196,7 +197,7 @@
 
             <jsp:include page="footer.jsp"/>
         </div>
-
+        
         <!-- External JavaScripts -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
