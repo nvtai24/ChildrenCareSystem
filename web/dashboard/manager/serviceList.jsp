@@ -156,7 +156,7 @@
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
                                 </div>
-                                
+
                             </form>
                         </div>
                     </div>
@@ -180,7 +180,23 @@
                         <c:forEach items="${requestScope.list}" var="s">
                             <tr>
                                 <td>${s.name}</td>
-                                <td><img src="${pageContext.request.contextPath}/${s.thumbnail}" alt="No image" height="150px" width="150px"/></td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${empty s.thumbnail}">
+                                            <img src="${pageContext.request.contextPath}/assets/images/services/default-thumbnail.jpg" 
+                                                 alt="Default Image" 
+                                                 height="150px" 
+                                                 width="150px"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img src="${pageContext.request.contextPath}/${s.thumbnail}" 
+                                                 alt="Service Image" 
+                                                 height="150px" 
+                                                 width="150px"
+                                                 onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/images/services/default-thumbnail.jpg';"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
                                 <td>${s.category.name}</td>
                                 <td>$${s.price}</td>
                                 <td>${s.discount}%</td>

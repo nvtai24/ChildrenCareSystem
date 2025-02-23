@@ -129,7 +129,8 @@
                         <tr>
                             <th>#</th>
                             <th>User Name</th>
-                            <th>Full Name</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
                             <th>Gender</th>
                             <th>Email</th>
                             <th>Mobile</th>
@@ -142,7 +143,8 @@
                             <tr>
                                 <td>${status.index + 1}</td>
                                 <td>${c.username}</td>
-                                <td>${c.profile.fullName}</td>
+                                <td>${c.profile.firstName}</td>
+                                <td>${c.profile.lastName}</td>
                                 <td>${c.profile.gender ? "Male" : "Female"}</td>
                                 <td>${c.email}</td>
                                 <td>${c.profile.phone}</td>
@@ -209,7 +211,7 @@
                                             "ordering": true,
                                             "info": false,
                                             "columnDefs": [
-                                                {"orderable": false, "targets": [6, 7]}
+                                                {"orderable": false, "targets": [7, 8]}
                                             ],
                                             "dom": 't<"dt-paging"p>'
                                         });

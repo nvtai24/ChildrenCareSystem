@@ -137,7 +137,7 @@
                 <form action="customer" method="POST" enctype="multipart/form-data">
                     <div class="container">
                         <!-- Left Side: Profile Info and Avatar -->
-                        
+
                         <input type="hidden" name="oldAvatar" value="${user.profile.avatar}"/>
                         <div class="profile-left">
                             <img id="avatarPreview" src="${pageContext.request.contextPath}/${user.profile.avatar}" alt="Profile Image">
@@ -165,11 +165,19 @@
                         <!-- Right Side: Edit User Details and Change Password -->
                         <div class="profile-right">
                             <!-- Edit Details -->
+                            <!-- First Name -->
                             <div class="form-group">
-                                <label for="FullName">Full name</label>
-                                <input type="text" class="form-control" id="FullName" name="fullname" value="${user.profile.fullName}">
+                                <label for="FullName">First name</label>
+                                <input type="text" class="form-control" id="FullName" name="firstname" value="${user.profile.firstName}">
+                                <small id="firstNameError" class="error-text text-danger"></small>
                             </div>
 
+                            <!-- Last Name -->
+                            <div class="form-group">
+                                <label for="LastName">Last name</label>
+                                <input type="text" class="form-control" id="LastName" name="lastname" value="${user.profile.lastName}">
+                                <small id="lastNameError" class="error-text text-danger"></small>
+                            </div>
                             <div class="form-group">
                                 <label for="gender">Gender</label> 
                                 <input type="radio" name="gender" value="1" ${user.profile.gender  ? "checked" : ""}> Male
@@ -181,19 +189,19 @@
                                 <input class="form-control" type="date" value="${user.profile.dob}" name="dob">
                             </div>
 
-
+                            <!-- Address -->
                             <div class="form-group">
                                 <label for="address">Address</label>
-                                <input type="text" class="form-control"  name="address" value="${user.profile.address}">
+                                <input type="text" class="form-control" name="address" value="${user.profile.address}">
+                                <small id="addressError" class="error-text text-danger"></small>
                             </div>
 
-
+                            <!-- Phone Number -->
                             <div class="form-group">
                                 <label for="Phone">Phone number</label>
                                 <input type="text" class="form-control" id="Phone" name="phone" value="${user.profile.phone}">
+                                <small id="phoneError" class="error-text text-danger"></small>
                             </div>
-
-
 
                             <button type="submit" class="btn btn-success btn-update">Save</button>
                         </div>
@@ -234,6 +242,78 @@
                                         reader.readAsDataURL(input.files[0]);
                                     }
                                 }
+
+                                $(document).ready(function () {
+                                    function validateForm() {
+                                        var isValid = true; 
+
+                                        // check First Name
+                                        var firstName = $("#FullName").val().trim();
+                                        if (firstName === "") {
+                                            $("#firstNameError").text("First name cannot be empty.");
+                                            isValid = false;
+                                        } else {
+                                            $("#firstNameError").text("");
+                                        }
+
+                                        // check Last Name
+                                        var lastName = $("#LastName").val().trim();
+                                        if (lastName === "") {
+                                            $("#lastNameError").text("Last name cannot be empty.");
+                                            isValid = false;
+                                        } else {
+                                            $("#lastNameError").text("");
+                                        }
+
+                                        // check Address
+                                        var address = $("input[name='address']").val().trim();
+                                        if (address === "") {
+                                            $("#addressError").text("Address cannot be empty.");
+                                            isValid = false;
+                                        } else {
+                                            $("#addressError").text("");
+                                        }
+
+                                        // check Phone Number
+                                        var phone = $("#Phone").val().trim();
+                                        var phoneRegex = /^(?!-)(?!.*--)[0-9-]{7,15}(?<!-)$/;
+                                        if (phone === "") {
+                                            $("#phoneError").text("Phone number cannot be empty.");
+                                            isValid = false;
+                                        } else if (!phoneRegex.test(phone)) {
+                                            $("#phoneError").text("Phone number must be 7-15 digits and can contain '-' (not consecutive).");
+                                            isValid = false;
+                                        } else {
+                                            $("#phoneError").text("");
+                                        }
+
+                                        // check
+                                        var dob = $("input[name='dob']").val();
+                                       
+
+                                        if (dob === "") {
+                                            $("#dobError").text("Date of birth cannot be empty.");
+                                            isValid = false;
+                                        } else {
+                                            $("#dobError").text("");
+                                        }
+
+                                        return isValid;
+                                    }
+
+                                    // Last check after submit
+                                    $("#FullName, #LastName, input[name='address'], #Phone, input[name='dob']").on("input", function () {
+                                        validateForm();
+                                    });
+
+                                    $("form").on("submit", function (e) {
+                                        if (!validateForm()) {
+                                            e.preventDefault(); // prevent if fail
+                                            alert("Please fill in all required fields correctly before submitting.");
+                                        }
+                                    });
+                                });
+
         </script>
     </body>
 </html>

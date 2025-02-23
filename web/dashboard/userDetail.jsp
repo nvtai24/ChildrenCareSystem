@@ -1,5 +1,5 @@
 <%-- 
-    Document   : serviceCreate
+    Document   : UserDetail
     Created on : Jan 23, 2025, 11:43:25 PM
     Author     : Admin
 --%>
@@ -137,7 +137,7 @@
                 <form action="../users/update" method="POST" enctype="multipart/form-data">
                     <div class="container">
                         <!-- Left Side: Profile Info and Avatar -->
-                        
+
                         <input type="hidden" name="oldAvatar" value="${user.profile.avatar}"/>
                         <div class="profile-left">
                             <img id="avatarPreview" src="${pageContext.request.contextPath}/${user.profile.avatar}" alt="Profile Image">
@@ -166,8 +166,15 @@
                         <div class="profile-right">
                             <!-- Edit Details -->
                             <div class="form-group">
-                                <label for="FullName">Full name</label>
-                                <input type="text" class="form-control" id="FullName" name="fullname" value="${user.profile.fullName}">
+                                <label for="FirstName">First name</label>
+                                <input type="text" class="form-control" id="firstName" name="firstname" value="${user.profile.firstName}">
+                                <small id="firstNameError" class="error-text text-danger"></small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="LastName">Last name</label>
+                                <input type="text" class="form-control" id="lastName" name="lastname" value="${user.profile.lastName}">
+                                <small id="lastNameError" class="error-text text-danger"></small>
                             </div>
 
                             <div class="form-group">
@@ -177,22 +184,22 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="gender">Birthday </label> 
-                                <input class="form-control" type="date" value="${user.profile.dob}" name="dob">
+                                <label for="dob">Date of Birth</label>
+                                <input class="form-control" type="date" id="dob" name="dob" value="${user.profile.dob}">
+                                <small id="dobError" class="error-text text-danger"></small>
                             </div>
-
 
                             <div class="form-group">
                                 <label for="address">Address</label>
-                                <input type="text" class="form-control"  name="address" value="${user.profile.address}">
+                                <input type="text" class="form-control" id="address" name="address" value="${user.profile.address}">
+                                <small id="addressError" class="error-text text-danger"></small>
                             </div>
-
 
                             <div class="form-group">
-                                <label for="Phone">Phone number</label>
-                                <input type="text" class="form-control" id="Phone" name="phone" value="${user.profile.phone}">
+                                <label for="phone">Phone Number</label>
+                                <input type="text" class="form-control" id="phone" name="phone" value="${user.profile.phone}">
+                                <small id="phoneError" class="error-text text-danger"></small>
                             </div>
-
 
 
                             <button type="submit" class="btn btn-success btn-update">Save</button>
@@ -223,17 +230,84 @@
         <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
         <script src='${pageContext.request.contextPath}/assets2/vendors/switcher/switcher.js'></script>
         <script>
+                                $(document).ready(function () {
+                                    function validateForm() {
+                                        var isValid = true;
 
-                                function previewAvatar(event) {
-                                    const input = event.target;
-                                    if (input.files && input.files[0]) {
-                                        const reader = new FileReader();
-                                        reader.onload = function (e) {
-                                            document.getElementById('avatarPreview').src = e.target.result;
-                                        };
-                                        reader.readAsDataURL(input.files[0]);
+                                        // Validate First Name
+                                        var firstName = $("#firstName").val().trim();
+                                        if (firstName === "") {
+                                            $("#firstNameError").text("First name cannot be empty.");
+                                            isValid = false;
+                                        } else {
+                                            $("#firstNameError").text("");
+                                        }
+
+                                        // Validate Last Name
+                                        var lastName = $("#lastName").val().trim();
+                                        if (lastName === "") {
+                                            $("#lastNameError").text("Last name cannot be empty.");
+                                            isValid = false;
+                                        } else {
+                                            $("#lastNameError").text("");
+                                        }
+
+                                        // Validate Date of Birth (must be before today)
+                                        var dob = $("#dob").val();
+                                        
+                                        if (dob === "" ) {
+                                            $("#dobError").text("Date of birth cannot be empty");
+                                            isValid = false;
+                                        } else {
+                                            $("#dobError").text("");
+                                        }
+
+                                        // Validate Address
+                                        var address = $("#address").val().trim();
+                                        if (address === "") {
+                                            $("#addressError").text("Address cannot be empty.");
+                                            isValid = false;
+                                        } else {
+                                            $("#addressError").text("");
+                                        }
+
+                                        // Validate Phone Number (7-15 digits, can include "-")
+                                        var phone = $("#phone").val().trim();
+                                        var phoneRegex = /^(?!-)(?!.*--)[0-9-]{7,15}(?<!-)$/;
+                                        if (!phoneRegex.test(phone)) {
+                                            $("#phoneError").text("Phone number must be 7-15 digits and can contain '-' (not consecutive).");
+                                            isValid = false;
+                                        } else {
+                                            $("#phoneError").text("");
+                                        }
+
+                                        return isValid;
                                     }
-                                }
+
+                                    // Validate on input change
+                                    $("#firstName, #lastName, #dob, #address, #phone").on("input change", function () {
+                                        validateForm();
+                                    });
+
+                                    // Prevent form submission if validation fails
+                                    $("form").on("submit", function (e) {
+                                        if (!validateForm()) {
+                                            e.preventDefault();
+                                            alert("Please correct the errors before submitting.");
+                                        }
+                                    });
+
+                                    function previewAvatar(event) {
+                                        var input = event.target;
+                                        if (input.files && input.files[0]) {
+                                            var reader = new FileReader();
+                                            reader.onload = function (e) {
+                                                $("#avatarPreview").attr("src", e.target.result);
+                                            };
+                                            reader.readAsDataURL(input.files[0]);
+                                        }
+                                    }
+                                });
         </script>
     </body>
 </html>

@@ -25,17 +25,10 @@ public class UserCreateController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        UserDAO userDAO = new UserDAO();
+        String action = request.getParameter("action");
         RoleDAO rDB = new RoleDAO();
         ArrayList<Role> roles = rDB.listAllAvailableRole();
-        request.setAttribute("roles", roles);
-        request.getRequestDispatcher("../dashboard/userCreate.jsp").forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getParameter("action");
-        UserDAO userDAO = new UserDAO();
 
         if ("checkUsername".equals(action)) {
             // Kiểm tra username có tồn tại không
@@ -52,9 +45,19 @@ public class UserCreateController extends HttpServlet {
             response.getWriter().write(exists ? "exists" : "available");
             return;
         }
-        String username = request.getParameter("dzName");
-        String password = request.getParameter("dzPassword");
-        String email = request.getParameter("dzEmail");
+        request.setAttribute("roles", roles);
+        request.getRequestDispatcher("../dashboard/userCreate.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        UserDAO userDAO = new UserDAO();
+
+        String username = request.getParameter("dzName").trim();
+        String password = request.getParameter("dzPassword").trim();
+        String email = request.getParameter("dzEmail").trim();
         int role_id = Integer.parseInt(request.getParameter("role_id"));
         // Kiểm tra username đã tồn tại chưa
         if (userDAO.checkUsernameExists(username)) {

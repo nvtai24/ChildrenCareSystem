@@ -53,12 +53,13 @@ public class CustomerDetailController extends HttpServlet {
 
         try {
             int userId = Integer.parseInt(request.getParameter("id"));
-            String fullName = request.getParameter("fullname");
+            String firstName = request.getParameter("firstname").trim();
+            String lastName = request.getParameter("lastname").trim();
             boolean gender = "1".equals(request.getParameter("gender"));
-            String address = request.getParameter("address");
-            String phone = request.getParameter("phone");
+            String address = request.getParameter("address".trim());
+            String phone = request.getParameter("phone").trim();
 //            int roleId = Integer.parseInt(request.getParameter("role"));
-            String dob = request.getParameter("dob");
+            String dob = request.getParameter("dob").trim();
 
             // Lấy avatar cũ nếu không thay đổi ảnh
             String oldAvatar = request.getParameter("oldAvatar");
@@ -73,12 +74,13 @@ public class CustomerDetailController extends HttpServlet {
 
             if (profileExists) {
                 // Cập nhật profile nếu đã tồn tại
-                profileDAO.updateUserProfile(userId, fullName, gender ? "male" : "female", dob, address, phone, avatarPath);
+                profileDAO.updateUserProfile(userId, firstName, lastName, gender ? "male" : "female", dob, address, phone, avatarPath);
             } else {
                 // Tạo mới profile nếu chưa tồn tại
                 Profile profile = Profile.builder()
                         .user(User.builder().id(userId).build())
-                        .fullName(fullName != null ? fullName : "Unknown") // Nếu null, đặt tên mặc định
+                        .firstName(firstName != null ? firstName : "Unknown")
+                        .lastName(lastName != null ? lastName : "Unknown")// Nếu null, đặt tên mặc định
                         .gender(gender)
                         .dob(dateOfBirth != null ? dateOfBirth : Date.valueOf("2000-01-01")) // Nếu null, đặt ngày sinh mặc định
                         .address(address != null ? address : "Not Available") // Nếu null, đặt địa chỉ mặc định

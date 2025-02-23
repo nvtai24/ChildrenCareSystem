@@ -411,7 +411,7 @@ public class UserDAO extends DBContext {
         ArrayList<User> list = new ArrayList<>();
         String sql = "SELECT u.id, u.username, u.email, u.status, "
                 + "r.id AS role_id, r.role_name, "
-                + "p.full_name, p.gender, p.dob, p.address, p.phone, p.avatar, "
+                + "p.firstname, p.lastname, p.gender, p.dob, p.address, p.phone, p.avatar, "
                 + "u.created_date, u.updated_date "
                 + "FROM user u "
                 + "JOIN role r ON u.role_id = r.id "
@@ -438,7 +438,8 @@ public class UserDAO extends DBContext {
                 u.setRole(r);
 
                 Profile p = new Profile();
-                p.setFullName(rs.getString("full_name"));
+                p.setFirstName(rs.getString("firstname"));
+                p.setLastName(rs.getString("lastname"));
                 p.setGender(rs.getString("gender") != null && rs.getString("gender").equalsIgnoreCase("1"));
                 p.setDob(rs.getDate("dob"));
                 p.setAddress(rs.getString("address"));
@@ -471,7 +472,7 @@ public class UserDAO extends DBContext {
         ArrayList<User> list = new ArrayList<>();
         String sql = "SELECT u.id, u.username, u.email, u.status, "
                 + "r.id AS role_id, r.role_name, "
-                + "p.full_name, p.gender, p.dob, p.address, p.phone, p.avatar, "
+                + "p.firstname, p.lastname, p.gender, p.dob, p.address, p.phone, p.avatar, "
                 + "u.created_date, u.updated_date "
                 + "FROM user u "
                 + "JOIN role r ON u.role_id = r.id "
@@ -507,7 +508,8 @@ public class UserDAO extends DBContext {
                 u.setRole(r);
 
                 Profile p = new Profile();
-                p.setFullName(rs.getString("full_name"));
+                p.setFirstName(rs.getString("firstname"));
+                p.setLastName(rs.getString("lastname"));
                 p.setGender(rs.getString("gender") != null && rs.getString("gender").equalsIgnoreCase("1"));
                 p.setDob(rs.getDate("dob"));
                 p.setAddress(rs.getString("address"));
@@ -540,7 +542,7 @@ public class UserDAO extends DBContext {
         ArrayList<User> list = new ArrayList<>();
         String sql = "SELECT u.id, u.username, u.email, u.status, "
                 + "r.id AS role_id, r.role_name, "
-                + "p.full_name, p.gender, p.dob, p.address, p.phone, p.avatar, "
+                + "p.firstname, p.lastname, p.gender, p.dob, p.address, p.phone, p.avatar, "
                 + "u.created_date, u.updated_date "
                 + "FROM user u "
                 + "JOIN role r ON u.role_id = r.id "
@@ -589,7 +591,8 @@ public class UserDAO extends DBContext {
                 u.setRole(r);
 
                 Profile p = new Profile();
-                p.setFullName(rs.getString("full_name"));
+                p.setFirstName(rs.getString("firstname"));
+                p.setLastName(rs.getString("lastname"));
                 p.setGender(rs.getString("gender") != null && rs.getString("gender").equalsIgnoreCase("1"));
                 p.setDob(rs.getDate("dob"));
                 p.setAddress(rs.getString("address"));

@@ -46,13 +46,13 @@ public class UserUpdateController extends HttpServlet {
 
         try {
             int userId = Integer.parseInt(request.getParameter("id"));
-            String firstName = request.getParameter("firstname");
-            String lastName = request.getParameter("lastname");
+            String firstName = request.getParameter("firstname").trim();
+            String lastName = request.getParameter("lastname").trim();
             boolean gender = "1".equals(request.getParameter("gender"));
-            String address = request.getParameter("address");
-            String phone = request.getParameter("phone");
+            String address = request.getParameter("address").trim();
+            String phone = request.getParameter("phone").trim();
             int roleId = Integer.parseInt(request.getParameter("role"));
-            String dob = request.getParameter("dob");
+            String dob = request.getParameter("dob").trim();
 
             // Lấy avatar cũ nếu không thay đổi ảnh
             String oldAvatar = request.getParameter("oldAvatar");

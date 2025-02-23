@@ -194,7 +194,7 @@
                                 $("#usernameError").text("");
                                 $.ajax({
                                     url: "../users/add",
-                                    type: "POST",
+                                    type: "GET",
                                     data: {action: "checkUsername", username: username},
                                     success: function (response) {
                                         if (response === "exists") {
@@ -204,6 +204,10 @@
                                             $("#usernameError").text("");
                                             isValid = true;
                                         }
+                                    },
+                                    error: function () {
+                                        $("#usernameError").text("Error checking username.");
+                                        isValid = false;
                                     }
                                 });
                             }
@@ -219,7 +223,7 @@
                                 $("#emailError").text("");
                                 $.ajax({
                                     url: "../users/add",
-                                    type: "POST",
+                                    type: "GET",
                                     data: {action: "checkEmail", email: email},
                                     success: function (response) {
                                         if (response === "exists") {
@@ -229,10 +233,15 @@
                                             $("#emailError").text("");
                                             isValid = true;
                                         }
+                                    },
+                                    error: function () {
+                                        $("#emailError").text("Error checking email.");
+                                        isValid = false;
                                     }
                                 });
                             }
                         });
+
 
                         $("#password").on("input", function () {
                             var password = $(this).val();

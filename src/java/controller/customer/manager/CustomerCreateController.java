@@ -22,18 +22,10 @@ public class CustomerCreateController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        request.getRequestDispatcher("../dashboard/manager/customerCreate.jsp").forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         String action = request.getParameter("action");
         UserDAO userDAO = new UserDAO();
 
         if ("checkUsername".equals(action)) {
-            // Kiểm tra username có tồn tại không
             String username = request.getParameter("username");
             boolean exists = userDAO.checkUsernameExists(username);
             response.getWriter().write(exists ? "exists" : "available");
@@ -41,29 +33,45 @@ public class CustomerCreateController extends HttpServlet {
         }
 
         if ("checkEmail".equals(action)) {
-            // Kiểm tra email có tồn tại không
             String email = request.getParameter("email");
             boolean exists = userDAO.checkEmailExists(email);
             response.getWriter().write(exists ? "exists" : "available");
             return;
         }
-        String username = request.getParameter("dzName");
-        String password = request.getParameter("dzPassword");
-        String email = request.getParameter("dzEmail");
 
-        // Tạo user mới
+        request.getRequestDispatcher("../dashboard/manager/customerCreate.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String username = request.getParameter("dzName").trim();
+        String password = request.getParameter("dzPassword").trim();
+        String email = request.getParameter("dzEmail").trim();
+
+        UserDAO userDAO = new UserDAO();
+
+        if (userDAO.checkUsernameExists(username)) {
+            request.setAttribute("error", "Username already exists.");
+            request.getRequestDispatcher("../dashboard/manager/customerCreate.jsp").forward(request, response);
+            return;
+        }
+
+        if (userDAO.checkEmailExists(email)) {
+            request.setAttribute("error", "Email already exists.");
+            request.getRequestDispatcher("../dashboard/manager/customerCreate.jsp").forward(request, response);
+            return;
+        }
+
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setPassword(password); // Không mã hóa mật khẩu (theo yêu cầu)
         newUser.setEmail(email);
 
-        // Thực hiện đăng ký
         boolean isRegistered = userDAO.register(newUser, 3);
         if (isRegistered) {
-            // Redirect to login with success message
             response.sendRedirect("../customers");
         } else {
-            // Registration failed
             request.setAttribute("error", "Add user failed. Please try again.");
             request.getRequestDispatcher("../dashboard/manager/customerCreate.jsp").forward(request, response);
         }
