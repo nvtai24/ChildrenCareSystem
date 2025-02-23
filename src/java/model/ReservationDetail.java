@@ -24,9 +24,9 @@ public class ReservationDetail {
     private Feedback feedback;
     private Reservation reservation;
     private Service service;
-    private User user;
+    private User staff;
     private int quantity;
     private double price;
     private double total;
-    private LocalDateTime createdDate;
+    private boolean status;
 }

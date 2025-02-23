@@ -80,18 +80,17 @@
                 <div class="breadcrumb-row">
                     <div class="container">
                         <ul class="list-inline">
-                            <li><a href="/app">Home</a></li>
-                            <li>Reservation Details</li>
+                            <li><a href="/app"><i class="fa fa-home"></i> Home</a></li>
+                            <li>Appointment</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="content-block">
                     <!-- About Us -->
-                    <div class="section-area section-sp1">
+                    <div class="section-area section-sp4">
                         <div class="container">
                             <div class="row">
-
                                 <div class="container">
                                     <div class="row align-items-center border-bottom pb-3">
                                         <div class="col-md-1 text-center">
@@ -104,64 +103,56 @@
                                         <div class="col-md-1 font-weight-bold">Action</div>
                                     </div>
 
-                                    <c:forEach items="${requestScope.items}" var="i">
-                                        <div class="row align-items-center border-bottom pb-3 item-row">
-                                            <div class="col-md-1 text-center">
-                                                <input type="checkbox" class="item-checkbox">
+                                    <form action="/app/reservation/contact" method="get">
+                                        <c:forEach items="${requestScope.items}" var="i">
+                                            <div class="row align-items-center border-bottom pb-3 item-row">
+                                                <div class="col-md-1 text-center">
+                                                    <input type="checkbox" class="item-checkbox" name="serviceId" value="${i.service.id}">
+                                                </div>
+
+                                                <div class="col-md-2 text-center">
+                                                    <img src="${i.service.thumbnail}" class="img-fluid fixed-size-img">
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <h6 class="text-muted">${i.service.category.name}</h6>
+                                                    <h5 class="font-weight-bold">${i.service.name}</h5>
+                                                </div>
+
+                                                <div class="col-md-2 font-weight-bold">
+                                                    <del>${i.service.price}</del>
+                                                    <h5 class="sale-price" data-price="${i.service.price}" data-discount="${i.service.discount}">
+                                                        $${i.service.price * (1 - i.service.discount / 100)}
+                                                    </h5>
+                                                </div>
+
+                                                <div class="col-md-2">
+
+                                                    <div class="btn btn-outline-secondary btn-sm decrease"
+                                                         onclick="changeQuantityItem(${sessionScope.account.id}, ${i.service.id}, this, -1)">-</div>
+                                                    <input type="number" value="${i.quantity}" min="1" class="text-center quantity" style="width: 50px;">
+                                                    <div class="btn btn-outline-secondary btn-sm increase"
+                                                         onclick="changeQuantityItem(${sessionScope.account.id}, ${i.service.id}, this, 1)">+</div>
+                                                </div>
+
+                                                <div class="col-md-1 font-weight-bold total-price">
+                                                    $${(i.service.price * (1 - i.service.discount / 100)) * i.quantity}
+                                                </div>
+
+                                                <div class="col-md-1">
+                                                    <div class="btn red" onclick="deleteItem('${sessionScope.account.id}', '${i.service.id}')"><i class="fa fa-trash"></i></div>
+                                                </div>
                                             </div>
+                                        </c:forEach>
+                                        
 
-                                            <div class="col-md-2 text-center">
-                                                <img src="${i.service.thumbnail}" class="img-fluid fixed-size-img">
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <h6 class="text-muted">${i.service.category.name}</h6>
-                                                <h5 class="font-weight-bold">${i.service.name}</h5>
-                                            </div>
-
-                                            <div class="col-md-2 font-weight-bold">
-                                                <del>${i.service.price}</del>
-                                                <h5 class="sale-price" data-price="${i.service.price}" data-discount="${i.service.discount}">
-                                                    $${i.service.price * (1 - i.service.discount / 100)}
-                                                </h5>
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <form action="/app/wishlist/change" method="post">
-                                                    <input type="hidden" name="uid" value="${sessionScope.account.id}}">
-                                                    <input type="hidden" name="sid" value="${i.service.id}">
-                                                    <input type="hidden" name="quantity">
-                                                </form>
-
-                                                <button class="btn btn-outline-secondary btn-sm decrease"
-                                                        onclick="changeQuantityItem(${sessionScope.account.id}, ${i.service.id}, this, -1)">-</button>
-                                                <input type="number" value="${i.quantity}" min="1" class="text-center quantity" style="width: 50px;">
-                                                <button class="btn btn-outline-secondary btn-sm increase"
-                                                        onclick="changeQuantityItem(${sessionScope.account.id}, ${i.service.id}, this, 1)">+</button>
-
-                                            </div>
-
-                                            <div class="col-md-1 font-weight-bold total-price">
-                                                $${(i.service.price * (1 - i.service.discount / 100)) * i.quantity}
-                                            </div>
-
-                                            <div class="col-md-1">
-                                                <form action="/app/wishlist/delete" method="post">
-                                                    <input type="hidden" name="uid" value="${sessionScope.account.id}">
-                                                    <input type="hidden" name="sid" value="${i.service.id}">
-                                                    <button class="btn red" type="submit"><i class="fa fa-trash"></i></button>
-                                                </form>
-                                            </div>
+                                        <div class="row pt-3">
+                                            <div class="col-md-6 text-right font-weight-bold">Total:</div>
+                                            <div class="col-md-2 font-weight-bold" id="total-price">$0.0</div>
+                                            <button type="submit" id="finalSubmit" class=" col-md-2 btn gray" disabled >Checkout</button>
                                         </div>
-                                    </c:forEach>
-
-                                    <div class="row pt-3">
-                                        <div class="col-md-6 text-right font-weight-bold">Total:</div>
-                                        <div class="col-md-2 font-weight-bold" id="total-price">$0.0</div>
-                                        <a href="/app/reservation/contact" class=" col-md-2 btn green" style="color: white">Checkout</a>
-                                    </div>
-                                </div>
-
+                                    </form>
+                                </div
                             </div>
                         </div>
                     </div>
@@ -191,6 +182,7 @@
                     let quantity = parseInt(quantityInput.value);
 
                     let totalPrice = (salePrice * quantity).toFixed(1);
+
                     totalPriceElement.innerText = "$" + totalPrice;
 
                     updateSelectedTotal(); // Cập nhật tổng giá trị của sản phẩm đã chọn
@@ -198,14 +190,29 @@
 
                 function updateSelectedTotal() {
                     let total = 0;
+                    let checkoutButton = document.getElementById("finalSubmit");
+
                     document.querySelectorAll(".item-row").forEach(row => {
                         let checkbox = row.querySelector(".item-checkbox");
                         let totalPriceElement = row.querySelector(".total-price");
+
 
                         if (checkbox.checked) {
                             total += parseFloat(totalPriceElement.innerText.replace("$", ""));
                         }
                     });
+
+                    console.log(total);
+
+                    if (total == 0) {
+                        checkoutButton.classList.add('gray');
+                        checkoutButton.classList.remove('green', 'btn-success');
+                        checkoutButton.disabled = true;
+                    } else {
+                        checkoutButton.classList.remove('gray');
+                        checkoutButton.classList.add('green', 'btn-success');
+                        checkoutButton.disabled = false;
+                    }
 
                     document.getElementById("total-price").innerText = "$" + total.toFixed(1);
                 }
@@ -296,7 +303,28 @@
                     }
                 });
             }
+
+            function deleteItem(uid, sid) {
+
+                var button = event.target;
+
+                var itemRow = button.closest('.item-row');
+
+                $.ajax({
+                    url: '/app/wishlist/delete',
+                    type: 'POST',
+                    data: {
+                        uid: uid,
+                        sid: sid
+                    },
+                    success: function (response) {
+                        itemRow.style.display = 'none';
+                        alert('Delete ok');
+                    }
+                });
+            }
         </script>
+
 
         <!-- External JavaScripts -->
         <script src="assets/js/jquery.min.js"></script>

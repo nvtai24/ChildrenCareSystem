@@ -23,11 +23,16 @@ import model.auth.User;
 public class Reservation {
     private int id;
     private User customer;
+    private String firstName;
+    private String lastName;
+    private LocalDateTime reverseDate;
+    private String phone;
+    private String email;
+    private String note;
+    private boolean banking;
     private ReservationStatus status;
-    private LocalDateTime reservedDate;
-    private String notes;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
+    private List<ReservationDetail> details;
     private List<MedicalExamination> examinations;
-    private List<ReservationDetail> reservationDetails;
 }
