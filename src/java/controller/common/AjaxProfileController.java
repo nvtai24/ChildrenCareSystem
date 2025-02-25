@@ -46,7 +46,8 @@ public class AjaxProfileController extends HttpServlet {
 
         int id = currentUser.getId();
 
-        String fullname = request.getParameter("fullname");
+        String firstName = request.getParameter("firstname");
+        String lastName = request.getParameter("lastname");
         String gender = request.getParameter("gender");
         String raw_dob = request.getParameter("dob");
         String address = request.getParameter("address");
@@ -110,7 +111,7 @@ public class AjaxProfileController extends HttpServlet {
 
         // Cập nhật các thông tin khác vào cơ sở dữ liệu
         ProfileDAO pDB = new ProfileDAO();
-        pDB.updateUserProfile(id, fullname, gender, raw_dob, address, phone, avatarPath);
+        pDB.updateUserProfile(id, firstName, lastName, gender, raw_dob, address, phone, avatarPath);
 
         // Lấy lại profile cập nhật và gửi qua request
         pDB = new ProfileDAO();

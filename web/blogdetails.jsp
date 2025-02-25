@@ -78,7 +78,7 @@
                 <div class="breadcrumb-row">
                     <div class="container">
                         <ul class="list-inline">
-                            <li><a href="/app">Home</a></li>
+                            <li><a href="/app"><i class="fa fa-home"></i> Home</a></li>
                             <li>Blog Details</li>
                         </ul>
                     </div>

@@ -19,7 +19,7 @@ public class ProfileDAO extends DBContext {
 
     public Profile getProfileByUserId(int id) {
 
-        String query = "select p.full_name, p.gender, p.dob, p.address, p.phone, p.avatar, u.email\n"
+        String query = "select p.firstname, p.lastname, p.gender, p.dob, p.address, p.phone, p.avatar, u.email\n"
                 + "from profile p \n"
                 + "join user u on p.userid = u.id where p.userid = ?";
 
@@ -32,7 +32,8 @@ public class ProfileDAO extends DBContext {
 
                 Profile profile = new Profile().builder()
                         .avatar(rs.getString("avatar"))
-                        .fullName(rs.getString("full_name"))
+                        .firstName(rs.getString("firstname"))
+                        .lastName(rs.getString("lastname"))
                         .gender(rs.getBoolean("gender"))
                         .dob(rs.getDate("dob"))
                         .address(rs.getString("address"))
@@ -53,14 +54,14 @@ public class ProfileDAO extends DBContext {
         return null;
     }
 
-    public void updateUserProfile(int id, String fullname, String gender, String rawDob, String address, String phone, String avatarPath) {
-        String query = "UPDATE `profile` SET `full_name` = ?, `gender` = ?, `dob` = ?, `address` = ?, `phone` = ?, `avatar` = ? WHERE `userid` = ?";
+    public void updateUserProfile(int id, String firstName, String lastName, String gender, String rawDob, String address, String phone, String avatarPath) {
+        String query = "UPDATE `profile` SET `firstname` = ?, `lastname` = ?, `gender` = ?, `dob` = ?, `address` = ?, `phone` = ?, `avatar` = ? WHERE `userid` = ?";
         DBContext db = new DBContext();
         try {
             // Kiểm tra nếu ngày sinh bị null hoặc rỗng, thì lưu NULL vào database
             String formattedDob = (rawDob == null || rawDob.isEmpty()) ? null : rawDob;
 
-            db.executeUpdate(query, fullname, gender.equals("male"), formattedDob, address, phone, avatarPath, id);
+            db.executeUpdate(query, firstName, lastName, gender.equals("male"), formattedDob, address, phone, avatarPath, id);
         } catch (SQLException ex) {
             Logger.getLogger(ProfileDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -89,13 +90,14 @@ public class ProfileDAO extends DBContext {
     }
 
     public boolean createProfile(Profile profile) {
-        String query = "INSERT INTO profile (userid, full_name, gender, dob, address, phone, avatar, created_date,updated_date) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO profile (userid, firstName, lastName, gender, dob, address, phone, avatar, created_date,updated_date) "
+                + "VALUES (?, ?, ?,?, ?, ?, ?, ?, ?, ?)";
 
         try {
             executeUpdate(query,
                     profile.getUser().getId(),
-                    profile.getFullName(),
+                    profile.getFirstName(),
+                    profile.getLastName(),
                     profile.isGender() ? "1" : "0", // Chuyển boolean thành String ("1" cho nam, "0" cho nữ)
                     profile.getDob(),
                     profile.getAddress(),

@@ -293,7 +293,7 @@
     font-weight: 600;
 }
 .calendar_wrap th ,tfoot td { 
-	background:#ff5e14;
+	background: #009bd470;
 }
 .widget_calendar caption {
 	border-color: #ff5e14;

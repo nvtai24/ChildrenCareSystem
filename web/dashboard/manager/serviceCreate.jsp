@@ -59,6 +59,34 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/style.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/color/color-1.css">
+        <style>
+            .service-image-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #f8f9fa;
+                padding: 15px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                margin-top: 15px;
+                max-width: 250px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .service-image-container img {
+                width: 100%;
+                height: auto;
+                border-radius: 10px;
+                border: 2px solid #ddd;
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .service-image-container img:hover {
+                transform: scale(1.05);
+            }
+        </style>
 
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
@@ -88,112 +116,98 @@
                                 <h4>Add Service</h4>
                             </div>
                             <div class="widget-inner">
-                                <form class="edit-profile m-b30" name="serviceForm" id="numberForm" action="../services/add" method="POST" enctype="multipart/form-data">
+                                <form class="edit-profile m-b30" name="serviceForm" id="serviceForm" action="../services/add" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
                                     <div class="row">
-                                        <div class="col-12">
-                                            <div class="ml-auto">
-                                                <h3>1. Basic info</h3>
-                                            </div>
-                                        </div>
+                                        <div class="col-12"><h3>1. Basic Info</h3></div>
+
+                                        <!-- Service Name -->
                                         <div class="form-group col-6">
                                             <label class="col-form-label">Service name</label>
                                             <div>
-                                                <input class="form-control" type="text" name="name" placeholder="Enter a name" >
+                                                <input class="form-control" type="text" id="serviceName" name="name" placeholder="Enter a name">
+                                                <small id="nameError" class="text-danger"></small>
                                             </div>
                                         </div>
+
+                                        <!-- Category -->
                                         <div class="form-group col-6">
                                             <label class="col-form-label">Category</label>
                                             <div>
-                                                <select select name="idCategory" >
-
-
-                                                    <c:forEach items="${listCategory}" var="c">                                
-                                                        <option value="${c.id}" >${c.name}</option>                                
+                                                <select name="idCategory">
+                                                    <c:forEach items="${listCategory}" var="c">
+                                                        <option value="${c.id}">${c.name}</option>
                                                     </c:forEach>
-
                                                 </select>
-
                                             </div>
                                         </div>
 
+                                        <!-- Service Price -->
                                         <div class="form-group col-6">
                                             <label class="col-form-label">Service price</label>
                                             <div>
-                                                <input class="form-control" type="number" 
-                                                       placeholder="Enter a number" 
-                                                       name ="price"
-                                                       >
+                                                <input class="form-control" type="text" id="servicePrice" name="price" placeholder="Enter a number">
+                                                <small id="priceError" class="text-danger"></small>
                                             </div>
                                         </div>
+
+                                        <!-- Service Discount -->
                                         <div class="form-group col-6">
-                                            <label class="col-form-label">Service discount</label>
+                                            <label class="col-form-label">Service discount (%)</label>
                                             <div>
-                                                <input class="form-control" type="number" placeholder="Enter a number"  name="discount"
-                                                       >
+                                                <input class="form-control" type="text" id="serviceDiscount" name="discount" placeholder="Enter a number">
+                                                <small id="discountError" class="text-danger"></small>
                                             </div>
                                         </div>
 
                                         <div class="seperator"></div>
+                                        <div class="col-12"><h3>2. Description</h3></div>
 
-                                        <div class="col-12 m-t20">
-                                            <div class="ml-auto m-b5">
-                                                <h3>2. Description</h3>
-                                            </div>
-                                        </div>
+                                        <!-- Brief Info -->
                                         <div class="form-group col-12">
-
                                             <label class="col-form-label">Service Brief Information</label>
                                             <div>
-                                                <input class="form-control" type="text" name="briefInfo" placeholder="Enter a Brief Information"/>                                                
+                                                <input class="form-control" type="text" id="briefInfo" name="briefInfo" placeholder="Enter a brief info">
+                                                <small id="briefInfoError" class="text-danger"></small>
                                             </div>
+                                        </div>
+
+                                        <!-- Description -->
+                                        <div class="form-group col-12">
                                             <label class="col-form-label">Service description</label>
                                             <div>
-                                                <textarea class="form-control" name="description" placeholder="Enter a description" ></textarea>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-12 m-t20">
-                                            <div class="ml-auto">
-                                                <h3 class="m-form__section">3. Add Item</h3>
+                                                <textarea class="form-control" id="serviceDescription" name="description" placeholder="Enter a description"></textarea>
+                                                <small id="descriptionError" class="text-danger"></small>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <table id="item-add" style="width:100%;">
-                                                <tr class="list-item">
-                                                    <td>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label class="col-form-label">Thumbnail URL</label>
-                                                                <div>
-                                                                    <label for="thumbnail" class="btn btn-light">Choose Thumbnail</label>
-                                                                    <input type="file" name="thumbnail"  accept="image/*" id="thumbnail" required onchange="previewImage(event)" style="display: none">
-                                                                    <img id="imagePreview" src="${pageContext.request.contextPath}/#" alt="Image Preview" style="display: none; width: 200px; height: auto; margin-top: 10px;">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 ">
-                                                                <label class="col-form-label">Status</label><br/>
-                                                                <div class="row-md-3 ">
-                                                                    <input type="radio" name="status" checked="checked" value="1" check="checked"/>Active
 
-                                                                </div>
-                                                                <div class="row-md-3 ">
-                                                                    <input type="radio" name="status" checked="checked" value="0"/>Inactive
-                                                                </div>
+                                        <div class="col-12"><h3 class="m-form__section">3. Add Item</h3></div>
 
-
-                                                            </div>
-
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
+                                        <!-- Thumbnail Upload -->
+                                        <div class="col-md-6">
+                                            <label class="col-form-label">Thumbnail URL</label>
+                                            <div class="service-image-container">
+                                                <img id="imagePreview" src="${pageContext.request.contextPath}\assets\images\services\default-thumbnail.jpg" alt="Service Image">
+                                            </div>
+                                            <label for="thumbnail" class="btn btn-light mt-2">Choose Thumbnail</label>
+                                            <input type="file" name="thumbnail" accept="image/*" id="thumbnail" onchange="previewImage(event)" style="display: none;">
+                                            <input type="hidden" name="oldThumbnail" value="${s.thumbnail}">
                                         </div>
-                                        <div class="col-12">
 
-                                            <button type="submit" class="btn">Save changes</button>                                             
+                                        <!-- Status -->
+                                        <div class="col-md-6">
+                                            <label class="col-form-label">Status</label><br>
+                                            <div>
+                                                <input type="radio" name="status" value="1" checked> Active
+                                                <input type="radio" name="status" value="0"> Inactive
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <button type="submit" class="btn">Save changes</button>
                                         </div>
                                     </div>
                                 </form>
+
                             </div>
                         </div>
                     </div>
@@ -223,56 +237,110 @@
         <script src='${pageContext.request.contextPath}/assets2/vendors/switcher/switcher.js'></script>
         <c:if test="${requestScope.error != null}">
             <script>
-                                                                        alert('<%= request.getAttribute("error") %>');
+                                                alert('<%= request.getAttribute("error") %>');
             </script>
         </c:if>
 
 
         <script>
+            $(document).ready(function () {
+                function validateForm() {
+                    var isValid = true;
+
+                    // Validate Price
+                    var price = $("#servicePrice").val().trim();
+                    if (price === "" || isNaN(price) || parseFloat(price) <= 0) {
+                        $("#priceError").text("Price must be a positive number.");
+                        isValid = false;
+                    } else {
+                        $("#priceError").text("");
+                    }
+
+                    // Validate Discount (0-100%)
+                    var discount = $("#serviceDiscount").val().trim();
+                    if (discount === "" || isNaN(discount) || parseFloat(discount) < 0 || parseFloat(discount) > 100) {
+                        $("#discountError").text("Discount must be between 0 and 100.");
+                        isValid = false;
+                    } else {
+                        $("#discountError").text("");
+                    }
+
+                    // Validate Brief Info
+                    var briefInfo = $("#briefInfo").val().trim();
+                    if (briefInfo === "") {
+                        $("#briefInfoError").text("Brief information cannot be empty.");
+                        isValid = false;
+                    } else {
+                        $("#briefInfoError").text("");
+                    }
+
+                    // Validate Description
+                    var description = $("#serviceDescription").val().trim();
+                    if (description === "") {
+                        $("#descriptionError").text("Service description cannot be empty.");
+                        isValid = false;
+                    } else {
+                        $("#descriptionError").text("");
+                    }
+
+                    return isValid;
+                }
+
+                // Validate on input change
+                $("#serviceName, #servicePrice, #serviceDiscount, #briefInfo, #serviceDescription").on("input change", function () {
+                    validateForm();
+                });
+
+                // Prevent form submission if validation fails
+                $("form").on("submit", function (e) {
+                    if (!validateForm()) {
+                        e.preventDefault();
+                        alert("Please correct the errors before submitting.");
+                    }
+                });
+            });
+
+            //check service name
+            $(document).ready(function () {
+
+
+                $("#serviceName").on("input", function () {
+                    var serviceName = $(this).val().trim();
+
+                    if (serviceName === "") {
+                        $("#nameError").text("Service name cannot be empty.");
+                        return;
+                    } else {
+                        $("#nameError").text("");
+                        return;
+                    }
+
+
+                    $.ajax({
+                        url: "../services/add",
+                        type: "POST",
+                        data: {action: "checkServiceName", name: serviceName},
+                        success: function (response) {
+                            if (response === "exists") {
+                                $("#nameError").text("Service name already exists.");
+                            } else {
+                                $("#nameError").text("");
+                            }
+                        }
+                    });
+                });
+            });
+
             function previewImage(event) {
                 var input = event.target;
-                var reader = new FileReader();
-
-                reader.onload = function () {
-                    var img = document.getElementById('imagePreview');
-                    img.src = reader.result;
-                    img.style.display = 'block';
-                };
-
                 if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#imagePreview").attr("src", e.target.result).css("display", "block");
+                    };
                     reader.readAsDataURL(input.files[0]);
                 }
             }
-            function validateForm() {
-                let name = document.forms["serviceForm"]["name"].value.trim();
-                let description = document.forms["serviceForm"]["description"].value.trim();
-                let price = document.forms["serviceForm"]["price"].value.trim();
-                let discount = document.forms["serviceForm"]["discount"].value.trim();
-                let briefInfo = document.forms["serviceForm"]["briefInfo"].value.trim();
-
-                if (name === "" || description === "" || price === "" || discount === "" || briefInfo === "") {
-                    alert("Please fill in all required fields.");
-                    return false;
-                }
-
-                if (isNaN(price) || price <= 0) {
-                    alert("Price must be a positive number.");
-                    return false;
-                }
-
-                if (isNaN(discount) || discount < 0) {
-                    alert("Discount must be a valid number and not negative.");
-                    return false;
-                }
-
-                if (parseFloat(discount) > parseFloat(price)) {
-                    alert("Discount cannot be greater than the price.");
-                    return false;
-                }
-                alert("Created successfully.");
-                return true;
-            }
-
         </script>
     </body>
 
