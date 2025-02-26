@@ -51,7 +51,6 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/style.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/color/color-1.css">
-
         <style>
             .form-container {
                 max-width: 450px;
@@ -60,6 +59,7 @@
                 padding: 20px;
                 border-radius: 10px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border: 1px solid #ccc;
             }
 
             .form-group label {
@@ -100,16 +100,16 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">Create customer</h4>
+                    <h4 class="breadcrumb-title">Create customer <i class="fa fa-user-o" aria-hidden="true"></i></h4>
                     <ul class="db-breadcrumb-list">
                         <li><a href="../customers"><i class="fa fa-home"></i>Customer List</a></li>
-                        <li>Add</li>
+                        <li>Add </li>
                     </ul>
                 </div>    
 
                 <form class="contact-bx" action="../customer/add" method="POST" onsubmit="return validateForm()">
                     <div class="form-container">
-                        <h4 class="text-center">Create new customer</h4>
+                        <h4 class="text-center">Create customer</h4>
 
                         <!-- Username -->
                         <div class="form-group">
@@ -141,12 +141,9 @@
                         </div>
 
                         <!-- Submit Button -->
-                        <button name="submit" type="submit" value="Submit" class="btn btn-success btn-block" >Sign Up</button>
+                        <button name="submit" type="submit" value="Submit" class="btn btn-success btn-block" >Create customer <i class="fa fa-plus-circle" aria-hidden="true"></i></button>
 
-                        <div class="text-center mt-2">
 
-                            <a class="btn btn-danger w-100 mt-2" href="#"><i class="fa fa-google-plus"></i> Sign Up with Google</a>
-                        </div>
                     </div>
                 </form>
             </div>

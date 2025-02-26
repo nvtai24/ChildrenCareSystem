@@ -50,7 +50,6 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/style.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/color/color-1.css">
-
         <style>
             .container {
                 display: flex;
@@ -62,6 +61,7 @@
                 padding: 20px;
                 border-radius: 8px;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                border: 1px solid #ccc;
             }
 
             .profile-left {
@@ -147,7 +147,7 @@
                             <p><strong>Email:</strong> ${user.email}</p>
                             <!-- Button to trigger file input -->
                             <button type="button" class="btn btn-info" onclick="document.getElementById('avatarInput').click();">
-                                <i class="fas fa-camera"></i> Change Avatar
+                                <i class="fa fa-picture-o" aria-hidden="true"></i> Change Avatar
                             </button> 
 
                             <!-- Hidden File Input -->
@@ -180,8 +180,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="gender">Gender</label> 
-                                <input type="radio" name="gender" value="1" ${user.profile.gender  ? "checked" : ""}> Male
-                                <input type="radio" name="gender" value="0" ${!user.profile.gender  ? "checked" : ""}> Female
+                                <input type="radio" name="gender" value="1" ${user.profile.gender  ? "checked" : ""}> Male <i class="fa fa-male" aria-hidden="true"></i>
+                                <input type="radio" name="gender" value="0" ${!user.profile.gender  ? "checked" : ""}> Female <i class="fa fa-female" aria-hidden="true"></i>
                             </div>
 
                             <div class="form-group">

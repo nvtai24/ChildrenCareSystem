@@ -60,6 +60,7 @@
                 padding: 20px;
                 border-radius: 10px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border: 1px solid #ccc;
             }
 
             .form-group label {
@@ -100,7 +101,7 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">Create user</h4>
+                    <h4 class="breadcrumb-title">Create user <i class="fa fa-user-o" aria-hidden="true"></i></h4>
                     <ul class="db-breadcrumb-list">
                         <li><a href="../users"><i class="fa fa-home"></i>User List</a></li>
                         <li>Add</li>
@@ -109,7 +110,7 @@
 
                 <form class="contact-bx" action="../users/add" method="POST" onsubmit="return validateForm()">
                     <div class="form-container">
-                        <h4 class="text-center">Create new user</h4>
+                        <h4 class="text-center">Create user</h4>
 
                         <!-- Username -->
                         <div class="form-group">
@@ -150,12 +151,9 @@
                         </div>
 
                         <!-- Submit Button -->
-                        <button name="submit" type="submit" value="Submit" class="btn btn-success btn-block" >Sign Up</button>
+                        <button name="submit" type="submit" value="Submit" class="btn btn-success btn-block" >Create user <i class="fa fa-plus-circle" aria-hidden="true"></i></button>
 
-                        <div class="text-center mt-2">
-
-                            <a class="btn btn-danger w-100 mt-2" href="#"><i class="fa fa-google-plus"></i> Sign Up with Google</a>
-                        </div>
+                        
                     </div>
                 </form>
             </div>

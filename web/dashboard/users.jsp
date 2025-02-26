@@ -85,7 +85,7 @@
                         <button type="submit" class="btn btn-primary mb-2">
                             <a>
                                 <i class="fa fa-plus-circle"> </i>
-                                Add New User
+                                Add User
                             </a>
                         </button>
                     </form>
