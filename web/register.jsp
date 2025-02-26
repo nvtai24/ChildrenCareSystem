@@ -104,22 +104,18 @@
                                 <div class="col-lg-12 m-b30">
                                     <button name="submit" type="submit" value="Submit" class="btn button-md">Sign Up</button>
                                 </div>
-                                <div class="col-lg-12">
-                                    <p id="successMessage" class="success-text" style="display: none;">? Registration successful! Check your email to verify your account.</p>
-
-                                </div>
-                                <c:if test="${not empty error}">
-                                    <div class="alert alert-danger" style="color: red; font-size: 14px;">
-                                        ${error}
+                                <c:if test="${not empty successMessage}">
+                                    <div class="alert alert-success" style="color: green; font-size: 14px;">
+                                        ${successMessage}
                                     </div>
                                 </c:if>
-<!--                                <div class="col-lg-12">
-                                    <h6>Sign Up with Social media</h6>
-                                    <div class="d-flex">
-                                                                                <a class="btn flex-fill m-r5 facebook" href="#"><i class="fa fa-facebook"></i>Facebook</a>
-                                        <a class="btn flex-fill m-l5 google-plus" href="#"><i class="fa fa-google-plus"></i>Google</a>
-                                    </div>
-                                </div>-->
+                                <!--                                <div class="col-lg-12">
+                                                                    <h6>Sign Up with Social media</h6>
+                                                                    <div class="d-flex">
+                                                                                                                <a class="btn flex-fill m-r5 facebook" href="#"><i class="fa fa-facebook"></i>Facebook</a>
+                                                                        <a class="btn flex-fill m-l5 google-plus" href="#"><i class="fa fa-google-plus"></i>Google</a>
+                                                                    </div>
+                                                                </div>-->
                             </div>
                         </form>
                     </div>

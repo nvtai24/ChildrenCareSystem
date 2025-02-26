@@ -51,56 +51,28 @@
                 <div class="account-form-inner">
                     <div class="account-container">
                         <div class="heading-bx left">
-                            <h2 class="title-head">Login to your <span>Account</span></h2>
-                            <p>Don't have an account?<a href="register">Create one here</a></p>
-                        </div>
-                        <form class="contact-bx" action="login" method="post">
+                            <h2 class="title-head">Forget <span>Password</span></h2>
+                            <p>Login Your Account <a href="login.jsp">Click here</a></p>
+                        </div>	
+                        <form class="contact-bx" action="forget" method="POST">
                             <div class="row placeani">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <label>Your Name</label>
-                                            <input name="dzName" type="text" required="" class="form-control">
+                                            <label>Your Email Address</label>
+                                            <input name="email" type="email" required="" class="form-control">
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <div class="input-group"> 
-                                            <label>Your Password</label>
-                                            <input name="dzPassword" type="password" class="form-control" required="">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group form-forget">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
-                                            <!--									<label class="custom-control-label" for="customControlAutosizing">Remember me</label>-->
-                                        </div>
-                                        <a href="forget-password.jsp" class="ml-auto">Forgot Password?</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 m-b30">
-                                    <button name="submit" type="submit" value="Submit" class="btn button-md">Login</button>
+                                    <button name="submit" type="submit" value="Submit" class="btn button-md">Submit</button>
                                 </div>
-                                <c:if test="${not empty error}">
-                                    <div style="color: red; font-size: 14px;">
-                                        ${error}
-                                    </div>
-                                </c:if>
                                 <c:if test="${not empty successMessage}">
-                                    <div class="alert alert-success" style="color: green; font-size: 14px;">
-                                        ${successMessage}
-                                    </div>
+                                    <p style="color:green;">${successMessage}</p>
                                 </c:if>
-                                <!--						<div class="col-lg-12">
-                                                                                        <h6>Login with Social media</h6>
-                                                                                        <div class="d-flex">
-                                                                                                <a class="btn flex-fill m-r5 facebook" href="#"><i class="fa fa-facebook"></i>Facebook</a>
-                                                                                                <a class="btn flex-fill m-l5 google-plus" href="#"><i class="fa fa-google-plus"></i>Google Plus</a>
-                                                                                        </div>
-                                                                                </div>-->
+                                <c:if test="${not empty errorMessage}">
+                                    <p style="color:red;">${errorMessage}</p>
+                                </c:if>
                             </div>
                         </form>
                     </div>
