@@ -1,6 +1,6 @@
 <%-- 
-    Document   : addslider
-    Created on : Feb 7, 2025, 10:16:33 AM
+    Document   : post-update
+    Created on : Feb 24, 2025, 11:33:48 PM
     Author     : ADMIN
 --%>
 
@@ -39,8 +39,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!--[if lt IE 9]>
-        <script src="assets2/js/html5shiv.min.js"></script>
-        <script src="assets2/js/respond.min.js"></script>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
         <![endif]-->
 
         <!-- All PLUGINS CSS ============================================= -->
@@ -179,7 +179,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets2/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
                             <div class="ttr-header-submenu">
                                 <ul>
                                     <li><a href="user-profile.html">My profile</a></li>
@@ -262,9 +262,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/app/sliders" class="ttr-material-button">
+                            <a href="/app/posts" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Sliders</span>
+                                <span class="ttr-label">Posts</span>
                             </a>
                         </li>
                         <li>
@@ -346,10 +346,10 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">Add Slider</h4>
+                    <h4 class="breadcrumb-title">Edit Post</h4>
                     <ul class="db-breadcrumb-list">
 
-                        <li>Add Slider</li>
+                        <li>Edit Post</li>
                     </ul>
                 </div>	
                 <div class="row">
@@ -357,10 +357,11 @@
                     <div class="col-lg-12 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>Add Slider</h4>
+                                <h4>Edit Post -  ${POST.title}</h4>
                             </div>
                             <div class="widget-inner">
-                                <form class="edit-profile m-b30" action="addslider" method="post" enctype="multipart/form-data">
+                                <form class="edit-profile m-b30" action="${pageContext.request.contextPath}/posts/update" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="id" value="${Post.id}"><br>
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="ml-auto">
@@ -368,88 +369,89 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label class="col-form-label">Slider title</label>
+                                            <label class="col-form-label">Post title</label>
                                             <div>
-                                                <input name="title" class="form-control" type="text" value="" required>
+                                                <input name="title" class="form-control" type="text" value="${POST.title}" required>
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label class="col-form-label">Back Link</label>
+                                            <label class="col-form-label">Content</label>
                                             <div>
-                                                <input name="backLink" class="form-control" type="text" value="" required>
+                                                <input name="backlink" class="form-control" type="text" value="${POST.content}" required>
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label class="col-form-label">Image</label>
+                                            <label class="col-form-label">Thumbnail</label>
                                             <div>
-                                                <input class="form-control" type="file" name="image" accept="image/*" required>
+                                                <!-- Hiển thị ảnh hiện tại nếu có -->
+                                                <img src="${POST.thumbnail}" alt="Slider Image" class="img-thumbnail" width="150">
+
+                                                <!-- Input cho phép chọn ảnh mới -->
+                                                <input class="form-control" type="file" name="image" accept="image/*">
                                             </div>
                                         </div>
 
                                         <div class="seperator"></div>
 
                                         <div class="col-12">
-                                            
+
                                             <button type="submit" class="btn">Save changes</button>
 
                                         </div>
-
                                     </div>
 
-                                    
                                 </form>
-
                                 <button class="btn-secondry add-item m-r5">          
-                                    <a style="color: white" href="sliders"><< Slider List</a>
+                                    <a style="color: white" href="posts"><< Post List</a>
                                 </button>
-                                
-                            
+
+                            </div>
                         </div>
                     </div>
+                    <!-- Your Profile Views Chart END-->
                 </div>
-                <!-- Your Profile Views Chart END-->
             </div>
-        </div>
-    </main>
-    <div class="ttr-overlay"></div>
+        </main>
+        <div class="ttr-overlay"></div>
 
-    <!-- External JavaScripts -->
-    <script src="assets2/js/jquery.min.js"></script>
-    <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
-    <script src="assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-    <script src="assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-    <script src="assets2/vendors/magnific-popup/magnific-popup.js"></script>
-    <script src="assets2/vendors/counter/waypoints-min.js"></script>
-    <script src="assets2/vendors/counter/counterup.min.js"></script>
-    <script src="assets2/vendors/imagesloaded/imagesloaded.js"></script>
-    <script src="assets2/vendors/masonry/masonry.js"></script>
-    <script src="assets2/vendors/masonry/filter.js"></script>
-    <script src="assets2/vendors/owl-carousel/owl.carousel.js"></script>
-    <script src='assets2/vendors/scroll/scrollbar.min.js'></script>
-    <script src="assets2/js/functions.js"></script>
-    <script src="assets2/vendors/chart/chart.min.js"></script>
-    <script src="assets2/js/admin.js"></script>
+        <!-- External JavaScripts -->
+        <script src="assets2/js/jquery.min.js"></script>
+        <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="assets2/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="assets2/vendors/counter/waypoints-min.js"></script>
+        <script src="assets2/vendors/counter/counterup.min.js"></script>
+        <script src="assets2/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="assets2/vendors/masonry/masonry.js"></script>
+        <script src="assets2/vendors/masonry/filter.js"></script>
+        <script src="assets2/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src='assets2/vendors/scroll/scrollbar.min.js'></script>
+        <script src="assets2/js/functions.js"></script>
+        <script src="assets2/vendors/chart/chart.min.js"></script>
+        <script src="assets2/js/admin.js"></script>
 
-    <script>
-        // Pricing add
-        function newMenuItem() {
-            var newElem = $('tr.list-item').first().clone();
-            newElem.find('input').val('');
-            newElem.appendTo('table#item-add');
-        }
-        if ($("table#item-add").is('*')) {
-            $('.add-item').on('click', function (e) {
-                e.preventDefault();
-                newMenuItem();
-            });
-            $(document).on("click", "#item-add .delete", function (e) {
-                e.preventDefault();
-                $(this).parent().parent().parent().parent().remove();
-            });
-        }
-    </script>
-</body>
+        <script>
+            // Pricing add
+            function newMenuItem() {
+                var newElem = $('tr.list-item').first().clone();
+                newElem.find('input').val('');
+                newElem.appendTo('table#item-add');
+            }
+            if ($("table#item-add").is('*')) {
+                $('.add-item').on('click', function (e) {
+                    e.preventDefault();
+                    newMenuItem();
+                });
+                $(document).on("click", "#item-add .delete", function (e) {
+                    e.preventDefault();
+                    $(this).parent().parent().parent().parent().remove();
+                });
+            }
+        </script>
+    </body>
 
-<!-- Mirrored from educhamp.themetrades.com/demo/admin/add-listing.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:09:05 GMT -->
+    <!-- Mirrored from educhamp.themetrades.com/demo/admin/add-listing.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:09:05 GMT -->
 </html>
+

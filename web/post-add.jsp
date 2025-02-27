@@ -1,6 +1,6 @@
 <%-- 
-    Document   : addslider
-    Created on : Feb 7, 2025, 10:16:33 AM
+    Document   : post-add
+    Created on : Feb 24, 2025, 10:19:49 PM
     Author     : ADMIN
 --%>
 
@@ -62,180 +62,7 @@
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
         <!-- header start -->
-        <header class="ttr-header">
-            <div class="ttr-header-wrapper">
-                <!--sidebar menu toggler start -->
-                <div class="ttr-toggle-sidebar ttr-material-button">
-                    <i class="ti-close ttr-open-icon"></i>
-                    <i class="ti-menu ttr-close-icon"></i>
-                </div>
-                <!--sidebar menu toggler end -->
-                <!--logo start -->
-                <div class="ttr-logo-box">
-                    <div>
-                        <a href="/app" class="ttr-logo">
-
-                            <img alt=""  src="assets/images/logo.png" width="70" height="10">
-                        </a>
-                    </div>
-                </div>
-                <!--logo end -->
-                <div class="ttr-header-menu">
-                    <!-- header left menu start -->
-                    <ul class="ttr-header-navigation">
-                        <li>
-                            <a href="/app" class="ttr-material-button ttr-submenu-toggle">HOME</a>
-                        </li>
-                        <li>
-
-                            <div class="ttr-header-submenu">
-                                <ul>
-                                    <li><a href="../courses.html">Our Courses</a></li>
-                                    <li><a href="../event.html">New Event</a></li>
-                                    <li><a href="../membership.html">Membership</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- header left menu end -->
-                </div>
-                <div class="ttr-header-right ttr-with-seperator">
-                    <!-- header right menu start -->
-                    <ul class="ttr-header-navigation">
-                        <li>
-                            <a href="#" class="ttr-material-button ttr-search-toggle"><i class="fa fa-search"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><i class="fa fa-bell"></i></a>
-                            <div class="ttr-header-submenu noti-menu">
-                                <div class="ttr-notify-header">
-                                    <span class="ttr-notify-text-top">9 New</span>
-                                    <span class="ttr-notify-text">User Notifications</span>
-                                </div>
-                                <div class="noti-box-list">
-                                    <ul>
-                                        <li>
-                                            <span class="notification-icon dashbg-gray">
-                                                <i class="fa fa-check"></i>
-                                            </span>
-                                            <span class="notification-text">
-                                                <span>Sneha Jogi</span> sent you a message.
-                                            </span>
-                                            <span class="notification-time">
-                                                <a href="#" class="fa fa-close"></a>
-                                                <span> 02:14</span>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="notification-icon dashbg-yellow">
-                                                <i class="fa fa-shopping-cart"></i>
-                                            </span>
-                                            <span class="notification-text">
-                                                <a href="#">Your order is placed</a> sent you a message.
-                                            </span>
-                                            <span class="notification-time">
-                                                <a href="#" class="fa fa-close"></a>
-                                                <span> 7 Min</span>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="notification-icon dashbg-red">
-                                                <i class="fa fa-bullhorn"></i>
-                                            </span>
-                                            <span class="notification-text">
-                                                <span>Your item is shipped</span> sent you a message.
-                                            </span>
-                                            <span class="notification-time">
-                                                <a href="#" class="fa fa-close"></a>
-                                                <span> 2 May</span>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="notification-icon dashbg-green">
-                                                <i class="fa fa-comments-o"></i>
-                                            </span>
-                                            <span class="notification-text">
-                                                <a href="#">Sneha Jogi</a> sent you a message.
-                                            </span>
-                                            <span class="notification-time">
-                                                <a href="#" class="fa fa-close"></a>
-                                                <span> 14 July</span>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="notification-icon dashbg-primary">
-                                                <i class="fa fa-file-word-o"></i>
-                                            </span>
-                                            <span class="notification-text">
-                                                <span>Sneha Jogi</span> sent you a message.
-                                            </span>
-                                            <span class="notification-time">
-                                                <a href="#" class="fa fa-close"></a>
-                                                <span> 15 Min</span>
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets2/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
-                            <div class="ttr-header-submenu">
-                                <ul>
-                                    <li><a href="user-profile.html">My profile</a></li>
-                                    <li><a href="list-view-calendar.html">Activity</a></li>
-                                    <li><a href="mailbox.html">Messages</a></li>
-                                    <li><a href="../login.html">Logout</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="ttr-hide-on-mobile">
-                            <a href="#" class="ttr-material-button"><i class="ti-layout-grid3-alt"></i></a>
-                            <div class="ttr-header-submenu ttr-extra-menu">
-                                <a href="#">
-                                    <i class="fa fa-music"></i>
-                                    <span>Musics</span>
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-youtube-play"></i>
-                                    <span>Videos</span>
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-envelope"></i>
-                                    <span>Emails</span>
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-book"></i>
-                                    <span>Reports</span>
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-smile-o"></i>
-                                    <span>Persons</span>
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-picture-o"></i>
-                                    <span>Pictures</span>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- header right menu end -->
-                </div>
-                <!--header search panel start -->
-                <div class="ttr-search-bar">
-                    <form class="ttr-search-form">
-                        <div class="ttr-search-input-wrapper">
-                            <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
-                            <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
-                        </div>
-                        <span class="ttr-search-close ttr-search-toggle">
-                            <i class="ti-close"></i>
-                        </span>
-                    </form>
-                </div>
-                <!--header search panel end -->
-            </div>
-        </header>
+        <jsp:include page="dashboard/header.jsp"/>
         <!-- header end -->
         <!-- Left sidebar menu start -->
         <div class="ttr-sidebar">
@@ -262,9 +89,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/app/sliders" class="ttr-material-button">
+                            <a href="/app/posts" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Sliders</span>
+                                <span class="ttr-label">Posts</span>
                             </a>
                         </li>
                         <li>
@@ -346,10 +173,10 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">Add Slider</h4>
+                    <h4 class="breadcrumb-title">Add Post</h4>
                     <ul class="db-breadcrumb-list">
 
-                        <li>Add Slider</li>
+                        <li>Add Post</li>
                     </ul>
                 </div>	
                 <div class="row">
@@ -357,32 +184,33 @@
                     <div class="col-lg-12 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>Add Slider</h4>
+                                <h4>Add Post</h4>
                             </div>
                             <div class="widget-inner">
-                                <form class="edit-profile m-b30" action="addslider" method="post" enctype="multipart/form-data">
+                                <form class="edit-profile m-b30" action="${pageContext.request.contextPath}/posts/add" method="post" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="ml-auto">
                                                 <h3>Information</h3>
                                             </div>
                                         </div>
+                                        
                                         <div class="form-group col-6">
-                                            <label class="col-form-label">Slider title</label>
+                                            <label class="col-form-label">Post title</label>
                                             <div>
                                                 <input name="title" class="form-control" type="text" value="" required>
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label class="col-form-label">Back Link</label>
+                                            <label class="col-form-label">Content</label>
                                             <div>
-                                                <input name="backLink" class="form-control" type="text" value="" required>
+                                                <input name="content" class="form-control" type="text" value="" required>
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label class="col-form-label">Image</label>
+                                            <label class="col-form-label">Thumbnail</label>
                                             <div>
-                                                <input class="form-control" type="file" name="image" accept="image/*" required>
+                                                <input class="form-control" type="file" name="thumbnail" accept="image/*" required>
                                             </div>
                                         </div>
 
@@ -400,7 +228,7 @@
                                 </form>
 
                                 <button class="btn-secondry add-item m-r5">          
-                                    <a style="color: white" href="sliders"><< Slider List</a>
+                                    <a style="color: white" href="posts"><< Post List</a>
                                 </button>
                                 
                             
@@ -453,3 +281,4 @@
 
 <!-- Mirrored from educhamp.themetrades.com/demo/admin/add-listing.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:09:05 GMT -->
 </html>
+

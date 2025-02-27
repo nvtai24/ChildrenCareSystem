@@ -25,7 +25,7 @@ import model.auth.User;
  *
  * @author Nvtai
  */
-public class ReservationCompletionController extends HttpServlet {
+public class ReservationConfirmController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -57,7 +57,6 @@ public class ReservationCompletionController extends HttpServlet {
         LocalDateTime reserveDate = LocalDateTime.of(date, time);
 
 //        boolean payment = paymentStr.equalsIgnoreCase("banking");
-
         Reservation r = new Reservation().builder()
                 .customer(current)
                 .firstName(firstName)
@@ -66,7 +65,7 @@ public class ReservationCompletionController extends HttpServlet {
                 .phone(phone)
                 .email(email != null ? email : "")
                 .note(note != null ? note : "")
-//                .banking(payment)
+                //                .banking(payment)
                 .build();
 
         ArrayList<WishList> items = (ArrayList<WishList>) session.getAttribute("items");
@@ -83,26 +82,13 @@ public class ReservationCompletionController extends HttpServlet {
         }
 
         r.setDetails(details);
+        double amount = details.stream()
+                .mapToDouble(d -> d.getPrice() * d.getQuantity())
+                .sum();
 
-//        ReservationDAO rDB = new ReservationDAO();
-//        rDB.insertReservation(r);
         session.setAttribute("r", r);
-
-        request.getRequestDispatcher("../reservation-completion.jsp").forward(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+        session.setAttribute("amount", amount);
+        request.getRequestDispatcher("../reservation-confirm.jsp").forward(request, response);
     }
 
 }

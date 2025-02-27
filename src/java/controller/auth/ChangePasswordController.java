@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller.auth;
 
 import dal.UserDAO;
@@ -19,7 +18,7 @@ import model.auth.User;
  * @author admin
  */
 public class ChangePasswordController extends HttpServlet {
-   
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -28,35 +27,39 @@ public class ChangePasswordController extends HttpServlet {
         String confirmNewPassword = request.getParameter("confirmNewPassword");
 
         boolean hasError = false;
-
-        if (!newPassword.equals(confirmNewPassword)) {
-            hasError = true;
-            request.setAttribute("errorConfirmPassword", "New passwords do not match.");
-        }
-
-        int userId = (Integer) request.getSession().getAttribute("userId");
+        String errorMessage = "";
+        String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$";
+        
+        int userId = (Integer) request.getSession().getAttribute("id");
         UserDAO userDAO = new UserDAO();
         User user = userDAO.getUserById(userId);
 
         if (user == null || !user.getPassword().equals(oldPassword)) {
-            hasError = true;
-            request.setAttribute("errorOldPassword", "Incorrect current password.");
-        }
+        hasError = true;
+        errorMessage = "Incorrect current password.";
+    } else if (!newPassword.matches(passwordPattern)) {
+        hasError = true;
+        errorMessage = "Password must be 8-15 characters with at least one uppercase letter, one lowercase letter, and one number.";
+    } else if (newPassword.equals(oldPassword)) {
+        hasError = true;
+        errorMessage = "New password cannot be the same as the old password.";
+    } else if (!newPassword.equals(confirmNewPassword)) {
+        hasError = true;
+        errorMessage = "New passwords do not match.";
+    }
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
         if (hasError) {
-            request.setAttribute("errorNewPassword", "Password cannot be empty or invalid.");
-            request.getRequestDispatcher("profile.jsp").forward(request, response);
-            return;
-        }
-
-        boolean isUpdated = userDAO.updatePassword(userId, newPassword);
-
-        if (isUpdated) {
-            request.setAttribute("successMessage", "Password changed successfully.");
-            response.sendRedirect("profile.jsp");  // Chuyển hướng về trang profile
+            response.getWriter().write("{\"status\":\"error\", \"message\":\"" + errorMessage + "\"}");
         } else {
-            request.setAttribute("errorMessage", "Failed to change password.");
-            request.getRequestDispatcher("profile.jsp").forward(request, response);
+            boolean isUpdated = userDAO.updatePassword(userId, newPassword);
+            if (isUpdated) {
+                response.getWriter().write("{\"status\":\"success\", \"message\":\"Password changed successfully.\"}");
+            } else {
+                response.getWriter().write("{\"status\":\"error\", \"message\":\"Failed to change password.\"}");
+            }
         }
     }
 }

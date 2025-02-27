@@ -38,13 +38,32 @@ public class LoginController extends HttpServlet {
 
         UserDAO udb = new UserDAO();
         User user = udb.get(username, password);
+        boolean hasError = false;
+        if (username == null || username.trim().isEmpty()) {
+            request.setAttribute("errorUsername", "Please enter your username.");
+            hasError = true;
+        }
 
+        if (password == null || password.trim().isEmpty()) {
+            request.setAttribute("errorPassword", "Please enter your password.");
+            hasError = true;
+        }
+
+        if (user == null && !hasError) {
+            request.setAttribute("errorLogin", "Incorrect username or password.");
+            hasError = true;
+        }
+
+        if (hasError) {
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+            return;
+        }
         if (user != null) {
-            if (!user.isEmailVerified()) {
-                request.setAttribute("error", "Tài khoản của bạn chưa được xác minh. Vui lòng kiểm tra email để xác thực.");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-                return;
-            }
+//            if (!user.isEmailVerified()) {
+//                request.setAttribute("error", "Tài khoản của bạn chưa được xác minh. Vui lòng kiểm tra email để xác thực.");
+//                request.getRequestDispatcher("login.jsp").forward(request, response);
+//                return;
+//            }
             ProfileDAO pDB = new ProfileDAO();
 
             Profile p = pDB.getProfileByUserId(user.getId());

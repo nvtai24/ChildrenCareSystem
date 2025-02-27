@@ -79,7 +79,7 @@ public class DeletePostController extends HttpServlet {
             postDAO.deletePost(postId);
 
             // Quay lại danh sách slider
-            response.sendRedirect("posts");
+            response.sendRedirect(request.getContextPath() + "/posts");
         } catch(Exception e){
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error deleting post");

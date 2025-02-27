@@ -402,7 +402,7 @@
 
                                 </form>
                                 <button class="btn-secondry add-item m-r5">          
-                                    <a style="color: white" href="slider"><< Slider List</a>
+                                    <a style="color: white" href="sliders"><< Slider List</a>
                                 </button>
 
                             </div>

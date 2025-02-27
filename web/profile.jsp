@@ -105,6 +105,7 @@
                             </div>
 
                             <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePasswordModal">Change Password</button>
                                 <button type="submit" class="btn green">Save changes</button>
                                 <button type="reset" class="btn red">Reset</button>
                                 <button type="button" class="btn gray" data-dismiss="modal">Cancel</button>
@@ -113,8 +114,68 @@
 
                     </div>
                 </div>
-
             </div>
+            <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 500px;">
+        <div class="modal-content" style="padding: 20px; border-radius: 10px; font-family: 'Arial', sans-serif; font-size: 14px; color: #333;">
+            <div class="modal-header" style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6; padding: 15px;">
+                <h5 class="modal-title" id="changePasswordModalLabel" style="font-weight: bold; font-size: 16px;">Change Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size: 18px;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body" style="padding: 20px;">
+                <div id="changePasswordMessage"></div> <!-- Hiển thị thông báo lỗi -->
+                <form id="changePasswordForm">
+                    <div class="form-group row" style="margin-bottom: 15px;">
+                        <label for="oldPassword" class="col-sm-4 col-form-label" 
+                               style="font-weight: 600; text-align: right; font-size: 14px;">Current Password</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="oldPassword" name="oldPassword" required oninput="validatePassword()" 
+                                   style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 5px; font-size: 14px;">
+                            <small id="oldPasswordError" class="text-danger" style="font-size: 12px; margin-top: 5px;"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" style="margin-bottom: 15px;">
+                        <label for="newPassword" class="col-sm-4 col-form-label" 
+                               style="font-weight: 600; text-align: right; font-size: 14px;">New Password</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="newPassword" name="newPassword" required oninput="validatePassword()" 
+                                   style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 5px; font-size: 14px;">
+                            <small id="newPasswordError" class="text-danger" style="font-size: 12px; margin-top: 5px;"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" style="margin-bottom: 15px;">
+                        <label for="confirmNewPassword" class="col-sm-4 col-form-label" 
+                               style="font-weight: 600; text-align: right; font-size: 14px;">Confirm Password</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword" required oninput="validatePassword()" 
+                                   style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 5px; font-size: 14px;">
+                            <small id="confirmNewPasswordError" class="text-danger" style="font-size: 12px; margin-top: 5px;"></small>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer" style="display: flex; justify-content: space-between; padding: 15px; border-top: 1px solid #dee2e6;">
+                        <button type="submit" class="btn btn-primary" 
+                                style="background-color: #ffc107; border-color: #ffc107; color: black; font-weight: bold; font-size: 14px;">
+                            Save changes
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" 
+                                style="background-color: #6c757d; border-color: #6c757d; font-weight: bold; font-size: 14px;">
+                            Close
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
         </main>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -179,7 +240,71 @@
                 });
             });
         </script>
+        <script>
+            $(document).ready(function () {
+                $("#changePasswordForm").submit(function (event) {
+                    event.preventDefault();
 
+                    var oldPassword = $("#oldPassword").val();
+                    var newPassword = $("#newPassword").val();
+                    var confirmNewPassword = $("#confirmNewPassword").val();
+
+                    if ($("#newPasswordError").text() !== "" || $("#confirmNewPasswordError").text() !== "") {
+                        return; // Nếu có lỗi ở client thì không gửi request
+                    }
+
+                    var formData = $(this).serialize();
+
+                    $.ajax({
+                        url: "change",
+                        type: "POST",
+                        data: formData,
+                        dataType: "json",
+                        success: function (response) {
+                            if (response.status === "success") {
+                                $("#changePasswordMessage").html('<div class="alert alert-success">' + response.message + '</div>');
+                                setTimeout(function () {
+                                    $("#changePasswordModal").modal("hide");
+                                }, 2000);
+                              
+                            } else {
+                                $("#changePasswordMessage").html('<div class="alert alert-danger">' + response.message + '</div>');
+                            }
+                        },
+                        error: function () {
+                            $("#changePasswordMessage").html('<div class="alert alert-danger">Error processing request.</div>');
+                        }
+                    });
+                });
+            });
+
+        </script>
+        <script>
+            function validatePassword() {
+                var oldPassword = document.getElementById("oldPassword").value;
+                var newPassword = document.getElementById("newPassword").value;
+                var confirmNewPassword = document.getElementById("confirmNewPassword").value;
+
+                var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$/;
+
+                // Kiểm tra mật khẩu cũ không được giống mật khẩu mới
+                if (newPassword === oldPassword && newPassword.length > 0) {
+                    document.getElementById("newPasswordError").innerText = "New password cannot be the same as the old password.";
+                } else if (!passwordPattern.test(newPassword) && newPassword.length > 0) {
+                    document.getElementById("newPasswordError").innerText = "Password must be 8-15 characters with at least one uppercase letter, one lowercase letter, and one number.";
+                } else {
+                    document.getElementById("newPasswordError").innerText = "";
+                }
+
+                // Kiểm tra xác nhận mật khẩu
+                if (confirmNewPassword !== newPassword && confirmNewPassword.length > 0) {
+                    document.getElementById("confirmNewPasswordError").innerText = "New passwords do not match.";
+                } else {
+                    document.getElementById("confirmNewPasswordError").innerText = "";
+                }
+            }
+
+        </script>
     </body>
     <!-- Mirrored from educhamp.themetrades.com/demo/admin/user-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
 </html>

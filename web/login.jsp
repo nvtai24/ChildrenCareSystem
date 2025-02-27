@@ -62,6 +62,9 @@
                                             <label>Your Name</label>
                                             <input name="dzName" type="text" required="" class="form-control">
                                         </div>
+                                        <c:if test="${not empty errorUsername}">
+                                            <small class="text-danger">${errorUsername}</small>
+                                        </c:if>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -70,6 +73,9 @@
                                             <label>Your Password</label>
                                             <input name="dzPassword" type="password" class="form-control" required="">
                                         </div>
+                                        <c:if test="${not empty errorPassword}">
+                                            <small class="text-danger">${errorPassword}</small>
+                                        </c:if>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -80,6 +86,11 @@
                                         </div>
                                         <a href="forget-password.jsp" class="ml-auto">Forgot Password?</a>
                                     </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <c:if test="${not empty errorLogin}">
+                                        <div class="alert alert-danger">${errorLogin}</div>
+                                    </c:if>
                                 </div>
                                 <div class="col-lg-12 m-b30">
                                     <button name="submit" type="submit" value="Submit" class="btn button-md">Login</button>

@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.dashboard.admin.user;
+package controller.customer.manager;
 
-import dal.RoleDAO;
 import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,26 +11,21 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import model.auth.Role;
 import model.auth.User;
 
 /**
  *
- * @author Admin
+ * @author milo9
  */
-public class UserCreateController extends HttpServlet {
+public class CustomerCreateController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDAO userDAO = new UserDAO();
         String action = request.getParameter("action");
-        RoleDAO rDB = new RoleDAO();
-        ArrayList<Role> roles = rDB.listAllAvailableRole();
+        UserDAO userDAO = new UserDAO();
 
         if ("checkUsername".equals(action)) {
-            // Kiểm tra username có tồn tại không
             String username = request.getParameter("username");
             boolean exists = userDAO.checkUsernameExists(username);
             response.getWriter().write(exists ? "exists" : "available");
@@ -39,55 +33,47 @@ public class UserCreateController extends HttpServlet {
         }
 
         if ("checkEmail".equals(action)) {
-            // Kiểm tra email có tồn tại không
             String email = request.getParameter("email");
             boolean exists = userDAO.checkEmailExists(email);
             response.getWriter().write(exists ? "exists" : "available");
             return;
         }
-        request.setAttribute("roles", roles);
-        request.getRequestDispatcher("../dashboard/userCreate.jsp").forward(request, response);
+
+        request.getRequestDispatcher("../dashboard/manager/customerCreate.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        UserDAO userDAO = new UserDAO();
-
         String username = request.getParameter("dzName").trim();
         String password = request.getParameter("dzPassword").trim();
         String email = request.getParameter("dzEmail").trim();
-        int role_id = Integer.parseInt(request.getParameter("role_id"));
-        // Kiểm tra username đã tồn tại chưa
+
+        UserDAO userDAO = new UserDAO();
+
         if (userDAO.checkUsernameExists(username)) {
-            response.getWriter().write("<script>alert('Username already exists!'); window.location='register.html';</script>");
+            request.setAttribute("error", "Username already exists.");
+            request.getRequestDispatcher("../dashboard/manager/customerCreate.jsp").forward(request, response);
             return;
         }
 
         if (userDAO.checkEmailExists(email)) {
-            response.getWriter().write("<script>alert('Email already exists!'); window.location='register.html';</script>");
+            request.setAttribute("error", "Email already exists.");
+            request.getRequestDispatcher("../dashboard/manager/customerCreate.jsp").forward(request, response);
             return;
         }
-        // Tạo user mới
+
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setPassword(password); // Không mã hóa mật khẩu (theo yêu cầu)
         newUser.setEmail(email);
 
-        // Thực hiện đăng ký
-        boolean isRegistered = userDAO.register(newUser, role_id);
+        boolean isRegistered = userDAO.register(newUser, 3);
         if (isRegistered) {
-            // Redirect to login with success message
-            response.sendRedirect("../users");
+            response.sendRedirect("../customers");
         } else {
-            // Registration failed
-            RoleDAO rDB = new RoleDAO();
-            ArrayList<Role> roles = rDB.listAllAvailableRole();
-            request.setAttribute("roles", roles);
             request.setAttribute("error", "Add user failed. Please try again.");
-            request.getRequestDispatcher("userCreate.jsp").forward(request, response);
+            request.getRequestDispatcher("../dashboard/manager/customerCreate.jsp").forward(request, response);
         }
     }
-
 }
