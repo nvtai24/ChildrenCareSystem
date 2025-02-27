@@ -126,30 +126,6 @@
         <servlet-name>ChangePasswordController</servlet-name>
         <servlet-class>controller.auth.ChangePasswordController</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ForgetPasswordController</servlet-name>
-        <servlet-class>controller.auth.ForgetPasswordController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ResetPasswordController</servlet-name>
-        <servlet-class>controller.auth.ResetPasswordController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ChangePasswordController</servlet-name>
-        <servlet-class>controller.auth.ChangePasswordController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ForgetPasswordController</servlet-name>
-        <servlet-class>controller.auth.ForgetPasswordController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ResetPasswordController</servlet-name>
-        <servlet-class>controller.auth.ResetPasswordController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ChangePasswordController</servlet-name>
-        <servlet-class>controller.auth.ChangePasswordController</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
         <url-pattern>/error-handle</url-pattern>
