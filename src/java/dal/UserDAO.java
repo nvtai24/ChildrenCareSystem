@@ -127,6 +127,8 @@ public class UserDAO extends DBContext {
         String query = "SELECT \n"
                 + "    u.id,\n"
                 + "    u.username,\n"
+                + "    p.firstname,\n"
+                + "    p.lastname,\n "
                 + "    u.email,\n"
                 + "    r.role_name,\n"
                 + "    u.status,\n"
@@ -135,7 +137,9 @@ public class UserDAO extends DBContext {
                 + "FROM\n"
                 + "    user u\n"
                 + "        JOIN\n"
-                + "    role r ON u.role_id = r.id";
+                + "    role r ON u.role_id = r.id"
+                + "        LEFT JOIN"
+                + "        profile p on u.id = p.userid ";
 
         try {
             ResultSet rs = executeQuery(query);
@@ -153,6 +157,8 @@ public class UserDAO extends DBContext {
                 LocalDateTime updatedDate = (updatedTimestamp != null) ? updatedTimestamp.toLocalDateTime() : null;
 
                 String roleName = rs.getString("role_name");
+                String firstname = rs.getString("firstname");
+                String lastname = rs.getString("lastname");
 
                 User u = new User().builder()
                         .id(userId)
@@ -166,6 +172,11 @@ public class UserDAO extends DBContext {
                 Role r = new Role();
                 r.setRoleName(roleName);
                 u.setRole(r);
+
+                Profile p = new Profile();
+                p.setFirstName(firstname);
+                p.setLastName(lastname);
+                u.setProfile(p);
 
                 users.add(u);
             }
@@ -187,7 +198,7 @@ public class UserDAO extends DBContext {
     public ArrayList<User> getListUserByStatusAndRole(int status, int roleId) {
         DBContext db = new DBContext();
         ArrayList<User> list = new ArrayList<>();
-        String sql = "select u.id,u.username,u.password,u.email,u.role_id,u.status,u.created_date,u.updated_date,r.role_name from user u join role r on u.role_id = r.id ";
+        String sql = "select u.id,u.username,p.firstname,p.lastname,u.email,u.role_id,u.status,u.created_date,u.updated_date,r.role_name from user u join role r on u.role_id = r.id left join profile p on u.id = p.userid";
 
         // Danh sách tham số
         List<Object> params = new ArrayList<>();
@@ -239,6 +250,11 @@ public class UserDAO extends DBContext {
                 r.setId(rs.getInt("u.role_id"));
                 r.setRoleName(rs.getString("r.role_name"));
 
+                Profile p = new Profile();
+                p.setFirstName(rs.getString("p.firstname"));
+                p.setLastName(rs.getString("p.lastname"));
+                u.setProfile(p);
+
                 u.setRole(r);
                 list.add(u);
             }
@@ -263,38 +279,50 @@ public class UserDAO extends DBContext {
     public ArrayList<User> getUserBySearch(String title) {
         DBContext db = new DBContext();
         ArrayList<User> list = new ArrayList<>();
-        String sql = "select u.id,u.username,u.password,u.email,u.role_id,u.status,u.created_date,u.updated_date,r.role_name from user u join role r on u.role_id = r.id ";
+        String sql = "SELECT u.id, u.username, p.firstname, p.lastname, u.password, u.email, "
+                + "u.role_id, u.status, u.created_date, u.updated_date, r.role_name "
+                + "FROM user u "
+                + "JOIN role r ON u.role_id = r.id "
+                + "LEFT JOIN profile p ON u.id = p.userid";
+
         ResultSet rs = null;
         String titleValue = "";
-        if (title != null) {
+
+        if (title != null && !title.trim().isEmpty()) {
             titleValue = "%" + title + "%";
-            sql += "WHERE u.username LIKE ? "
-                    + "OR u.email LIKE ? "
-                    + "OR r.role_name LIKE ? "
-                    + "OR u.id LIKE ?";
+            sql += " WHERE u.username LIKE ? "
+                    + " OR u.email LIKE ? "
+                    + " OR r.role_name LIKE ? "
+                    + " OR u.id LIKE ? "
+                    + " OR p.firstname LIKE ? "
+                    + " OR p.lastname LIKE ? ";
         }
 
         try {
-            if (title != null) {
-                rs = db.executeQuery(sql, titleValue, titleValue, titleValue, titleValue);
+            if (title != null && !title.trim().isEmpty()) {
+                rs = db.executeQuery(sql, titleValue, titleValue, titleValue, titleValue, titleValue, titleValue);
             } else {
                 rs = db.executeQuery(sql);
             }
 
             while (rs.next()) {
-
                 User u = new User();
-                u.setId(rs.getInt("u.id"));
-                u.setUsername(rs.getString("u.username"));
-                u.setEmail(rs.getString("u.email"));
-                u.setStatus(rs.getString("u.status").equalsIgnoreCase("1"));
-                u.setCreatedDate(rs.getTimestamp("u.created_date").toLocalDateTime());
+                u.setId(rs.getInt("id"));  // Không cần "u.id"
+                u.setUsername(rs.getString("username"));
+                u.setEmail(rs.getString("email"));
+                u.setStatus(rs.getString("status").equalsIgnoreCase("1"));
+                u.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
                 Timestamp updatedTimestamp = rs.getTimestamp("updated_date");
                 u.setUpdatedDate(updatedTimestamp != null ? updatedTimestamp.toLocalDateTime() : null);
 
                 Role r = new Role();
-                r.setId(rs.getInt("u.role_id"));
-                r.setRoleName(rs.getString("r.role_name"));
+                r.setId(rs.getInt("role_id"));
+                r.setRoleName(rs.getString("role_name"));
+
+                Profile p = new Profile();
+                p.setFirstName(rs.getString("firstname"));
+                p.setLastName(rs.getString("lastname"));
+                u.setProfile(p);
 
                 u.setRole(r);
                 list.add(u);
@@ -553,11 +581,13 @@ public class UserDAO extends DBContext {
         if (searchTerm != null && !searchTerm.isEmpty()) {
             String searchTermValue = "%" + searchTerm + "%"; // Tạo điều kiện tìm kiếm với phần từ khóa
 
-            // Thêm điều kiện tìm kiếm cho các trường id, fullname, phone, email
+            // Thêm điều kiện tìm kiếm cho các trường id, firstname,lastname , phone, email ,username
             sql += "AND (u.id LIKE ? "
-                    + "OR p.full_name LIKE ? "
+                    + "OR p.firstname LIKE ? "
+                    + "OR p.lastname LIKE ? "
                     + "OR p.phone LIKE ? "
-                    + "OR u.email LIKE ?)";
+                    + "OR u.email LIKE ? "
+                    + "OR u.username LIKE ?)";
         }
 
         ResultSet rs = null;
@@ -568,9 +598,11 @@ public class UserDAO extends DBContext {
             if (searchTerm != null && !searchTerm.isEmpty()) {
                 String searchTermValue = "%" + searchTerm + "%"; // Tạo điều kiện tìm kiếm với phần từ khóa
                 ps.setString(1, searchTermValue);  // Gán điều kiện tìm kiếm cho id
-                ps.setString(2, searchTermValue);  // Gán điều kiện tìm kiếm cho full_name
-                ps.setString(3, searchTermValue);  // Gán điều kiện tìm kiếm cho phone
-                ps.setString(4, searchTermValue);  // Gán điều kiện tìm kiếm cho email
+                ps.setString(2, searchTermValue); // Gán điều kiện tìm kiếm cho firstname
+                ps.setString(3, searchTermValue);// Gán điều kiện tìm kiếm cho lastname
+                ps.setString(4, searchTermValue);  // Gán điều kiện tìm kiếm cho phone
+                ps.setString(5, searchTermValue);  // Gán điều kiện tìm kiếm cho email
+                ps.setString(6, searchTermValue);  // Gán điều kiện tìm kiếm cho username
             }
 
             rs = ps.executeQuery();

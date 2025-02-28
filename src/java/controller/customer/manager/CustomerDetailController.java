@@ -58,7 +58,6 @@ public class CustomerDetailController extends HttpServlet {
             boolean gender = "1".equals(request.getParameter("gender"));
             String address = request.getParameter("address".trim());
             String phone = request.getParameter("phone").trim();
-//            int roleId = Integer.parseInt(request.getParameter("role"));
             String dob = request.getParameter("dob").trim();
 
             // Lấy avatar cũ nếu không thay đổi ảnh
@@ -74,7 +73,7 @@ public class CustomerDetailController extends HttpServlet {
 
             if (profileExists) {
                 // Cập nhật profile nếu đã tồn tại
-                profileDAO.updateUserProfile(userId, firstName, lastName, gender ? "male" : "female", dob, address, phone, avatarPath);
+                profileDAO.updateUserProfile(userId, trimSpaces(firstName), trimSpaces(lastName), gender ? "male" : "female", dob, trimSpaces(address), removeAllSpaces(phone), avatarPath);
             } else {
                 // Tạo mới profile nếu chưa tồn tại
                 Profile profile = Profile.builder()
@@ -94,15 +93,16 @@ public class CustomerDetailController extends HttpServlet {
 
             // Cập nhật role của user
             UserDAO userDAO = new UserDAO();
-//            userDAO.updateRoleUser(userId, roleId);
+            userDAO.updateRoleUser(userId, 3);
 
             // Load dữ liệu và điều hướng về trang userDetail
             RoleDAO rDB = new RoleDAO();
             User user = userDAO.get(userId);
+
             request.setAttribute("user", user);
             request.setAttribute("roles", rDB.listAllAvailableRole());
-
-            request.getRequestDispatcher("../dashboard/manager/customerDetail.jsp").forward(request, response);
+            request.setAttribute("notification", "successfull");
+            request.getRequestDispatcher("dashboard/manager/customerDetail.jsp").forward(request, response);
         } catch (Exception e) {
             Logger.getLogger(CustomerDetailController.class.getName()).log(Level.SEVERE, null, e);
 
@@ -153,5 +153,21 @@ public class CustomerDetailController extends HttpServlet {
             }
         }
         return null;
+    }
+
+    // Dùng để validate khoảng trắng cách nhau cách chữ 1 khoảng trắng 
+    private static String trimSpaces(String input) {
+        if (input == null) {
+            return null;
+        }
+        return input.trim().replaceAll("\\s+", " ");
+    }
+
+    // Dùng để validate khoảng trắng cách chữ trong string không cách nhau
+    public static String removeAllSpaces(String input) {
+        if (input == null) {
+            return null;
+        }
+        return input.replaceAll("\\s+", "");
     }
 }

@@ -145,6 +145,8 @@
                         <tr>
                             <th>#</th>
                             <th>Username</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
                             <th>Email</th>
                             <th>Role</th>
                             <th>Status</th>
@@ -158,6 +160,8 @@
                             <tr>
                                 <td>${status.index + 1}</td>
                                 <td>${u.username}</td>
+                                <td>${u.profile.firstName}</td>
+                                <td>${u.profile.lastName}</td>
                                 <td>${u.email}</td>
                                 <td>${u.role.roleName}</td>
                                 <td>
@@ -225,7 +229,7 @@
                                             "ordering": true,
                                             "info": false,
                                             "columnDefs": [
-                                                {"orderable": false, "targets": [4, 7]}
+                                                {"orderable": false, "targets": [6, 9]}
                                             ],
                                             "dom": 't<"dt-paging"p>'
                                         });

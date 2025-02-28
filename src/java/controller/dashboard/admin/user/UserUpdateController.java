@@ -94,7 +94,7 @@ public class UserUpdateController extends HttpServlet {
             User user = userDAO.get(userId);
             request.setAttribute("user", user);
             request.setAttribute("roles", rDB.listAllAvailableRole());
-
+            request.setAttribute("notification", "successfull");
             request.getRequestDispatcher("../dashboard/userDetail.jsp").forward(request, response);
         } catch (Exception e) {
             Logger.getLogger(UserUpdateController.class.getName()).log(Level.SEVERE, null, e);
@@ -108,9 +108,9 @@ public class UserUpdateController extends HttpServlet {
             request.setAttribute("user", user);
             request.setAttribute("roles", rDB.listAllAvailableRole());
             request.setAttribute("error", e.getMessage());
-
+            request.setAttribute("notification", "false");
             response.getWriter().print(e.getMessage());
-//            request.getRequestDispatcher("../dashboard/userDetail.jsp").forward(request, response);
+            request.getRequestDispatcher("../dashboard/userDetail.jsp").forward(request, response);
         }
     }
 
@@ -147,5 +147,21 @@ public class UserUpdateController extends HttpServlet {
             }
         }
         return null;
+    }
+
+    // Dùng để validate khoảng trắng cách nhau cách chữ 1 khoảng trắng 
+    private static String trimSpaces(String input) {
+        if (input == null) {
+            return null;
+        }
+        return input.trim().replaceAll("\\s+", " ");
+    }
+
+    // Dùng để validate khoảng trắng cách chữ trong string không cách nhau
+    public static String removeAllSpaces(String input) {
+        if (input == null) {
+            return null;
+        }
+        return input.replaceAll("\\s+", "");
     }
 }

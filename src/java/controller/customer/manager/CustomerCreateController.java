@@ -4,6 +4,7 @@
  */
 package controller.customer.manager;
 
+import dal.ProfileDAO;
 import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,7 +12,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Profile;
 import model.auth.User;
+import java.sql.Date;
 
 /**
  *
@@ -45,11 +48,19 @@ public class CustomerCreateController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        UserDAO userDAO = new UserDAO();
+        ProfileDAO profileDAO = new ProfileDAO();
+
         String username = request.getParameter("dzName").trim();
         String password = request.getParameter("dzPassword").trim();
         String email = request.getParameter("dzEmail").trim();
-
-        UserDAO userDAO = new UserDAO();
+        String firstName = request.getParameter("firstname").trim();
+        String lastName = request.getParameter("lastname").trim();
+        String dob = request.getParameter("dob").trim();
+        String gender = request.getParameter("gender").trim();
+        String address = request.getParameter("address").trim();
+        String phone = request.getParameter("phone").trim();
 
         if (userDAO.checkUsernameExists(username)) {
             request.setAttribute("error", "Username already exists.");
@@ -70,9 +81,27 @@ public class CustomerCreateController extends HttpServlet {
 
         boolean isRegistered = userDAO.register(newUser, 3);
         if (isRegistered) {
-            response.sendRedirect("../customers");
+
+            User user = userDAO.get(username, password);
+
+            // Tạo profile cho user nếu đã tạo user thành công 
+            Profile profile = new Profile();
+            profile.setUser(user);
+            profile.setFirstName(firstName);
+            profile.setLastName(lastName);
+            profile.setGender(gender.equalsIgnoreCase("1"));
+            profile.setDob(Date.valueOf(dob));
+            profile.setAddress(address);
+            profile.setPhone(phone);
+            profile.setAvatar("assets/images/profile/default.jpg");
+            
+            profileDAO.createProfile(profile);
+            request.setAttribute("notification", "successfull");
+            request.getRequestDispatcher("../dashboard/manager/customerCreate.jsp").forward(request, response);
+
         } else {
-            request.setAttribute("error", "Add user failed. Please try again.");
+
+            request.setAttribute("notification", "false");
             request.getRequestDispatcher("../dashboard/manager/customerCreate.jsp").forward(request, response);
         }
     }
