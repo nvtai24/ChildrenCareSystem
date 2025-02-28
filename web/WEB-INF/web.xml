@@ -126,6 +126,10 @@
         <servlet-name>ChangePasswordController</servlet-name>
         <servlet-class>controller.auth.ChangePasswordController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SettingDetailController</servlet-name>
+        <servlet-class>controller.dashboard.admin.SettingDetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
         <url-pattern>/error-handle</url-pattern>
@@ -313,6 +317,10 @@
     <servlet-mapping>
         <servlet-name>VnpayReturnController</servlet-name>
         <url-pattern>/reservation/return</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SettingDetailController</servlet-name>
+        <url-pattern>/setting</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>
