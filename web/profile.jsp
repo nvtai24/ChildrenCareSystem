@@ -116,63 +116,63 @@
                 </div>
             </div>
             <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 500px;">
-        <div class="modal-content" style="padding: 20px; border-radius: 10px; font-family: 'Arial', sans-serif; font-size: 14px; color: #333;">
-            <div class="modal-header" style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6; padding: 15px;">
-                <h5 class="modal-title" id="changePasswordModalLabel" style="font-weight: bold; font-size: 16px;">Change Password</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size: 18px;">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <div class="modal-dialog" style="max-width: 500px;">
+                    <div class="modal-content" style="padding: 20px; border-radius: 10px; font-family: 'Arial', sans-serif; font-size: 14px; color: #333;">
+                        <div class="modal-header" style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6; padding: 15px;">
+                            <h5 class="modal-title" id="changePasswordModalLabel" style="font-weight: bold; font-size: 16px;">Change Password</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size: 18px;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body" style="padding: 20px;">
+                            <div id="changePasswordMessage"></div> <!-- Hiển thị thông báo lỗi -->
+                            <form id="changePasswordForm">
+                                <div class="form-group row" style="margin-bottom: 15px;">
+                                    <label for="oldPassword" class="col-sm-4 col-form-label" 
+                                           style="font-weight: 600; text-align: right; font-size: 14px;">Current Password</label>
+                                    <div class="col-sm-8">
+                                        <input type="password" class="form-control" id="oldPassword" name="oldPassword" required oninput="validatePassword()" 
+                                               style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 5px; font-size: 14px;">
+                                        <small id="oldPasswordError" class="text-danger" style="font-size: 12px; margin-top: 5px;"></small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row" style="margin-bottom: 15px;">
+                                    <label for="newPassword" class="col-sm-4 col-form-label" 
+                                           style="font-weight: 600; text-align: right; font-size: 14px;">New Password</label>
+                                    <div class="col-sm-8">
+                                        <input type="password" class="form-control" id="newPassword" name="newPassword" required oninput="validatePassword()" 
+                                               style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 5px; font-size: 14px;">
+                                        <small id="newPasswordError" class="text-danger" style="font-size: 12px; margin-top: 5px;"></small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row" style="margin-bottom: 15px;">
+                                    <label for="confirmNewPassword" class="col-sm-4 col-form-label" 
+                                           style="font-weight: 600; text-align: right; font-size: 14px;">Confirm Password</label>
+                                    <div class="col-sm-8">
+                                        <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword" required oninput="validatePassword()" 
+                                               style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 5px; font-size: 14px;">
+                                        <small id="confirmNewPasswordError" class="text-danger" style="font-size: 12px; margin-top: 5px;"></small>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer" style="display: flex; justify-content: space-between; padding: 15px; border-top: 1px solid #dee2e6;">
+                                    <button type="submit" class="btn btn-primary" 
+                                            style="background-color: #ffc107; border-color: #ffc107; color: black; font-weight: bold; font-size: 14px;">
+                                        Save changes
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" 
+                                            style="background-color: #6c757d; border-color: #6c757d; font-weight: bold; font-size: 14px;">
+                                        Close
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="modal-body" style="padding: 20px;">
-                <div id="changePasswordMessage"></div> <!-- Hiển thị thông báo lỗi -->
-                <form id="changePasswordForm">
-                    <div class="form-group row" style="margin-bottom: 15px;">
-                        <label for="oldPassword" class="col-sm-4 col-form-label" 
-                               style="font-weight: 600; text-align: right; font-size: 14px;">Current Password</label>
-                        <div class="col-sm-8">
-                            <input type="password" class="form-control" id="oldPassword" name="oldPassword" required oninput="validatePassword()" 
-                                   style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 5px; font-size: 14px;">
-                            <small id="oldPasswordError" class="text-danger" style="font-size: 12px; margin-top: 5px;"></small>
-                        </div>
-                    </div>
-
-                    <div class="form-group row" style="margin-bottom: 15px;">
-                        <label for="newPassword" class="col-sm-4 col-form-label" 
-                               style="font-weight: 600; text-align: right; font-size: 14px;">New Password</label>
-                        <div class="col-sm-8">
-                            <input type="password" class="form-control" id="newPassword" name="newPassword" required oninput="validatePassword()" 
-                                   style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 5px; font-size: 14px;">
-                            <small id="newPasswordError" class="text-danger" style="font-size: 12px; margin-top: 5px;"></small>
-                        </div>
-                    </div>
-
-                    <div class="form-group row" style="margin-bottom: 15px;">
-                        <label for="confirmNewPassword" class="col-sm-4 col-form-label" 
-                               style="font-weight: 600; text-align: right; font-size: 14px;">Confirm Password</label>
-                        <div class="col-sm-8">
-                            <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword" required oninput="validatePassword()" 
-                                   style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 5px; font-size: 14px;">
-                            <small id="confirmNewPasswordError" class="text-danger" style="font-size: 12px; margin-top: 5px;"></small>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer" style="display: flex; justify-content: space-between; padding: 15px; border-top: 1px solid #dee2e6;">
-                        <button type="submit" class="btn btn-primary" 
-                                style="background-color: #ffc107; border-color: #ffc107; color: black; font-weight: bold; font-size: 14px;">
-                            Save changes
-                        </button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" 
-                                style="background-color: #6c757d; border-color: #6c757d; font-weight: bold; font-size: 14px;">
-                            Close
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
@@ -266,7 +266,7 @@
                                 setTimeout(function () {
                                     $("#changePasswordModal").modal("hide");
                                 }, 2000);
-                              
+
                             } else {
                                 $("#changePasswordMessage").html('<div class="alert alert-danger">' + response.message + '</div>');
                             }

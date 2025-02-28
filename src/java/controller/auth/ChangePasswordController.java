@@ -29,24 +29,24 @@ public class ChangePasswordController extends HttpServlet {
         boolean hasError = false;
         String errorMessage = "";
         String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$";
-        
+
         int userId = (Integer) request.getSession().getAttribute("id");
         UserDAO userDAO = new UserDAO();
         User user = userDAO.getUserById(userId);
 
         if (user == null || !user.getPassword().equals(oldPassword)) {
-        hasError = true;
-        errorMessage = "Incorrect current password.";
-    } else if (!newPassword.matches(passwordPattern)) {
-        hasError = true;
-        errorMessage = "Password must be 8-15 characters with at least one uppercase letter, one lowercase letter, and one number.";
-    } else if (newPassword.equals(oldPassword)) {
-        hasError = true;
-        errorMessage = "New password cannot be the same as the old password.";
-    } else if (!newPassword.equals(confirmNewPassword)) {
-        hasError = true;
-        errorMessage = "New passwords do not match.";
-    }
+            hasError = true;
+            errorMessage = "Incorrect current password.";
+        } else if (!newPassword.matches(passwordPattern)) {
+            hasError = true;
+            errorMessage = "Password must be 8-15 characters with at least one uppercase letter, one lowercase letter, and one number.";
+        } else if (newPassword.equals(oldPassword)) {
+            hasError = true;
+            errorMessage = "New password cannot be the same as the old password.";
+        } else if (!newPassword.equals(confirmNewPassword)) {
+            hasError = true;
+            errorMessage = "New passwords do not match.";
+        }
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
