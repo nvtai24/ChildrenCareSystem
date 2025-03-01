@@ -79,16 +79,16 @@
             background: #FFC321;
         }
         .btn.update {
-            background-color: #EFBB20;
-            color: black;
+            background-color: #17a2b8;
+            color: white;
             border: none;
             padding: 5px 15px;
             cursor: pointer;
             font-size: 14px;
         }
         .btn.delete {
-            background-color: #EFBB20;
-            color: black;
+            background-color: #17a2b8;
+            color: white;
             border: none;
             padding: 5px 15px;
             cursor: pointer;
@@ -149,7 +149,7 @@
 
 
         td:first-child, th:first-child {
-            width: 5%;
+            width: 4%;
             text-align: center;
         }
 
@@ -159,38 +159,34 @@
         }
 
         td:nth-child(3), th:nth-child(3) {
-            width: 18%;
+            width: 25%;
             text-align: center;
         }
 
         td:nth-child(4), th:nth-child(4) {
-            width: 18%;
+            width: 8%;
             text-align: center;
         }
         td:nth-child(5), th:nth-child(5) {
-            width: 30%;
+            width: 15%;
             text-align: center;
         }
         td:nth-child(6), th:nth-child(6) {
-            width: 13%;
+            width: 15%;
             text-align: center;
         }
 
         td:nth-child(7), th:nth-child(7) {
-            width: 13%;
+            width: 10%;
             text-align: center;
         }
         td:nth-child(8), th:nth-child(8) {
             width: 10%;
             text-align: center;
         }
-        td:nth-child(9), th:nth-child(9) {
-            width: 10%;
-            text-align: center;
-        }
 
         td:last-child, th:last-child {
-            width: 9%;
+            width: 13%;
             text-align: center;
         }
     </style>
@@ -393,7 +389,8 @@
                                     <button type="submit">Apply</button>
                                 </form>
                                 <form class="form-add">
-                                    <button type="button" onclick="window.location.href = 'post-add.jsp';"> 
+                                    <button type="button" onclick="window.location.href = 'post-add.jsp';">
+                                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
                                         Add New Post
                                     </button>    
                                 </form>
@@ -407,8 +404,7 @@
                                         <th>#</th>
                                         <th>Author</th>
                                         <th>Title</th>
-                                        <th>Image</th>
-                                        <th>Content</th>
+                                        <th>Status</th>
                                         <th>Created Date</th>
                                         <th>Updated Date</th>
                                         <th>Action</th>
@@ -423,8 +419,17 @@
                                             <td>${status.index + 1}</td>
                                             <td>${post.username}</td>
                                             <td>${post.title}</td>
-                                            <td><img src="${post.thumbnail}" alt=""/></td>
-                                            <td>${post.content}</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${post.status}">
+                                                        <span style="color: green;">Active</span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span style="color: red;">Inactive</span>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+
                                             <td>${post.createdDate}</td>
                                             <td>
                                                 <c:if test="${post.updatedDate != null}">
@@ -436,8 +441,7 @@
                                                 <form method="post" action="posts">
                                                     <input type="hidden" name="id" value="${post.id}">
                                                     <input type="hidden" name="status" value="${post.status ? 0 : 1}">
-                                                    <button type="submit" 
-                                                            class="btn ${post.status ? 'disable' : 'enable'}">
+                                                    <button type="submit" class="btn ${post.status ? 'disable' : 'enable'}"><i class="fa fa-refresh" aria-hidden="true"></i>
                                                         ${post.status ? 'Hide' : 'Show'}
                                                     </button>
                                                 </form>
@@ -447,15 +451,17 @@
                                                 <form method="post" action="posts/delete" style="display:inline;">
                                                     <input type="hidden" name="id" value="${post.id}">
                                                     <button type="submit" class="btn delete">
+                                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
                                                         Delete
                                                     </button>
                                                 </form>
                                             </td>
                                             <td>
-                                                <form method="get" action="posts/update" style="display:inline;">
+                                                <form method="get" action="post" style="display:inline;">
                                                     <input  type="hidden" name="id" value="${post.id}">
                                                     <button type="submit" class="btn update" style="display:inline;">
-                                                        Edit
+                                                        <i class="fa fa-pencil" aria-hidden="true" ></i>
+                                                        View Detail
                                                     </button>
                                                 </form>
                                             </td>

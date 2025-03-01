@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Post;
 import model.Service;
 
@@ -251,7 +253,13 @@ public class PostDAO extends DBContext {
             );
             return result > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(PostDAO.class.getName()).log(Level.SEVERE, null, e);
+        }finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                Logger.getLogger(PostDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
         }
         return false;
     }

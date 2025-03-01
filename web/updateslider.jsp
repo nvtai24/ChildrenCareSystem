@@ -363,28 +363,24 @@
                                 <form class="edit-profile m-b30" action="sliders-update" method="post" enctype="multipart/form-data">
                                     <input type="hidden" name="id" value="${SLIDER.id}"><br>
                                     <div class="row">
-                                        <div class="col-12">
-                                            <div class="ml-auto">
-                                                <h3>Information</h3>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="form-group col-6">
-                                            <label class="col-form-label">Slider title</label>
+                                            <h3>1. Slider Title</h3>
                                             <div>
                                                 <input name="title" class="form-control" type="text" value="${SLIDER.title}" required>
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label class="col-form-label">Back Link</label>
+                                            <h3>2. Back Link</h3>
                                             <div>
                                                 <input name="backlink" class="form-control" type="text" value="${SLIDER.backLink}" required>
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label class="col-form-label">Image</label>
+                                            <h3>3. Image</h3>
                                             <div>
                                                 <!-- Hiển thị ảnh hiện tại nếu có -->
-                                                <img src="${SLIDER.imageUrl}" alt="Slider Image" class="img-thumbnail" width="150">
+                                                <img src="${SLIDER.imageUrl}" alt="Slider Image" class="img-thumbnail" width="300">
 
                                                 <!-- Input cho phép chọn ảnh mới -->
                                                 <input class="form-control" type="file" name="image" accept="image/*">

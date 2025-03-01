@@ -331,7 +331,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdatePostController</servlet-name>
-        <url-pattern>/posts/update</url-pattern>
+        <url-pattern>/post</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserUpdateController</servlet-name>

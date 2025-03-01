@@ -6,7 +6,6 @@ package controller.blog;
 
 import dal.PostDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
@@ -18,6 +17,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import model.Post;
+import model.auth.User;
 
 /**
  *
@@ -30,42 +30,8 @@ import model.Post;
 )
 public class UpdatePostController extends HttpServlet {
 
-    private static final String UPLOAD_DIR = "assets/images/slider";
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UpdatePostController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UpdatePostController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    private static final String UPLOAD_DIR = "assets/images/blog";
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -98,7 +64,15 @@ public class UpdatePostController extends HttpServlet {
             int postId = Integer.parseInt(request.getParameter("id"));
             String title = request.getParameter("title");
             String content = request.getParameter("content");
-
+            
+            HttpSession session = request.getSession();
+            int currentUserId = 0;
+            if (session != null && session.getAttribute("id") != null) {
+                currentUserId = (int) session.getAttribute("id"); 
+            } else {
+                response.sendRedirect(request.getContextPath() + "/login"); // Redirect về trang login nếu chưa đăng nhập
+                return;
+            }
             // Lấy phần thông tin ảnh (nếu có)
             Part filePart = request.getPart("thumbnail"); // Lấy file ảnh từ form
 
@@ -163,10 +137,10 @@ public class UpdatePostController extends HttpServlet {
             post.setContent(content);
             post.setThumbnail(fileName); // Lưu đường dẫn ảnh vào database
 
+            
             // Cập nhật Slider trong database
             boolean result = postDAO.updatePost(post);
 
-            HttpSession session = request.getSession();
             if (result) {
                 session.setAttribute("MESSAGE", "Update post successfully!");
             } else {
@@ -174,7 +148,7 @@ public class UpdatePostController extends HttpServlet {
             }
 
             // Chuyển hướng về trang slider sau khi cập nhật
-            response.sendRedirect("posts");
+            response.sendRedirect(request.getContextPath() + "/posts");
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi cập nhật post.");

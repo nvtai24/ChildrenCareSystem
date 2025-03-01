@@ -357,30 +357,26 @@
                     <div class="col-lg-12 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>Add Slider</h4>
+                                <h4>Add New Slider</h4>
                             </div>
                             <div class="widget-inner">
                                 <form class="edit-profile m-b30" action="addslider" method="post" enctype="multipart/form-data">
                                     <div class="row">
-                                        <div class="col-12">
-                                            <div class="ml-auto">
-                                                <h3>Information</h3>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="form-group col-6">
-                                            <label class="col-form-label">Slider title</label>
+                                            <h3>1. Slider Title</h3>
                                             <div>
                                                 <input name="title" class="form-control" type="text" value="" required>
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label class="col-form-label">Back Link</label>
+                                            <h3>2. Back Link</h3>
                                             <div>
                                                 <input name="backLink" class="form-control" type="text" value="" required>
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label class="col-form-label">Image</label>
+                                            <h3>3. Image</h3>
                                             <div>
                                                 <input class="form-control" type="file" name="image" accept="image/*" required>
                                             </div>

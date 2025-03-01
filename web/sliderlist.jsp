@@ -79,16 +79,16 @@
             background: #FFC321;
         }
         .btn.update {
-            background-color: #EFBB20;
-            color: black;
+            background-color: #17a2b8;
+            color: white;
             border: none;
             padding: 5px 15px;
             cursor: pointer;
             font-size: 14px;
         }
         .btn.delete {
-            background-color: #EFBB20;
-            color: black;
+            background-color: #17a2b8;
+            color: white;
             border: none;
             padding: 5px 15px;
             cursor: pointer;
@@ -154,43 +154,39 @@
         }
 
         td:nth-child(2), th:nth-child(2) {
-            width: 15%;
+            width: 25%;
             text-align: center;
         }
 
         td:nth-child(3), th:nth-child(3) {
-            width: 12%;
+            width: 10%;
             text-align: center;
         }
 
         td:nth-child(4), th:nth-child(4) {
-            width: 10%;
+            width: 8%;
             text-align: center;
         }
         td:nth-child(5), th:nth-child(5) {
-            width: 5%;
+            width: 15%;
             text-align: center;
         }
         td:nth-child(6), th:nth-child(6) {
-            width: 8%;
+            width: 15%;
             text-align: center;
         }
 
         td:nth-child(7), th:nth-child(7) {
-            width: 8%;
+            width: 10%;
             text-align: center;
         }
         td:nth-child(8), th:nth-child(8) {
-            width: 8%;
-            text-align: center;
-        }
-        td:nth-child(9), th:nth-child(9) {
-            width: 6%;
+            width: 10%;
             text-align: center;
         }
 
         td:last-child, th:last-child {
-            width: 6%;
+            width: 13%;
             text-align: center;
         }
     </style>
@@ -393,7 +389,8 @@
                                     <button type="submit">Apply</button>
                                 </form>
                                 <form class="form-add">
-                                        <button type="button" onclick="window.location.href = 'addslider.jsp';"> 
+                                        <button type="button" onclick="window.location.href = 'addslider.jsp';">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
                                             Add New Slider
                                         </button>    
                                 </form>
@@ -406,7 +403,6 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Title</th>
-                                        <th>Image</th>
                                         <th>BackLink</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
@@ -422,7 +418,6 @@
                                         <tr>
                                             <td>${status.index + 1}</td>
                                             <td>${slider.title}</td>
-                                            <td><img src="${slider.imageUrl}" alt=""/></td>
                                             <td>${slider.backLink}</td>
                                             <td>
                                                 <c:choose>
@@ -447,6 +442,7 @@
                                                     <input type="hidden" name="status" value="${slider.status ? 0 : 1}">
                                                     <button type="submit" 
                                                             class="btn ${slider.status ? 'disable' : 'enable'}">
+                                                        <i class="fa fa-refresh" aria-hidden="true"></i>
                                                         ${slider.status ? 'Hide' : 'Show'}
                                                     </button>
                                                 </form>
@@ -455,6 +451,7 @@
                                                 <form method="post" action="DeleteSlider" style="display:inline;">
                                                     <input type="hidden" name="id" value="${slider.id}">
                                                     <button type="submit" class="btn delete">
+                                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
                                                         Delete
                                                     </button>
                                                 </form>
@@ -463,7 +460,8 @@
                                                 <form method="get" action="sliders-update" style="display:inline;">
                                                     <input  type="hidden" name="id" value="${slider.id}">
                                                     <button type="submit" class="btn update" style="display:inline;">
-                                                        Edit
+                                                        <i class="fa fa-pencil" aria-hidden="true" ></i>
+                                                        View Detail
                                                     </button>
                                                 </form>
                                             </td>
