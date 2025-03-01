@@ -78,4 +78,41 @@ public class SettingDAO extends DBContext {
         return settings;
     }
 
+    public Setting getSettingById(int id) {
+        String query = "SELECT s.setting_id, s.value, s.description, s.status FROM setting s WHERE s.setting_id = ?";
+        try {
+            ResultSet rs = executeQuery(query, id);
+            if (rs.next()) {
+                return new Setting(
+                        rs.getInt("setting_id"),
+                        null,
+                        rs.getString("value"),
+                        rs.getString("description"),
+                        rs.getBoolean("status")
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SettingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public void updateSetting(Setting setting) {
+        String query = "UPDATE setting SET value = ?, description = ?, status = ? WHERE setting_id = ?";
+        try {
+            executeUpdate(query, setting.getSettingValue(), setting.getDescription(), setting.isStatus(), setting.getId());
+        } catch (SQLException ex) {
+            Logger.getLogger(SettingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void addSetting(Setting setting) {
+        String query = "INSERT INTO setting (value, description, status) VALUES (?, ?, ?)";
+        try {
+            executeUpdate(query, setting.getSettingValue(), setting.getDescription(), setting.isStatus());
+        } catch (SQLException ex) {
+            Logger.getLogger(SettingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }
