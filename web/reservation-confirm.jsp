@@ -65,8 +65,8 @@
                                 <div class="container">
                                     <ul class="list-inline">
                                         <li><a href="/app"><i class="fa fa-home"></i> Home</a></li>
-                                        <li>Appointment</li>
-                                        <li>Contact</li>    
+                                        <li><a href="/app/reservation/detail"> Appointment</a></li>
+                                        <li><a href="/app/reservation/contact"> Contact</li>
                                         <li>Confirmation</li>
                                     </ul>
                                 </div>
@@ -94,7 +94,7 @@
                                                 <dd class="col-sm-8">${sessionScope.r.email}</dd>
 
                                                 <dt class="col-sm-4">Reservation Date:</dt>
-                                                <dd class="col-sm-8">${sessionScope.r.reverseDate}</dd>
+                                                <dd class="col-sm-8">${sessionScope.r.reverseDate.toLocalTime()}  ${sessionScope.r.reverseDate.toLocalDate()}</dd>
 
                                                 <dt class="col-sm-4">Note:</dt>
                                                 <dd class="col-sm-8">${sessionScope.r.note}</dd>

@@ -65,7 +65,7 @@
                                 <div class="container">
                                     <ul class="list-inline">
                                         <li><a href="/app"><i class="fa fa-home"></i> Home</a></li>
-                                        <li>Appointment</li>
+                                        <li><a href="/app/reservation/detail"> Appointment</a></li>
                                         <li>Contact</li>
                                     </ul>
                                 </div>
@@ -88,7 +88,7 @@
                                                             id="firstName"
                                                             name="firstname"
                                                             placeholder="First Name"
-                                                            value="${requestScope.p.firstName}"
+                                                            value="${sessionScope.r.firstName != null ? sessionScope.r.firstName : requestScope.p.firstName}"
                                                             required
                                                             />
                                                     </div>
@@ -101,11 +101,10 @@
                                                             id="lastName"
                                                             name="lastname"
                                                             placeholder="Last Name"
-                                                            value="${requestScope.p.lastName}"
+                                                            value="${sessionScope.r.lastName != null ? sessionScope.r.lastName : requestScope.p.lastName}"
                                                             required
                                                             />
                                                     </div>
-
                                                 </div>
 
                                                 <form>
@@ -118,9 +117,9 @@
                                                                 class="form-control"
                                                                 id="date"
                                                                 name="date"
+                                                                value="${sessionScope.r.reverseDate != null ? sessionScope.r.reverseDate.toLocalDate() : '2025-03-02'}"
                                                                 required
-                                                                value="2025-03-10"
-                                                            />
+                                                                />
                                                         </div>
 
                                                         <div class="form-group col-md-6">
@@ -130,9 +129,9 @@
                                                                 class="form-control"
                                                                 id="time"
                                                                 name="time"
+                                                                value="${sessionScope.r.reverseDate != null ? sessionScope.r.reverseDate.toLocalTime() : '14:30'}"
                                                                 required
-                                                                value="14:30"
-                                                            />
+                                                                />
                                                         </div>
                                                     </div>
 
@@ -146,7 +145,7 @@
                                                                 id="phone"
                                                                 name="phone"
                                                                 placeholder="(000) 000-0000"
-                                                                value="${requestScope.p.phone}"
+                                                                value="${sessionScope.r.phone != null ? sessionScope.r.phone : requestScope.p.phone}"
                                                                 required
                                                                 />
                                                         </div>
@@ -158,9 +157,9 @@
                                                                 id="email"
                                                                 name="email"
                                                                 placeholder="ex: myname@example.com"
-                                                                value="${sessionScope.account.email}"
+                                                                value="
+                                                                ${sessionScope.r.email != null ? sessionScope.r.email : sessionScope.account.email}"
                                                                 />
-
                                                         </div>
                                                     </div>
 
@@ -174,29 +173,13 @@
                                                             placeholder="Type your message here"
                                                             name="note"
                                                             style="resize: none"
+                                                            value="${sessionScope.r.note != null ? sessionScope.r.note : ''}"
                                                             ></textarea>
                                                     </div>
 
-                                                    <!--                                                     Payment Method Selection 
-                                                                                                        <div class="form-group">
-                                                                                                            <label for="email">Payment Method</label>
-                                                                                                            <br>
-                                                                                                            <div class="form-check form-check-inline mr-4">
-                                                                                                                <input class="form-check-input" type="radio" name="payment" id="cash" value="cash" checked>
-                                                                                                                <label class="form-check-label" for="cash">Cash</label>
-                                                                                                            </div>
-                                                                                                            <div class="form-check form-check-inline mr-4">
-                                                                                                                <input class="form-check-input" type="radio" name="payment" id="banking" value="banking">
-                                                                                                                <label class="form-check-label" for="banking">Online Banking</label>
-                                                                                                            </div>
-                                                                                                        </div>-->
-
-                                                    <!-- Buttons -->
                                                     <div class="form-row">
                                                         <div class="col-md-6">
-                                                            <button type="button" class="btn btn-danger btn-block red">
-                                                                Back
-                                                            </button>
+                                                            <a href="/app/reservation/detail" class="btn btn-danger btn-block red text-white">Back</a>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <button type="submit" class="btn btn-success btn-block green">
@@ -216,133 +199,6 @@
 
             <jsp:include page="footer.jsp"/>
         </div>
-
-        <script>
-            document.getElementById('select-all').addEventListener('change', function () {
-                let checkboxes = document.querySelectorAll('.item-checkbox');
-                checkboxes.forEach(checkbox => checkbox.checked = this.checked);
-            });
-        </script>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                function updateTotalPrice(row) {
-                    let quantityInput = row.querySelector(".quantity");
-                    let salePriceElement = row.querySelector(".sale-price");
-                    let totalPriceElement = row.querySelector(".total-price");
-
-                    let price = parseFloat(salePriceElement.dataset.price);
-                    let discount = parseFloat(salePriceElement.dataset.discount);
-                    let salePrice = (price * (1 - discount / 100)).toFixed(1);
-                    let quantity = parseInt(quantityInput.value);
-
-                    let totalPrice = (salePrice * quantity).toFixed(1);
-                    totalPriceElement.innerText = "$" + totalPrice;
-
-                    updateSelectedTotal(); // Cập nhật tổng giá trị của sản phẩm đã chọn
-                }
-
-                function updateSelectedTotal() {
-                    let total = 0;
-                    document.querySelectorAll(".item-row").forEach(row => {
-                        let checkbox = row.querySelector(".item-checkbox");
-                        let totalPriceElement = row.querySelector(".total-price");
-
-                        if (checkbox.checked) {
-                            total += parseFloat(totalPriceElement.innerText.replace("$", ""));
-                        }
-                    });
-
-                    document.getElementById("total-price").innerText = "$" + total.toFixed(1);
-                }
-
-                // Xử lý sự kiện khi thay đổi số lượng
-                document.querySelectorAll(".item-row").forEach(row => {
-                    let quantityInput = row.querySelector(".quantity");
-                    let decreaseBtn = row.querySelector(".decrease");
-                    let increaseBtn = row.querySelector(".increase");
-                    let checkbox = row.querySelector(".item-checkbox");
-
-                    // Khi số lượng thay đổi
-                    quantityInput.addEventListener("input", function () {
-                        if (quantityInput.value < 1)
-                            quantityInput.value = 1;
-                        updateTotalPrice(row);
-                    });
-
-                    // Giảm số lượng
-                    decreaseBtn.addEventListener("click", function () {
-                        if (quantityInput.value >= 1) {
-//                            quantityInput.value--;
-                            updateTotalPrice(row);
-                        }
-                    });
-
-                    // Tăng số lượng
-                    increaseBtn.addEventListener("click", function () {
-//                        quantityInput.value++;
-                        updateTotalPrice(row);
-                    });
-
-                    // Khi checkbox thay đổi trạng thái
-                    checkbox.addEventListener("change", function () {
-                        updateSelectedTotal();
-                    });
-                });
-
-                // Xử lý chọn tất cả
-                document.getElementById("select-all").addEventListener("change", function () {
-                    let isChecked = this.checked;
-                    document.querySelectorAll(".item-checkbox").forEach(checkbox => {
-                        checkbox.checked = isChecked;
-                    });
-                    updateSelectedTotal();
-                });
-            });
-        </script>
-
-        <script>
-            function changeQuantityItem(uid, sid, btn, change) {
-                // Tìm phần tử input số lượng trong cùng hàng với nút bấm
-                let quantityInput = btn.parentElement.querySelector(".quantity");
-
-                // Lấy giá trị số lượng hiện tại
-                let currentQuantity = parseInt(quantityInput.value);
-
-                // Tính toán số lượng mới
-                let newQuantity = currentQuantity + change;
-
-                // Đảm bảo số lượng không nhỏ hơn 1
-                if (newQuantity < 1) {
-                    newQuantity = 1;
-                }
-
-                // Cập nhật số lượng mới trên giao diện ngay lập tức
-                quantityInput.value = newQuantity;
-
-                console.log(uid + ' ' + sid + ' ' + newQuantity);
-
-                // Gửi dữ liệu cập nhật lên server
-                $.ajax({
-                    url: '/app/wishlist/change',
-                    type: 'POST',
-                    data: {
-                        uid: uid,
-                        sid: sid,
-                        quantity: newQuantity
-                    },
-                    success: function (response) {
-                        console.log("Cập nhật thành công!");
-
-                        // Cập nhật lại giá trị quantity cho nút tăng/giảm
-                        btn.previousElementSibling.value = newQuantity; // Cập nhật input number
-                    },
-                    error: function () {
-                        console.log("Lỗi khi cập nhật số lượng!");
-                    }
-                });
-            }
-        </script>
 
         <!-- External JavaScripts -->
         <script src="assets/js/jquery.min.js"></script>

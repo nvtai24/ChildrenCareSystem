@@ -4,12 +4,18 @@
  */
 package vnpay;
 
+import dal.ReservationDAO;
+import dal.WishListDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import model.Reservation;
+import model.WishList;
 
 /**
  *
@@ -28,14 +34,31 @@ public class VnpayReturnController extends HttpServlet {
 
         String vnp_ResponseCode = request.getParameter("vnp_ResponseCode");
         if ("00".equals(vnp_ResponseCode)) {
-            request.setAttribute("form1", true);
-            request.getRequestDispatcher("../reservation-complete.jsp").forward(request, response);
-//            response.getWriter().write("Thanh toan thanh cong!\n " + result.toString());
-        } else {
-//            request.getRequestDispatcher("../reservation-confirm.jsp").forward(request, response);
-            response.getWriter().write("Thanh toan that bai!\n " + result.toString());
-        }
+            HttpSession session = request.getSession();
 
+            Reservation r = (Reservation) session.getAttribute("r");
+
+            r.setBanking(true);
+            ReservationDAO rdb = new ReservationDAO();
+            rdb.insertReservation(r);
+
+            ArrayList<WishList> items = (ArrayList<WishList>) session.getAttribute("items");
+            WishListDAO wlDB = new WishListDAO();
+
+            for (WishList item : items) {
+                wlDB.deleteWishlistItem(item.getUser().getId(), item.getService().getId());
+            }
+
+            session.removeAttribute("items");
+            r.setDetails(null);
+            session.setAttribute("r", r);
+
+            request.getRequestDispatcher("../reservation-complete.jsp").forward(request, response);
+//            response.getWriter().write("Success!\n " + result.toString());
+        } else {
+            request.getRequestDispatcher("../reservation-confirm.jsp").forward(request, response);
+//            response.getWriter().write("Failed!\n " + result.toString());
+        }
     }
 
 }
