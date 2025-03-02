@@ -23,54 +23,57 @@ import model.auth.User;
  */
 public class ReservationContactController extends HttpServlet {
 
-        // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
-        // + sign on the left to edit the code.">
-        /**
-         * Handles the HTTP <code>GET</code> method.
-         *
-         * @param request  servlet request
-         * @param response servlet response
-         * @throws ServletException if a servlet-specific error occurs
-         * @throws IOException      if an I/O error occurs
-         */
-        @Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)
-                        throws ServletException, IOException {
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
+    // + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-                HttpSession session = request.getSession();
-                User account = (User) session.getAttribute("account");
-                int uid = account.getId();
+        HttpSession session = request.getSession();
+        User account = (User) session.getAttribute("account");
+        int uid = account.getId();
 
-                ProfileDAO pDB = new ProfileDAO();
-                Profile p = pDB.getProfileByUserId(uid);
+        ProfileDAO pDB = new ProfileDAO();
+        Profile p = pDB.getProfileByUserId(uid);
 
-                String[] rawSids = request.getParameterValues("serviceId");
-                ArrayList<WishList> wishlist = new ArrayList<>();
-                WishListDAO wldb = new WishListDAO();
+        String[] rawSids = request.getParameterValues("serviceId");
+        if (rawSids != null) {
+            ArrayList<WishList> wishlist = new ArrayList<>();
 
-                for (int i = 0; i < rawSids.length; i++) {
-                        int sid = Integer.parseInt(rawSids[i]);
-                        WishList wl = wldb.getWishListItem(uid, sid);
-                        wishlist.add(wl);
-                }
+            WishListDAO wldb = new WishListDAO();
 
-                request.setAttribute("p", p);
-                session.setAttribute("items", wishlist);
-                request.getRequestDispatcher("../reservation-contact.jsp").forward(request, response);
+            for (int i = 0; i < rawSids.length; i++) {
+                int sid = Integer.parseInt(rawSids[i]);
+                WishList wl = wldb.getWishListItem(uid, sid);
+                wishlist.add(wl);
+            }
+            session.setAttribute("items", wishlist);
         }
 
-        /**
-         * Handles the HTTP <code>POST</code> method.
-         *
-         * @param request  servlet request
-         * @param response servlet response
-         * @throws ServletException if a servlet-specific error occurs
-         * @throws IOException      if an I/O error occurs
-         */
-        @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
-                        throws ServletException, IOException {
+        request.setAttribute("p", p);
+        request.getRequestDispatcher("../reservation-contact.jsp").forward(request, response);
+    }
 
-        }
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+    }
 
 }

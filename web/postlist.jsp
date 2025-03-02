@@ -79,16 +79,16 @@
             background: #FFC321;
         }
         .btn.update {
-            background-color: #EFBB20;
-            color: black;
+            background-color: #17a2b8;
+            color: white;
             border: none;
             padding: 5px 15px;
             cursor: pointer;
             font-size: 14px;
         }
         .btn.delete {
-            background-color: #EFBB20;
-            color: black;
+            background-color: #17a2b8;
+            color: white;
             border: none;
             padding: 5px 15px;
             cursor: pointer;
@@ -149,7 +149,7 @@
 
 
         td:first-child, th:first-child {
-            width: 5%;
+            width: 4%;
             text-align: center;
         }
 
@@ -159,38 +159,34 @@
         }
 
         td:nth-child(3), th:nth-child(3) {
-            width: 18%;
+            width: 25%;
             text-align: center;
         }
 
         td:nth-child(4), th:nth-child(4) {
-            width: 18%;
+            width: 8%;
             text-align: center;
         }
         td:nth-child(5), th:nth-child(5) {
-            width: 30%;
+            width: 15%;
             text-align: center;
         }
         td:nth-child(6), th:nth-child(6) {
-            width: 13%;
+            width: 15%;
             text-align: center;
         }
 
         td:nth-child(7), th:nth-child(7) {
-            width: 13%;
+            width: 10%;
             text-align: center;
         }
         td:nth-child(8), th:nth-child(8) {
-            width: 9%;
-            text-align: center;
-        }
-        td:nth-child(9), th:nth-child(9) {
             width: 10%;
             text-align: center;
         }
 
         td:last-child, th:last-child {
-            width: 9%;
+            width: 13%;
             text-align: center;
         }
     </style>
@@ -247,181 +243,7 @@
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
         <!-- header start -->
-        <header class="ttr-header">
-            <div class="ttr-header-wrapper">
-                <!--sidebar menu toggler start -->
-                <div class="ttr-toggle-sidebar ttr-material-button">
-                    <i class="ti-close ttr-open-icon"></i>
-                    <i class="ti-menu ttr-close-icon"></i>
-                </div>
-                <!--sidebar menu toggler end -->
-                <!--logo start -->
-                <div class="ttr-logo-box">
-                    <div>
-                        <a href="/app" class="ttr-logo">
-
-                            <img alt=""  src="assets/images/logo.png" width="70" height="10">
-                        </a>
-                    </div>
-                </div>
-                <!--logo end -->
-                <div class="ttr-header-menu">
-                    <!-- header left menu start -->
-                    <ul class="ttr-header-navigation">
-                        <li>
-                            <a href="/app" class="ttr-material-button ttr-submenu-toggle">HOME</a>
-                        </li>
-                        <li>
-
-                            <div class="ttr-header-submenu">
-                                <ul>
-                                    <li><a href="../courses.html">Our Courses</a></li>
-                                    <li><a href="../event.html">New Event</a></li>
-                                    <li><a href="../membership.html">Membership</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- header left menu end -->
-                </div>
-                <div class="ttr-header-right ttr-with-seperator">
-                    <!-- header right menu start -->
-                    <ul class="ttr-header-navigation">
-                        <li>
-                            <a href="#" class="ttr-material-button ttr-search-toggle"><i class="fa fa-search"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><i class="fa fa-bell"></i></a>
-                            <div class="ttr-header-submenu noti-menu">
-                                <div class="ttr-notify-header">
-                                    <span class="ttr-notify-text-top">9 New</span>
-                                    <span class="ttr-notify-text">User Notifications</span>
-                                </div>
-                                <div class="noti-box-list">
-                                    <ul>
-                                        <li>
-                                            <span class="notification-icon dashbg-gray">
-                                                <i class="fa fa-check"></i>
-                                            </span>
-                                            <span class="notification-text">
-                                                <span>Sneha Jogi</span> sent you a message.
-                                            </span>
-                                            <span class="notification-time">
-                                                <a href="#" class="fa fa-close"></a>
-                                                <span> 02:14</span>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="notification-icon dashbg-yellow">
-                                                <i class="fa fa-shopping-cart"></i>
-                                            </span>
-                                            <span class="notification-text">
-                                                <a href="#">Your order is placed</a> sent you a message.
-                                            </span>
-                                            <span class="notification-time">
-                                                <a href="#" class="fa fa-close"></a>
-                                                <span> 7 Min</span>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="notification-icon dashbg-red">
-                                                <i class="fa fa-bullhorn"></i>
-                                            </span>
-                                            <span class="notification-text">
-                                                <span>Your item is shipped</span> sent you a message.
-                                            </span>
-                                            <span class="notification-time">
-                                                <a href="#" class="fa fa-close"></a>
-                                                <span> 2 May</span>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="notification-icon dashbg-green">
-                                                <i class="fa fa-comments-o"></i>
-                                            </span>
-                                            <span class="notification-text">
-                                                <a href="#">Sneha Jogi</a> sent you a message.
-                                            </span>
-                                            <span class="notification-time">
-                                                <a href="#" class="fa fa-close"></a>
-                                                <span> 14 July</span>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="notification-icon dashbg-primary">
-                                                <i class="fa fa-file-word-o"></i>
-                                            </span>
-                                            <span class="notification-text">
-                                                <span>Sneha Jogi</span> sent you a message.
-                                            </span>
-                                            <span class="notification-time">
-                                                <a href="#" class="fa fa-close"></a>
-                                                <span> 15 Min</span>
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
-                            <div class="ttr-header-submenu">
-                                <ul>
-                                    <li><a href="user-profile.html">My profile</a></li>
-                                    <li><a href="list-view-calendar.html">Activity</a></li>
-                                    <li><a href="mailbox.html">Messages</a></li>
-                                    <li><a href="../login.html">Logout</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="ttr-hide-on-mobile">
-                            <a href="#" class="ttr-material-button"><i class="ti-layout-grid3-alt"></i></a>
-                            <div class="ttr-header-submenu ttr-extra-menu">
-                                <a href="#">
-                                    <i class="fa fa-music"></i>
-                                    <span>Musics</span>
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-youtube-play"></i>
-                                    <span>Videos</span>
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-envelope"></i>
-                                    <span>Emails</span>
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-book"></i>
-                                    <span>Reports</span>
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-smile-o"></i>
-                                    <span>Persons</span>
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-picture-o"></i>
-                                    <span>Pictures</span>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- header right menu end -->
-                </div>
-                <!--header search panel start -->
-                <div class="ttr-search-bar">
-                    <form class="ttr-search-form">
-                        <div class="ttr-search-input-wrapper">
-                            <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
-                            <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
-                        </div>
-                        <span class="ttr-search-close ttr-search-toggle">
-                            <i class="ti-close"></i>
-                        </span>
-                    </form>
-                </div>
-                <!--header search panel end -->
-            </div>
-
-        </header>
+        <jsp:include page="dashboard/header.jsp"/>
         <!-- header end -->
         <!-- Left sidebar menu start -->
         <div class="ttr-sidebar">
@@ -567,7 +389,8 @@
                                     <button type="submit">Apply</button>
                                 </form>
                                 <form class="form-add">
-                                    <button type="button" onclick="window.location.href = 'addslider.jsp';"> 
+                                    <button type="button" onclick="window.location.href = 'post-add.jsp';">
+                                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
                                         Add New Post
                                     </button>    
                                 </form>
@@ -581,8 +404,7 @@
                                         <th>#</th>
                                         <th>Author</th>
                                         <th>Title</th>
-                                        <th>Image</th>
-                                        <th>Content</th>
+                                        <th>Status</th>
                                         <th>Created Date</th>
                                         <th>Updated Date</th>
                                         <th>Action</th>
@@ -597,8 +419,17 @@
                                             <td>${status.index + 1}</td>
                                             <td>${post.username}</td>
                                             <td>${post.title}</td>
-                                            <td><img src="${post.thumbnail}" alt=""/></td>
-                                            <td>${post.content}</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${post.status}">
+                                                        <span style="color: green;">Active</span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span style="color: red;">Inactive</span>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+
                                             <td>${post.createdDate}</td>
                                             <td>
                                                 <c:if test="${post.updatedDate != null}">
@@ -610,8 +441,7 @@
                                                 <form method="post" action="posts">
                                                     <input type="hidden" name="id" value="${post.id}">
                                                     <input type="hidden" name="status" value="${post.status ? 0 : 1}">
-                                                    <button type="submit" 
-                                                            class="btn ${post.status ? 'disable' : 'enable'}">
+                                                    <button type="submit" class="btn ${post.status ? 'disable' : 'enable'}"><i class="fa fa-refresh" aria-hidden="true"></i>
                                                         ${post.status ? 'Hide' : 'Show'}
                                                     </button>
                                                 </form>
@@ -621,15 +451,17 @@
                                                 <form method="post" action="posts/delete" style="display:inline;">
                                                     <input type="hidden" name="id" value="${post.id}">
                                                     <button type="submit" class="btn delete">
+                                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
                                                         Delete
                                                     </button>
                                                 </form>
                                             </td>
                                             <td>
-                                                <form method="get" action="posts/update" style="display:inline;">
-                                                    <input  type="hidden" name="id" value="${slider.id}">
+                                                <form method="get" action="post" style="display:inline;">
+                                                    <input  type="hidden" name="id" value="${post.id}">
                                                     <button type="submit" class="btn update" style="display:inline;">
-                                                        Edit
+                                                        <i class="fa fa-pencil" aria-hidden="true" ></i>
+                                                        View Detail
                                                     </button>
                                                 </form>
                                             </td>

@@ -89,7 +89,44 @@
                                             <h4 class="price">$${requestScope.s.price - requestScope.s.discount}</h4>
                                         </div>	
                                         <div class="course-buy-now text-center">
-                                            <a href="#" class="btn radius-xl text-uppercase">Buy Now</a>
+                                            <button type="button" class="btn btn-success mb-2" onclick="addToWishlist(${sessionScope.account.id}, ${requestScope.s.id})">
+                                                Add Appointment
+                                            </button>
+
+
+                                            <script>
+                                                function addToWishlist(userId, serviceId) {
+                                                    $.ajax({
+                                                        url: 'wishlist/add', // URL của API
+                                                        type: 'POST',
+                                                        data: {sid: serviceId,
+                                                            uid: userId}, // Gửi dữ liệu serviceId
+                                                        success: function (response) {
+                                                            Swal.fire({
+                                                                title: "Success!",
+                                                                text: "Added to wishlist successfully!",
+                                                                icon: "success",
+                                                                confirmButtonText: "OK",
+                                                                timer: 2000,
+                                                                backdrop: true
+                                                            });
+                                                        },
+                                                        error: function (xhr, status, error) {
+                                                            Swal.fire({
+                                                                title: "Error!",
+                                                                text: "Failed to add to wishlist. Please try again!",
+                                                                icon: "error",
+                                                                confirmButtonText: "OK",
+                                                                backdrop: true
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                            </script>
+
+
+
+
                                         </div>
 
                                         <div class="cours-more-info">
@@ -287,6 +324,7 @@
         <script src="assets/js/jquery.scroller.js"></script>
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/contact.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </body>
 
 </html>

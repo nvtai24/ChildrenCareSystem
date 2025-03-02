@@ -30,7 +30,7 @@ public class UserDAO extends DBContext {
         User user = null;
         PreparedStatement stm = null;
         try {
-            String sql = "SELECT `id`, `username`, `password`, `email`, `role_id` FROM `user` WHERE `username` = ? AND `password` = ?";
+            String sql = "SELECT `id`, `username`, `password`, `email`, `role_id`, `email_verified` FROM `user` WHERE `username` = ? AND `password` = ?";
             stm = dbContext.connection.prepareStatement(sql);
             stm.setString(1, username);
             stm.setString(2, password);
@@ -40,11 +40,13 @@ public class UserDAO extends DBContext {
                 int id = rs.getInt("id");
                 String email = rs.getString("email");
                 int roleId = rs.getInt("role_id");
-
+                boolean emailVerified = rs.getBoolean("email_verified");
+                
                 user.setId(id);
                 user.setUsername(username);
                 user.setEmail(email);
-
+                user.setEmailVerified(emailVerified); 
+                
                 Role r = new Role();
                 r.setId(roleId);
                 user.setRole(r);
@@ -56,11 +58,13 @@ public class UserDAO extends DBContext {
     }
 
     public boolean register(User user) {
-        String sql = "INSERT INTO `user` (`username`, `password`, `email` ,`role_id`) VALUES (?, ?, ?, 3)";
+        String sql = "INSERT INTO `user` (`username`, `password`, `email` ,`role_id`, `verification_token`, `token_expiration`, `email_verified`) VALUES (?, ?, ?, 3, ?, ?, 0)";
         try (PreparedStatement ps = dbContext.connection.prepareStatement(sql)) {
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getEmail());
+            ps.setString(4, user.getVerificationToken());
+            ps.setTimestamp(5, new Timestamp(user.getTokenExpiration().getTime()));
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -120,7 +124,114 @@ public class UserDAO extends DBContext {
             return false;
         }
     }
+    
+    public boolean verifyEmail(String token) {
+        String sql = "UPDATE `user` SET `email_verified` = 1, `verification_token` = NULL, `token_expiration` = NULL WHERE `verification_token` = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, token);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public User getUserByToken(String token) {
+        String sql = "SELECT * FROM `user` WHERE `verification_token` = ? AND `token_expiration` > NOW()";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, token);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+                user.setVerificationToken(rs.getString("verification_token"));
+                user.setEmailVerified(rs.getBoolean("email_verified"));
+                user.setTokenExpiration(rs.getTimestamp("token_expiration"));
 
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public User getUserByEmail(String email) {
+        String sql = "SELECT * FROM user WHERE email = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public boolean generatePasswordResetToken(int userId, String token, Timestamp expirationTime) {
+        String sql = "UPDATE user SET reset_token = ?, reset_token_expiration = ? WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, token);
+            ps.setTimestamp(2, expirationTime);
+            ps.setInt(3, userId);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean resetPassword(String token, String newPassword) {
+        String sql = "UPDATE user SET password = ?, reset_token = NULL, reset_token_expiration = NULL WHERE reset_token = ? AND reset_token_expiration > NOW()";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, newPassword);
+            ps.setString(2, token);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public User getUserById(int userId) {
+        String sql = "SELECT * FROM user WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setEmail(rs.getString("email"));
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public boolean updatePassword(int userId, String newPassword) {
+        String sql = "UPDATE user SET password = ? WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, newPassword);
+            ps.setInt(2, userId);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
     public ArrayList<User> listAllUsers() {
         ArrayList<User> users = new ArrayList<>();
 
@@ -200,7 +311,6 @@ public class UserDAO extends DBContext {
         ArrayList<User> list = new ArrayList<>();
         String sql = "select u.id,u.username,p.firstname,p.lastname,u.email,u.role_id,u.status,u.created_date,u.updated_date,r.role_name from user u join role r on u.role_id = r.id left join profile p on u.id = p.userid";
 
-        // Danh sách tham số
         List<Object> params = new ArrayList<>();
         if (status != -1 || roleId != -1) {
             sql += " WHERE ";

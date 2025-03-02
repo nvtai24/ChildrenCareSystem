@@ -114,6 +114,30 @@
         <servlet-name>VnpayReturnController</servlet-name>
         <servlet-class>vnpay.VnpayReturnController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PermissionController</servlet-name>
+        <servlet-class>controller.dashboard.admin.PermissionControlController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PermissionAssignController</servlet-name>
+        <servlet-class>controller.dashboard.admin.PermissionAssignController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgetPasswordController</servlet-name>
+        <servlet-class>controller.auth.ForgetPasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <servlet-class>controller.auth.ResetPasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <servlet-class>controller.auth.ChangePasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SettingDetailController</servlet-name>
+        <servlet-class>controller.dashboard.admin.SettingDetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
         <url-pattern>/error-handle</url-pattern>
@@ -283,12 +307,36 @@
         <url-pattern>/users</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ForgetPasswordController</servlet-name>
+        <url-pattern>/forget</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <url-pattern>/reset</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <url-pattern>/change</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>PaymentController</servlet-name>
         <url-pattern>/reservation/payment</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VnpayReturnController</servlet-name>
         <url-pattern>/reservation/return</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PermissionController</servlet-name>
+        <url-pattern>/permissions</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PermissionAssignController</servlet-name>
+        <url-pattern>/permissions/assign</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SettingDetailController</servlet-name>
+        <url-pattern>/setting</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>
@@ -331,7 +379,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdatePostController</servlet-name>
-        <url-pattern>/posts/update</url-pattern>
+        <url-pattern>/post</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserUpdateController</servlet-name>

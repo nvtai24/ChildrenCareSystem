@@ -23,40 +23,64 @@ import model.auth.User;
  * @author Nvtai
  */
 public class LoginController extends HttpServlet {
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("login.html").forward(request, response);
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("dzName");
         String password = request.getParameter("dzPassword");
-        
+
         UserDAO udb = new UserDAO();
         User user = udb.get(username, password);
-        
+        boolean hasError = false;
+        if (username == null || username.trim().isEmpty()) {
+            request.setAttribute("errorUsername", "Please enter your username.");
+            hasError = true;
+        }
+
+        if (password == null || password.trim().isEmpty()) {
+            request.setAttribute("errorPassword", "Please enter your password.");
+            hasError = true;
+        }
+
+        if (user == null && !hasError) {
+            request.setAttribute("errorLogin", "Incorrect username or password.");
+            hasError = true;
+        }
+
+        if (hasError) {
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+            return;
+        }
         if (user != null) {
+//            if (!user.isEmailVerified()) {
+//                request.setAttribute("error", "Tài khoản của bạn chưa được xác minh. Vui lòng kiểm tra email để xác thực.");
+//                request.getRequestDispatcher("login.jsp").forward(request, response);
+//                return;
+//            }
             ProfileDAO pDB = new ProfileDAO();
-            
+
             Profile p = pDB.getProfileByUserId(user.getId());
             user.setProfile(p);
-            
+
             FeatureDAO fDB = new FeatureDAO();
             ArrayList<String> permissions = fDB.getPermissions(user.getRole().getId());
-            
+
             request.getSession().setAttribute("permissions", permissions);
             request.getSession().setAttribute("account", user);
-            
+            request.getSession().setAttribute("password", user.getPassword());
             request.getSession().setAttribute("id", user.getId());
-            
+
             response.sendRedirect("/app");
         } else {
             response.sendRedirect("login");
         }
     }
-    
+
 }
