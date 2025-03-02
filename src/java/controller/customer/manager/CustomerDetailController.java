@@ -1,29 +1,36 @@
-package controller.dashboard.admin.user;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+package controller.customer.manager;
 
 import dal.ProfileDAO;
 import dal.RoleDAO;
 import dal.UserDAO;
 import java.io.IOException;
-import java.io.File;
-import java.sql.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import java.io.File;
+import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Profile;
-import model.auth.Role;
 import model.auth.User;
 
+/**
+ *
+ * @author milo9
+ */
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
         maxRequestSize = 1024 * 1024 * 50)   // 50MB
-public class UserUpdateController extends HttpServlet {
+public class CustomerDetailController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,7 +44,7 @@ public class UserUpdateController extends HttpServlet {
         request.setAttribute("user", user);
         request.setAttribute("roles", rDB.listAllAvailableRole());
 
-        request.getRequestDispatcher("../dashboard/userDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("dashboard/manager/customerDetail.jsp").forward(request, response);
     }
 
     @Override
@@ -49,9 +56,9 @@ public class UserUpdateController extends HttpServlet {
             String firstName = request.getParameter("firstname").trim();
             String lastName = request.getParameter("lastname").trim();
             boolean gender = "1".equals(request.getParameter("gender"));
-            String address = request.getParameter("address").trim();
+            String address = request.getParameter("address".trim());
             String phone = request.getParameter("phone").trim();
-            int roleId = Integer.parseInt(request.getParameter("role"));
+//            int roleId = Integer.parseInt(request.getParameter("role"));
             String dob = request.getParameter("dob").trim();
 
             // Lấy avatar cũ nếu không thay đổi ảnh
@@ -72,8 +79,8 @@ public class UserUpdateController extends HttpServlet {
                 // Tạo mới profile nếu chưa tồn tại
                 Profile profile = Profile.builder()
                         .user(User.builder().id(userId).build())
-                        .firstName(firstName != null ? firstName : "Unknown") // Nếu null, đặt tên mặc định
-                        .lastName(lastName != null ? lastName : "Unknown") // Nếu null, đặt tên mặc định
+                        .firstName(firstName != null ? firstName : "Unknown")
+                        .lastName(lastName != null ? lastName : "Unknown")// Nếu null, đặt tên mặc định
                         .gender(gender)
                         .dob(dateOfBirth != null ? dateOfBirth : Date.valueOf("2000-01-01")) // Nếu null, đặt ngày sinh mặc định
                         .address(address != null ? address : "Not Available") // Nếu null, đặt địa chỉ mặc định
@@ -87,7 +94,7 @@ public class UserUpdateController extends HttpServlet {
 
             // Cập nhật role của user
             UserDAO userDAO = new UserDAO();
-            userDAO.updateRoleUser(userId, roleId);
+//            userDAO.updateRoleUser(userId, roleId);
 
             // Load dữ liệu và điều hướng về trang userDetail
             RoleDAO rDB = new RoleDAO();
@@ -95,9 +102,9 @@ public class UserUpdateController extends HttpServlet {
             request.setAttribute("user", user);
             request.setAttribute("roles", rDB.listAllAvailableRole());
 
-            request.getRequestDispatcher("../dashboard/userDetail.jsp").forward(request, response);
+            request.getRequestDispatcher("../dashboard/manager/customerDetail.jsp").forward(request, response);
         } catch (Exception e) {
-            Logger.getLogger(UserUpdateController.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(CustomerDetailController.class.getName()).log(Level.SEVERE, null, e);
 
             // Xử lý lỗi và giữ lại dữ liệu form
             int userId = Integer.parseInt(request.getParameter("id"));
@@ -109,8 +116,7 @@ public class UserUpdateController extends HttpServlet {
             request.setAttribute("roles", rDB.listAllAvailableRole());
             request.setAttribute("error", e.getMessage());
 
-            response.getWriter().print(e.getMessage());
-//            request.getRequestDispatcher("../dashboard/userDetail.jsp").forward(request, response);
+            request.getRequestDispatcher("/dashboard/manager/customerDetail.jsp").forward(request, response);
         }
     }
 

@@ -18,11 +18,31 @@ import model.Category;
  */
 public class ServiceManagerDAO extends DBContext {
 
+    public boolean checkServiceName(String name) {
+        DBContext db = new DBContext();
+        String sql = "select name from service;";
+        try {
+
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                String nameService = rs.getString("name");
+                if (nameService.equalsIgnoreCase(name)) {
+                    return true;
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+
     public Service getServiceByID(int id) {
         DBContext db = new DBContext();
         Service s = new Service();
-        String sql = "Select s.id,s.category_id,c.name,s.name,s.description,s.brief_info,s.price,s.discount,s.thumbnail,s.status \n"
-                + "from service s join category c on s.category_id = c.id WHERE s.id = ?; ";
+        String sql = "Select s.id,s.category_id,c.value,s.name,s.description,s.brief_info,s.price,s.discount,s.thumbnail,s.status \n"
+                + "from service s join setting c on s.category_id = c.setting_id WHERE s.id = ?; ";
 
         try {
 
@@ -33,7 +53,7 @@ public class ServiceManagerDAO extends DBContext {
 
                 Category c = new Category();
                 c.setId(rs.getInt("category_id"));
-                c.setName(rs.getString("c.name"));
+                c.setName(rs.getString("c.value"));
                 s.setCategory(c);
                 s.setName(rs.getString("s.name"));
 
@@ -63,8 +83,8 @@ public class ServiceManagerDAO extends DBContext {
     public ArrayList<Service> list() {
         DBContext db = new DBContext();
         ArrayList<Service> list = new ArrayList<>();
-        String sql = "select s.id,s.category_id,c.name,s.name,s.description,s.brief_info,s.price,s.discount,s.thumbnail,s.status \n"
-                + "from service s join category c on s.category_id = c.id; ";
+        String sql = "select s.id,s.category_id,c.value,s.name,s.description,s.brief_info,s.price,s.discount,s.thumbnail,s.status \n"
+                + "from service s join setting c on s.category_id = c.setting_id; ";
 
         try {
 
@@ -74,7 +94,7 @@ public class ServiceManagerDAO extends DBContext {
                 Service s = new Service();
                 s.setId(rs.getInt("s.id"));
                 Category c = new Category();
-                c.setName(rs.getString("c.name"));
+                c.setName(rs.getString("c.value"));
                 s.setCategory(c);
                 s.setName(rs.getString("s.name"));
                 s.setDescription(rs.getString("s.description"));
@@ -106,8 +126,8 @@ public class ServiceManagerDAO extends DBContext {
         DBContext db = new DBContext();
         ArrayList<Service> list = new ArrayList<>();
 
-        String sql = "select s.id,s.category_id,c.name,s.name,s.description,s.brief_info,s.price,s.discount,s.thumbnail,s.status \n"
-                + "from service s join category c on s.category_id = c.id ";
+        String sql = "select s.id,s.category_id,c.value,s.name,s.description,s.brief_info,s.price,s.discount,s.thumbnail,s.status \n"
+                + "from service s join setting c on s.category_id = c.setting_id ";
         if (id != -1) {
             sql += "WHERE s.category_id = ?";
         }
@@ -127,7 +147,7 @@ public class ServiceManagerDAO extends DBContext {
                 Service s = new Service();
                 s.setId(rs.getInt("s.id"));
                 Category c = new Category();
-                c.setName(rs.getString("c.name"));
+                c.setName(rs.getString("c.value"));
                 s.setCategory(c);
                 s.setName(rs.getString("s.name"));
                 s.setDescription(rs.getString("s.description"));
@@ -153,26 +173,27 @@ public class ServiceManagerDAO extends DBContext {
         return list;
     }
 
+    // get list by info and name 
     public ArrayList<Service> getListByName(String nameService) {
         DBContext db = new DBContext();
         ArrayList<Service> list = new ArrayList<>();
 
         // Sử dụng LIKE để tìm kiếm tên dịch vụ với ký tự đại diện "%"
-        String sql = "select s.id,s.category_id,c.name,s.name,s.description,s.brief_info,s.price,s.discount,s.thumbnail,s.status \n"
-                + "from service s join category c on s.category_id = c.id WHERE s.name LIKE ? OR s.brief_info LIKE ? ;";
+        String sql = "select s.id,s.category_id,c.value,s.name,s.description,s.brief_info,s.price,s.discount,s.thumbnail,s.status \n"
+                + "from service s join setting c on s.category_id = c.setting_id WHERE s.name LIKE ? OR s.brief_info LIKE ? ;";
 
         try {
             // Thêm dấu "%" vào tên dịch vụ để tìm kiếm theo chuỗi
             nameService = "%" + nameService + "%";
 
-            ResultSet rs = db.executeQuery(sql, nameService,nameService);
+            ResultSet rs = db.executeQuery(sql, nameService, nameService);
 
             while (rs.next()) {
                 // Lấy thông tin và thêm vào danh sách
                 Service s = new Service();
                 s.setId(rs.getInt("s.id"));
                 Category c = new Category();
-                c.setName(rs.getString("c.name"));
+                c.setName(rs.getString("c.value"));
                 s.setCategory(c);
                 s.setName(rs.getString("s.name"));
                 s.setDescription(rs.getString("s.description"));
@@ -201,10 +222,10 @@ public class ServiceManagerDAO extends DBContext {
     public ArrayList<Service> getListByStatusAndCategory(double status, int categoryId) {
         DBContext db = new DBContext();
         ArrayList<Service> list = new ArrayList<>();
-        String sql = "SELECT s.id, s.category_id, c.name AS category_name, s.name, s.description, "
+        String sql = "SELECT s.id, s.category_id, c.value AS category_name, s.name, s.description, "
                 + "s.brief_info, s.price, s.discount, s.thumbnail, s.status "
                 + "FROM service s "
-                + "JOIN category c ON s.category_id = c.id";
+                + "JOIN setting c ON s.category_id = c.setting_id";
 
         // Danh sách tham số
         List<Object> params = new ArrayList<>();
@@ -281,8 +302,8 @@ public class ServiceManagerDAO extends DBContext {
     public ArrayList<Service> getListByStatus(double status) {
         DBContext db = new DBContext();
         ArrayList<Service> list = new ArrayList<>();
-        String sql = "select s.id,s.category_id,c.name,s.name,s.description,s.brief_info,s.price,s.discount,s.thumbnail,s.status \n"
-                + "from service s join category c on s.category_id = c.id";
+        String sql = "select s.id,s.category_id,c.value,s.name,s.description,s.brief_info,s.price,s.discount,s.thumbnail,s.status \n"
+                + "from service s join setting c on s.category_id = c.setting_id";
 
         if (status != -1) {
             sql += " WHERE s.status = ?";
@@ -309,7 +330,7 @@ public class ServiceManagerDAO extends DBContext {
                 Service s = new Service();
                 s.setId(rs.getInt("s.id"));
                 Category c = new Category();
-                c.setName(rs.getString("c.name"));
+                c.setName(rs.getString("c.value"));
                 s.setCategory(c);
                 s.setName(rs.getString("s.name"));
                 s.setDescription(rs.getString("s.description"));
@@ -331,86 +352,6 @@ public class ServiceManagerDAO extends DBContext {
                 }
                 if (ps != null) {
                     ps.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        return list;
-    }
-
-    public ArrayList<Service> getServiceListBySortByOrder(String field, boolean order, double status, int categoryId) {
-        DBContext db = new DBContext();
-        ArrayList<Service> list = new ArrayList<>();
-
-        // Bắt đầu câu lệnh SQL
-        String sql = "SELECT s.id, s.category_id, c.name AS category_name, s.name, s.description, "
-                + "s.brief_info, s.price, s.discount, s.thumbnail, s.status "
-                + "FROM service s "
-                + "JOIN category c ON s.category_id = c.id";
-
-        // Danh sách tham số để tránh lỗi WHERE lặp
-        List<Object> params = new ArrayList<>();
-        if (status != -1 || categoryId != -1) {
-            sql += " WHERE ";
-            if (status != -1) {
-                sql += " s.status = ? ";
-                params.add(status);
-            }
-            if (categoryId != -1) {
-                if (!params.isEmpty()) {
-                    sql += " AND ";
-                }
-                sql += " s.category_id = ? ";
-                params.add(categoryId);
-            }
-        }
-
-        // Đảm bảo field hợp lệ trước khi thêm ORDER BY
-        String field2 = "s." + field;
-        sql += " ORDER BY " + field2 + (order ? " ASC" : " DESC");
-
-        ResultSet rs = null;
-        try {
-            PreparedStatement stmt = db.connection.prepareStatement(sql);
-
-            // Gán tham số cho câu SQL
-            for (int i = 0; i < params.size(); i++) {
-                if (params.get(i) instanceof Integer) {
-                    stmt.setInt(i + 1, (Integer) params.get(i));
-                } else if (params.get(i) instanceof Double) {
-                    stmt.setDouble(i + 1, (Double) params.get(i));
-                }
-            }
-
-            rs = stmt.executeQuery();
-
-            // Duyệt qua kết quả và ánh xạ vào đối tượng Service
-            while (rs.next()) {
-                Service s = new Service();
-                s.setId(rs.getInt("id"));
-
-                Category c = new Category();
-                c.setName(rs.getString("category_name")); // Sử dụng alias để tránh lỗi
-                s.setCategory(c);
-
-                s.setName(rs.getString("name"));
-                s.setDescription(rs.getString("description"));
-                s.setBriefInfo(rs.getString("brief_info"));
-                s.setPrice(rs.getDouble("price"));
-                s.setDiscount(rs.getDouble("discount"));
-                s.setThumbnail(rs.getString("thumbnail"));
-                s.setStatus(rs.getDouble("status"));
-
-                list.add(s);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);

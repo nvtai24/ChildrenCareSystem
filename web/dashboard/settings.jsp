@@ -144,7 +144,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <button type="submit" class="btn green mb-2">
-                                                <a>
+                                                <a href="setting?id=${s.id}">
                                                     <i class="fa fa-pencil" aria-hidden="true"></i> Edit
                                                 </a>
                                             </button>

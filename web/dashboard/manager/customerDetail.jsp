@@ -1,7 +1,7 @@
 <%-- 
-    Document   : UserDetail
-    Created on : Jan 23, 2025, 11:43:25 PM
-    Author     : Admin
+    Document   : customerDetail
+    Created on : Feb 19, 2025, 10:55:48 PM
+    Author     : milo9
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -118,23 +118,23 @@
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
         <!-- header start -->
-        <jsp:include page="header.jsp"/>         
+        <jsp:include page="../../dashboard/header.jsp"/>         
         <!-- header end -->
         <!-- Left sidebar menu start -->
-        <jsp:include page="left-sidebar.jsp"/>                         
+        <jsp:include page="../../dashboard/left-sidebar.jsp"/>                           
         <!-- Left sidebar menu end -->
 
         <!--Main container start -->
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">User Detail</h4>
+                    <h4 class="breadcrumb-title">Customer Detail</h4>
                     <ul class="db-breadcrumb-list">
-                        <li><a href="../users"><i class="fa fa-home"></i>User List</a></li>
+                        <li><a href="customers"><i class="fa fa-home"></i>Customer List</a></li>
                         <li>Edit</li>
                     </ul>
                 </div>    
-                <form action="../users/update" method="POST" enctype="multipart/form-data">
+                <form action="customer" method="POST" enctype="multipart/form-data">
                     <div class="container">
                         <!-- Left Side: Profile Info and Avatar -->
 
@@ -153,7 +153,7 @@
                             <!-- Hidden File Input -->
                             <input type="file" id="avatarInput" name="avatar" accept="image/*" style="display: none;" onchange="previewAvatar(event)">                            
                             <p><strong>Role </strong>
-                                <select name="role">
+                                <select name="role" disabled>
                                     <c:forEach items="${roles}" var="r">
                                         <option value="${r.id}" ${user.role.id == r.id ? 'selected' : ''}>${r.roleName}</option>                                      
                                     </c:forEach>
@@ -165,18 +165,19 @@
                         <!-- Right Side: Edit User Details and Change Password -->
                         <div class="profile-right">
                             <!-- Edit Details -->
+                            <!-- First Name -->
                             <div class="form-group">
-                                <label for="FirstName">First name</label>
-                                <input type="text" class="form-control" id="firstName" name="firstname" value="${user.profile.firstName}">
+                                <label for="FullName">First name</label>
+                                <input type="text" class="form-control" id="FullName" name="firstname" value="${user.profile.firstName}">
                                 <small id="firstNameError" class="error-text text-danger"></small>
                             </div>
 
+                            <!-- Last Name -->
                             <div class="form-group">
                                 <label for="LastName">Last name</label>
-                                <input type="text" class="form-control" id="lastName" name="lastname" value="${user.profile.lastName}">
+                                <input type="text" class="form-control" id="LastName" name="lastname" value="${user.profile.lastName}">
                                 <small id="lastNameError" class="error-text text-danger"></small>
                             </div>
-
                             <div class="form-group">
                                 <label for="gender">Gender</label> 
                                 <input type="radio" name="gender" value="1" ${user.profile.gender  ? "checked" : ""}> Male
@@ -184,23 +185,23 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="dob">Date of Birth</label>
-                                <input class="form-control" type="date" id="dob" name="dob" value="${user.profile.dob}">
-                                <small id="dobError" class="error-text text-danger"></small>
+                                <label for="gender">Birthday </label> 
+                                <input class="form-control" type="date" value="${user.profile.dob}" name="dob">
                             </div>
 
+                            <!-- Address -->
                             <div class="form-group">
                                 <label for="address">Address</label>
-                                <input type="text" class="form-control" id="address" name="address" value="${user.profile.address}">
+                                <input type="text" class="form-control" name="address" value="${user.profile.address}">
                                 <small id="addressError" class="error-text text-danger"></small>
                             </div>
 
+                            <!-- Phone Number -->
                             <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input type="text" class="form-control" id="phone" name="phone" value="${user.profile.phone}">
+                                <label for="Phone">Phone number</label>
+                                <input type="text" class="form-control" id="Phone" name="phone" value="${user.profile.phone}">
                                 <small id="phoneError" class="error-text text-danger"></small>
                             </div>
-
 
                             <button type="submit" class="btn btn-success btn-update">Save</button>
                         </div>
@@ -230,12 +231,24 @@
         <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
         <script src='${pageContext.request.contextPath}/assets2/vendors/switcher/switcher.js'></script>
         <script>
+
+                                function previewAvatar(event) {
+                                    const input = event.target;
+                                    if (input.files && input.files[0]) {
+                                        const reader = new FileReader();
+                                        reader.onload = function (e) {
+                                            document.getElementById('avatarPreview').src = e.target.result;
+                                        };
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
+                                }
+
                                 $(document).ready(function () {
                                     function validateForm() {
-                                        var isValid = true;
+                                        var isValid = true; 
 
-                                        // Validate First Name
-                                        var firstName = $("#firstName").val().trim();
+                                        // check First Name
+                                        var firstName = $("#FullName").val().trim();
                                         if (firstName === "") {
                                             $("#firstNameError").text("First name cannot be empty.");
                                             isValid = false;
@@ -243,8 +256,8 @@
                                             $("#firstNameError").text("");
                                         }
 
-                                        // Validate Last Name
-                                        var lastName = $("#lastName").val().trim();
+                                        // check Last Name
+                                        var lastName = $("#LastName").val().trim();
                                         if (lastName === "") {
                                             $("#lastNameError").text("Last name cannot be empty.");
                                             isValid = false;
@@ -252,18 +265,8 @@
                                             $("#lastNameError").text("");
                                         }
 
-                                        // Validate Date of Birth (must be before today)
-                                        var dob = $("#dob").val();
-                                        
-                                        if (dob === "" ) {
-                                            $("#dobError").text("Date of birth cannot be empty");
-                                            isValid = false;
-                                        } else {
-                                            $("#dobError").text("");
-                                        }
-
-                                        // Validate Address
-                                        var address = $("#address").val().trim();
+                                        // check Address
+                                        var address = $("input[name='address']").val().trim();
                                         if (address === "") {
                                             $("#addressError").text("Address cannot be empty.");
                                             isValid = false;
@@ -271,43 +274,46 @@
                                             $("#addressError").text("");
                                         }
 
-                                        // Validate Phone Number (7-15 digits, can include "-")
-                                        var phone = $("#phone").val().trim();
+                                        // check Phone Number
+                                        var phone = $("#Phone").val().trim();
                                         var phoneRegex = /^(?!-)(?!.*--)[0-9-]{7,15}(?<!-)$/;
-                                        if (!phoneRegex.test(phone)) {
+                                        if (phone === "") {
+                                            $("#phoneError").text("Phone number cannot be empty.");
+                                            isValid = false;
+                                        } else if (!phoneRegex.test(phone)) {
                                             $("#phoneError").text("Phone number must be 7-15 digits and can contain '-' (not consecutive).");
                                             isValid = false;
                                         } else {
                                             $("#phoneError").text("");
                                         }
 
+                                        // check
+                                        var dob = $("input[name='dob']").val();
+                                       
+
+                                        if (dob === "") {
+                                            $("#dobError").text("Date of birth cannot be empty.");
+                                            isValid = false;
+                                        } else {
+                                            $("#dobError").text("");
+                                        }
+
                                         return isValid;
                                     }
 
-                                    // Validate on input change
-                                    $("#firstName, #lastName, #dob, #address, #phone").on("input change", function () {
+                                    // Last check after submit
+                                    $("#FullName, #LastName, input[name='address'], #Phone, input[name='dob']").on("input", function () {
                                         validateForm();
                                     });
 
-                                    // Prevent form submission if validation fails
                                     $("form").on("submit", function (e) {
                                         if (!validateForm()) {
-                                            e.preventDefault();
-                                            alert("Please correct the errors before submitting.");
+                                            e.preventDefault(); // prevent if fail
+                                            alert("Please fill in all required fields correctly before submitting.");
                                         }
                                     });
-
-                                    function previewAvatar(event) {
-                                        var input = event.target;
-                                        if (input.files && input.files[0]) {
-                                            var reader = new FileReader();
-                                            reader.onload = function (e) {
-                                                $("#avatarPreview").attr("src", e.target.result);
-                                            };
-                                            reader.readAsDataURL(input.files[0]);
-                                        }
-                                    }
                                 });
+
         </script>
     </body>
 </html>

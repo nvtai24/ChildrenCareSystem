@@ -45,14 +45,23 @@ public class ServiceCreateController extends HttpServlet {
         CategoryDAO dbCategory = new CategoryDAO();
         List<Category> list = dbCategory.getAllAvailabelCategories();
         request.setAttribute("listCategory", list);
+        // check exist service name
+        String action = request.getParameter("action");
+        if ("checkServiceName".equals(action)) {
+            String serviceName = request.getParameter("name");
+            boolean exists = db.checkServiceName(serviceName);
+            response.getWriter().write(exists ? "exists" : "available");
+            return;
+        }
+        
         // Lấy dữ liệu từ form
-        String raw_categoryId = request.getParameter("idCategory");
-        String raw_name = request.getParameter("name");
-        String raw_price = request.getParameter("price");
-        String raw_discount = request.getParameter("discount");
-        String raw_description = request.getParameter("description");
-        String raw_status = request.getParameter("status");
-        String raw_briefInfo = request.getParameter("briefInfo");
+        String raw_categoryId = request.getParameter("idCategory").trim();
+        String raw_name = request.getParameter("name").trim();
+        String raw_price = request.getParameter("price").trim();
+        String raw_discount = request.getParameter("discount").trim();
+        String raw_description = request.getParameter("description").trim();
+        String raw_status = request.getParameter("status").trim();
+        String raw_briefInfo = request.getParameter("briefInfo").trim();
 
         // Xử lý upload file ảnh
         Part filePart = request.getPart("thumbnail"); // Lấy file ảnh từ request
@@ -93,7 +102,7 @@ public class ServiceCreateController extends HttpServlet {
         }
 
         // Tạo URL để lưu vào database
-        String fileURL =  "assets/images/services/" + fileName;
+        String fileURL = "assets/images/services/" + fileName;
 
         // Khởi tạo đối tượng Service
         Service s = new Service();

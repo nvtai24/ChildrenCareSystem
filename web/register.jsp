@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,7 +96,7 @@
                                         <div class="input-group"> 
                                             <label>Confirm Password</label>
                                             <input type="password" class="form-control" required id="confirmPassword">
-                                            <small id="passwordError" style="color:red;"></small><br>
+                                            <small id="confirmPasswordError" style="color:red;"></small><br>
                                         </div>
                                     </div>
                                 </div>
@@ -103,16 +104,18 @@
                                 <div class="col-lg-12 m-b30">
                                     <button name="submit" type="submit" value="Submit" class="btn button-md">Sign Up</button>
                                 </div>
-                                <div class="col-lg-12">
-                                    <p id="successMessage" class="success-text" style="display: none;">? Registration successful! Check your email to verify your account.</p>
-                                </div>
-                                <div class="col-lg-12">
-                                    <h6>Sign Up with Social media</h6>
-                                    <div class="d-flex">
-                                        <!--                                        <a class="btn flex-fill m-r5 facebook" href="#"><i class="fa fa-facebook"></i>Facebook</a>-->
-                                        <a class="btn flex-fill m-l5 google-plus" href="#"><i class="fa fa-google-plus"></i>Google</a>
+                                <c:if test="${not empty successMessage}">
+                                    <div class="alert alert-success" style="color: green; font-size: 14px;">
+                                        ${successMessage}
                                     </div>
-                                </div>
+                                </c:if>
+                                <!--                                <div class="col-lg-12">
+                                                                    <h6>Sign Up with Social media</h6>
+                                                                    <div class="d-flex">
+                                                                                                                <a class="btn flex-fill m-r5 facebook" href="#"><i class="fa fa-facebook"></i>Facebook</a>
+                                                                        <a class="btn flex-fill m-l5 google-plus" href="#"><i class="fa fa-google-plus"></i>Google</a>
+                                                                    </div>
+                                                                </div>-->
                             </div>
                         </form>
                     </div>
@@ -140,11 +143,11 @@
         $(document).ready(function () {
             $("#username").on("input", function () {
                 var username = $(this).val();
-                var usernameRegex = /^[A-Za-z0-9]{5,30}$/; 
+                var usernameRegex = /^[A-Za-z0-9]{5,30}$/;
                 if (!usernameRegex.test(username)) {
                     $("#usernameError").text("Username must be 5-30 characters and cannot contain spaces.");
                 } else {
-                    $("#usernameError").text(""); 
+                    $("#usernameError").text("");
                     $.ajax({
                         url: "register",
                         type: "POST",
@@ -166,7 +169,7 @@
                 if (!emailRegex.test(email)) {
                     $("#emailError").text("Invalid email format.");
                 } else {
-                    $("#emailError").text(""); 
+                    $("#emailError").text("");
                     $.ajax({
                         url: "register",
                         type: "POST",
@@ -184,11 +187,11 @@
 
             $("#password").on("input", function () {
                 var password = $(this).val();
-                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,15}$/; 
+                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,15}$/;
                 if (!passwordRegex.test(password)) {
                     $("#passwordError").text("Password must be 8-15 characters with at least one uppercase letter, one lowercase letter, and one number.");
                 } else {
-                    $("#passwordError").text(""); 
+                    $("#passwordError").text("");
                 }
             });
 
@@ -198,7 +201,7 @@
                 if (password !== confirmPassword) {
                     $("#confirmPasswordError").text("Passwords do not match!");
                 } else {
-                    $("#confirmPasswordError").text(""); 
+                    $("#confirmPasswordError").text("");
                 }
             });
         });

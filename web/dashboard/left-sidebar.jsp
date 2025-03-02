@@ -15,35 +15,35 @@ Nvtai --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
         </li>
 
         <li>
-          <a href="settings" class="ttr-material-button">
+          <a href="/app/settings" class="ttr-material-button">
             <span class="ttr-icon"><i class="fa fa-cogs"></i></span>
             <span class="ttr-label">Setting</span>
           </a>
         </li>
 
         <li>
-          <a href="reservations" class="ttr-material-button">
+          <a href="/app/reservations" class="ttr-material-button">
             <span class="ttr-icon"><i class="fa fa-calendar"></i></span>
             <span class="ttr-label">Reservation</span>
           </a>
         </li>
 
         <li>
-          <a href="services/manager" class="ttr-material-button">
+          <a href="/app/services/manager" class="ttr-material-button">
             <span class="ttr-icon"><i class="fa fa-medkit"></i></span>
             <span class="ttr-label">Service</span>
           </a>
         </li>
 
         <li>
-          <a href="feedbacks" class="ttr-material-button">
+          <a href="/app/feedbacks" class="ttr-material-button">
             <span class="ttr-icon"><i class="fa fa-comments"></i></span>
             <span class="ttr-label">Feedback</span>
           </a>
         </li>
 
         <li>
-          <a href="posts" class="ttr-material-button">
+          <a href="/app/posts" class="ttr-material-button">
             <span class="ttr-icon"><i class="fa fa-tags"></i></span>
             <span class="ttr-label">Post</span>
           </a>
@@ -59,7 +59,7 @@ Nvtai --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
         </li>
 
         <li>
-          <a href="customers" class="ttr-material-button">
+          <a href="/app/customers" class="ttr-material-button">
             <span class="ttr-icon"><i class="fa fa-address-book"></i></span>
             <span class="ttr-label">Customer</span>
           </a>

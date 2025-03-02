@@ -23,6 +23,7 @@ public class ServiceUpdateController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         ServiceManagerDAO db = new ServiceManagerDAO();
         CategoryDAO dbCategory = new CategoryDAO();
 
@@ -38,10 +39,19 @@ public class ServiceUpdateController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        ServiceManagerDAO db = new ServiceManagerDAO();
+        CategoryDAO dbCategory = new CategoryDAO();
+        String action = request.getParameter("action");
+        if ("checkServiceName".equals(action)) {
+            String serviceName = request.getParameter("name");
+            boolean exists = db.checkServiceName(serviceName);
+            response.getWriter().write(exists ? "exists" : "available");
+            return;
+        }
         try {
             Service service = extractServiceFromRequest(request);
-            ServiceManagerDAO db = new ServiceManagerDAO();
+
             db.updateService(service);
             HttpSession session = request.getSession(false); // Không tạo mới nếu chưa có session
             if (session != null) {
@@ -50,8 +60,7 @@ public class ServiceUpdateController extends HttpServlet {
             }
             response.sendRedirect("../services/manager");
         } catch (Exception e) {
-            ServiceManagerDAO db = new ServiceManagerDAO();
-            CategoryDAO dbCategory = new CategoryDAO();
+
             int id = Integer.parseInt(request.getParameter("id"));
 
             Service service = db.getServiceByID(id);
@@ -116,7 +125,7 @@ public class ServiceUpdateController extends HttpServlet {
         String filePath = uploadPath + File.separator + fileName;
         filePart.write(filePath);
 
-        return  "assets/images/services/" + fileName;
+        return "assets/images/services/" + fileName;
     }
 
     private String getFileName(Part part) {
