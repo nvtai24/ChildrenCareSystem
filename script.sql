@@ -205,7 +205,7 @@ DROP TABLE IF EXISTS `profile`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `profile` (
   `userid` int NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `firstname` varchar(255) DEFAULT NULL,
   `lastname` varchar(100) DEFAULT NULL,
   `gender` tinyint(1) DEFAULT NULL,
   `dob` date DEFAULT NULL,
@@ -433,7 +433,7 @@ CREATE TABLE `setting` (
 
 LOCK TABLES `setting` WRITE;
 /*!40000 ALTER TABLE `setting` DISABLE KEYS */;
-INSERT INTO `setting` VALUES (2,1,'General Checkup','Regular health checkups for 1children to monitor growth.',_binary '\0'),(3,1,'Vaccination','Vaccination services to protect children from various diseases.',_binary ''),(4,1,'Nutrition','Nutritional advice and dietary plans for children.',_binary ''),(5,1,'Dental Care','Dental health services for children, including checkups and treatments.',_binary ''),(6,1,'Emergency Care','Emergency medical services for children.',_binary ''),(7,1,'Physical Therapy','Physical therapy services to support children with movement issues.',_binary ''),(8,1,'Mental Health','Mental health support and counseling for children.',_binary ''),(9,2,'Health Tips','Posts related to health tips for children.',_binary '\0'),(10,2,'Vaccination','Posts related to vaccination information.',_binary ''),(11,2,'Nutrition','Posts related to child nutrition.',_binary '');
+INSERT INTO `setting` VALUES (2,1,'General Checkup11111','Regular health checkups for 1children to monitor growth.1111',_binary ''),(3,1,'Vaccination','Vaccination services to protect children from various diseases.',_binary ''),(4,1,'Nutrition','Nutritional advice and dietary plans for children.',_binary ''),(5,1,'Dental Care','Dental health services for children, including checkups and treatments.',_binary ''),(6,1,'Emergency Care','Emergency medical services for children.',_binary ''),(7,1,'Physical Therapy','Physical therapy services to support children with movement issues.',_binary ''),(8,1,'Mental Health','Mental health support and counseling for children.',_binary ''),(9,2,'Health Tips','Posts related to health tips for children.',_binary '\0'),(10,2,'Vaccination','Posts related to vaccination information.',_binary ''),(11,2,'Nutrition','Posts related to child nutrition.',_binary '');
 /*!40000 ALTER TABLE `setting` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -521,7 +521,7 @@ CREATE TABLE `user` (
   KEY `IX_User_Email` (`email`),
   KEY `IX_User_Username` (`username`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -530,7 +530,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','Doanh140904','admin@childrencare.com',0,NULL,NULL,1,1,'2025-01-31 23:46:55','2025-02-27 11:57:38',NULL,NULL),(2,'doctor1','123','doctor1@childrencare.com',0,NULL,NULL,2,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(3,'parent1','123','parent1@childrencare.com',0,NULL,NULL,3,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(4,'staff1','123','staff1@childrencare.com',0,NULL,NULL,4,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(5,'parent2','1234','parent2@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:27:52','2025-02-27 08:00:54',NULL,NULL),(6,'parent3','123','parent3@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:28:17','2025-02-10 09:19:58',NULL,NULL),(7,'parent4','123','parent$@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:28:38','2025-02-10 09:19:58',NULL,NULL),(8,'testuser','password123','testuser@example.com',1,NULL,NULL,3,1,'2025-02-24 10:38:04','2025-02-24 10:43:02',NULL,NULL),(10,'testuse1r','password123','testuser1@example.com',0,'abcd1234efgh5678','2025-03-01 12:00:00',3,1,'2025-02-24 10:44:03',NULL,NULL,NULL),(22,'parent12','Doanh140904','dominhchi235@gmail.com',1,NULL,NULL,3,1,'2025-02-26 22:42:28','2025-02-26 22:44:26',NULL,NULL);
+INSERT INTO `user` VALUES (1,'admin','Doanh140904','admin@childrencare.com',0,NULL,NULL,1,1,'2025-01-31 23:46:55','2025-02-27 11:57:38',NULL,NULL),(2,'doctor1','123','doctor1@childrencare.com',0,NULL,NULL,2,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(3,'parent1','123','parent1@childrencare.com',0,NULL,NULL,3,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(4,'staff1','123','staff1@childrencare.com',0,NULL,NULL,4,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(5,'parent2','1234','parent2@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:27:52','2025-02-27 08:00:54',NULL,NULL),(6,'parent3','123','parent3@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:28:17','2025-02-10 09:19:58',NULL,NULL),(7,'parent4','123','parent$@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:28:38','2025-02-10 09:19:58',NULL,NULL),(8,'testuser','password123','testuser@example.com',1,NULL,NULL,3,1,'2025-02-24 10:38:04','2025-02-24 10:43:02',NULL,NULL),(10,'testuse1r','password123','testuser1@example.com',0,'abcd1234efgh5678','2025-03-01 12:00:00',3,1,'2025-02-24 10:44:03',NULL,NULL,NULL),(22,'parent12','Minhanh140904','dominhchi235@gmail.com',1,NULL,NULL,3,1,'2025-02-26 22:42:28','2025-03-02 21:21:06',NULL,NULL),(23,'parent123','Doanh140904','anhdmhe181481@fpt.edu.vn',1,NULL,NULL,3,1,'2025-03-02 21:23:35','2025-03-02 21:25:04',NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -571,4 +571,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-02 21:16:55
+-- Dump completed on 2025-03-02 22:29:17
