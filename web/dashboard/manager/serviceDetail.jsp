@@ -3,7 +3,7 @@
     Created on : Jan 23, 2025, 11:43:25 PM
     Author     : Admin
 --%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -253,6 +253,7 @@
         <div class="ttr-overlay"></div>
 
         <!-- External JavaScripts -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="${pageContext.request.contextPath}/assets2/js/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/popper.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
@@ -270,9 +271,19 @@
         <script src="${pageContext.request.contextPath}/assets2/vendors/chart/chart.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
         <script src='${pageContext.request.contextPath}/assets2/vendors/switcher/switcher.js'></script>
-        <c:if test="${requestScope.error != null}">
+        <c:if test="${not empty notification}">
             <script>
-                                                                    alert('Cannot update please try again');
+                                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                                        Swal.fire({
+                                                                            title: "<c:out value='${notification eq "successfull" ? "Success!" : "Oops..."}' />",
+                                                                            text: "<c:out value='${notification eq "successfull" ? "Customer has been created successfully." : "Something went wrong!"}' />",
+                                                                            icon: "<c:out value='${notification eq "successfull" ? "success" : "error"}' />",
+                                                                            confirmButtonText: "OK",
+                                                                            didOpen: () => {
+                                                                                document.querySelector(".swal2-select")?.remove();
+                                                                            }
+                                                                        });
+                                                                    });
             </script>
         </c:if>
         <script>
@@ -328,7 +339,12 @@
                 $("form").on("submit", function (e) {
                     if (!validateForm()) {
                         e.preventDefault();
-                        alert("Please correct the errors before submitting.");
+                        Swal.fire({
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            icon: 'error',
+                            confirmButtonText: 'Try Again'
+                        });
                     }
                 });
             });

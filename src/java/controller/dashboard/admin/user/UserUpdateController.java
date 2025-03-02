@@ -107,9 +107,8 @@ public class UserUpdateController extends HttpServlet {
             User user = uDB.get(userId);
             request.setAttribute("user", user);
             request.setAttribute("roles", rDB.listAllAvailableRole());
-            request.setAttribute("error", e.getMessage());
             request.setAttribute("notification", "false");
-            response.getWriter().print(e.getMessage());
+            
             request.getRequestDispatcher("../dashboard/userDetail.jsp").forward(request, response);
         }
     }

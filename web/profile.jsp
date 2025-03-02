@@ -3,7 +3,7 @@
     Created on : Jan 25, 2025, 10:43:09 PM
     Author     : Nvtai
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,6 +54,7 @@
                                             <label class="col-sm-4 col-form-label">First Name</label>
                                             <div class="col-sm-8">
                                                 <input class="form-control" type="text" value="${sessionScope.account.profile.firstName}" name="firstname">
+                                                <small id="firstNameError" class="text-danger"></small>
                                             </div>
                                         </div>
 
@@ -61,6 +62,7 @@
                                             <label class="col-sm-4 col-form-label">Last Name</label>
                                             <div class="col-sm-8">
                                                 <input class="form-control" type="text" value="${sessionScope.account.profile.lastName}" name="lastname">
+                                                <small id="lastNameError" class="text-danger"></small>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
@@ -80,18 +82,21 @@
                                             <label class="col-sm-4 col-form-label">Birthday</label>
                                             <div class="col-sm-8">
                                                 <input class="form-control" type="date" value="${sessionScope.account.profile.dob}" name="dob">
+                                                <small id="dobError" class="text-danger"></small>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
                                             <label class="col-sm-4 col-form-label">Address</label>
                                             <div class="col-sm-8">
                                                 <input class="form-control" type="text" value="${sessionScope.account.profile.address}" name="address">
+                                                <small id="addressError" class="text-danger"></small>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
                                             <label class="col-sm-4 col-form-label">Phone Number</label>
                                             <div class="col-sm-8">
                                                 <input class="form-control" type="text" value="${sessionScope.account.profile.phone}" name="phone">
+                                                <small id="phoneError" class="text-danger"></small>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
@@ -118,7 +123,7 @@
         </main>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
                                                 // JavaScript để thay đổi ảnh đại diện ngay khi người dùng chọn ảnh mới
@@ -152,9 +157,7 @@
             $(document).ready(function () {
                 $(".edit-profile").submit(function (event) {
                     event.preventDefault();
-
                     var formData = new FormData(this);
-
                     $.ajax({
                         url: "ajax-profile",
                         type: "POST",
@@ -162,7 +165,7 @@
                         processData: false,
                         contentType: false,
                         success: function (response) {
-                            alert("Profile updated successfully!");
+//                            alert("Profile updated successfully!");
 
                             if (formData.get("avatar").name) {
                                 const reader = new FileReader();
@@ -176,6 +179,84 @@
                             alert("Update failed: " + xhr.responseText);
                         }
                     });
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                function validateForm() {
+                    var isValid = true;
+                    // Validate First Name
+                    var firstName = $("input[name='firstname']").val().trim();
+                    if (firstName === "") {
+                        $("#firstNameError").text("First name cannot be empty.");
+                        isValid = false;
+                    } else {
+                        $("#firstNameError").text("");
+                    }
+
+                    // Validate Last Name
+                    var lastName = $("input[name='lastname']").val().trim();
+                    if (lastName === "") {
+                        $("#lastNameError").text("Last name cannot be empty.");
+                        isValid = false;
+                    } else {
+                        $("#lastNameError").text("");
+                    }
+
+                    // Validate Date of Birth (must be before today)
+                    var dob = $("input[name='dob']").val();
+                    if (dob === "") {
+                        $("#dobError").text("Date of birth cannot be empty.");
+                        isValid = false;
+                    } else {
+                        $("#dobError").text("");
+                    }
+
+                    // Validate Address
+                    var address = $("input[name='address']").val().trim();
+                    if (address === "") {
+                        $("#addressError").text("Address cannot be empty.");
+                        isValid = false;
+                    } else {
+                        $("#addressError").text("");
+                    }
+
+                    // Validate Phone Number (7-15 digits, can include "-")
+                    var phone = $("input[name='phone']").val().trim();
+                    var phoneRegex = /^(?!-)(?!.*--)[0-9-]{7,15}(?<!-)$/;
+                    if (!phoneRegex.test(phone)) {
+                        $("#phoneError").text("Phone number must be 7-15 digits and can contain '-' (not consecutive).");
+                        isValid = false;
+                    } else {
+                        $("#phoneError").text("");
+                    }
+
+                    return isValid;
+                }
+
+                // Validate on input change
+                $("input[name='firstname'], input[name='lastname'], input[name='dob'], input[name='address'], input[name='phone']").on("input change", function () {
+                    validateForm();
+                });
+                // Prevent form submission if validation fails
+                $(".edit-profile").on("submit", function (e) {
+                    if (!validateForm()) {
+                        e.preventDefault();
+                        Swal.fire({
+                            title: 'Oops...',
+                            text: 'Please correct the errors before submitting!',
+                            icon: 'error',
+                            confirmButtonText: 'Try Again'
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Profile updated successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                    }
                 });
             });
         </script>

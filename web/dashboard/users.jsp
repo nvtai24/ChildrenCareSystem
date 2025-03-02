@@ -172,7 +172,7 @@
                                 <td>${u.createdDate}</td>
                                 <td>${u.updatedDate}</td>
                                 <td class="text-center text-nowrap">
-                                    <form action="users" method="POST" onsubmit="return confirmChangeStatus()" class="d-inline">
+                                    <form action="users" method="POST" onsubmit="confirmChangeStatus(event)" class="d-inline">
                                         <input type="hidden" name="id" value="${u.id}">
                                         <input type="hidden" name="status" value="${u.status}">
                                         <input type="hidden" name="action" value="change">
@@ -194,6 +194,7 @@
         <div class="ttr-overlay"></div>
 
         <!-- External JavaScripts -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="assets2/js/jquery.min.js"></script>
         <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
@@ -216,8 +217,25 @@
         <!-- DataTables  -->
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script>
-                                        function confirmChangeStatus() {
-                                            return confirm("Are you sure you want to change the status?");
+                                        function confirmChangeStatus(event) {
+                                            event.preventDefault();
+
+                                            Swal.fire({
+                                                title: "Are you sure?",
+                                                text: "Do you really want to change the status?",
+                                                icon: "warning",
+                                                showCancelButton: true,
+                                                confirmButtonColor: "#3085d6",
+                                                cancelButtonColor: "#d33",
+                                                confirmButtonText: "Yes, change it!",
+                                                cancelButtonText: "No, cancel!"
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    event.target.submit();
+                                                }
+                                            });
+
+                                            return false;
                                         }
                                         $(document).ready(function () {
                                             $('[data-toggle="tooltip"]').tooltip();

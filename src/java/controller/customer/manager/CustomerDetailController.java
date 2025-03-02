@@ -114,7 +114,7 @@ public class CustomerDetailController extends HttpServlet {
             User user = uDB.get(userId);
             request.setAttribute("user", user);
             request.setAttribute("roles", rDB.listAllAvailableRole());
-            request.setAttribute("error", e.getMessage());
+            request.setAttribute("notification", "false");
 
             request.getRequestDispatcher("/dashboard/manager/customerDetail.jsp").forward(request, response);
         }
