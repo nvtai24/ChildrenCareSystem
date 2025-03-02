@@ -26,6 +26,12 @@
         <title>Children Care</title>
         <base href="${pageContext.request.contextPath}/">
 
+        <style>
+            html {
+                position:inherit;
+            }
+        </style>
+
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -153,15 +159,6 @@
                                                                 <strong class="text-danger">$${s.price - s.discount}</strong>
                                                             </p>
 
-                                                            <!--                                                            <form action="wishlist/add" method="post">
-                                                                                                                            <input type="hidden" id="id" name="uid" value="${sessionScope.account.id}">
-                                                                                                                            <input type="hidden" id="id" name="sid" value="${s.id}">
-                                                            
-                                                                                                                            <button type="submit" class="btn btn-success w-100 mb-2" onclick="addToWishlist(${s.id})">
-                                                                                                                                Add Appointment
-                                                                                                                            </button>
-                                                                                                                        </form>-->
-
                                                             <button type="button" class="btn btn-success w-100 mb-2" onclick="addToWishlist(${sessionScope.account.id}, ${s.id})">
                                                                 Add Appointment
                                                             </button>
@@ -174,10 +171,23 @@
                                                                         data: {sid: serviceId,
                                                                             uid: userId}, // Gửi dữ liệu serviceId
                                                                         success: function (response) {
-                                                                            alert('Added to wishlist successfully!');
+                                                                            Swal.fire({
+                                                                                title: "Success!",
+                                                                                text: "Added to wishlist successfully!",
+                                                                                icon: "success",
+                                                                                confirmButtonText: "OK",
+                                                                                timer: 2000,
+                                                                                backdrop: true,
+                                                                            });
                                                                         },
                                                                         error: function (xhr, status, error) {
-                                                                            alert('Failed to add to wishlist. Please try again!');
+                                                                            Swal.fire({
+                                                                                title: "Error!",
+                                                                                text: "Failed to add to wishlist. Please try again!",
+                                                                                icon: "error",
+                                                                                confirmButtonText: "OK",
+                                                                                backdrop: true
+                                                                            });
                                                                         }
                                                                     });
                                                                 }
@@ -244,6 +254,7 @@
         <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/contact.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     </body>
 

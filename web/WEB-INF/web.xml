@@ -102,6 +102,14 @@
         <servlet-name>VnpayReturnController</servlet-name>
         <servlet-class>vnpay.VnpayReturnController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PermissionController</servlet-name>
+        <servlet-class>controller.dashboard.admin.PermissionControlController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PermissionAssignController</servlet-name>
+        <servlet-class>controller.dashboard.admin.PermissionAssignController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
         <url-pattern>/error-handle</url-pattern>
@@ -277,6 +285,14 @@
     <servlet-mapping>
         <servlet-name>VnpayReturnController</servlet-name>
         <url-pattern>/reservation/return</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PermissionController</servlet-name>
+        <url-pattern>/permissions</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PermissionAssignController</servlet-name>
+        <url-pattern>/permissions/assign</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>
