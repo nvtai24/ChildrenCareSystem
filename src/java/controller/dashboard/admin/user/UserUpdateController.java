@@ -67,7 +67,7 @@ public class UserUpdateController extends HttpServlet {
 
             if (profileExists) {
                 // Cập nhật profile nếu đã tồn tại
-                profileDAO.updateUserProfile(userId, firstName, lastName, gender ? "male" : "female", dob, address, phone, avatarPath);
+                profileDAO.updateUserProfile(userId, trimSpaces(firstName), trimSpaces(lastName), gender ? "male" : "female", dob, address, phone, avatarPath);
             } else {
                 // Tạo mới profile nếu chưa tồn tại
                 Profile profile = Profile.builder()

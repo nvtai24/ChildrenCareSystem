@@ -41,12 +41,12 @@ public class UserDAO extends DBContext {
                 String email = rs.getString("email");
                 int roleId = rs.getInt("role_id");
                 boolean emailVerified = rs.getBoolean("email_verified");
-                
+
                 user.setId(id);
                 user.setUsername(username);
                 user.setEmail(email);
-                user.setEmailVerified(emailVerified); 
-                
+                user.setEmailVerified(emailVerified);
+
                 Role r = new Role();
                 r.setId(roleId);
                 user.setRole(r);
@@ -73,12 +73,14 @@ public class UserDAO extends DBContext {
     }
 
     public boolean register(User user, int role_Id) {
-        String sql = "INSERT INTO `user` (`username`, `password`, `email` ,`role_id`) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO `user` (`username`, `password`, `email` ,`role_id`, `verification_token`, `token_expiration`, `email_verified`) VALUES (?, ?, ?, ?, ?, ?, 0)";
         try (PreparedStatement ps = dbContext.connection.prepareStatement(sql)) {
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getEmail());
-            ps.setInt(4, role_Id);
+            ps.setString(4, role_Id + "");
+            ps.setString(5, user.getVerificationToken());
+            ps.setTimestamp(6, new Timestamp(user.getTokenExpiration().getTime()));
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -124,7 +126,7 @@ public class UserDAO extends DBContext {
             return false;
         }
     }
-    
+
     public boolean verifyEmail(String token) {
         String sql = "UPDATE `user` SET `email_verified` = 1, `verification_token` = NULL, `token_expiration` = NULL WHERE `verification_token` = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -135,7 +137,7 @@ public class UserDAO extends DBContext {
         }
         return false;
     }
-    
+
     public User getUserByToken(String token) {
         String sql = "SELECT * FROM `user` WHERE `verification_token` = ? AND `token_expiration` > NOW()";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -175,7 +177,7 @@ public class UserDAO extends DBContext {
         }
         return null;
     }
-    
+
     public boolean generatePasswordResetToken(int userId, String token, Timestamp expirationTime) {
         String sql = "UPDATE user SET reset_token = ?, reset_token_expiration = ? WHERE id = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -188,7 +190,7 @@ public class UserDAO extends DBContext {
         }
         return false;
     }
-    
+
     public boolean resetPassword(String token, String newPassword) {
         String sql = "UPDATE user SET password = ?, reset_token = NULL, reset_token_expiration = NULL WHERE reset_token = ? AND reset_token_expiration > NOW()";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -200,7 +202,7 @@ public class UserDAO extends DBContext {
         }
         return false;
     }
-    
+
     public User getUserById(int userId) {
         String sql = "SELECT * FROM user WHERE id = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -219,7 +221,7 @@ public class UserDAO extends DBContext {
         }
         return null;
     }
-    
+
     public boolean updatePassword(int userId, String newPassword) {
         String sql = "UPDATE user SET password = ? WHERE id = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -231,7 +233,7 @@ public class UserDAO extends DBContext {
         }
         return false;
     }
-    
+
     public ArrayList<User> listAllUsers() {
         ArrayList<User> users = new ArrayList<>();
 

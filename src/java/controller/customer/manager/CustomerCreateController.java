@@ -4,6 +4,7 @@
  */
 package controller.customer.manager;
 
+import controller.auth.EmailUtil;
 import dal.ProfileDAO;
 import dal.UserDAO;
 import java.io.IOException;
@@ -15,12 +16,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Profile;
 import model.auth.User;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
  * @author milo9
  */
 public class CustomerCreateController extends HttpServlet {
+
+    private static final long TOKEN_EXPIRATION_HOURS = 10;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -74,12 +80,18 @@ public class CustomerCreateController extends HttpServlet {
             return;
         }
 
+        String token = UUID.randomUUID().toString();
+        //String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        long expirationTime = System.currentTimeMillis() + TimeUnit.HOURS.toMillis(TOKEN_EXPIRATION_HOURS);
+
         User newUser = new User();
         newUser.setUsername(username);
-        newUser.setPassword(password); // Không mã hóa mật khẩu (theo yêu cầu)
+        newUser.setPassword(password);
         newUser.setEmail(email);
+        newUser.setVerificationToken(token);
+        newUser.setTokenExpiration(new Timestamp(expirationTime));
 
-        boolean isRegistered = userDAO.register(newUser, 3);
+        boolean isRegistered = userDAO.register(newUser);
         if (isRegistered) {
 
             User user = userDAO.get(username, password);
@@ -94,8 +106,10 @@ public class CustomerCreateController extends HttpServlet {
             profile.setAddress(address);
             profile.setPhone(phone);
             profile.setAvatar("assets/images/profile/default.jpg");
-            
+
             profileDAO.createProfile(profile);
+            String verificationLink = "http://localhost:8080/app/verify?token=" + token + "&redirect=login";
+            EmailUtil.sendVerificationEmail(email, verificationLink);
             request.setAttribute("notification", "successfull");
             request.getRequestDispatcher("../dashboard/manager/customerCreate.jsp").forward(request, response);
 

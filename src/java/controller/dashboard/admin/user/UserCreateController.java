@@ -4,6 +4,7 @@
  */
 package controller.dashboard.admin.user;
 
+import controller.auth.EmailUtil;
 import dal.ProfileDAO;
 import dal.RoleDAO;
 import dal.UserDAO;
@@ -18,12 +19,17 @@ import model.Profile;
 import model.auth.Role;
 import model.auth.User;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
  * @author Admin
  */
 public class UserCreateController extends HttpServlet {
+
+    private static final long TOKEN_EXPIRATION_HOURS = 10;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -83,11 +89,16 @@ public class UserCreateController extends HttpServlet {
             return;
         }
 
-        // Tạo user mới
+        String token = UUID.randomUUID().toString();
+        //String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        long expirationTime = System.currentTimeMillis() + TimeUnit.HOURS.toMillis(TOKEN_EXPIRATION_HOURS);
+
         User newUser = new User();
         newUser.setUsername(username);
-        newUser.setPassword(password); // Không mã hóa mật khẩu (theo yêu cầu)
+        newUser.setPassword(password);
         newUser.setEmail(email);
+        newUser.setVerificationToken(token);
+        newUser.setTokenExpiration(new Timestamp(expirationTime));
 
         // Thực hiện đăng ký
         boolean isRegistered = userDAO.register(newUser, role_id);
@@ -108,7 +119,8 @@ public class UserCreateController extends HttpServlet {
             profile.setAvatar("assets/images/profile/default.jpg");
 
             profileDAO.createProfile(profile);
-
+            String verificationLink = "http://localhost:8080/app/verify?token=" + token + "&redirect=login";
+            EmailUtil.sendVerificationEmail(email, verificationLink);
             // Chuyển đến trang userCreate
             ArrayList<Role> roles = rDB.listAllAvailableRole();
             request.setAttribute("roles", roles);
