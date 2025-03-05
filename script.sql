@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
 -- Host: localhost    Database: childrencare
 -- ------------------------------------------------------
--- Server version	8.4.4
+-- Server version	8.0.40
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -208,12 +208,12 @@ CREATE TABLE `profile` (
   `dob` date DEFAULT NULL,
   `address` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
-  `avatar` varchar(200) DEFAULT NULL,
+  `avatar` varchar(200) DEFAULT 'assets/images/profile/default.jpg',
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`userid`),
   CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -222,7 +222,7 @@ CREATE TABLE `profile` (
 
 LOCK TABLES `profile` WRITE;
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
-INSERT INTO `profile` VALUES (1,'Tai','Nguyen Van',1,'2004-11-20','Nghi Loc, Nghe An','0373517718','assets/images/profile/profile_1.jpg','2025-01-31 23:46:55','2025-03-04 10:11:20'),(2,'Anh','Do Minh',1,'1975-05-15','456 Health Lane kkk','124356789','assets/images/profile/profile_2.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(3,'Quyen','Nguyen Duc',0,'1985-08-20','789 Parent Road','345-678-9012','assets/images/profile/profile_3.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(4,'Long','Nguyen Hoang',1,'1990-03-10','101 Staff Avenue','456-789-0123','assets/images/profile/profile_4.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47');
+INSERT INTO `profile` VALUES (1,'Tai','Nguyen Van',1,'2004-11-20','Nghi Loc, Nghe An','0373517718','assets/images/profile/profile_1.jpg','2025-01-31 23:46:55','2025-03-04 10:11:20'),(2,'Anh','Do Minh',1,'1975-05-15','456 Health Lane kkk','124356789','assets/images/profile/profile_2.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(3,'Quyen','Nguyen Duc',0,'1985-08-20','789 Parent Road','345-678-9012','assets/images/profile/profile_3.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(4,'Long','Nguyen Hoang',1,'1990-03-10','101 Staff Avenue','456-789-0123','assets/images/profile/profile_4.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(5,'John','Doe',1,'1990-01-01','123 Main St','123-456-7890','assets/images/profile/default.jpg','2025-03-05 23:42:42',NULL),(6,'Đỗ','Ánh',1,'2025-03-01','Thạch Thất - Hà Nội','0389822669','assets/images/profile/default.jpg','2025-03-05 23:44:23',NULL);
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -426,7 +426,7 @@ CREATE TABLE `setting` (
   PRIMARY KEY (`setting_id`),
   KEY `type_id` (`type_id`),
   CONSTRAINT `setting_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `settingtype` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -435,7 +435,7 @@ CREATE TABLE `setting` (
 
 LOCK TABLES `setting` WRITE;
 /*!40000 ALTER TABLE `setting` DISABLE KEYS */;
-INSERT INTO `setting` VALUES (2,1,'General Checkup11111','Regular health checkups for 1children to monitor growth.1111',_binary ''),(3,1,'Vaccination','Vaccination services to protect children from various diseases.',_binary ''),(4,1,'Nutrition','Nutritional advice and dietary plans for children.',_binary ''),(5,1,'Dental Care','Dental health services for children, including checkups and treatments.',_binary ''),(6,1,'Emergency Care','Emergency medical services for children.',_binary ''),(7,1,'Physical Therapy','Physical therapy services to support children with movement issues.',_binary ''),(8,1,'Mental Health','Mental health support and counseling for children.',_binary ''),(9,2,'Health Tips','Posts related to health tips for children.',_binary '\0'),(10,2,'Vaccination','Posts related to vaccination information.',_binary ''),(11,2,'Nutrition','Posts related to child nutrition.',_binary '');
+INSERT INTO `setting` VALUES (2,1,'General Checkup1','Regular health checkups for 1children to monitor growth.',_binary ''),(3,1,'Vaccination','Vaccination services to protect children from various diseases.',_binary '\0'),(4,1,'Nutrition','Nutritional advice and dietary plans for children.',_binary '\0'),(5,1,'Dental Care','Dental health services for children, including checkups and treatments.',_binary '\0'),(6,1,'Emergency Care','Emergency medical services for children.',_binary '\0'),(7,1,'Physical Therapy','Physical therapy services to support children with movement issues.',_binary '\0'),(8,1,'Mental Health','Mental health support and counseling for children.',_binary '\0'),(9,2,'Health Tips','Posts related to health tips for children.',_binary '\0'),(10,2,'Vaccination','Posts related to vaccination information.',_binary '\0'),(11,2,'Nutrition','Posts related to child nutrition.',_binary '\0'),(22,1,'a','a',_binary '\0'),(23,2,'1','1',_binary '\0'),(24,1,'123','123',_binary '\0');
 /*!40000 ALTER TABLE `setting` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -523,7 +523,7 @@ CREATE TABLE `user` (
   KEY `IX_User_Email` (`email`),
   KEY `IX_User_Username` (`username`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -532,7 +532,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','123','buiblue123@gmail.com',0,NULL,NULL,1,1,'2025-01-31 23:46:55','2025-03-04 10:11:43',NULL,NULL),(2,'doctor1','123','doctor1@childrencare.com',0,NULL,NULL,2,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(3,'parent1','123','parent1@childrencare.com',0,NULL,NULL,3,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(4,'staff1','123','staff1@childrencare.com',0,NULL,NULL,4,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(5,'parent2','1234','parent2@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:27:52','2025-02-27 08:00:54',NULL,NULL),(6,'parent3','123','parent3@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:28:17','2025-02-10 09:19:58',NULL,NULL),(7,'parent4','123','parent$@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:28:38','2025-02-10 09:19:58',NULL,NULL),(8,'testuser','password123','testuser@example.com',1,NULL,NULL,3,1,'2025-02-24 10:38:04','2025-02-24 10:43:02',NULL,NULL),(10,'testuse1r','password123','testuser1@example.com',0,'abcd1234efgh5678','2025-03-01 12:00:00',3,1,'2025-02-24 10:44:03',NULL,NULL,NULL),(22,'parent12','Minhanh140904','dominhchi235@gmail.com',1,NULL,NULL,3,1,'2025-02-26 22:42:28','2025-03-02 21:21:06',NULL,NULL),(23,'parent123','Doanh140904','anhdmhe181481@fpt.edu.vn',1,NULL,NULL,3,1,'2025-03-02 21:23:35','2025-03-02 21:25:04',NULL,NULL);
+INSERT INTO `user` VALUES (1,'admin','123','buiblue123@gmail.com',0,NULL,NULL,1,1,'2025-01-31 23:46:55','2025-03-04 10:11:43',NULL,NULL),(2,'doctor1','123','doctor1@childrencare.com',0,NULL,NULL,2,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(3,'parent1','123','parent1@childrencare.com',0,NULL,NULL,3,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(4,'staff1','123','staff1@childrencare.com',0,NULL,NULL,4,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(5,'parent2','1234','parent2@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:27:52','2025-02-27 08:00:54',NULL,NULL),(6,'parent3','123','parent3@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:28:17','2025-02-10 09:19:58',NULL,NULL),(7,'parent4','123','parent$@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:28:38','2025-02-10 09:19:58',NULL,NULL),(8,'testuser','password123','testuser@example.com',1,NULL,NULL,3,1,'2025-02-24 10:38:04','2025-02-24 10:43:02',NULL,NULL),(10,'testuse1r','password123','testuser1@example.com',0,'abcd1234efgh5678','2025-03-01 12:00:00',3,1,'2025-02-24 10:44:03',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -547,10 +547,10 @@ CREATE TABLE `wishlist` (
   `user_id` int NOT NULL,
   `service_id` int NOT NULL,
   `quantity` int DEFAULT NULL,
-  PRIMARY KEY (`user_id`,`service_id`),
   KEY `service_id` (`service_id`),
-  CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
+  KEY `wishlist_ibfk_1_idx` (`user_id`),
+  CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -560,7 +560,6 @@ CREATE TABLE `wishlist` (
 
 LOCK TABLES `wishlist` WRITE;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
-INSERT INTO `wishlist` VALUES (22,1,1);
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -573,4 +572,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-05 15:24:15
+-- Dump completed on 2025-03-06  1:26:15
