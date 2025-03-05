@@ -7,8 +7,7 @@ package dal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Setting;
@@ -20,62 +19,127 @@ import model.SettingType;
  */
 public class SettingDAO extends DBContext {
 
-    public ArrayList<SettingType> listAllSettings() {
-        ArrayList<SettingType> settings = new ArrayList<>();
-
+    public ArrayList<Setting> filterSettings(int status, int typeid, String keyword) {
+        ArrayList<Setting> result = new ArrayList<>();
         String query = "SELECT \n"
-                + "    st.id AS typeid,\n"
-                + "    st.name AS typename,\n"
                 + "    s.setting_id,\n"
                 + "    s.value,\n"
                 + "    s.description,\n"
-                + "    s.status\n"
+                + "    s.status,\n"
+                + "    st.id,\n"
+                + "    st.name\n"
                 + "FROM\n"
-                + "    settingtype st\n"
+                + "    setting s\n"
                 + "        JOIN\n"
-                + "    setting s ON st.id = s.type_id";
+                + "    settingtype st ON s.type_id = st.id\n"
+                + "WHERE 1=1";
+
+        if (status != -1) {
+            query += " AND s.status = ?";
+        }
+        if (typeid != -1) {
+            query += " AND st.id = ?";
+        }
+        if (keyword != null && !keyword.isBlank()) {
+            query += " AND (s.value like ? or s.description like ?)";
+        }
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+
+            int paramIndex = 1;
+
+            if (status != -1) {
+                ps.setInt(paramIndex++, status);
+            }
+            if (typeid != -1) {
+                ps.setInt(paramIndex++, typeid);
+            }
+
+            if (keyword != null && !keyword.isBlank()) {
+                ps.setString(paramIndex++, "%" + keyword + "%");
+                ps.setString(paramIndex++, "%" + keyword + "%");
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int sid = rs.getInt("setting_id");
+                    String value = rs.getString("value");
+                    String description = rs.getString("description");
+                    int stid = rs.getInt("id");
+                    boolean sstatus = rs.getInt("status") == 1;
+                    String stname = rs.getString("name");
+
+                    SettingType st = new SettingType()
+                            .builder()
+                            .id(stid)
+                            .name(stname)
+                            .build();
+
+                    Setting s = new Setting()
+                            .builder()
+                            .id(sid)
+                            .settingValue(value)
+                            .description(description)
+                            .status(sstatus)
+                            .settingType(st)
+                            .build();
+
+                    result.add(s);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SettingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+    public ArrayList<Setting> listAllSettings() {
+        ArrayList<Setting> result = new ArrayList<>();
+
+        String query = "SELECT \n"
+                + "    s.setting_id,\n"
+                + "    s.value,\n"
+                + "    s.description,\n"
+                + "    s.status,\n"
+                + "    st.id,\n"
+                + "    st.name\n"
+                + "FROM\n"
+                + "    setting s\n"
+                + "        JOIN\n"
+                + "    settingtype st ON s.type_id = st.id";
 
         try {
-            Map<Integer, SettingType> settingTypeMap = new HashMap<>();
-
             ResultSet rs = executeQuery(query);
 
             while (rs.next()) {
-
-                int id = rs.getInt("typeid");
-                String name = rs.getString("typename");
-
-                SettingType type = settingTypeMap.get(id);
-
-                if (type == null) {
-                    type = new SettingType();
-                    type.setId(id);
-                    type.setName(name);
-                    type.setSettings(new ArrayList<>());
-                    settingTypeMap.put(id, type);
-                }
-
-                int settingId = rs.getInt("setting_id");
+                int sid = rs.getInt("setting_id");
                 String value = rs.getString("value");
                 String description = rs.getString("description");
                 boolean status = rs.getBoolean("status");
+                int stid = rs.getInt("id");
+                String stname = rs.getString("name");
 
-                Setting s = new Setting(settingId, type, value, description, status);
-                type.getSettings().add(s);
+                SettingType st = new SettingType()
+                        .builder()
+                        .id(stid)
+                        .name(stname)
+                        .build();
+
+                Setting s = new Setting()
+                        .builder()
+                        .id(sid)
+                        .settingValue(value)
+                        .description(description)
+                        .status(status)
+                        .settingType(st)
+                        .build();
+
+                result.add(s);
             }
-
-            settings.addAll(settingTypeMap.values());
         } catch (SQLException ex) {
             Logger.getLogger(SettingDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(SettingDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
-
-        return settings;
+        return result;
     }
 
     public Setting getSettingById(int id) {
@@ -115,4 +179,15 @@ public class SettingDAO extends DBContext {
         }
     }
 
+    public void toggleStatus(int stid) {
+        String query = "update setting\n"
+                + "set status = status ^ 1\n"
+                + "where setting_id = ?";
+
+        try {
+            executeUpdate(query, stid);
+        } catch (SQLException ex) {
+            Logger.getLogger(SettingTypeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

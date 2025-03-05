@@ -52,143 +52,172 @@
         <!--Main container start -->
         <main class="ttr-wrapper">
 
-            <c:forEach items="${requestScope.settingTypes}" var="type" varStatus="loop">
-                <div class="container-fluid">
-                    <div class="db-breadcrumb">
-                        <h3 style="cursor: pointer">
-                            <a type="button" data-toggle="collapse" href="#collapse${loop.index}" aria-expanded="false" id="toggle-btn-${loop.index}">
-                                <i class="ti-arrow-circle-down icon-down"></i>
-                                <i class="ti-arrow-circle-up icon-up d-none"></i>
-                                ${type.name} 
-                            </a>
-                        </h3>
-                    </div>  
+            <div class="toolbar">
+                <button type="submit" class="btn btn-primary mb-2">
+                    <a>
+                        <i class="fa fa-plus-circle mr-1"></i> Add New Setting
+                    </a>
+                </button>
 
-                    <div id="collapse${loop.index}" class="collapse">
-                        <div class="toolbar">
-                            <button type="submit" class="btn btn-primary mb-2">
-                                <a>
-                                    <i class="fa fa-plus-circle"></i> Add New ${type.name}
-                                </a>
-                            </button>
-
-                            <form>
-                                <div class="form-row align-items-center">
-                                    <div class="col-auto">
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">Status</div>
-                                            </div>
-                                            <select name="status">
-                                                <option value="-1">All</option>
-                                                <option value="1">Active</option>      
-                                                <option value="0">Inactive</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-auto">
-                                        <input type="text" class="form-control mb-2" placeholder="Type anything...">
-                                    </div>
-
-                                    <div class="col-auto">
-                                        <button type="submit" class="btn btn-primary mb-2">
-                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
+                <form action="settings" method="get">
+                    <div class="form-row align-items-center">
+                        <div class="col-auto">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Status</div>
                                 </div>
-                            </form>
+                                <select name="status">
+                                    <option value="-1" 
+                                            ${requestScope.status == null || requestScope.status == '-1' ? 'selected' : ''}
+                                            >All</option>
+                                    <option value="1"
+                                            ${requestScope.status != null && requestScope.status == '1' ? 'selected' : ''}
+                                            >Active</option>      
+                                    <option value="0"
+                                            ${requestScope.status != null && requestScope.status == '0' ? 'selected' : ''}
+                                            >Inactive</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Value</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${type.settings}" var="s" varStatus="status">
-                                    <tr>
-                                        <th scope="row">${status.index + 1}</th>
-                                        <td>${s.settingValue}</td>
-                                        <td>${s.description}</td>
-                                        <td>
-                                            <c:choose>
-                                                <c:when test="${s.status}">
-                                                    <span class="badge badge-success">Active</span>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <span class="badge badge-danger">Inactive</span>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </td>
-                                        <td>
-                                            <c:choose>
-                                                <c:when test="${s.status}">
-                                                    <button type="submit" class="btn red mb-2">
-                                                        <a>
-                                                            <i class="fa fa-refresh" aria-hidden="true"></i> Inactive
-                                                        </a>
-                                                    </button>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <button type="submit" class="btn green mb-2">
-                                                        <a>
-                                                            <i class="fa fa-refresh" aria-hidden="true"></i> Active
-                                                        </a>
-                                                    </button>
-                                                </c:otherwise>
-                                            </c:choose>
-                                            <button type="submit" class="btn green mb-2">
-                                                <a href="setting?id=${s.id}">
-                                                    <i class="fa fa-pencil" aria-hidden="true"></i> Edit
-                                                </a>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
+                        <div class="col-auto">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Type</div>
+                                </div>
+                                <select name="type">
+                                    <option value="-1"
+                                            ${requestScope.type != null || requestScope.type == '-1' ? 'selected' : ''}
+                                            >All</option>
+
+                                    <c:forEach items="${requestScope.types}" var="s">
+                                        <option value="${s.id}"
+                                                ${requestScope.type != null && requestScope.type == s.id ? 'selected' : ''}
+                                                >${s.name}
+                                        </option>      
+                                    </c:forEach>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-auto">
+                            <input type="text" class="form-control mb-2" name="keyword" placeholder="Type anything..." value="${requestScope.keyword != null ? requestScope.keyword : '' }">
+                        </div>
+
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mb-2">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </c:forEach>
+                </form>
+            </div>
 
-
-            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-            <script>
-                $(document).ready(function () {
-                    $('[data-toggle="collapse"]').on('click', function () {
-                        var target = $(this).attr('href'); // Lấy ID của phần collapse
-                        var iconDown = $(this).find('.icon-down'); // Icon xuống
-                        var iconUp = $(this).find('.icon-up'); // Icon lên
-
-                        $(target).on('show.bs.collapse', function () {
-                            iconDown.addClass("d-none");
-                            iconUp.removeClass("d-none");
-                        });
-
-                        $(target).on('hide.bs.collapse', function () {
-                            iconDown.removeClass("d-none");
-                            iconUp.addClass("d-none");
-                        });
-                    });
-                });
-            </script>
-
-            <style>
-                .icon-down, .icon-up {
-                    transition: opacity 0.2s ease-in-out;
-                }
-            </style>
-
-
+            <div class="container-fluid">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Value</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${requestScope.settings}" var="s" varStatus="status">
+                            <tr>
+                                <th scope="row">${status.index + 1}</th>
+                                <td>${s.settingValue}</td>
+                                <td>${s.settingType.name}</td>
+                                <td>${s.description}</td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${s.status}">
+                                            <span class="badge badge-success mt-3" style="width: 70px">Active</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="badge badge-danger mt-3" style="width: 70px">Inactive</span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td style="display: flex; gap: 20px">
+                                    <div class="status-toggle" data-id="${s.id}" data-status="${s.status}">
+                                        <c:choose>
+                                            <c:when test="${s.status}">
+                                                <div class="btn red mb-2" style="width: 100px">
+                                                    <i class="fa fa-refresh" aria-hidden="true"></i> Inactive
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="btn green mb-2" style="width: 100px">
+                                                    <i class="fa fa-refresh" aria-hidden="true"></i> Active
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                    <button type="submit" class="btn green mb-2" style="width: 100px">
+                                        <a href="setting?id=${s.id}" style="color: white">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+                                        </a>
+                                    </button>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
 
         </main>
         <div class="ttr-overlay"></div>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('.status-toggle').on('click', function () {
+                    var $toggleButton = $(this);
+                    var settingId = $toggleButton.data('id');
+                    var currentStatus = $toggleButton.data('status');
+                    var $statusLabel = $toggleButton.closest('td').prev().find('.badge');
+
+                    $.ajax({
+                        url: '/app/setting/toggle',
+                        type: 'POST',
+                        data: {stid: settingId},
+                        success: function (response) {
+                            if (currentStatus === true || currentStatus === 'true') {
+                                // Switch to Inactive
+                                $toggleButton.html(`
+                        <div class="btn green mb-2" style="width: 100px">
+                            <i class="fa fa-refresh" aria-hidden="true"></i> Active
+                        </div>
+                    `);
+                                $toggleButton.data('status', false);
+                                $statusLabel.removeClass('badge-success')
+                                        .addClass('badge-danger')
+                                        .text('Inactive');
+                            } else {
+                                // Switch to Active
+                                $toggleButton.html(`
+                        <div class="btn red mb-2" style="width: 100px">
+                            <i class="fa fa-refresh" aria-hidden="true"></i> Inactive
+                        </div>
+                    `);
+                                $toggleButton.data('status', true);
+                                $statusLabel.removeClass('badge-danger')
+                                        .addClass('badge-success')
+                                        .text('Active');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            alert('Error toggling status: ' + error);
+                        }
+                    });
+                });
+            });
+        </script>
 
         <!-- External JavaScripts -->
         <!--<script src="assets2/js/jquery.min.js"></script>-->
@@ -209,11 +238,6 @@
         <script src="assets2/js/admin.js"></script>
         <script src='assets2/vendors/calendar/moment.min.js'></script>
         <script src='assets2/vendors/calendar/fullcalendar.js'></script>
-        <script>
-                $(document).ready(function () {
-                    $('[data-toggle="tooltip"]').tooltip();
-                });
-        </script>
 
     </body>
 
