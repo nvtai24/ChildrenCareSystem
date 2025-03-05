@@ -42,6 +42,16 @@ public class AddSliderController extends HttpServlet {
 
         String title = request.getParameter("title");
         String backLink = request.getParameter("backLink");
+        
+        HttpSession session = request.getSession();
+        int currentUserId = 0;
+        if (session != null && session.getAttribute("id") != null) {
+            currentUserId = (int) session.getAttribute("id"); 
+
+        } else {
+            response.sendRedirect(request.getContextPath() + "/login"); 
+            return;
+        }
 
         Part filePart = request.getPart("image");
         if (filePart == null || filePart.getSize() == 0) {
@@ -88,9 +98,9 @@ public class AddSliderController extends HttpServlet {
 
         // Lưu vào database
         SliderDAO sliderDAO = new SliderDAO();
-        boolean result = sliderDAO.AddNewSlider(title, "assets/images/slider/" + fileName, backLink);
+        boolean result = sliderDAO.AddNewSlider(title, "assets/images/slider/" + fileName, backLink, currentUserId);
 
-        HttpSession session = request.getSession();
+        
         if (result) {
             session.setAttribute("MESSAGE", "Add slider successfully!");
         } else {

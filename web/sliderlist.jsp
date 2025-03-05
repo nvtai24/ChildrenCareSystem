@@ -147,46 +147,43 @@
             height: auto;
         }
 
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Khoảng cách giữa các button */
+            align-items: center; /* Căn giữa theo chiều dọc */
+        }
 
         td:first-child, th:first-child {
-            width: 3%;
+            width: 4%;
             text-align: center;
         }
 
         td:nth-child(2), th:nth-child(2) {
-            width: 25%;
+            width: 18%;
             text-align: center;
         }
 
         td:nth-child(3), th:nth-child(3) {
-            width: 10%;
+            width: 11%;
             text-align: center;
         }
 
         td:nth-child(4), th:nth-child(4) {
-            width: 8%;
+            width: 6%;
             text-align: center;
         }
         td:nth-child(5), th:nth-child(5) {
-            width: 15%;
+            width: 13%;
             text-align: center;
         }
         td:nth-child(6), th:nth-child(6) {
-            width: 15%;
-            text-align: center;
-        }
-
-        td:nth-child(7), th:nth-child(7) {
-            width: 10%;
-            text-align: center;
-        }
-        td:nth-child(8), th:nth-child(8) {
-            width: 10%;
+            width: 13%;
             text-align: center;
         }
 
         td:last-child, th:last-child {
-            width: 13%;
+            width: 25%;
             text-align: center;
         }
     </style>
@@ -246,108 +243,7 @@
         <jsp:include page="dashboard/header.jsp"/>
         <!-- header end -->
         <!-- Left sidebar menu start -->
-        <div class="ttr-sidebar">
-            <div class="ttr-sidebar-wrapper content-scroll">
-                <!-- side menu logo start -->
-                <div class="ttr-sidebar-logo">
-                    <a ><img alt="" src="assets/images/logo.png" width="70" height="17"></a>
-                    <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
-                            <i class="material-icons ttr-fixed-icon">gps_fixed</i>
-                            <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
-                    </div> -->
-                    <div class="ttr-sidebar-toggle-button">
-                        <i class="ti-arrow-left"></i>
-                    </div>
-                </div>
-                <!-- side menu logo end -->
-                <!-- sidebar menu start -->
-                <nav class="ttr-sidebar-navi">
-                    <ul>
-                        <li>
-                            <a href="index.html" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-home"></i></span>
-                                <span class="ttr-label">Dashborad</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/app/sliders" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Sliders</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-email"></i></span>
-                                <span class="ttr-label">Mailbox</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="mailbox.html" class="ttr-material-button"><span class="ttr-label">Mail Box</span></a>
-                                </li>
-                                <li>
-                                    <a href="mailbox-compose.html" class="ttr-material-button"><span class="ttr-label">Compose</span></a>
-                                </li>
-                                <li>
-                                    <a href="mailbox-read.html" class="ttr-material-button"><span class="ttr-label">Mail Read</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-calendar"></i></span>
-                                <span class="ttr-label">Calendar</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="basic-calendar.html" class="ttr-material-button"><span class="ttr-label">Basic Calendar</span></a>
-                                </li>
-                                <li>
-                                    <a href="list-view-calendar.html" class="ttr-material-button"><span class="ttr-label">List View</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="bookmark.html" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-bookmark-alt"></i></span>
-                                <span class="ttr-label">Bookmarks</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="review.html" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-comments"></i></span>
-                                <span class="ttr-label">Review</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="add-listing.html" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-layout-accordion-list"></i></span>
-                                <span class="ttr-label">Add listing</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-user"></i></span>
-                                <span class="ttr-label">My Profile</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="user-profile.html" class="ttr-material-button"><span class="ttr-label">User Profile</span></a>
-                                </li>
-                                <li>
-                                    <a href="teacher-profile.html" class="ttr-material-button"><span class="ttr-label">Teacher Profile</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="ttr-seperate"></li>
-                    </ul>
-                    <!-- sidebar menu end -->
-                </nav>
-                <!-- sidebar menu end -->
-            </div>
-        </div>
+        <jsp:include page="dashboard/left-sidebar.jsp"/>
         <!-- Left sidebar menu end -->
 
         <!--Main container start -->
@@ -376,7 +272,7 @@
                                 <!-- Form tìm kiếm -->
                                 <form method="get" action="sliders" class="form-search">
                                     <input type="text" id="search" name="search" value="${param.search}" placeholder="Type anything...">
-                                    <button type="submit">Search</button>
+                                    <button class="fa fa-search" type="submit"></button>
                                 </form>
 
                                 <!-- Form lọc trạng thái -->
@@ -386,13 +282,13 @@
                                         <option value="true" ${param.status == "true" ? "selected" : ""}>Active</option>
                                         <option value="false" ${param.status == "false" ? "selected" : ""}>Inactive</option>
                                     </select>
-                                    <button type="submit">Apply</button>
+                                    <button class="fa fa-filter" type="submit"></button>
                                 </form>
                                 <form class="form-add">
-                                        <button type="button" onclick="window.location.href = 'addslider.jsp';">
-                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                            Add New Slider
-                                        </button>    
+                                    <button type="button" onclick="window.location.href = 'addslider.jsp';">
+                                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                        Add New Slider
+                                    </button>    
                                 </form>
 
                             </div>
@@ -408,9 +304,6 @@
                                         <th>Created Date</th>
                                         <th>Updated Date</th>
                                         <th>Action</th>
-                                        <th></th>
-                                        <th></th>         
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -436,34 +329,32 @@
                                                 </c:if>
                                             </td>
                                             <td>
-                                                <!-- Nút Enable/Disable -->
-                                                <form method="post" action="sliders">
-                                                    <input type="hidden" name="id" value="${slider.id}">
-                                                    <input type="hidden" name="status" value="${slider.status ? 0 : 1}">
-                                                    <button type="submit" 
-                                                            class="btn ${slider.status ? 'disable' : 'enable'}">
-                                                        <i class="fa fa-refresh" aria-hidden="true"></i>
-                                                        ${slider.status ? 'Hide' : 'Show'}
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <form method="post" action="DeleteSlider" style="display:inline;">
-                                                    <input type="hidden" name="id" value="${slider.id}">
-                                                    <button type="submit" class="btn delete">
-                                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                                        Delete
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <form method="get" action="sliders-update" style="display:inline;">
-                                                    <input  type="hidden" name="id" value="${slider.id}">
-                                                    <button type="submit" class="btn update" style="display:inline;">
-                                                        <i class="fa fa-pencil" aria-hidden="true" ></i>
-                                                        View Detail
-                                                    </button>
-                                                </form>
+                                                <div class="button-group">
+                                                    <!-- Nút Enable/Disable -->
+                                                    <form method="post" action="sliders">
+                                                        <input type="hidden" name="id" value="${slider.id}">
+                                                        <input type="hidden" name="status" value="${slider.status ? 0 : 1}">
+                                                        <button type="submit" 
+                                                                class="btn ${slider.status ? 'disable' : 'enable'}">
+                                                            <i class="fa fa-refresh" aria-hidden="true"></i>
+                                                            ${slider.status ? 'Hide' : 'Show'}
+                                                        </button>
+                                                    </form>
+                                                    <form method="post" action="DeleteSlider" style="display:inline;">
+                                                        <input type="hidden" name="id" value="${slider.id}">
+                                                        <button type="submit" class="btn delete">
+                                                            <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                    <form method="get" action="sliders-update" style="display:inline;">
+                                                        <input  type="hidden" name="id" value="${slider.id}">
+                                                        <button type="submit" class="btn update" style="display:inline;">
+                                                            <i class="fa fa-pencil" aria-hidden="true" ></i>
+                                                            View Detail
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     </c:forEach>

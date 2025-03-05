@@ -68,7 +68,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <label for="dzName">Your Name</label>
+                                            <label for="dzName">Username</label>
                                             <input name="dzName" type="text" required="" class="form-control" id="username">
                                             <small id="usernameError" style="color:red;"></small><br>
                                         </div>

@@ -7,6 +7,7 @@ package dal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.SettingType;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -170,6 +171,7 @@ public class SettingDAO extends DBContext {
             Logger.getLogger(SettingDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+ 
 
     public void toggleStatus(int stid) {
         String query = "update setting\n"
