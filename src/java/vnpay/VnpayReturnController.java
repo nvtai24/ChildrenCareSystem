@@ -40,6 +40,7 @@ public class VnpayReturnController extends HttpServlet {
 
             r.setBanking(true);
             ReservationDAO rdb = new ReservationDAO();
+            System.out.println(r);
             rdb.insertReservation(r);
 
             ArrayList<WishList> items = (ArrayList<WishList>) session.getAttribute("items");

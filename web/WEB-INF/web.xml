@@ -150,6 +150,14 @@
         <servlet-name>BookNowSuccessController</servlet-name>
         <servlet-class>vnpay.BookNowSuccessController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SettingToggleAjax</servlet-name>
+        <servlet-class>controller.dashboard.admin.SettingToggleAjax</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SettingAddController</servlet-name>
+        <servlet-class>controller.dashboard.admin.SettingAddController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
         <url-pattern>/error-handle</url-pattern>
@@ -361,6 +369,14 @@
     <servlet-mapping>
         <servlet-name>BookNowSuccessController</servlet-name>
         <url-pattern>/book/success</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SettingToggleAjax</servlet-name>
+        <url-pattern>/setting/toggle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SettingAddController</servlet-name>
+        <url-pattern>/settings/add</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>

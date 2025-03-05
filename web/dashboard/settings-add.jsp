@@ -45,26 +45,6 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/style.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/color/color-1.css">
-
-
-        <style>
-            .container {
-                margin-top: 30px;
-                max-width: 600px;
-                background-color: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            }
-
-            .form-group label {
-                font-weight: bold;
-            }
-
-            .btn-update {
-                width: 100%;
-            }
-        </style>
     </head>
 
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
@@ -77,38 +57,51 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">Setting Detail</h4>
-                    <ul class="db-breadcrumb-list">
-                        <li><a href="settings"><i class="fa fa-home"></i>Setting List</a></li>
-                        <li>Edit</li>
-                    </ul>
+                    <h3>Add New Setting</h3>
                 </div>
 
-                <div class="container">
-                    <form action="setting" method="post">
-                        <input type="hidden" name="id" value="${setting.id}" />
+                <form action="add" method="post">
+                    <input type="hidden" name="id" value="${setting.id}" />
 
-                        <div class="form-group">
-                            <label>Type</label>
-                            <input type="text" class="form-control" value="${setting.settingType.name}" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label>Value</label>
-                            <input type="text" class="form-control" name="value" value="${setting.settingValue}" required>
-                        </div>
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <select name="type" class="form-control" required>
+                            <c:forEach items="${settingTypes}" var="type">
+                                <option value="${type.id}">${type.name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
 
-                        <div class="form-group">
-                            <label>Description</label>
-                            <textarea class="form-control" name="description" required>${setting.description}</textarea>
+                    <div class="form-group">
+                        <label for="value">Value</label>
+                        <input type="text" class="form-control" name="value" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" name="description" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <div class="d-flex">
+                            <div class="form-check mr-3">
+                                <input class="form-check-input" type="radio" name="status" value="1" checked>
+                                <label class="form-check-label">Active</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="status" value="0">
+                                <label class="form-check-label">Inactive</label>
+                            </div>
                         </div>
-                        <div class="form-group d-flex justify-content-between">
-                            <button type="submit" class="btn btn-success" style="width: 48%;">Save</button>
-                            <a href="settings" class="btn btn-danger" style="width: 48%;">Cancel</a>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <a href="../settings" class="btn btn-danger">Cancel</a>
+                </form>
             </div>
         </main>
+
 
         <div class="ttr-overlay"></div>
         <script src="${pageContext.request.contextPath}/assets2/js/jquery.min.js"></script>

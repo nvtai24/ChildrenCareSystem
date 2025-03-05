@@ -67,9 +67,54 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <label>Your Name</label>
+                                            <label>Username</label>
                                             <input name="dzName" type="text" required="" class="form-control" id="username">
                                             <small id="usernameError" style="color:red;"></small><br>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <label for="firstname">First Name</label>
+                                            <input type="text" name="firstname" class="form-control" required id="firstname">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <label for="lastname">Last Name</label>
+                                            <input type="text" name="lastname" class="form-control" required id="lastname">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="gender">Gender</label><br>
+                                        <input type="radio" name="gender" value="1" required> Male
+                                        <input type="radio" name="gender" value="2"> Female
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="dob">Date of Birth</label>
+                                        <input type="date" name="dob" class="form-control" required id="dob">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <label for="address">Address</label>
+                                            <input type="text" name="address" class="form-control" required id="address">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <label for="phone">Phone Number</label>
+                                            <input type="text" name="phone" class="form-control" required id="phone">
                                         </div>
                                     </div>
                                 </div>
