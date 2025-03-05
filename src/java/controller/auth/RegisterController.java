@@ -73,8 +73,7 @@ public class RegisterController extends HttpServlet {
         }
 
                 
-        if (password.length() < 8 || password.len
-                    th() > 15 || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,15}$")) {
+        if (password.length() < 8 || password.length() > 15 || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,15}$")) {
             request.setAttribute("passwordError", "Password must be 8-15 characters with at least one uppercase letter, one lowercase letter, and one number.");
             request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
@@ -91,7 +90,7 @@ public class RegisterController extends HttpServlet {
             request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
-        St ring token = UUID.randomUUID().toString();
+        String token = UUID.randomUUID().toString();
         //String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         long expirationTime = System.currentTimeMillis() + TimeUnit.HOURS.toMillis(TOKEN_EXPIRATION_HOURS);
 
