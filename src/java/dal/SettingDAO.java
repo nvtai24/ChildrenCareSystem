@@ -7,7 +7,6 @@ package dal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import model.SettingType;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,12 +19,7 @@ import model.SettingType;
  */
 public class SettingDAO extends DBContext {
 
-    <<<<<<<HEAD
     public ArrayList<Setting> filterSettings(int status, int typeid, String keyword) {
-=======
-
-    public ArrayList<Setting> filterSettings(int status, int typeid) {
->>>>>>> 6f78941b8b668de7dbf7589129785470aa54b3b6
         ArrayList<Setting> result = new ArrayList<>();
         String query = "SELECT \n"
                 + "    s.setting_id,\n"
@@ -185,7 +179,6 @@ public class SettingDAO extends DBContext {
             Logger.getLogger(SettingDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
- 
 
     public void toggleStatus(int stid) {
         String query = "update setting\n"

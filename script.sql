@@ -29,7 +29,7 @@ CREATE TABLE `feature` (
   `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `feature` (
 
 LOCK TABLES `feature` WRITE;
 /*!40000 ALTER TABLE `feature` DISABLE KEYS */;
-INSERT INTO `feature` VALUES (2,'Reservation Details','/reservation/detail','',_binary ''),(3,'Reservation Contact','/reservation/contact','',_binary ''),(4,'Reservation Completion','/reservation/completion','',_binary ''),(5,'My reservations','/my-reservation','',_binary ''),(6,'Reservation Information','/reservation/info','',_binary ''),(7,'Posts List','/posts','',_binary ''),(8,'Post Details','/post','',_binary ''),(9,'Sliders List','/sliders','',_binary ''),(10,'Slider Details','/slider','',_binary ''),(11,'Services List (Manager)','/services/manager','',_binary ''),(12,'Service Details (Manager)','/services/update','',_binary ''),(13,'Customers List','/customers','',_binary ''),(14,'Customer Details','/customer','',_binary ''),(15,'Feedbacks List','/feedbacks','',_binary ''),(16,'Feedback Details','/feedback','',_binary ''),(17,'Reservations List','/reservations','',_binary ''),(18,'Reservation Details','/reservation','',_binary ''),(19,'Medical examination','/medical','',_binary ''),(20,'Admin Dashboard','/admin','',_binary ''),(21,'Users List','/users','',_binary ''),(22,'User Details','/user','',_binary ''),(23,'Settings List','/settings','',_binary ''),(24,'Setting Details','/setting','',_binary ''),(25,'Feedback','/reservation/feedback','',_binary ''),(26,'Add Service','/services/add',' ',_binary ''),(27,'Reservation Information','/reservation/info',NULL,_binary '');
+INSERT INTO `feature` VALUES (2,'Reservation Details','/reservation/detail','',_binary ''),(3,'Reservation Contact','/reservation/contact','',_binary ''),(4,'Reservation Completion','/reservation/completion','',_binary ''),(5,'My reservations','/my-reservation','',_binary ''),(6,'Reservation Information','/reservation/info','',_binary ''),(7,'Posts List','/posts','',_binary ''),(8,'Post Details','/post','',_binary ''),(9,'Sliders List','/sliders','',_binary ''),(10,'Slider Details','/slider','',_binary ''),(11,'Services List (Manager)','/services/manager','',_binary ''),(12,'Service Details (Manager)','/services/update','',_binary ''),(13,'Customers List','/customers','',_binary ''),(14,'Customer Details','/customer','',_binary ''),(15,'Feedbacks List','/feedbacks','',_binary ''),(16,'Feedback Details','/feedback','',_binary ''),(17,'Reservations List','/reservations','',_binary ''),(18,'Reservation Details','/reservation','',_binary ''),(19,'Medical examination','/medical','',_binary ''),(20,'Admin Dashboard','/admin','',_binary ''),(21,'Users List','/users','',_binary ''),(22,'User Details','/users/update','',_binary ''),(23,'Settings List','/settings','',_binary ''),(24,'Setting Details','/setting','',_binary ''),(25,'Feedback','/reservation/feedback','',_binary ''),(26,'Add Service','/services/add',' ',_binary ''),(27,'Reservation Information','/reservation/info',NULL,_binary ''),(28,'Permission Control','/permissions',NULL,_binary ''),(29,'Add User','/users/add',NULL,_binary ''),(30,'Add Customer','/customer/add',NULL,_binary ''),(31,'Add Service','/services/add',NULL,_binary ''),(32,'Update Service','/services/update',NULL,_binary ''),(33,'Add Setting','/settings/add',NULL,_binary '');
 /*!40000 ALTER TABLE `feature` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,11 +208,11 @@ CREATE TABLE `profile` (
   `dob` date DEFAULT NULL,
   `address` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
-  `avatar` varchar(200) DEFAULT NULL,
+  `avatar` varchar(200) DEFAULT 'assets/images/profile/default.jpg',
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`userid`),
-  CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`)
+  CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -332,7 +332,7 @@ CREATE TABLE `role` (
   `id` int NOT NULL AUTO_INCREMENT,
   `role_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `description` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `status` tinyint(1) DEFAULT '1',
+  `status` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -343,7 +343,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,'Admin','Administrator with full access to the system.',1),(2,'Doctor','Medical professional providing health services.',1),(3,'Customer','Parent or guardian of a child using the services.',1),(4,'Manager','Support staff assisting in the operations.',1);
+INSERT INTO `role` VALUES (1,'Admin','Administrator with full access to the system.',_binary ''),(2,'Doctor','Medical professional providing health services.',_binary ''),(3,'Customer','Parent or guardian of a child using the services.',_binary ''),(4,'Manager','Support staff assisting in the operations.',_binary '');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,7 +371,7 @@ CREATE TABLE `rolefeature` (
 
 LOCK TABLES `rolefeature` WRITE;
 /*!40000 ALTER TABLE `rolefeature` DISABLE KEYS */;
-INSERT INTO `rolefeature` VALUES (1,20,1),(1,21,1),(1,22,1),(1,23,1),(1,24,1),(2,17,1),(2,18,1),(2,19,1),(3,2,1),(3,3,1),(3,4,1),(3,5,1),(3,25,1),(3,27,1),(4,7,1),(4,8,1),(4,9,1),(4,10,1),(4,11,1),(4,12,1),(4,13,1),(4,14,1),(4,15,1),(4,16,1),(4,26,1);
+INSERT INTO `rolefeature` VALUES (1,20,1),(1,21,1),(1,22,1),(1,23,1),(1,24,1),(1,28,1),(1,29,1),(1,33,1),(2,17,1),(2,18,1),(2,19,1),(3,2,1),(3,3,1),(3,4,1),(3,5,1),(3,25,1),(3,27,1),(4,7,1),(4,8,1),(4,9,1),(4,10,1),(4,11,1),(4,12,1),(4,13,1),(4,14,1),(4,15,1),(4,16,1),(4,26,1),(4,30,1),(4,31,1),(4,32,1);
 /*!40000 ALTER TABLE `rolefeature` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -435,7 +435,7 @@ CREATE TABLE `setting` (
 
 LOCK TABLES `setting` WRITE;
 /*!40000 ALTER TABLE `setting` DISABLE KEYS */;
-INSERT INTO `setting` VALUES (2,1,'General Checkup11111','Regular health checkups for 1children to monitor growth.1111',_binary ''),(3,1,'Vaccination','Vaccination services to protect children from various diseases.',_binary ''),(4,1,'Nutrition','Nutritional advice and dietary plans for children.',_binary ''),(5,1,'Dental Care','Dental health services for children, including checkups and treatments.',_binary ''),(6,1,'Emergency Care','Emergency medical services for children.',_binary ''),(7,1,'Physical Therapy','Physical therapy services to support children with movement issues.',_binary ''),(8,1,'Mental Health','Mental health support and counseling for children.',_binary ''),(9,2,'Health Tips','Posts related to health tips for children.',_binary '\0'),(10,2,'Vaccination','Posts related to vaccination information.',_binary ''),(11,2,'Nutrition','Posts related to child nutrition.',_binary '');
+INSERT INTO `setting` VALUES (2,1,'General Checkup','Regular health checkups for 1children to monitor growth.1111',_binary ''),(3,1,'Vaccination','Vaccination services to protect children from various diseases.',_binary ''),(4,1,'Nutrition','Nutritional advice and dietary plans for children.',_binary ''),(5,1,'Dental Care','Dental health services for children, including checkups and treatments.',_binary ''),(6,1,'Emergency Care','Emergency medical services for children.',_binary ''),(7,1,'Physical Therapy','Physical therapy services to support children with movement issues.',_binary ''),(8,1,'Mental Health','Mental health support and counseling for children.',_binary ''),(9,2,'Health Tips','Posts related to health tips for children.',_binary ''),(10,2,'Vaccination','Posts related to vaccination information.',_binary ''),(11,2,'Nutrition','Posts related to child nutrition.',_binary '');
 /*!40000 ALTER TABLE `setting` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -532,7 +532,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','123','buiblue123@gmail.com',0,NULL,NULL,1,1,'2025-01-31 23:46:55','2025-03-04 10:11:43',NULL,NULL),(2,'doctor1','123','doctor1@childrencare.com',0,NULL,NULL,2,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(3,'parent1','123','parent1@childrencare.com',0,NULL,NULL,3,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(4,'staff1','123','staff1@childrencare.com',0,NULL,NULL,4,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(5,'parent2','1234','parent2@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:27:52','2025-02-27 08:00:54',NULL,NULL),(6,'parent3','123','parent3@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:28:17','2025-02-10 09:19:58',NULL,NULL),(7,'parent4','123','parent$@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:28:38','2025-02-10 09:19:58',NULL,NULL),(8,'testuser','password123','testuser@example.com',1,NULL,NULL,3,1,'2025-02-24 10:38:04','2025-02-24 10:43:02',NULL,NULL),(10,'testuse1r','password123','testuser1@example.com',0,'abcd1234efgh5678','2025-03-01 12:00:00',3,1,'2025-02-24 10:44:03',NULL,NULL,NULL),(22,'parent12','Minhanh140904','dominhchi235@gmail.com',1,NULL,NULL,3,1,'2025-02-26 22:42:28','2025-03-02 21:21:06',NULL,NULL),(23,'parent123','Doanh140904','anhdmhe181481@fpt.edu.vn',1,NULL,NULL,3,1,'2025-03-02 21:23:35','2025-03-02 21:25:04',NULL,NULL);
+INSERT INTO `user` VALUES (1,'admin','123','buiblue123@gmail.com',0,NULL,NULL,1,1,'2025-01-31 23:46:55','2025-03-05 16:54:54',NULL,NULL),(2,'doctor1','123','doctor1@childrencare.com',0,NULL,NULL,2,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(3,'parent1','123','parent1@childrencare.com',0,NULL,NULL,3,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(4,'staff1','123','staff1@childrencare.com',0,NULL,NULL,4,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(5,'parent2','1234','parent2@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:27:52','2025-02-27 08:00:54',NULL,NULL),(6,'parent3','123','parent3@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:28:17','2025-02-10 09:19:58',NULL,NULL),(7,'parent4','123','parent$@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:28:38','2025-02-10 09:19:58',NULL,NULL),(8,'testuser','password123','testuser@example.com',1,NULL,NULL,3,1,'2025-02-24 10:38:04','2025-02-24 10:43:02',NULL,NULL),(10,'testuse1r','password123','testuser1@example.com',0,'abcd1234efgh5678','2025-03-01 12:00:00',3,1,'2025-02-24 10:44:03',NULL,NULL,NULL),(22,'parent12','Minhanh140904','dominhchi235@gmail.com',1,NULL,NULL,3,1,'2025-02-26 22:42:28','2025-03-02 21:21:06',NULL,NULL),(23,'parent123','Doanh140904','anhdmhe181481@fpt.edu.vn',1,NULL,NULL,3,1,'2025-03-02 21:23:35','2025-03-02 21:25:04',NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -549,8 +549,8 @@ CREATE TABLE `wishlist` (
   `quantity` int DEFAULT NULL,
   PRIMARY KEY (`user_id`,`service_id`),
   KEY `service_id` (`service_id`),
-  CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
+  CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -560,7 +560,7 @@ CREATE TABLE `wishlist` (
 
 LOCK TABLES `wishlist` WRITE;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
-INSERT INTO `wishlist` VALUES (22,1,1);
+INSERT INTO `wishlist` VALUES (7,2,1),(22,1,1);
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -573,4 +573,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-05 15:24:15
+-- Dump completed on 2025-03-06  2:07:44

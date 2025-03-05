@@ -36,23 +36,7 @@ public class DashboardNavigationController extends HttpServlet {
 
         int roleId = account.getRole().getId();
 
-        switch (roleId) {
-            // Admin
-            case 1:
-                response.sendRedirect("admin");
-                break;
-            // Doctor
-            case 2:
-
-                break;
-                
-            // Manager
-            case 4:
-
-                break;
-            default:
-                throw new AssertionError();
-        }
+        request.getRequestDispatcher("dashboard/dashboard.jsp").forward(request, response);
 
     }
 
