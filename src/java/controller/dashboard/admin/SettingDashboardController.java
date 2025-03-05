@@ -24,56 +24,57 @@ import model.auth.Role;
  */
 public class SettingDashboardController extends HttpServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
+        // + sign on the left to edit the code.">
+        /**
+         * Handles the HTTP <code>GET</code> method.
+         *
+         * @param request  servlet request
+         * @param response servlet response
+         * @throws ServletException if a servlet-specific error occurs
+         * @throws IOException      if an I/O error occurs
+         */
+        @Override
+        protected void doGet(HttpServletRequest request, HttpServletResponse response)
+                        throws ServletException, IOException {
 
-        String status = request.getParameter("status");
-        String type = request.getParameter("type");
-        String keyword = request.getParameter("keyword");
+                String status = request.getParameter("status");
+                String type = request.getParameter("type");
+                String keyword = request.getParameter("keyword");
 
-        SettingTypeDAO stdb = new SettingTypeDAO();
-        ArrayList<SettingType> types = stdb.listAllTypes();
+                SettingTypeDAO stdb = new SettingTypeDAO();
+                ArrayList<SettingType> types = stdb.listAllTypes();
 
-        SettingDAO sDB = new SettingDAO();
-        ArrayList<Setting> settings = sDB.listAllSettings();
+                SettingDAO sDB = new SettingDAO();
+                ArrayList<Setting> settings = sDB.listAllSettings();
 
-        if (status != null && type != null && keyword != null) {
-            int sid = Integer.parseInt(status);
-            int tid = Integer.parseInt(type);
+                if (status != null && type != null && keyword != null) {
+                        int sid = Integer.parseInt(status);
+                        int tid = Integer.parseInt(type);
 
-            settings = sDB.filterSettings(sid, tid, keyword);
+                        settings = sDB.filterSettings(sid, tid, keyword);
+                }
+
+                request.setAttribute("status", status);
+                request.setAttribute("type", type);
+                request.setAttribute("keyword", keyword);
+
+                request.setAttribute("types", types);
+                request.setAttribute("settings", settings);
+                request.getRequestDispatcher("dashboard/settings.jsp").forward(request, response);
         }
 
-        request.setAttribute("status", status);
-        request.setAttribute("type", type);
-        request.setAttribute("keyword", keyword);
-
-        request.setAttribute("types", types);
-        request.setAttribute("settings", settings);
-        request.getRequestDispatcher("dashboard/settings.jsp").forward(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    }
+        /**
+         * Handles the HTTP <code>POST</code> method.
+         *
+         * @param request  servlet request
+         * @param response servlet response
+         * @throws ServletException if a servlet-specific error occurs
+         * @throws IOException      if an I/O error occurs
+         */
+        @Override
+        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+                        throws ServletException, IOException {
+        }
 
 }

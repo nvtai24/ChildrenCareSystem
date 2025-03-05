@@ -20,12 +20,11 @@ public class SettingToggleAjax extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         int stid = Integer.parseInt(request.getParameter("stid"));
-        
+
         SettingDAO sdb = new SettingDAO();
         sdb.toggleStatus(stid);
     }
 
-    
 }

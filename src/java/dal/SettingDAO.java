@@ -19,7 +19,12 @@ import model.SettingType;
  */
 public class SettingDAO extends DBContext {
 
+    <<<<<<<HEAD
     public ArrayList<Setting> filterSettings(int status, int typeid, String keyword) {
+=======
+
+    public ArrayList<Setting> filterSettings(int status, int typeid) {
+>>>>>>> 6f78941b8b668de7dbf7589129785470aa54b3b6
         ArrayList<Setting> result = new ArrayList<>();
         String query = "SELECT \n"
                 + "    s.setting_id,\n"
@@ -40,6 +45,7 @@ public class SettingDAO extends DBContext {
         if (typeid != -1) {
             query += " AND st.id = ?";
         }
+
         if (keyword != null && !keyword.isBlank()) {
             query += " AND (s.value like ? or s.description like ?)";
         }
@@ -152,8 +158,7 @@ public class SettingDAO extends DBContext {
                         null,
                         rs.getString("value"),
                         rs.getString("description"),
-                        rs.getBoolean("status")
-                );
+                        rs.getBoolean("status"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SettingDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -164,7 +169,8 @@ public class SettingDAO extends DBContext {
     public void updateSetting(Setting setting) {
         String query = "UPDATE setting SET value = ?, description = ?, status = ? WHERE setting_id = ?";
         try {
-            executeUpdate(query, setting.getSettingValue(), setting.getDescription(), setting.isStatus(), setting.getId());
+            executeUpdate(query, setting.getSettingValue(), setting.getDescription(), setting.isStatus(),
+                    setting.getId());
         } catch (SQLException ex) {
             Logger.getLogger(SettingDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
