@@ -246,7 +246,7 @@
                                 document.addEventListener("DOMContentLoaded", function () {
                                     Swal.fire({
                                         title: "<c:out value='${notification eq "successfull" ? "Success!" : "Oops..."}' />",
-                                        text: "<c:out value='${notification eq "successfull" ? "Customer has been created successfully." : "Something went wrong!"}' />",
+                                        text: "<c:out value='${notification eq "successfull" ? "User has been created successfully." : "User cannot update please try again!"}' />",
                                         icon: "<c:out value='${notification eq "successfull" ? "success" : "error"}' />",
                                         confirmButtonText: "OK",
                                         didOpen: () => {
@@ -322,7 +322,7 @@
                         e.preventDefault();
                         Swal.fire({
                             title: 'Oops...',
-                            text: 'Something went wrong!',
+                            text: 'Please check form again!',
                             icon: 'error',
                             confirmButtonText: 'Try Again'
                         });

@@ -306,7 +306,7 @@
                                             e.preventDefault();
                                             Swal.fire({
                                                 title: 'Oops...',
-                                                text: 'Something went wrong!',
+                                                text: 'Please check form again!',
                                                 icon: 'error',
                                                 confirmButtonText: 'Try Again'
                                             });
@@ -332,7 +332,7 @@
                 document.addEventListener("DOMContentLoaded", function () {
                     Swal.fire({
                         title: "<c:out value='${notification eq "successfull" ? "Success!" : "Oops..."}' />",
-                        text: "<c:out value='${notification eq "successfull" ? "Customer has been created successfully." : "Something went wrong!"}' />",
+                        text: "<c:out value='${notification eq "successfull" ? "Customer has been updated successfully." : "Customer cannot updated please try again!"}' />",
                         icon: "<c:out value='${notification eq "successfull" ? "success" : "error"}' />",
                         confirmButtonText: "OK",
                         didOpen: () => {

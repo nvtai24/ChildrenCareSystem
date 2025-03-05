@@ -30,13 +30,16 @@ public class UserDAO extends DBContext {
         User user = null;
         PreparedStatement stm = null;
         try {
-            String sql = "SELECT `id`, `username`, `password`, `email`, `role_id`, `email_verified` FROM `user` WHERE `username` = ? AND `password` = ?";
+            String sql = "SELECT `id`, `username`, `password`, `status`, `email`, `role_id`, `email_verified` FROM `user` WHERE `username` = ? AND `password` = ?";
             stm = dbContext.connection.prepareStatement(sql);
             stm.setString(1, username);
             stm.setString(2, password);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 user = new User();
+                if (rs.getInt("status") == 0) {
+                    return null;
+                }
                 int id = rs.getInt("id");
                 String email = rs.getString("email");
                 int roleId = rs.getInt("role_id");
@@ -762,6 +765,23 @@ public class UserDAO extends DBContext {
         }
 
         return list;
+    }
+
+    public boolean saveProfile(Profile profile) {
+        String sql = "INSERT INTO profile (userid, firstname, lastname, gender, dob, address, phone) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = dbContext.connection.prepareStatement(sql)) {
+            ps.setInt(1, profile.getUser().getId());
+            ps.setString(2, profile.getFirstName());
+            ps.setString(3, profile.getLastName());
+            ps.setBoolean(4, profile.isGender());
+            ps.setDate(5, (java.sql.Date) profile.getDob());
+            ps.setString(6, profile.getAddress());
+            ps.setString(7, profile.getPhone());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfileDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
 }
