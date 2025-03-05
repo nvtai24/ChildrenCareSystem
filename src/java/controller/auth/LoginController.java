@@ -33,13 +33,13 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("dzName");
+        String usernameOrEmail = request.getParameter("dzName");
         String password = request.getParameter("dzPassword");
 
         UserDAO udb = new UserDAO();
-        User user = udb.get(username, password);
+        User user = udb.get(usernameOrEmail, password);
         boolean hasError = false;
-        if (username == null || username.trim().isEmpty()) {
+        if (usernameOrEmail == null || usernameOrEmail.trim().isEmpty()) {
             request.setAttribute("errorUsername", "Please enter your username.");
             hasError = true;
         }
