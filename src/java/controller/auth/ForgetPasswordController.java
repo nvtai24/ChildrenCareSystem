@@ -5,6 +5,7 @@
 
 package controller.auth;
 
+import util.EmailUtil;
 import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;

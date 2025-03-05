@@ -4,7 +4,7 @@
  */
 package controller.customer.manager;
 
-import controller.auth.EmailUtil;
+import util.EmailUtil;
 import dal.ProfileDAO;
 import dal.UserDAO;
 import java.io.IOException;
