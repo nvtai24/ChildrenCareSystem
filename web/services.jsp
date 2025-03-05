@@ -159,31 +159,64 @@
                                                                 <strong class="text-danger">$${s.price - s.discount}</strong>
                                                             </p>
 
-                                                            <button type="button" class="btn btn-success w-100 mb-2" onclick="addToWishlist(${sessionScope.account.id}, ${s.id})">
+                                                            <button type="button" class="btn btn-success w-100 mb-2" onclick="addToWishlist(${s.id})">
                                                                 Add Appointment
                                                             </button>
 
+                                                            <button type="button" class="btn btn-success w-100" onclick="bookNow(${s.id})">
+                                                                Book Now
+                                                            </button>
+
                                                             <script>
-                                                                function addToWishlist(userId, serviceId) {
+                                                                function addToWishlist(serviceId) {
+                                                                    // Kiểm tra session nếu có attribute account
                                                                     $.ajax({
-                                                                        url: 'wishlist/add', // URL của API
-                                                                        type: 'POST',
-                                                                        data: {sid: serviceId,
-                                                                            uid: userId}, // Gửi dữ liệu serviceId
+                                                                        url: '/app/checklogin', // URL kiểm tra session
+                                                                        type: 'GET',
                                                                         success: function (response) {
-                                                                            Swal.fire({
-                                                                                title: "Success!",
-                                                                                text: "Added to wishlist successfully!",
-                                                                                icon: "success",
-                                                                                confirmButtonText: "OK",
-                                                                                timer: 2000,
-                                                                                backdrop: true,
+                                                                            // Kiểm tra nếu người dùng chưa đăng nhập
+                                                                            if (!response.isLoggedIn) {
+                                                                                // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+                                                                                window.location.href = '/app/login';
+                                                                                return; // Dừng thực hiện thêm vào wishlist
+                                                                            }
+
+                                                                            // Nếu đã đăng nhập, lấy userId từ response
+                                                                            var userId = response.userId;
+
+                                                                            // Tiếp tục thêm vào wishlist
+                                                                            $.ajax({
+                                                                                url: 'wishlist/add', // URL của API
+                                                                                type: 'POST',
+                                                                                data: {
+                                                                                    sid: serviceId,
+                                                                                    uid: userId
+                                                                                }, // Gửi dữ liệu serviceId và userId
+                                                                                success: function (response) {
+                                                                                    Swal.fire({
+                                                                                        title: "Success!",
+                                                                                        text: "Added to wishlist successfully!",
+                                                                                        icon: "success",
+                                                                                        confirmButtonText: "OK",
+                                                                                        timer: 2000,
+                                                                                        backdrop: true,
+                                                                                    });
+                                                                                },
+                                                                                error: function (xhr, status, error) {
+                                                                                    Swal.fire({
+                                                                                        title: "Error!",
+                                                                                        text: "Failed to add to wishlist. Please try again!",
+                                                                                        icon: "error",
+                                                                                        confirmButtonText: "OK",
+                                                                                        backdrop: true
+                                                                                    });
+                                                                                }
                                                                             });
                                                                         },
                                                                         error: function (xhr, status, error) {
                                                                             Swal.fire({
                                                                                 title: "Error!",
-                                                                                text: "Failed to add to wishlist. Please try again!",
+                                                                                text: "An error occurred while checking session. Please try again!",
                                                                                 icon: "error",
                                                                                 confirmButtonText: "OK",
                                                                                 backdrop: true
@@ -191,11 +224,41 @@
                                                                         }
                                                                     });
                                                                 }
+
+
+                                                                function bookNow(serviceId) {
+                                                                    // Kiểm tra session nếu có attribute account
+                                                                    $.ajax({
+                                                                        url: '/app/checklogin', // URL kiểm tra session
+                                                                        type: 'GET',
+                                                                        success: function (response) {
+                                                                            // Kiểm tra nếu người dùng chưa đăng nhập
+                                                                            if (!response.isLoggedIn) {
+                                                                                // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+                                                                                window.location.href = '/app/login';
+                                                                                return; // Dừng thực hiện thêm vào wishlist
+                                                                            }
+
+                                                                            // Nếu đã đăng nhập, lấy userId từ response
+                                                                            var userId = response.userId;
+
+                                                                            // Tiến hành điều hướng đến trang book (hoặc trang bạn muốn)
+                                                                            window.location.href = '/app/book?id=' + serviceId;  // Chuyển hướng tới trang book với serviceId
+                                                                        },
+                                                                        error: function (xhr, status, error) {
+                                                                            Swal.fire({
+                                                                                title: "Error!",
+                                                                                text: "An error occurred while checking session. Please try again!",
+                                                                                icon: "error",
+                                                                                confirmButtonText: "OK",
+                                                                                backdrop: true
+                                                                            });
+                                                                        }
+                                                                    });
+                                                                }
+
                                                             </script>
 
-                                                            <button class="btn btn-success w-100")">
-                                                                Book Now
-                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>

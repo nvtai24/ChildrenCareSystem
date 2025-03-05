@@ -9,7 +9,6 @@ import model.ReservationDetail;
 
 public class ReservationDAO extends DBContext {
 
-    
     // đây là mới xử lí insert dữ liệu bởi phương thức thanh toán arrival, còn thanh toán online thì chưa (r.isBanking == true) -> payment table
     public void insertReservation(Reservation r) {
         String reservationQuery = "INSERT INTO `childrencare`.`reservation` "

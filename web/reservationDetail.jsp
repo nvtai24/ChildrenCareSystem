@@ -54,7 +54,6 @@
                 height: 100px; /* Thay đổi kích thước theo nhu cầu */
                 object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
             }
-
         </style>
 
     </head>
@@ -120,7 +119,7 @@
                                                 </div>
 
                                                 <div class="col-md-2 font-weight-bold">
-                                                    <del>${i.service.price}</del>
+                                                    <del>$${i.service.price}</del>
                                                     <h5 class="sale-price" data-price="${i.service.price}" data-discount="${i.service.discount}">
                                                         $${i.service.price * (1 - i.service.discount / 100)}
                                                     </h5>

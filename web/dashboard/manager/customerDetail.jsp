@@ -3,7 +3,7 @@
     Created on : Feb 19, 2025, 10:55:48 PM
     Author     : milo9
 --%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,66 +50,67 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/style.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/color/color-1.css">
-
         <style>
             .container {
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
+                align-items: flex-start;
+                gap: 40px;
                 margin-top: 30px;
+                width: 100%;
             }
 
             .profile-left, .profile-right {
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                border: 1px solid #ddd;
+                background-color: #fff;
             }
 
             .profile-left {
-                width: 30%;
+                width: 35%;
                 text-align: center;
-                background-color: #fff;
             }
 
             .profile-right {
-                width: 65%;
-                padding-left: 20px;
-                background-color: #fff;
+                width: 60%;
             }
 
             .profile-left img {
-                width: 120px;
-                height: 120px;
+                width: 150px;
+                height: 150px;
                 object-fit: cover;
                 border-radius: 50%;
                 border: 5px solid #f5f5f5;
             }
 
-            .form-control:disabled {
-                background-color: #f5f5f5;
+            .form-control {
+                height: 45px;
+                font-size: 16px;
+                padding: 10px;
             }
 
             .btn-update {
                 width: 100%;
+                height: 50px;
+                font-size: 18px;
             }
 
             .form-group label {
                 font-weight: bold;
+                font-size: 16px;
             }
 
-            .profile-info {
-                margin-top: 20px;
-            }
+            @media (max-width: 992px) {
+                .container {
+                    flex-direction: column;
+                    align-items: center;
+                }
 
-            .profile-info h3 {
-                margin-bottom: 10px;
-            }
-
-            .profile-info p {
-                font-size: 14px;
-            }
-
-            .profile-info .btn {
-                margin-top: 10px;
+                .profile-left, .profile-right {
+                    width: 90%;
+                }
             }
 
         </style>
@@ -140,14 +141,22 @@
 
                         <input type="hidden" name="oldAvatar" value="${user.profile.avatar}"/>
                         <div class="profile-left">
-                            <img id="avatarPreview" src="${pageContext.request.contextPath}/${user.profile.avatar}" alt="Profile Image">
-                            <h3>User profile</h3>
+                            <img id="avatarPreview" src="<c:choose>
+                                     <c:when test="${not empty user.profile.avatar}">
+                                         ${pageContext.request.contextPath}/${user.profile.avatar}
+                                     </c:when>
+                                     <c:otherwise>
+                                         ${pageContext.request.contextPath}/assets/images/profile/default.jpg
+                                     </c:otherwise>
+                                 </c:choose>
+                                 " alt="Profile Image">
+                            <h3>Customer profile</h3>
                             <input type="hidden" value="${user.id}" name="id"/>
                             <p><strong>Username:</strong> ${user.username}</p>
                             <p><strong>Email:</strong> ${user.email}</p>
                             <!-- Button to trigger file input -->
                             <button type="button" class="btn btn-info" onclick="document.getElementById('avatarInput').click();">
-                                <i class="fas fa-camera"></i> Change Avatar
+                                <i class="fa fa-picture-o" aria-hidden="true"></i> Change Avatar
                             </button> 
 
                             <!-- Hidden File Input -->
@@ -165,43 +174,42 @@
                         <!-- Right Side: Edit User Details and Change Password -->
                         <div class="profile-right">
                             <!-- Edit Details -->
-                            <!-- First Name -->
                             <div class="form-group">
-                                <label for="FullName">First name</label>
-                                <input type="text" class="form-control" id="FullName" name="firstname" value="${user.profile.firstName}">
+                                <label for="FirstName">First name</label>
+                                <input type="text" class="form-control" id="firstName" name="firstname" value="${user.profile.firstName}">
                                 <small id="firstNameError" class="error-text text-danger"></small>
                             </div>
 
-                            <!-- Last Name -->
                             <div class="form-group">
                                 <label for="LastName">Last name</label>
-                                <input type="text" class="form-control" id="LastName" name="lastname" value="${user.profile.lastName}">
+                                <input type="text" class="form-control" id="lastName" name="lastname" value="${user.profile.lastName}">
                                 <small id="lastNameError" class="error-text text-danger"></small>
                             </div>
+
                             <div class="form-group">
                                 <label for="gender">Gender</label> 
-                                <input type="radio" name="gender" value="1" ${user.profile.gender  ? "checked" : ""}> Male
-                                <input type="radio" name="gender" value="0" ${!user.profile.gender  ? "checked" : ""}> Female
+                                <input type="radio" name="gender" value="1" ${user.profile.gender  ? "checked" : ""}> Male <i class="fa fa-male" aria-hidden="true"></i>
+                                <input type="radio" name="gender" value="0" ${!user.profile.gender  ? "checked" : ""}> Female <i class="fa fa-female" aria-hidden="true"></i>
                             </div>
 
                             <div class="form-group">
-                                <label for="gender">Birthday </label> 
-                                <input class="form-control" type="date" value="${user.profile.dob}" name="dob">
+                                <label for="dob">Date of Birth</label>
+                                <input class="form-control" type="date" id="dob" name="dob" value="${user.profile.dob}">
+                                <small id="dobError" class="error-text text-danger"></small>
                             </div>
 
-                            <!-- Address -->
                             <div class="form-group">
                                 <label for="address">Address</label>
-                                <input type="text" class="form-control" name="address" value="${user.profile.address}">
+                                <input type="text" class="form-control" id="address" name="address" value="${user.profile.address}">
                                 <small id="addressError" class="error-text text-danger"></small>
                             </div>
 
-                            <!-- Phone Number -->
                             <div class="form-group">
-                                <label for="Phone">Phone number</label>
-                                <input type="text" class="form-control" id="Phone" name="phone" value="${user.profile.phone}">
+                                <label for="phone">Phone Number</label>
+                                <input type="text" class="form-control" id="phone" name="phone" value="${user.profile.phone}">
                                 <small id="phoneError" class="error-text text-danger"></small>
                             </div>
+
 
                             <button type="submit" class="btn btn-success btn-update">Save</button>
                         </div>
@@ -213,6 +221,7 @@
         <div class="ttr-overlay"></div>
 
         <!-- External JavaScripts -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="${pageContext.request.contextPath}/assets2/js/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/popper.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
@@ -230,25 +239,14 @@
         <script src="${pageContext.request.contextPath}/assets2/vendors/chart/chart.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
         <script src='${pageContext.request.contextPath}/assets2/vendors/switcher/switcher.js'></script>
+
         <script>
-
-                                function previewAvatar(event) {
-                                    const input = event.target;
-                                    if (input.files && input.files[0]) {
-                                        const reader = new FileReader();
-                                        reader.onload = function (e) {
-                                            document.getElementById('avatarPreview').src = e.target.result;
-                                        };
-                                        reader.readAsDataURL(input.files[0]);
-                                    }
-                                }
-
                                 $(document).ready(function () {
                                     function validateForm() {
-                                        var isValid = true; 
+                                        var isValid = true;
 
-                                        // check First Name
-                                        var firstName = $("#FullName").val().trim();
+                                        // Validate First Name
+                                        var firstName = $("#firstName").val().trim();
                                         if (firstName === "") {
                                             $("#firstNameError").text("First name cannot be empty.");
                                             isValid = false;
@@ -256,8 +254,8 @@
                                             $("#firstNameError").text("");
                                         }
 
-                                        // check Last Name
-                                        var lastName = $("#LastName").val().trim();
+                                        // Validate Last Name
+                                        var lastName = $("#lastName").val().trim();
                                         if (lastName === "") {
                                             $("#lastNameError").text("Last name cannot be empty.");
                                             isValid = false;
@@ -265,8 +263,18 @@
                                             $("#lastNameError").text("");
                                         }
 
-                                        // check Address
-                                        var address = $("input[name='address']").val().trim();
+                                        // Validate Date of Birth (must be before today)
+                                        var dob = $("#dob").val();
+
+                                        if (dob === "") {
+                                            $("#dobError").text("Date of birth cannot be empty");
+                                            isValid = false;
+                                        } else {
+                                            $("#dobError").text("");
+                                        }
+
+                                        // Validate Address
+                                        var address = $("#address").val().trim();
                                         if (address === "") {
                                             $("#addressError").text("Address cannot be empty.");
                                             isValid = false;
@@ -274,46 +282,65 @@
                                             $("#addressError").text("");
                                         }
 
-                                        // check Phone Number
-                                        var phone = $("#Phone").val().trim();
+                                        // Validate Phone Number (7-15 digits, can include "-")
+                                        var phone = $("#phone").val().trim();
                                         var phoneRegex = /^(?!-)(?!.*--)[0-9-]{7,15}(?<!-)$/;
-                                        if (phone === "") {
-                                            $("#phoneError").text("Phone number cannot be empty.");
-                                            isValid = false;
-                                        } else if (!phoneRegex.test(phone)) {
+                                        if (!phoneRegex.test(phone)) {
                                             $("#phoneError").text("Phone number must be 7-15 digits and can contain '-' (not consecutive).");
                                             isValid = false;
                                         } else {
                                             $("#phoneError").text("");
                                         }
 
-                                        // check
-                                        var dob = $("input[name='dob']").val();
-                                       
-
-                                        if (dob === "") {
-                                            $("#dobError").text("Date of birth cannot be empty.");
-                                            isValid = false;
-                                        } else {
-                                            $("#dobError").text("");
-                                        }
-
                                         return isValid;
                                     }
 
-                                    // Last check after submit
-                                    $("#FullName, #LastName, input[name='address'], #Phone, input[name='dob']").on("input", function () {
+                                    // Validate on input change
+                                    $("#firstName, #lastName, #dob, #address, #phone").on("input change", function () {
                                         validateForm();
                                     });
 
+                                    // Prevent form submission if validation fails
                                     $("form").on("submit", function (e) {
                                         if (!validateForm()) {
-                                            e.preventDefault(); // prevent if fail
-                                            alert("Please fill in all required fields correctly before submitting.");
+                                            e.preventDefault();
+                                            Swal.fire({
+                                                title: 'Oops...',
+                                                text: 'Something went wrong!',
+                                                icon: 'error',
+                                                confirmButtonText: 'Try Again'
+                                            });
                                         }
                                     });
                                 });
 
+                                function previewAvatar(event) {
+                                    var input = event.target;
+                                    if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
+                                        reader.onload = function (e) {
+                                            $("#avatarPreview").attr("src", e.target.result);
+                                        };
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
+                                }
+
         </script>
+
+        <c:if test="${not empty notification}">
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    Swal.fire({
+                        title: "<c:out value='${notification eq "successfull" ? "Success!" : "Oops..."}' />",
+                        text: "<c:out value='${notification eq "successfull" ? "Customer has been created successfully." : "Something went wrong!"}' />",
+                        icon: "<c:out value='${notification eq "successfull" ? "success" : "error"}' />",
+                        confirmButtonText: "OK",
+                        didOpen: () => {
+                            document.querySelector(".swal2-select")?.remove();
+                        }
+                    });
+                });
+            </script>
+        </c:if>
     </body>
 </html>

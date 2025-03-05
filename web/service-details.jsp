@@ -86,35 +86,73 @@
                                     <div class="course-detail-bx" style="width: 400px">
                                         <div class="course-price">
                                             <del>$${requestScope.s.price}</del>
-                                            <h4 class="price">$${requestScope.s.price - requestScope.s.discount}</h4>
+                                            <h4 class="price">$${requestScope.s.price * (1 - requestScope.s.discount / 100)}</h4>
                                         </div>	
                                         <div class="course-buy-now text-center">
-                                            <button type="button" class="btn btn-success mb-2" onclick="addToWishlist(${sessionScope.account.id}, ${requestScope.s.id})">
-                                                Add Appointment
-                                            </button>
+                                            <div class="row mb-1">
+                                                <div class="col-6">
+                                                    <button type="button" class="btn btn-success mb-2 w-100" onclick="addToWishlist(${requestScope.s.id})">
+                                                        Add Appointment
+                                                    </button>
+                                                </div>
 
+                                                <div class="col-6">
+                                                    <button type="button" class="btn btn-success mb-2 w-100" onclick="bookNow(${requestScope.s.id})">
+                                                        Book Now
+                                                    </button>
+                                                </div>
+                                            </div>
 
                                             <script>
-                                                function addToWishlist(userId, serviceId) {
+                                                function addToWishlist(serviceId) {
+                                                    // Kiểm tra session nếu có attribute account
                                                     $.ajax({
-                                                        url: 'wishlist/add', // URL của API
-                                                        type: 'POST',
-                                                        data: {sid: serviceId,
-                                                            uid: userId}, // Gửi dữ liệu serviceId
+                                                        url: '/app/checklogin', // URL kiểm tra session
+                                                        type: 'GET',
                                                         success: function (response) {
-                                                            Swal.fire({
-                                                                title: "Success!",
-                                                                text: "Added to wishlist successfully!",
-                                                                icon: "success",
-                                                                confirmButtonText: "OK",
-                                                                timer: 2000,
-                                                                backdrop: true
+                                                            // Kiểm tra nếu người dùng chưa đăng nhập
+                                                            if (!response.isLoggedIn) {
+                                                                // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+                                                                window.location.href = '/app/login';
+                                                                return; // Dừng thực hiện thêm vào wishlist
+                                                            }
+
+                                                            // Nếu đã đăng nhập, lấy userId từ response
+                                                            var userId = response.userId;
+
+                                                            // Tiếp tục thêm vào wishlist
+                                                            $.ajax({
+                                                                url: 'wishlist/add', // URL của API
+                                                                type: 'POST',
+                                                                data: {
+                                                                    sid: serviceId,
+                                                                    uid: userId
+                                                                }, // Gửi dữ liệu serviceId và userId
+                                                                success: function (response) {
+                                                                    Swal.fire({
+                                                                        title: "Success!",
+                                                                        text: "Added to wishlist successfully!",
+                                                                        icon: "success",
+                                                                        confirmButtonText: "OK",
+                                                                        timer: 2000,
+                                                                        backdrop: true,
+                                                                    });
+                                                                },
+                                                                error: function (xhr, status, error) {
+                                                                    Swal.fire({
+                                                                        title: "Error!",
+                                                                        text: "Failed to add to wishlist. Please try again!",
+                                                                        icon: "error",
+                                                                        confirmButtonText: "OK",
+                                                                        backdrop: true
+                                                                    });
+                                                                }
                                                             });
                                                         },
                                                         error: function (xhr, status, error) {
                                                             Swal.fire({
                                                                 title: "Error!",
-                                                                text: "Failed to add to wishlist. Please try again!",
+                                                                text: "An error occurred while checking session. Please try again!",
                                                                 icon: "error",
                                                                 confirmButtonText: "OK",
                                                                 backdrop: true
@@ -122,10 +160,40 @@
                                                         }
                                                     });
                                                 }
+
+
+                                                function bookNow(serviceId) {
+                                                    // Kiểm tra session nếu có attribute account
+                                                    $.ajax({
+                                                        url: '/app/checklogin', // URL kiểm tra session
+                                                        type: 'GET',
+                                                        success: function (response) {
+                                                            // Kiểm tra nếu người dùng chưa đăng nhập
+                                                            if (!response.isLoggedIn) {
+                                                                // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+                                                                window.location.href = '/app/login';
+                                                                return; // Dừng thực hiện thêm vào wishlist
+                                                            }
+
+                                                            // Nếu đã đăng nhập, lấy userId từ response
+                                                            var userId = response.userId;
+
+                                                            // Tiến hành điều hướng đến trang book (hoặc trang bạn muốn)
+                                                            window.location.href = '/app/book?id=' + serviceId;  // Chuyển hướng tới trang book với serviceId
+                                                        },
+                                                        error: function (xhr, status, error) {
+                                                            Swal.fire({
+                                                                title: "Error!",
+                                                                text: "An error occurred while checking session. Please try again!",
+                                                                icon: "error",
+                                                                confirmButtonText: "OK",
+                                                                backdrop: true
+                                                            });
+                                                        }
+                                                    });
+                                                }
+
                                             </script>
-
-
-
 
                                         </div>
 
@@ -274,7 +342,7 @@
                                                     <img src="${f.reservationDetail.reservation.customer.profile.avatar}" alt="">
                                                 </div>
                                                 <div class="instructor-info">
-                                                    <h6>${f.reservationDetail.reservation.customer.profile.fullName}</h6>
+                                                    <h6>${f.reservationDetail.reservation.customer.profile.lastName} ${f.reservationDetail.reservation.customer.profile.lastName}</h6>
                                                     <!--<span>Professor</span>-->
 
                                                     <ul class="cours-star">

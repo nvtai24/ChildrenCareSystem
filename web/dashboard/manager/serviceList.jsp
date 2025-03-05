@@ -208,11 +208,10 @@
                                     </span>
                                 </td>
                                 <td class="text-center text-nowrap">
-                                    <form action="../services/manager" method="POST" onsubmit="return confirmChangeStatus()" class="d-inline">
+                                    <form action="../services/manager" method="POST" onsubmit="confirmChangeStatus(event)" class="d-inline">
                                         <input type="hidden" name="id" value="${s.id}">
                                         <input type="hidden" name="action" value="change">
-                                        <button type="submit" class="btn  ${s.status == 1 ? 'red mb-2' : 'green mb-2'}">
-
+                                        <button type="submit" class="btn ${s.status == 1 ? 'red mb-2' : 'green mb-2'}">
                                             ${s.status == 1 ? '<i class="fa fa-refresh" aria-hidden="true"></i> Deactivate' : '<i class="fa fa-pencil" aria-hidden="true"></i> Activate'}
                                         </button>
                                     </form>
@@ -234,6 +233,7 @@
 
 <!-- External JavaScripts -->
 <!-- jQuery: -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets2/js/jquery.min.js"></script> 
 
@@ -270,8 +270,25 @@
 
 <!-- Custom Scripts -->
 <script>
-                                        function confirmChangeStatus() {
-                                            return confirm("Are you sure you want to change the status?");
+                                        function confirmChangeStatus(event) {
+                                            event.preventDefault();
+
+                                            Swal.fire({
+                                                title: "Are you sure?",
+                                                text: "Do you really want to change the status?",
+                                                icon: "warning",
+                                                showCancelButton: true,
+                                                confirmButtonColor: "#3085d6",
+                                                cancelButtonColor: "#d33",
+                                                confirmButtonText: "Yes, change it!",
+                                                cancelButtonText: "No, cancel!"
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    event.target.submit();
+                                                }
+                                            });
+
+                                            return false;
                                         }
 
                                         $(document).ready(function () {
