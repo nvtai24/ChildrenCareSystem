@@ -38,6 +38,34 @@
         <link rel="stylesheet" type="text/css" href="assets2/css/style.css">
         <link rel="stylesheet" type="text/css" href="assets2/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="assets2/css/color/color-1.css">
+        <!-- DATA TABLES ============================================= -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+        <style>
+            th {
+                text-align: center;
+            }
+            div.dataTables_wrapper div.dataTables_paginate {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                padding: 15px 0;
+                font-size: 14px;
+            }
+
+
+            .dt-paging {
+                text-align: center;
+                margin-top: 0;
+                padding-top: 10px;
+            }
+
+
+            .paginate_button {
+                padding: 5px 10px;
+                margin: 0 5px;
+            }
+        </style>
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
@@ -115,20 +143,21 @@
             </div>
 
             <div class="container-fluid">
-                <table class="table table-hover">
-                    <thead>
+                <table id="userTable" class="table table-striped table-hover" style="width:100%">
+                    <thead class="thead-light">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Value</th>
                             <th scope="col">Type</th>
                             <th scope="col">Description</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">Status</th>
+                            <th scope="col" class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach items="${requestScope.settings}" var="s" varStatus="status">
                             <tr>
-                                <th scope="row">${status.index + 1}</th>
+                                <td scope="row">${status.index + 1}</td>
                                 <td>${s.settingValue}</td>
                                 <td>${s.settingType.name}</td>
                                 <td>${s.description}</td>
@@ -142,7 +171,7 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
-                                <td style="display: flex; gap: 20px">
+                                <td style="display: flex; gap: 20px" class="text-center text-nowrap">
                                     <div class="status-toggle" data-id="${s.id}" data-status="${s.status}">
                                         <c:choose>
                                             <c:when test="${s.status}">
@@ -238,6 +267,24 @@
         <script src="assets2/js/admin.js"></script>
         <script src='assets2/vendors/calendar/moment.min.js'></script>
         <script src='assets2/vendors/calendar/fullcalendar.js'></script>
+        <!-- DataTables  -->
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script >
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+            $('#userTable').DataTable({
+                "paging": true,
+                "lengthMenu": [10],
+                "searching": false,
+                "ordering": true,
+                "info": false,
+                "columnDefs": [
+                    {"orderable": false, "targets": [4, 5]}
+                ],
+                "dom": 't<"dt-paging"p>'
+            });
+        </script>
 
     </body>
 

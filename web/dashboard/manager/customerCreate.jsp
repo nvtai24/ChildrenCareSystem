@@ -260,7 +260,7 @@
                     } else {
                         $("#usernameError").text("");
                         $.ajax({
-                            url: "../users/add",
+                            url: "../customer/add",
                             type: "GET",
                             data: {action: "checkUsername", username: username},
                             async: false,
@@ -284,7 +284,7 @@
                     } else {
                         $("#emailError").text("");
                         $.ajax({
-                            url: "../users/add",
+                            url: "../customer/add",
                             type: "GET",
                             data: {action: "checkEmail", email: email},
                             async: false,
