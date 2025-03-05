@@ -41,6 +41,13 @@ Nvtai --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
             <span class="ttr-label">Feedback</span>
           </a>
         </li>
+        
+        <li>
+          <a href="/app/sliders" class="ttr-material-button">
+            <span class="ttr-icon"><i class="fa fa-wpforms"></i></span>
+            <span class="ttr-label">Slider</span>
+          </a>
+        </li>
 
         <li>
           <a href="/app/posts" class="ttr-material-button">
