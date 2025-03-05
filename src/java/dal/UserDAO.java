@@ -30,13 +30,16 @@ public class UserDAO extends DBContext {
         User user = null;
         PreparedStatement stm = null;
         try {
-            String sql = "SELECT `id`, `username`, `password`, `email`, `role_id`, `email_verified` FROM `user` WHERE `username` = ? AND `password` = ?";
+            String sql = "SELECT `id`, `username`, `password`, `status`, `email`, `role_id`, `email_verified` FROM `user` WHERE `username` = ? AND `password` = ?";
             stm = dbContext.connection.prepareStatement(sql);
             stm.setString(1, username);
             stm.setString(2, password);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 user = new User();
+                if (rs.getInt("status") == 0) {
+                    return null;
+                }
                 int id = rs.getInt("id");
                 String email = rs.getString("email");
                 int roleId = rs.getInt("role_id");
