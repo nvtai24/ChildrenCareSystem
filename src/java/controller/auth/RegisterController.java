@@ -4,7 +4,9 @@
  */
 package controller.auth;
 
+import util.EmailUtil;
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import dal.ProfileDAO;
 import dal.UserDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -18,6 +20,7 @@ import java.util.Date;
 import model.auth.User;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import model.Profile;
 
 /**
  *
@@ -35,10 +38,10 @@ public class RegisterController extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.
-     *  
+     *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletExce      tion if a servlet-specific error occurs
+     * @throws ServletExce tion if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     @Override
@@ -65,14 +68,18 @@ public class RegisterController extends HttpServlet {
         String username = request.getParameter("dzName");
         String password = request.getParameter("dzPassword");
         String email = request.getParameter("dzEmail");
-
+        String firstname = request.getParameter("firstname");
+        String lastname = request.getParameter("lastname");
+        String gender = request.getParameter("gender");
+        String dob = request.getParameter("dob");
+        String address = request.getParameter("address");
+        String phone = request.getParameter("phone");
         if (username.length() < 5 || username.length() > 30 || username.contains(" ")) {
             request.setAttribute("usernameError", "Username must be 5-30 characters and cannot contain spaces.");
             request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
 
-                
         if (password.length() < 8 || password.length() > 15 || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,15}$")) {
             request.setAttribute("passwordError", "Password must be 8-15 characters with at least one uppercase letter, one lowercase letter, and one number.");
             request.getRequestDispatcher("register.jsp").forward(request, response);
@@ -102,10 +109,29 @@ public class RegisterController extends HttpServlet {
         newUser.setTokenExpiration(new Timestamp(expirationTime));
         boolean isRegistered = userDAO.register(newUser);
         if (isRegistered) {
-            String verificationLink = "http://localhost:8080/app/verify?token=" + token + "&redirect=login";
-            EmailUtil.sendVerificationEmail(email, verificationLink);
-            request.setAttribute("successMessage", "A verify link has been sent to your email.");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
+            Profile newProfile = new Profile();
+            newProfile.setUser(newUser); // Set userId after the user is inserted
+            newProfile.setFirstName(firstname);
+            newProfile.setLastName(lastname);
+            boolean genderValue = "1".equals(gender);  // Giả sử '1' là Male và '2' là Female
+            newProfile.setGender(genderValue);
+            newProfile.setDob(java.sql.Date.valueOf(dob)); // Convert DOB string to java.sql.Date
+            newProfile.setAddress(address);
+            newProfile.setPhone(phone);
+
+            // Save profile data
+            ProfileDAO profileDAO = new ProfileDAO();
+            boolean isProfileSaved = profileDAO.saveProfile(newProfile);
+
+            if (isProfileSaved) {
+                String verificationLink = "http://localhost:8080/app/verify?token=" + token + "&redirect=login";
+                EmailUtil.sendVerificationEmail(email, verificationLink);
+                request.setAttribute("successMessage", "A verify link has been sent to your email.");
+                request.getRequestDispatcher("register.jsp").forward(request, response);
+            } else {
+                request.setAttribute("errorMessage", "Profile registration failed. Please try again.");
+                request.getRequestDispatcher("register.jsp").forward(request, response);
+            }
         } else {
             request.setAttribute("error", "Registration failed. Please try again.");
             request.getRequestDispatcher("../register.jsp").forward(request, response);

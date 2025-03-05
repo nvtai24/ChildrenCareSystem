@@ -4,7 +4,7 @@
  */
 package controller.dashboard.admin.user;
 
-import controller.auth.EmailUtil;
+import util.EmailUtil;
 import dal.ProfileDAO;
 import dal.RoleDAO;
 import dal.UserDAO;

@@ -128,9 +128,9 @@
                                     <small id="usernameError" class="text-danger"></small>
                                 </td>
                                 <td>
-                                    <label for="firstName">First name</label>
-                                    <input type="text" class="form-control" id="firstName" name="firstname" >
-                                    <small id="firstNameError" class="text-danger"></small>
+                                    <label for="password">Password</label>
+                                    <input name="dzPassword" type="password" class="form-control" id="password" >
+                                    <small id="passwordError" class="text-danger"></small>
                                 </td>
                             </tr>
 
@@ -142,9 +142,9 @@
                                     <small id="emailError" class="text-danger"></small>
                                 </td>
                                 <td>
-                                    <label for="lastName">Last name</label>
-                                    <input type="text" class="form-control" id="lastName" name="lastname" >
-                                    <small id="lastNameError" class="text-danger"></small>
+                                    <label for="confirmPassword">Confirm Password</label>
+                                    <input type="password" class="form-control" id="confirmPassword" >
+                                    <small id="confirmPasswordError" class="text-danger"></small>
                                 </td>
                             </tr>
 
@@ -170,10 +170,10 @@
                             <!-- Row 4: Password - Date of Birth -->
                             <tr>
                                 <td>
-                                    <label for="password">Password</label>
-                                    <input name="dzPassword" type="password" class="form-control" id="password" >
-                                    <small id="passwordError" class="text-danger"></small>
-                                </td>
+                                    <label for="firstName">First name</label>
+                                    <input type="text" class="form-control" id="firstName" name="firstname" >
+                                    <small id="firstNameError" class="text-danger"></small>
+                                </td>                            
                                 <td>
                                     <label for="dob">Date of Birth</label>
                                     <input class="form-control" type="date" id="dob" name="dob" >
@@ -184,9 +184,9 @@
                             <!-- Row 5: Confirm Password - Address -->
                             <tr>
                                 <td>
-                                    <label for="confirmPassword">Confirm Password</label>
-                                    <input type="password" class="form-control" id="confirmPassword" >
-                                    <small id="confirmPasswordError" class="text-danger"></small>
+                                    <label for="lastName">Last name</label>
+                                    <input type="text" class="form-control" id="lastName" name="lastname" >
+                                    <small id="lastNameError" class="text-danger"></small>
                                 </td>
                                 <td>
                                     <label for="address">Address</label>
@@ -243,7 +243,7 @@
                     document.addEventListener("DOMContentLoaded", function () {
                         Swal.fire({
                             title: "<c:out value='${notification eq "successfull" ? "Success!" : "Oops..."}' />",
-                            text: "<c:out value='${notification eq "successfull" ? "User has been created successfully." : "Something went wrong!"}' />",
+                            text: "<c:out value='${notification eq "successfull" ? "User has been created successfully." : "User cannot create  please try again!"}' />",
                             icon: "<c:out value='${notification eq "successfull" ? "success" : "error"}' />",
                             confirmButtonText: "OK",
                             didOpen: () => {
@@ -308,9 +308,9 @@
 
                     // Validate Password
                     var password = $("#password").val();
-                    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}:;<>,.?/~\-])[A-Za-z\d!@#$%^&*()_+{}:;<>,.?/~\-]{8,15}$/;
+                    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+{}:;<>,.?\/~\\\-]{8,15}$/;
                     if (!passwordRegex.test(password)) {
-                        $("#passwordError").text("Password must be 8-15 characters with at least one uppercase letter, one lowercase letter, one special letter, and one number.");
+                        $("#passwordError").text("Password must be 8-15 characters with at least one uppercase letter, one lowercase letter, and one number.");
                         isValid = false;
                     } else {
                         $("#passwordError").text("");
@@ -403,7 +403,7 @@
                         e.preventDefault();
                         Swal.fire({
                             title: 'Oops...',
-                            text: 'Something went wrong!',
+                            text: 'Please check form again!',
                             icon: 'error',
                             confirmButtonText: 'Try Again'
                         });

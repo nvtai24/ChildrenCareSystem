@@ -64,43 +64,105 @@
                         </div>	
                         <form class="contact-bx" action="register" method="POST">
                             <div class="row placeani">
+                                <!-- Username Field -->
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <label>Your Name</label>
+                                            <label for="dzName">Username</label>
                                             <input name="dzName" type="text" required="" class="form-control" id="username">
                                             <small id="usernameError" style="color:red;"></small><br>
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Email Field -->
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <label>Your Email Address</label>
+                                            <label for="dzEmail">Your Email Address</label>
                                             <input name="dzEmail" type="email" required="" class="form-control" id="email">
                                             <small id="emailError" style="color:red;"></small><br>
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Password Field -->
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <div class="input-group"> 
-                                            <label>Your Password</label>
+                                            <label for="dzPassword">Your Password</label>
                                             <input name="dzPassword" type="password" class="form-control" required="" id="password">
                                             <small id="passwordError" style="color:red;"></small>
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Confirm Password Field -->
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <div class="input-group"> 
-                                            <label>Confirm Password</label>
+                                            <label for="confirmPassword">Confirm Password</label>
                                             <input type="password" class="form-control" required id="confirmPassword">
                                             <small id="confirmPasswordError" style="color:red;"></small><br>
                                         </div>
                                     </div>
                                 </div>
 
+                                <!-- First Name -->
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div class="input-group"> 
+                                            <label for="firstname">First Name</label>
+                                            <input type="text" name="firstname" class="form-control" required id="firstname">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Last Name -->
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div class="input-group"> 
+                                            <label for="lastname">Last Name</label>
+                                            <input type="text" name="lastname" class="form-control" required id="lastname">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Gender -->
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="gender">Gender</label><br>
+                                        <input type="radio" name="gender" value="1" checked="true" required> Male
+                                        <input type="radio" name="gender" value="2"> Female
+                                    </div>
+                                </div>
+                                <!-- Date of Birth -->
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="dob" class="dob-label">Date of Birth</label>
+                                        <input type="date" name="dob" class="form-control" required id="dob">
+                                        <small id="dobError" style="color:red;"></small><br>
+                                    </div>
+                                </div>
+                                <!-- Address -->
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div class="input-group"> 
+                                            <label for="address">Address</label>
+                                            <input type="text" name="address" class="form-control" required id="address">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Phone -->
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div class="input-group"> 
+                                            <label for="phone">Phone Number</label>
+                                            <input type="text" name="phone" class="form-control" required id="phone">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Submit Button -->
                                 <div class="col-lg-12 m-b30">
                                     <button name="submit" type="submit" value="Submit" class="btn button-md">Sign Up</button>
                                 </div>
@@ -109,15 +171,22 @@
                                         ${successMessage}
                                     </div>
                                 </c:if>
-                                <!--                                <div class="col-lg-12">
-                                                                    <h6>Sign Up with Social media</h6>
-                                                                    <div class="d-flex">
-                                                                                                                <a class="btn flex-fill m-r5 facebook" href="#"><i class="fa fa-facebook"></i>Facebook</a>
-                                                                        <a class="btn flex-fill m-l5 google-plus" href="#"><i class="fa fa-google-plus"></i>Google</a>
-                                                                    </div>
-                                                                </div>-->
                             </div>
                         </form>
+
+                        <!-- CSS Styling for the DOB input label -->
+                        <style>
+                            .dob-label {
+                                position: relative;
+                                z-index: 2;
+                            }
+
+                            #dob:focus + .dob-label {
+                                z-index: -1;
+                                visibility: hidden;
+                            }
+                        </style>
+
                     </div>
                 </div>
             </div>

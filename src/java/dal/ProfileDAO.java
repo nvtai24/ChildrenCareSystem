@@ -120,4 +120,21 @@ public class ProfileDAO extends DBContext {
         }
     }
 
+    public boolean saveProfile(Profile profile) {
+        DBContext dbContext = new DBContext();
+        String sql = "INSERT INTO profile (userid, firstname, lastname, gender, dob, address, phone) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = dbContext.connection.prepareStatement(sql)) {
+            ps.setInt(1, profile.getUser().getId());
+            ps.setString(2, profile.getFirstName());
+            ps.setString(3, profile.getLastName());
+            ps.setBoolean(4, profile.isGender());
+            ps.setDate(5, (Date) profile.getDob());
+            ps.setString(6, profile.getAddress());
+            ps.setString(7, profile.getPhone());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfileDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 }

@@ -32,7 +32,7 @@
 
         /* Ô nhập tìm kiếm */
         .form-search input {
-            width: 200px;
+            width: 185px;
         }
         .form-search button{
             background: #EFBB20;
@@ -162,6 +162,15 @@
             text-decoration: underline;
         }
 
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-container input {
+            margin-right: 8px; 
+        }
+
         /* ----- Responsive trên màn hình nhỏ ----- */
         @media (max-width: 768px) {
             .recent-news {
@@ -259,11 +268,9 @@
                                 <div class="widget courses-search-bx placeani">
 
                                     <form method="get" action="blogs" class="form-search">
-                                        <div>
+                                        <div class="search-container">
                                             <input type="text" id="search" name="search" value="${param.search}" placeholder="Type anything..." >
-                                        </div>
-                                        <div>
-                                            <button type="submit">Search</button>
+                                            <button class="fa fa-search" type="submit"></button>
                                         </div>
                                     </form>                                    
                                 </div>

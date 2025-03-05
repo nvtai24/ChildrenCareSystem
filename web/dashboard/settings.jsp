@@ -54,7 +54,7 @@
 
             <div class="toolbar">
                 <button type="submit" class="btn btn-primary mb-2">
-                    <a>
+                    <a href="settings/add">
                         <i class="fa fa-plus-circle mr-1"></i> Add New Setting
                     </a>
                 </button>
