@@ -163,9 +163,9 @@ public class SettingDAO extends DBContext {
     }
 
     public void addSetting(Setting setting) {
-        String query = "INSERT INTO setting (value, description, status) VALUES (?, ?, ?)";
+        String query = "INSERT INTO setting (value, description, status, type_id) VALUES (?, ?, ?, ?)";
         try {
-            executeUpdate(query, setting.getSettingValue(), setting.getDescription(), setting.isStatus());
+            executeUpdate(query, setting.getSettingValue(), setting.getDescription(), setting.isStatus(), setting.getSettingType().getId());
         } catch (SQLException ex) {
             Logger.getLogger(SettingDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -181,5 +181,22 @@ public class SettingDAO extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(SettingTypeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public ArrayList<SettingType> getAllSettingTypes() {
+        ArrayList<SettingType> types = new ArrayList<>();
+        String query = "SELECT * FROM settingtype";
+        try {
+            ResultSet rs = executeQuery(query);
+            while (rs.next()) {
+                SettingType type = new SettingType();
+                type.setId(rs.getInt("id"));
+                type.setName(rs.getString("name"));
+                types.add(type);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return types;
     }
 }
