@@ -78,6 +78,14 @@ Nvtai --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
             <span class="ttr-label">My Profile</span>
           </a>
         </li>
+        
+        
+        <li>
+          <a href="/app/permissions" class="ttr-material-button">
+            <span class="ttr-icon"><i class="fa fa-unlock-alt"></i></span>
+            <span class="ttr-label">Permissions</span>
+          </a>
+        </li>
         <li class="ttr-seperate"></li>
       </ul>
       <!-- sidebar menu end -->

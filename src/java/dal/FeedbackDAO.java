@@ -124,12 +124,6 @@ public class FeedbackDAO extends DBContext {
             }
         } catch (SQLException ex) {
             Logger.getLogger(FeedbackDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(FeedbackDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
 
         return result;
@@ -155,12 +149,6 @@ public class FeedbackDAO extends DBContext {
             }
         } catch (SQLException ex) {
             Logger.getLogger(FeedbackDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(FeedbackDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
 
         return result;

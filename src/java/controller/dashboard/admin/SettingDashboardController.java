@@ -6,6 +6,7 @@ package controller.dashboard.admin;
 
 import dal.RoleDAO;
 import dal.SettingDAO;
+import dal.SettingTypeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import model.Setting;
 import model.SettingType;
 import model.auth.Role;
 
@@ -35,14 +37,27 @@ public class SettingDashboardController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String status = request.getParameter("status");
+        String type = request.getParameter("type");
+
+        SettingTypeDAO stdb = new SettingTypeDAO();
+        ArrayList<SettingType> types = stdb.listAllTypes();
+
         SettingDAO sDB = new SettingDAO();
-        ArrayList<SettingType> settingTypes = sDB.listAllSettings();
-        request.setAttribute("settingTypes", settingTypes);
+        ArrayList<Setting> settings = sDB.listAllSettings();
 
-        RoleDAO rDB = new RoleDAO();
-        ArrayList<Role> roles = rDB.listAllAvailableRole();
-        request.setAttribute("roles", roles);
+        if (status != null && type != null) {
+            int sid = Integer.parseInt(status);
+            int tid = Integer.parseInt(type);
 
+            settings = sDB.filterSettings(sid, tid);
+        }
+
+        request.setAttribute("status", status);
+        request.setAttribute("type", type);
+
+        request.setAttribute("types", types);
+        request.setAttribute("settings", settings);
         request.getRequestDispatcher("dashboard/settings.jsp").forward(request, response);
     }
 

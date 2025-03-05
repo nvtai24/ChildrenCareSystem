@@ -84,52 +84,45 @@
                                     </div>
                                 </div>
 
-                                <c:if test="${requestScope.form1 != null}">
-                                    <div class="col-md-6">
-                                        <div class="card p-4 shadow-sm">
+                                <div class="col-md-6">
+                                    <div class="card p-4 shadow-sm">
+
+                                        <c:if test="${sessionScope.r.banking == true}">
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <h3 class="font-weight-bold">$549.99</h3>
+                                                <h3 class="font-weight-bold">$${sessionScope.amount}</h3>
                                                 <span class="success-icon">✔️</span>
                                             </div>
                                             <p class="text-muted">Payment success!</p>
+                                        </c:if>
 
-                                            <hr />
-
-                                            <h5 class="font-weight-bold">Payment details</h5>
-
-                                            <div>
-                                                <p><strong>Date:</strong> Jul 25, 2023 05:07:03 AM</p>
-                                                <p><strong>Reference number:</strong> 148979951</p>
-                                                <p><strong>Amount:</strong> $549.99</p>
-                                                <p><strong>Payment method:</strong> Credit Card</p>
-                                                <p><strong>Payment status:</strong> ✅ Success</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </c:if>
-
-                                <c:if test="${requestScope.form2 != null}">
-                                    <div class="col-md-6">
-                                        <div class="card p-4 shadow-sm">
+                                        <c:if test="${sessionScope.r.banking == false}">
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <h3 class="font-weight-bold">$549.99</h3>
+                                                <h3 class="font-weight-bold">$${sessionScope.amount}</h3>
+
                                                 <span class="info-icon">📅</span>
                                             </div>
                                             <p class="text-muted">Payment at Clinic</p>
-                                            <hr />
+                                        </c:if>
 
-                                            <h5 class="font-weight-bold">Appointment Details</h5>
-                                            <div>
-                                                <p><strong>Date & Time:</strong> Jul 25, 2023 09:00 AM</p>
-                                                <p><strong>Booking Reference:</strong> 148979951</p>
-                                                <p><strong>Amount Due:</strong> $549.99</p>
+                                        <hr />
+
+                                        <div>
+                                            <p><strong>Date:</strong> ${sessionScope.r.reverseDate.toLocalTime()}  ${sessionScope.r.reverseDate.toLocalDate()}</p>
+                                            <p><strong>Phone number:</strong> ${sessionScope.r.phone}</p>
+                                            <p><strong>Email:</strong> ${sessionScope.r.email}</p>
+                                            <p><strong>Clinic Location:</strong> 123 Health Street, City Name</p>
+
+                                            <c:if test="${sessionScope.r.banking == true}">
+                                                <p><strong>Payment method:</strong> Credit Card</p>
+                                                <p><strong>Payment status:</strong> ✅ Success</p>
+                                            </c:if>
+
+                                            <c:if test="${sessionScope.r.banking == false}">
                                                 <p><strong>Payment Method:</strong> Pay at Clinic</p>
-                                                <p><strong>Clinic Location:</strong> 123 Health Street, City Name</p>
-                                                <p><strong>Appointment Status:</strong> 🕒 Confirmed</p>
-                                            </div>
+                                            </c:if>
                                         </div>
                                     </div>
-                                </c:if>
+                                </div>
                             </div>
                         </div>
 

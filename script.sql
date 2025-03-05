@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: childrencare
+-- Host: localhost    Database: childrencare
 -- ------------------------------------------------------
--- Server version	9.1.0
+-- Server version	8.4.4
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -57,7 +57,7 @@ CREATE TABLE `feedback` (
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`reservationdetail_id`),
-  CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`reservationdetail_id`) REFERENCES `reservationdetail` (`id`),
+  CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`reservationdetail_id`) REFERENCES `reservationdetail` (`id`) ON DELETE CASCADE,
   CONSTRAINT `feedback_chk_1` CHECK (((`rating` >= 1) and (`rating` <= 5)))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -118,8 +118,8 @@ CREATE TABLE `medicalexamination` (
   PRIMARY KEY (`id`),
   KEY `staff_id` (`staff_id`),
   KEY `IX_MedicalExamination_Reservation` (`reservation_id`),
-  CONSTRAINT `medicalexamination_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`),
-  CONSTRAINT `medicalexamination_ibfk_2` FOREIGN KEY (`staff_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `medicalexamination_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `medicalexamination_ibfk_2` FOREIGN KEY (`staff_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -148,7 +148,7 @@ CREATE TABLE `medicalprescription` (
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `examination_id` (`examination_id`),
-  CONSTRAINT `medicalprescription_ibfk_1` FOREIGN KEY (`examination_id`) REFERENCES `medicalexamination` (`id`)
+  CONSTRAINT `medicalprescription_ibfk_1` FOREIGN KEY (`examination_id`) REFERENCES `medicalexamination` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -202,7 +202,7 @@ DROP TABLE IF EXISTS `profile`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `profile` (
   `userid` int NOT NULL AUTO_INCREMENT,
-  `firstname` varchar(100) DEFAULT NULL,
+  `firstname` varchar(255) DEFAULT NULL,
   `lastname` varchar(100) DEFAULT NULL,
   `gender` tinyint(1) DEFAULT NULL,
   `dob` date DEFAULT NULL,
@@ -222,7 +222,7 @@ CREATE TABLE `profile` (
 
 LOCK TABLES `profile` WRITE;
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
-INSERT INTO `profile` VALUES (1,'Tai','Nguyen Van',1,'2004-11-20','ABC Street','9999999999999','assets/images/profile/profile_1.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(2,'Anh','Do Minh',1,'1975-05-15','456 Health Lane kkk','124356789','assets/images/profile/profile_2.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(3,'Quyen','Nguyen Duc',0,'1985-08-20','789 Parent Road','345-678-9012','assets/images/profile/profile_3.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(4,'Long','Nguyen Hoang',1,'1990-03-10','101 Staff Avenue','456-789-0123','assets/images/profile/profile_4.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47');
+INSERT INTO `profile` VALUES (1,'Tai','Nguyen Van',1,'2004-11-20','Nghi Loc, Nghe An','0373517718','assets/images/profile/profile_1.jpg','2025-01-31 23:46:55','2025-03-04 10:11:20'),(2,'Anh','Do Minh',1,'1975-05-15','456 Health Lane kkk','124356789','assets/images/profile/profile_2.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(3,'Quyen','Nguyen Duc',0,'1985-08-20','789 Parent Road','345-678-9012','assets/images/profile/profile_3.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(4,'Long','Nguyen Hoang',1,'1990-03-10','101 Staff Avenue','456-789-0123','assets/images/profile/profile_4.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47');
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -236,22 +236,23 @@ DROP TABLE IF EXISTS `reservation`;
 CREATE TABLE `reservation` (
   `id` int NOT NULL AUTO_INCREMENT,
   `customer_id` int NOT NULL,
-  `first_name` varchar(100) DEFAULT NULL,
-  `last_name` varchar(100) DEFAULT NULL,
-  `reserve_date` datetime NOT NULL,
-  `phone` varchar(50) NOT NULL,
-  `email` varchar(200) DEFAULT NULL,
-  `note` varchar(500) DEFAULT NULL,
-  `banking` bit(1) NOT NULL DEFAULT b'1',
   `status_id` int NOT NULL DEFAULT '1',
+  `reserve_date` datetime NOT NULL,
+  `note` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `first_name` varchar(100) DEFAULT NULL,
+  `last_name` varchar(100) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  `banking` bit(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `status_id` (`status_id`),
   KEY `IX_Reservation_Customer` (`customer_id`),
-  CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `reservationstatus` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `IX_Reservation_Date` (`reserve_date`),
+  CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `reservationstatus` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,6 +261,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
+INSERT INTO `reservation` VALUES (14,1,1,'2025-03-22 07:30:00','','2025-03-05 15:22:27',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(15,1,1,'2025-03-29 07:30:00','','2025-03-05 15:23:01',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -276,16 +278,13 @@ CREATE TABLE `reservationdetail` (
   `service_id` int DEFAULT NULL,
   `quantity` int DEFAULT '1',
   `price` decimal(10,2) DEFAULT NULL,
-  `status` bit(1) DEFAULT b'0',
-  `staff_id` int DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `reservation_id` (`reservation_id`),
   KEY `service_id` (`service_id`),
-  KEY `reservationdetail_ibfk_3_idx` (`staff_id`),
   CONSTRAINT `reservationdetail_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `reservationdetail_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`),
-  CONSTRAINT `reservationdetail_ibfk_3` FOREIGN KEY (`staff_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `reservationdetail_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -294,6 +293,7 @@ CREATE TABLE `reservationdetail` (
 
 LOCK TABLES `reservationdetail` WRITE;
 /*!40000 ALTER TABLE `reservationdetail` DISABLE KEYS */;
+INSERT INTO `reservationdetail` VALUES (14,14,2,1,142.50,'2025-03-05 15:22:27'),(15,15,1,1,100.00,'2025-03-05 15:23:01'),(16,15,2,1,150.00,'2025-03-05 15:23:01'),(17,15,3,1,40.00,'2025-03-05 15:23:01'),(18,15,5,1,70.00,'2025-03-05 15:23:01');
 /*!40000 ALTER TABLE `reservationdetail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -435,7 +435,7 @@ CREATE TABLE `setting` (
 
 LOCK TABLES `setting` WRITE;
 /*!40000 ALTER TABLE `setting` DISABLE KEYS */;
-INSERT INTO `setting` VALUES (2,1,'General Checkup','Regular health checkups for children to monitor growth.',_binary ''),(3,1,'Vaccination','Vaccination services to protect children from various diseases.',_binary ''),(4,1,'Nutrition','Nutritional advice and dietary plans for children.',_binary ''),(5,1,'Dental Care','Dental health services for children, including checkups and treatments.',_binary ''),(6,1,'Emergency Care','Emergency medical services for children.',_binary ''),(7,1,'Physical Therapy','Physical therapy services to support children with movement issues.',_binary ''),(8,1,'Mental Health','Mental health support and counseling for children.',_binary ''),(9,2,'Health Tips','Posts related to health tips for children.',_binary ''),(10,2,'Vaccination','Posts related to vaccination information.',_binary ''),(11,2,'Nutrition','Posts related to child nutrition.',_binary '');
+INSERT INTO `setting` VALUES (2,1,'General Checkup11111','Regular health checkups for 1children to monitor growth.1111',_binary ''),(3,1,'Vaccination','Vaccination services to protect children from various diseases.',_binary ''),(4,1,'Nutrition','Nutritional advice and dietary plans for children.',_binary ''),(5,1,'Dental Care','Dental health services for children, including checkups and treatments.',_binary ''),(6,1,'Emergency Care','Emergency medical services for children.',_binary ''),(7,1,'Physical Therapy','Physical therapy services to support children with movement issues.',_binary ''),(8,1,'Mental Health','Mental health support and counseling for children.',_binary ''),(9,2,'Health Tips','Posts related to health tips for children.',_binary '\0'),(10,2,'Vaccination','Posts related to vaccination information.',_binary ''),(11,2,'Nutrition','Posts related to child nutrition.',_binary '');
 /*!40000 ALTER TABLE `setting` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -507,10 +507,15 @@ CREATE TABLE `user` (
   `username` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `email_verified` tinyint(1) DEFAULT '0',
+  `verification_token` varchar(255) DEFAULT NULL,
+  `token_expiration` datetime DEFAULT NULL,
   `role_id` int DEFAULT NULL,
   `status` tinyint(1) DEFAULT '1',
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `reset_token` varchar(255) DEFAULT NULL,
+  `reset_token_expiration` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `username` (`username`),
@@ -518,7 +523,7 @@ CREATE TABLE `user` (
   KEY `IX_User_Email` (`email`),
   KEY `IX_User_Username` (`username`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -527,7 +532,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','123','admin@childrencare.com',1,1,'2025-01-31 23:46:55','2025-02-10 09:19:58'),(2,'doctor1','123','doctor1@childrencare.com',2,1,'2025-01-31 23:46:55','2025-02-10 09:19:58'),(3,'parent1','123','parent1@childrencare.com',3,1,'2025-01-31 23:46:55','2025-02-10 09:19:58'),(4,'staff1','123','staff1@childrencare.com',4,1,'2025-01-31 23:46:55','2025-02-10 09:19:58'),(5,'parent2','123','parent2@gmail.com',3,1,'2025-02-03 12:27:52','2025-02-10 09:19:58'),(6,'parent3','123','parent3@gmail.com',3,1,'2025-02-03 12:28:17','2025-02-10 09:19:58'),(7,'parent4','123','parent$@gmail.com',3,1,'2025-02-03 12:28:38','2025-02-10 09:19:58');
+INSERT INTO `user` VALUES (1,'admin','123','buiblue123@gmail.com',0,NULL,NULL,1,1,'2025-01-31 23:46:55','2025-03-04 10:11:43',NULL,NULL),(2,'doctor1','123','doctor1@childrencare.com',0,NULL,NULL,2,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(3,'parent1','123','parent1@childrencare.com',0,NULL,NULL,3,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(4,'staff1','123','staff1@childrencare.com',0,NULL,NULL,4,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(5,'parent2','1234','parent2@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:27:52','2025-02-27 08:00:54',NULL,NULL),(6,'parent3','123','parent3@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:28:17','2025-02-10 09:19:58',NULL,NULL),(7,'parent4','123','parent$@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:28:38','2025-02-10 09:19:58',NULL,NULL),(8,'testuser','password123','testuser@example.com',1,NULL,NULL,3,1,'2025-02-24 10:38:04','2025-02-24 10:43:02',NULL,NULL),(10,'testuse1r','password123','testuser1@example.com',0,'abcd1234efgh5678','2025-03-01 12:00:00',3,1,'2025-02-24 10:44:03',NULL,NULL,NULL),(22,'parent12','Minhanh140904','dominhchi235@gmail.com',1,NULL,NULL,3,1,'2025-02-26 22:42:28','2025-03-02 21:21:06',NULL,NULL),(23,'parent123','Doanh140904','anhdmhe181481@fpt.edu.vn',1,NULL,NULL,3,1,'2025-03-02 21:23:35','2025-03-02 21:25:04',NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -555,7 +560,7 @@ CREATE TABLE `wishlist` (
 
 LOCK TABLES `wishlist` WRITE;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
-INSERT INTO `wishlist` VALUES (1,4,1),(1,6,3);
+INSERT INTO `wishlist` VALUES (22,1,1);
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -568,4 +573,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-23  1:27:57
+-- Dump completed on 2025-03-05 15:24:15

@@ -39,26 +39,31 @@ public class ServiceUpdateController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         ServiceManagerDAO db = new ServiceManagerDAO();
         CategoryDAO dbCategory = new CategoryDAO();
         String action = request.getParameter("action");
         if ("checkServiceName".equals(action)) {
-            String serviceName = request.getParameter("name");
+            String serviceName = trimSpaces(request.getParameter("name"));
             boolean exists = db.checkServiceName(serviceName);
             response.getWriter().write(exists ? "exists" : "available");
             return;
         }
         try {
             Service service = extractServiceFromRequest(request);
-
+            
             db.updateService(service);
-            HttpSession session = request.getSession(false); // Không tạo mới nếu chưa có session
-            if (session != null) {
-                session.removeAttribute("sessionStatus");
-                session.removeAttribute("sessionCaterogyId");
-            }
-            response.sendRedirect("../services/manager");
+
+            int serviceId = Integer.parseInt(request.getParameter("id"));
+
+            Service serviceRecover = db.getServiceByID(serviceId);
+            List<Category> listCategory = dbCategory.getAllAvailabelCategories();
+
+            request.setAttribute("notification", "successfull");
+            request.setAttribute("s", serviceRecover);
+            request.setAttribute("listCategory", listCategory);
+            
+            request.getRequestDispatcher("../dashboard/manager/serviceDetail.jsp").forward(request, response);
         } catch (Exception e) {
 
             int id = Integer.parseInt(request.getParameter("id"));
@@ -68,12 +73,7 @@ public class ServiceUpdateController extends HttpServlet {
 
             request.setAttribute("s", service);
             request.setAttribute("listCategory", listCategory);
-
-            request.setAttribute("error", e.getMessage());
-            HttpSession session = request.getSession(false); // Không tạo mới nếu chưa có session
-            if (session != null) {
-                session.invalidate(); // Hủy toàn bộ session
-            }
+            request.setAttribute("notification", "false");
 
             request.getRequestDispatcher("../dashboard/manager/serviceDetail.jsp").forward(request, response);
         }
@@ -84,7 +84,7 @@ public class ServiceUpdateController extends HttpServlet {
         ServiceManagerDAO db = new ServiceManagerDAO();
         Service service = db.getServiceByID(serviceId);
 
-        String name = request.getParameter("name").trim();
+        String name = trimSpaces(request.getParameter("name"));
         double price = Double.parseDouble(request.getParameter("price"));
         double discount = Double.parseDouble(request.getParameter("discount"));
 
@@ -136,5 +136,13 @@ public class ServiceUpdateController extends HttpServlet {
             }
         }
         return null;
+    }
+
+    // Dùng để validate khoảng trắng cách nhau cách chữ 1 khoảng trắng 
+    private static String trimSpaces(String input) {
+        if (input == null) {
+            return null;
+        }
+        return input.trim().replaceAll("\\s+", " ");
     }
 }

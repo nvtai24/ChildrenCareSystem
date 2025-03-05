@@ -65,7 +65,7 @@
                                 <div class="container">
                                     <ul class="list-inline">
                                         <li><a href="/app"><i class="fa fa-home"></i> Home</a></li>
-                                        <li>Appointment</li>
+                                        <li><a href="/app/reservation/detail"> Appointment</a></li>
                                         <li>Contact</li>
                                     </ul>
                                 </div>
@@ -77,6 +77,7 @@
                                         <div class="card-body">
                                             <h4 class="text-dark font-weight-bold">Reservation Form</h4>
                                             <p class="text-muted">We will get in touch with you shortly</p>
+
                                             <form method="get" action="/app/reservation/confirm">
                                                 <!-- Name Fields -->
                                                 <div class="form-row">
@@ -88,123 +89,105 @@
                                                             id="firstName"
                                                             name="firstname"
                                                             placeholder="First Name"
-                                                            value="${requestScope.p.firstName}"
+                                                            value="${sessionScope.r.firstName != null ? sessionScope.r.firstName : requestScope.p.firstName}"
                                                             required
                                                             />
                                                     </div>
 
                                                     <div class="form-group col-md-6">
-                                                        <label for="firstName">Last Name</label>
+                                                        <label for="lastName">Last Name</label>
                                                         <input
                                                             type="text"
                                                             class="form-control"
                                                             id="lastName"
                                                             name="lastname"
                                                             placeholder="Last Name"
-                                                            value="${requestScope.p.lastName}"
+                                                            value="${sessionScope.r.lastName != null ? sessionScope.r.lastName : requestScope.p.lastName}"
+                                                            required
+                                                            />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-row">
+                                                    <!-- Date and Time Fields -->
+                                                    <div class="form-group col-md-6">
+                                                        <label for="date">Date</label>
+                                                        <input
+                                                            type="date"
+                                                            class="form-control"
+                                                            id="date"
+                                                            name="date"
+                                                            value="${sessionScope.r.reverseDate != null ? sessionScope.r.reverseDate.toLocalDate() : '2025-03-02'}"
                                                             required
                                                             />
                                                     </div>
 
+                                                    <div class="form-group col-md-6">
+                                                        <label for="time">Time</label>
+                                                        <input
+                                                            type="time"
+                                                            class="form-control"
+                                                            id="time"
+                                                            name="time"
+                                                            value="${sessionScope.r.reverseDate != null ? sessionScope.r.reverseDate.toLocalTime() : '14:30'}"
+                                                            required
+                                                            />
+                                                    </div>
                                                 </div>
 
-                                                <form>
-                                                    <!-- Name Fields -->
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="date">Date</label>
-                                                            <input
-                                                                type="date"
-                                                                class="form-control"
-                                                                id="date"
-                                                                name="date"
-                                                                required
-                                                                value="2025-03-10"
-                                                            />
-                                                        </div>
-
-                                                        <div class="form-group col-md-6">
-                                                            <label for="time">Time</label>
-                                                            <input
-                                                                type="time"
-                                                                class="form-control"
-                                                                id="time"
-                                                                name="time"
-                                                                required
-                                                                value="14:30"
-                                                            />
-                                                        </div>
-                                                    </div>
-
+                                                <div class="form-row">
                                                     <!-- Contact Fields -->
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="phone">Phone Number</label>
-                                                            <input
-                                                                type="tel"
-                                                                class="form-control"
-                                                                id="phone"
-                                                                name="phone"
-                                                                placeholder="(000) 000-0000"
-                                                                value="${requestScope.p.phone}"
-                                                                required
-                                                                />
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="email">E-mail <small class="text-muted">(Optional)</small></label>
-                                                            <input
-                                                                type="email"
-                                                                class="form-control"
-                                                                id="email"
-                                                                name="email"
-                                                                placeholder="ex: myname@example.com"
-                                                                value="${sessionScope.account.email}"
-                                                                />
-
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Message -->
-                                                    <div class="form-group">
-                                                        <label for="message">Leave Your Message</label>
-                                                        <textarea
+                                                    <div class="form-group col-md-6">
+                                                        <label for="phone">Phone Number</label>
+                                                        <input
+                                                            type="tel"
                                                             class="form-control"
-                                                            id="message"
-                                                            rows="4"
-                                                            placeholder="Type your message here"
-                                                            name="note"
-                                                            style="resize: none"
-                                                            ></textarea>
+                                                            id="phone"
+                                                            name="phone"
+                                                            placeholder="0373517718"
+                                                            value="${sessionScope.r.phone != null ? sessionScope.r.phone : requestScope.p.phone}"
+                                                            required
+                                                            />
                                                     </div>
-
-                                                    <!--                                                     Payment Method Selection 
-                                                                                                        <div class="form-group">
-                                                                                                            <label for="email">Payment Method</label>
-                                                                                                            <br>
-                                                                                                            <div class="form-check form-check-inline mr-4">
-                                                                                                                <input class="form-check-input" type="radio" name="payment" id="cash" value="cash" checked>
-                                                                                                                <label class="form-check-label" for="cash">Cash</label>
-                                                                                                            </div>
-                                                                                                            <div class="form-check form-check-inline mr-4">
-                                                                                                                <input class="form-check-input" type="radio" name="payment" id="banking" value="banking">
-                                                                                                                <label class="form-check-label" for="banking">Online Banking</label>
-                                                                                                            </div>
-                                                                                                        </div>-->
-
-                                                    <!-- Buttons -->
-                                                    <div class="form-row">
-                                                        <div class="col-md-6">
-                                                            <button type="button" class="btn btn-danger btn-block red">
-                                                                Back
-                                                            </button>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <button type="submit" class="btn btn-success btn-block green">
-                                                                Continue
-                                                            </button>
-                                                        </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="email">E-mail <small class="text-muted">(Optional)</small></label>
+                                                        <input
+                                                            type="email"
+                                                            class="form-control"
+                                                            id="email"
+                                                            name="email"
+                                                            placeholder="ex: myname@example.com"
+                                                            value="${sessionScope.r.email != null ? sessionScope.r.email : sessionScope.account.email}"
+                                                            />
                                                     </div>
-                                                </form>
+                                                </div>
+
+                                                <!-- Message -->
+                                                <div class="form-group">
+                                                    <label for="message">Leave Your Message</label>
+                                                    <textarea
+                                                        class="form-control"
+                                                        id="message"
+                                                        rows="4"
+                                                        maxlength="300"
+                                                        placeholder="Type your message here"
+                                                        name="note"
+                                                        style="resize: none"
+                                                        ></textarea>
+                                                </div>
+
+                                                <div class="form-row">
+                                                    <div class="col-md-6">
+                                                        <a href="/app/reservation/detail" class="btn btn-danger btn-block red text-white">Back</a>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button type="submit" class="btn btn-success btn-block green">
+                                                            Continue
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
                                         </div>
                                     </div>
                                 </div>
@@ -217,132 +200,74 @@
             <jsp:include page="footer.jsp"/>
         </div>
 
-        <script>
-            document.getElementById('select-all').addEventListener('change', function () {
-                let checkboxes = document.querySelectorAll('.item-checkbox');
-                checkboxes.forEach(checkbox => checkbox.checked = this.checked);
-            });
-        </script>
+
+        <!-- Thêm jQuery vào trang -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                function updateTotalPrice(row) {
-                    let quantityInput = row.querySelector(".quantity");
-                    let salePriceElement = row.querySelector(".sale-price");
-                    let totalPriceElement = row.querySelector(".total-price");
 
-                    let price = parseFloat(salePriceElement.dataset.price);
-                    let discount = parseFloat(salePriceElement.dataset.discount);
-                    let salePrice = (price * (1 - discount / 100)).toFixed(1);
-                    let quantity = parseInt(quantityInput.value);
+            $(document).ready(function () {
+                $("form").submit(function (event) {
+                    // Xóa thông báo lỗi cũ
+                    $(".text-danger").remove();
 
-                    let totalPrice = (salePrice * quantity).toFixed(1);
-                    totalPriceElement.innerText = "$" + totalPrice;
+                    var isValid = true;
 
-                    updateSelectedTotal(); // Cập nhật tổng giá trị của sản phẩm đã chọn
-                }
+                    // Kiểm tra trường First Name
+                    if ($("#firstName").val().trim() === "") {
+                        isValid = false;
+                        $("#firstName").after('<small class="text-danger">First Name is required.</small>');
+                    }
 
-                function updateSelectedTotal() {
-                    let total = 0;
-                    document.querySelectorAll(".item-row").forEach(row => {
-                        let checkbox = row.querySelector(".item-checkbox");
-                        let totalPriceElement = row.querySelector(".total-price");
+                    // Kiểm tra trường Last Name
+                    if ($("#lastName").val().trim() === "") {
+                        isValid = false;
+                        $("#lastName").after('<small class="text-danger">Last Name is required.</small>');
+                    }
 
-                        if (checkbox.checked) {
-                            total += parseFloat(totalPriceElement.innerText.replace("$", ""));
-                        }
-                    });
+                    var phonePattern = /^(0\d{9}|(\+84)\d{9})$/;
+                    if ($("#phone").val().trim() !== "" && !phonePattern.test($("#phone").val().trim())) {
+                        isValid = false;
+                        console.log('1');
+                        $("#phone").after('<small class="text-danger">Phone number format should be 0xxxxxxxxx or +84xxxxxxxxx.</small>');
+                    }
 
-                    document.getElementById("total-price").innerText = "$" + total.toFixed(1);
-                }
+                    // Kiểm tra email (nếu có)
+                    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if ($("#email").val().trim() !== "" && !emailPattern.test($("#email").val().trim())) {
+                        isValid = false;
+                        console.log('2');
+                        $("#email").after('<small class="text-danger">Email format is invalid.</small>');
+                    }
 
-                // Xử lý sự kiện khi thay đổi số lượng
-                document.querySelectorAll(".item-row").forEach(row => {
-                    let quantityInput = row.querySelector(".quantity");
-                    let decreaseBtn = row.querySelector(".decrease");
-                    let increaseBtn = row.querySelector(".increase");
-                    let checkbox = row.querySelector(".item-checkbox");
+                    var selectedDate = new Date($("#date").val() + 'T' + $("#time").val());
+                    var today = new Date();
 
-                    // Khi số lượng thay đổi
-                    quantityInput.addEventListener("input", function () {
-                        if (quantityInput.value < 1)
-                            quantityInput.value = 1;
-                        updateTotalPrice(row);
-                    });
+                    // Đặt thời gian của ngày hôm nay về 00:00:00
+                    today.setHours(0, 0, 0, 0);
 
-                    // Giảm số lượng
-                    decreaseBtn.addEventListener("click", function () {
-                        if (quantityInput.value >= 1) {
-//                            quantityInput.value--;
-                            updateTotalPrice(row);
-                        }
-                    });
+                    // Thêm 1 ngày vào ngày hôm nay
+                    var tomorrow = new Date(today);
+                    tomorrow.setDate(today.getDate() + 1);
 
-                    // Tăng số lượng
-                    increaseBtn.addEventListener("click", function () {
-//                        quantityInput.value++;
-                        updateTotalPrice(row);
-                    });
+                    // Kiểm tra xem ngày và giờ người dùng chọn có phải trước 1 ngày không
+                    if (selectedDate < tomorrow) {
+                        console.log('3');
+                        isValid = false;
+                        $("#date").after('<small class="text-danger">The date and time must be at least 1 day in the future.</small>');
+                    }
 
-                    // Khi checkbox thay đổi trạng thái
-                    checkbox.addEventListener("change", function () {
-                        updateSelectedTotal();
-                    });
-                });
+                    console.log("Is valid: " + isValid); // Log xem isValid có đúng không
 
-                // Xử lý chọn tất cả
-                document.getElementById("select-all").addEventListener("change", function () {
-                    let isChecked = this.checked;
-                    document.querySelectorAll(".item-checkbox").forEach(checkbox => {
-                        checkbox.checked = isChecked;
-                    });
-                    updateSelectedTotal();
-                });
-            });
-        </script>
-
-        <script>
-            function changeQuantityItem(uid, sid, btn, change) {
-                // Tìm phần tử input số lượng trong cùng hàng với nút bấm
-                let quantityInput = btn.parentElement.querySelector(".quantity");
-
-                // Lấy giá trị số lượng hiện tại
-                let currentQuantity = parseInt(quantityInput.value);
-
-                // Tính toán số lượng mới
-                let newQuantity = currentQuantity + change;
-
-                // Đảm bảo số lượng không nhỏ hơn 1
-                if (newQuantity < 1) {
-                    newQuantity = 1;
-                }
-
-                // Cập nhật số lượng mới trên giao diện ngay lập tức
-                quantityInput.value = newQuantity;
-
-                console.log(uid + ' ' + sid + ' ' + newQuantity);
-
-                // Gửi dữ liệu cập nhật lên server
-                $.ajax({
-                    url: '/app/wishlist/change',
-                    type: 'POST',
-                    data: {
-                        uid: uid,
-                        sid: sid,
-                        quantity: newQuantity
-                    },
-                    success: function (response) {
-                        console.log("Cập nhật thành công!");
-
-                        // Cập nhật lại giá trị quantity cho nút tăng/giảm
-                        btn.previousElementSibling.value = newQuantity; // Cập nhật input number
-                    },
-                    error: function () {
-                        console.log("Lỗi khi cập nhật số lượng!");
+                    // Nếu form không hợp lệ thì ngừng submit
+                    if (!isValid) {
+                        event.preventDefault();
                     }
                 });
-            }
+            });
+
         </script>
+
 
         <!-- External JavaScripts -->
         <script src="assets/js/jquery.min.js"></script>

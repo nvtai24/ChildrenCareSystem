@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.auth.Feature;
 
 /**
  *
@@ -22,7 +23,7 @@ public class FeatureDAO extends DBContext {
         String query = "select f.url\n"
                 + "from rolefeature rf \n"
                 + "join feature f on rf.feature_id = f.id\n"
-                + "where rf.role_id = ? and f.status = 1";
+                + "where rf.role_id = ?";
 
         try {
             ResultSet rs = executeQuery(query, roleId);
@@ -35,15 +36,44 @@ public class FeatureDAO extends DBContext {
 
         } catch (SQLException ex) {
             Logger.getLogger(FeatureDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(FeatureDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
 
         return permissions;
     }
 
+    public ArrayList<Feature> listAllFeatures() {
+        ArrayList<Feature> result = new ArrayList<>();
+
+        String sql = "SELECT `feature`.`id`,\n"
+                + "    `feature`.`feature_name`,\n"
+                + "    `feature`.`url`,\n"
+                + "    `feature`.`description`,\n"
+                + "    `feature`.`status`\n"
+                + "FROM `childrencare`.`feature`";
+
+        try {
+            ResultSet rs = executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String fname = rs.getString("feature_name");
+                String url = rs.getString("url");
+                String description = rs.getString("description");
+
+                Feature f = new Feature().builder()
+                        .id(id)
+                        .featureName(fname)
+                        .url(url)
+                        .description(description)
+                        .build();
+
+                result.add(f);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(FeatureDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return result;
+    }
 }

@@ -50,13 +50,11 @@ public class ReservationConfirmController extends HttpServlet {
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
         String note = request.getParameter("note");
-//        String paymentStr = request.getParameter("payment");
 
         LocalDate date = LocalDate.parse(dateStr);
         LocalTime time = LocalTime.parse(timeStr);
         LocalDateTime reserveDate = LocalDateTime.of(date, time);
 
-//        boolean payment = paymentStr.equalsIgnoreCase("banking");
         Reservation r = new Reservation().builder()
                 .customer(current)
                 .firstName(firstName)
@@ -65,11 +63,9 @@ public class ReservationConfirmController extends HttpServlet {
                 .phone(phone)
                 .email(email != null ? email : "")
                 .note(note != null ? note : "")
-                //                .banking(payment)
                 .build();
 
         ArrayList<WishList> items = (ArrayList<WishList>) session.getAttribute("items");
-        WishListDAO wlDB = new WishListDAO();
 
         ArrayList<ReservationDetail> details = new ArrayList<>();
         for (WishList item : items) {
@@ -78,7 +74,6 @@ public class ReservationConfirmController extends HttpServlet {
             rd.setQuantity(item.getQuantity());
             rd.setPrice(item.getService().getPrice());
             details.add(rd);
-//            wlDB.deleteWishlistItem(item.getUser().getId(), item.getService().getId());
         }
 
         r.setDetails(details);

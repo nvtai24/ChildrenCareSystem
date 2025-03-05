@@ -115,6 +115,14 @@
         <servlet-class>vnpay.VnpayReturnController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>PermissionController</servlet-name>
+        <servlet-class>controller.dashboard.admin.PermissionControlController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PermissionAssignController</servlet-name>
+        <servlet-class>controller.dashboard.admin.PermissionAssignController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ForgetPasswordController</servlet-name>
         <servlet-class>controller.auth.ForgetPasswordController</servlet-class>
     </servlet>
@@ -129,6 +137,26 @@
     <servlet>
         <servlet-name>SettingDetailController</servlet-name>
         <servlet-class>controller.dashboard.admin.SettingDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckLoginAjax</servlet-name>
+        <servlet-class>util.CheckLoginAjax</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookNowController</servlet-name>
+        <servlet-class>controller.reservation.BookNowController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookNowSuccessController</servlet-name>
+        <servlet-class>vnpay.BookNowSuccessController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SettingToggleAjax</servlet-name>
+        <servlet-class>controller.dashboard.admin.SettingToggleAjax</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SettingAddController</servlet-name>
+        <servlet-class>controller.dashboard.admin.SettingAddController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
@@ -319,8 +347,36 @@
         <url-pattern>/reservation/return</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>PermissionController</servlet-name>
+        <url-pattern>/permissions</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PermissionAssignController</servlet-name>
+        <url-pattern>/permissions/assign</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>SettingDetailController</servlet-name>
         <url-pattern>/setting</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckLoginAjax</servlet-name>
+        <url-pattern>/checklogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookNowController</servlet-name>
+        <url-pattern>/book</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookNowSuccessController</servlet-name>
+        <url-pattern>/book/success</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SettingToggleAjax</servlet-name>
+        <url-pattern>/setting/toggle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SettingAddController</servlet-name>
+        <url-pattern>/settings/add</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>

@@ -54,7 +54,6 @@
                 height: 100px; /* Thay đổi kích thước theo nhu cầu */
                 object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
             }
-
         </style>
 
     </head>
@@ -120,7 +119,7 @@
                                                 </div>
 
                                                 <div class="col-md-2 font-weight-bold">
-                                                    <del>${i.service.price}</del>
+                                                    <del>$${i.service.price}</del>
                                                     <h5 class="sale-price" data-price="${i.service.price}" data-discount="${i.service.discount}">
                                                         $${i.service.price * (1 - i.service.discount / 100)}
                                                     </h5>
@@ -144,7 +143,7 @@
                                                 </div>
                                             </div>
                                         </c:forEach>
-                                        
+
 
                                         <div class="row pt-3">
                                             <div class="col-md-6 text-right font-weight-bold">Total:</div>
@@ -305,24 +304,50 @@
             }
 
             function deleteItem(uid, sid) {
-
                 var button = event.target;
-
                 var itemRow = button.closest('.item-row');
 
-                $.ajax({
-                    url: '/app/wishlist/delete',
-                    type: 'POST',
-                    data: {
-                        uid: uid,
-                        sid: sid
-                    },
-                    success: function (response) {
-                        itemRow.style.display = 'none';
-                        alert('Delete ok');
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "Do you want to remove this item from your wishlist?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#6c757d",
+                    confirmButtonText: "Yes, remove it!",
+                    cancelButtonText: "Cancel"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/app/wishlist/delete',
+                            type: 'POST',
+                            data: {
+                                uid: uid,
+                                sid: sid
+                            },
+                            success: function (response) {
+                                itemRow.style.display = 'none';
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Removed from wishlist successfully!",
+                                    icon: "success",
+                                    timer: 2000,
+                                    showConfirmButton: true
+                                });
+                            },
+                            error: function () {
+                                Swal.fire({
+                                    title: "Error!",
+                                    text: "Failed to remove from wishlist. Please try again.",
+                                    icon: "error",
+                                    confirmButtonText: "OK"
+                                });
+                            }
+                        });
                     }
                 });
             }
+
         </script>
 
 
@@ -341,6 +366,7 @@
         <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/contact.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     </body>
 

@@ -62,7 +62,7 @@ public class RoleDAO extends DBContext {
                 + "    f.feature_name,\n"
                 + "    f.url,\n"
                 + "    f.description as fdescription,\n"
-                + "    f.status as fstatus\n"
+                + "    rf.status as fstatus\n"
                 + "FROM\n"
                 + "    role r\n"
                 + "        JOIN\n"
@@ -116,15 +116,96 @@ public class RoleDAO extends DBContext {
 
         } catch (SQLException ex) {
             Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
 
         return roles;
+    }
+
+    public void togglePermission(int roleId, int featureId) {
+        String sql = "update rolefeature\n"
+                + "set status = status ^ 1\n"
+                + "where role_id = ? and feature_id = ?";
+
+        try {
+            executeUpdate(sql, roleId, featureId);
+        } catch (SQLException ex) {
+            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void unassignPermission(int roleId, int featureId) {
+        String sql = "DELETE FROM rolefeature\n"
+                + "WHERE role_id = ? and feature_id = ?";
+
+        try {
+            executeUpdate(sql, roleId, featureId);
+        } catch (SQLException ex) {
+            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Role getRoleById(int id) {
+        Role result = null;
+
+        String sql = "SELECT `role`.`role_name`,\n"
+                + "    `role`.`description`\n"
+                + "FROM `childrencare`.`role`\n"
+                + "where id = ?";
+
+        try {
+            ResultSet rs = executeQuery(sql, id);
+
+            if (rs.next()) {
+                String rname = rs.getString("role_name");
+                String description = rs.getString("description");
+
+                result = new Role().builder()
+                        .id(id)
+                        .roleName(rname)
+                        .description(description)
+                        .build();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return result;
+    }
+
+    private boolean isPermissionAssigned(int rid, int fid) {
+        try {
+            String sql = "SELECT 1\n"
+                    + "FROM `childrencare`.`rolefeature`\n"
+                    + "where role_id = ? and feature_id = ?";
+
+            ResultSet rs = executeQuery(sql, rid, fid);
+
+            return rs.next();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public void assignPermission(int roleId, int featureId) {
+        String sql = "";
+        if (!isPermissionAssigned(roleId, featureId)) {
+
+            sql = "INSERT INTO `childrencare`.`rolefeature`\n"
+                    + "(`role_id`,\n"
+                    + "`feature_id`)\n"
+                    + "VALUES\n"
+                    + "(?, ?)";
+        } else {
+            sql = "DELETE FROM rolefeature\n"
+                    + "WHERE role_id = ? and feature_id = ?";
+        }
+        try {
+            executeUpdate(sql, roleId, featureId);
+        } catch (SQLException ex) {
+            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

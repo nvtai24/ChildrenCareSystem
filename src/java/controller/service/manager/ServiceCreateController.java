@@ -53,7 +53,7 @@ public class ServiceCreateController extends HttpServlet {
             response.getWriter().write(exists ? "exists" : "available");
             return;
         }
-        
+
         // Lấy dữ liệu từ form
         String raw_categoryId = request.getParameter("idCategory").trim();
         String raw_name = request.getParameter("name").trim();
@@ -148,21 +148,20 @@ public class ServiceCreateController extends HttpServlet {
 
             // Lưu vào database
             db.createService(s);
-            HttpSession session = request.getSession(false); // Không tạo mới nếu chưa có session
-            if (session != null) {
-                session.invalidate(); // Hủy toàn bộ session
-            }
 
             // Redirect về danh sách dịch vụ
-            response.sendRedirect("../services/manager");
+            request.setAttribute("notification", "successfull");
+            request.setAttribute("listCategory", list);
+            request.getRequestDispatcher("../dashboard/manager/serviceCreate.jsp").forward(request, response);
 
         } catch (NumberFormatException e) {
-            errorMessage = "Invalid number format!";
-            request.setAttribute("error", errorMessage);
+            request.setAttribute("notification", "false");
+            request.setAttribute("listCategory", list);
             request.getRequestDispatcher("../dashboard/manager/serviceCreate.jsp").forward(request, response);
 
         } catch (IllegalArgumentException e) {
-            request.setAttribute("error", errorMessage);
+            request.setAttribute("notification", "false");
+            request.setAttribute("listCategory", list);
             request.getRequestDispatcher("../dashboard/manager/serviceCreate.jsp").forward(request, response);
         }
     }

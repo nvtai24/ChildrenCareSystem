@@ -5,6 +5,7 @@
 package vnpay;
 
 import dal.ReservationDAO;
+import dal.WishListDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -24,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import model.Reservation;
+import model.ReservationDetail;
+import model.WishList;
 
 /**
  *
@@ -37,15 +40,22 @@ public class PaymentController extends HttpServlet {
         HttpSession session = request.getSession();
         Reservation r = (Reservation) session.getAttribute("r");
 
-        if (payment.equals("banking")) {
-            r.setBanking(true);
-        } else {
-            request.setAttribute("form2", true);
+        if (!payment.equals("banking")) {
             r.setBanking(false);
-            
             ReservationDAO rdb = new ReservationDAO();
             rdb.insertReservation(r);
-            
+
+            ArrayList<WishList> items = (ArrayList<WishList>) session.getAttribute("items");
+            WishListDAO wlDB = new WishListDAO();
+
+            for (WishList item : items) {
+                wlDB.deleteWishlistItem(item.getUser().getId(), item.getService().getId());
+            }
+
+            session.removeAttribute("items");
+            r.setDetails(null);
+            session.setAttribute("r", r);
+
             request.getRequestDispatcher("../reservation-complete.jsp").forward(request, response);
             return;
         }
@@ -60,15 +70,7 @@ public class PaymentController extends HttpServlet {
             String vnp_IpAddr = Config.getIpAddress(request);
             String vnp_TmnCode = Config.vnp_TmnCode;
 
-            // Xử lý amount
-            long amount;
-            try {
-//                amount = Long.parseLong(request.getParameter("amount")) * 100;
-
-                amount = 10000000;
-            } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Invalid amount format");
-            }
+            long amount = (long) ((double) session.getAttribute("amount") * 100 * 25000);
 
             // Tạo map chứa tham số
             Map<String, String> vnp_Params = new HashMap<>();
@@ -128,7 +130,7 @@ public class PaymentController extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             response.setContentType("text/html;charset=UTF-8");
-            response.getWriter().write("Loi: " + e.getMessage());
+            response.getWriter().write("Errror: " + e.getMessage());
         }
     }
 }

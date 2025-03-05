@@ -92,7 +92,6 @@
                             <label>Type</label>
                             <input type="text" class="form-control" value="${setting.settingType.name}" disabled>
                         </div>
-
                         <div class="form-group">
                             <label>Value</label>
                             <input type="text" class="form-control" name="value" value="${setting.settingValue}" required>
@@ -102,21 +101,6 @@
                             <label>Description</label>
                             <textarea class="form-control" name="description" required>${setting.description}</textarea>
                         </div>
-
-                        <div class="form-group">
-                            <label>Status</label>
-                            <div class="d-flex">
-                                <div class="form-check mr-3">
-                                    <input class="form-check-input" type="radio" name="status" value="1" ${setting.status ? "checked" : ""}>
-                                    <label class="form-check-label">Active</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status" value="0" ${!setting.status ? "checked" : ""}>
-                                    <label class="form-check-label">Inactive</label>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="form-group d-flex justify-content-between">
                             <button type="submit" class="btn btn-success" style="width: 48%;">Save</button>
                             <a href="settings" class="btn btn-danger" style="width: 48%;">Cancel</a>

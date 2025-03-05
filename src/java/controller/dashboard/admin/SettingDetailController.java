@@ -30,7 +30,6 @@ public class SettingDetailController extends HttpServlet {
             Setting setting = settingDAO.getSettingById(Integer.parseInt(id));
             request.setAttribute("setting", setting);
         }
-
         request.getRequestDispatcher("dashboard/setting.jsp").forward(request, response);
     }
 
@@ -40,17 +39,9 @@ public class SettingDetailController extends HttpServlet {
         String id = request.getParameter("id");
         String value = request.getParameter("value");
         String description = request.getParameter("description");
-        boolean status = "1".equals(request.getParameter("status"));
-
+        boolean status = "0".equals(request.getParameter("status"));
         SettingDAO settingDAO = new SettingDAO();
-
-        if (id != null && !id.isEmpty()) {
-            // Cập nhật setting
-            settingDAO.updateSetting(new Setting(Integer.parseInt(id), null, value, description, status));
-        } else {
-            // Thêm mới setting
-            settingDAO.addSetting(new Setting(0, null, value, description, status));
-        }
+        settingDAO.updateSetting(new Setting(Integer.parseInt(id), null, value, description, status));
 
         response.sendRedirect("settings");
     }
