@@ -70,7 +70,7 @@ public class AddPostController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**
@@ -89,16 +89,13 @@ public class AddPostController extends HttpServlet {
 
         HttpSession session = request.getSession();
         int currentUserId = 0;
-        if(session != null && session.getAttribute("id") != null){
+        if (session != null && session.getAttribute("id") != null) {
             currentUserId = (int) session.getAttribute("id"); // Redirect về trang login nếu chưa đăng nhập
-        
-        }
-        else{
+
+        } else {
             response.sendRedirect(request.getContextPath() + "/login"); // Redirect về trang login nếu chưa đăng nhập
             return;
         }
-        
-        
 
         Part filePart1 = request.getPart("thumbnail");
         if (filePart1 == null || filePart1.getSize() == 0) {

@@ -166,11 +166,11 @@ public class SliderDAO extends DBContext {
         return sliders;
     }
 
-    public boolean AddNewSlider(String title, String imageUrl, String backLink) {
+    public boolean AddNewSlider(String title, String imageUrl, String backLink, int author_id) {
         try {
-            String query = "INSERT INTO slider (title, image_url, back_link, status, created_date) VALUES (?, ?, ?, ?, ?)";
+            String query = "INSERT INTO slider (title, image_url, back_link, status, created_date, author_id) VALUES (?, ?, ?, ?, ?, ?)";
             int result = executeUpdate(query, title, imageUrl, backLink,
-                    true, java.sql.Timestamp.valueOf(LocalDateTime.now(ZoneId.systemDefault())));
+                    true, java.sql.Timestamp.valueOf(LocalDateTime.now(ZoneId.systemDefault())), author_id);
             if (result > 0) {
                 return true;
             }
