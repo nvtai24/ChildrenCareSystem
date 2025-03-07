@@ -144,7 +144,7 @@
                                                             class="form-control"
                                                             id="phone"
                                                             name="phone"
-                                                            placeholder="0373517718"
+                                                            placeholder="0xxxxxxxxxx"
                                                             value="${sessionScope.r.phone != null ? sessionScope.r.phone : requestScope.p.phone}"
                                                             required
                                                             />

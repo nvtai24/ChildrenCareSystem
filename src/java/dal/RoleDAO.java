@@ -23,19 +23,23 @@ public class RoleDAO extends DBContext {
     public ArrayList<Role> listAllAvailableRole() {
         ArrayList<Role> roles = new ArrayList<>();
 
-        String query = "SELECT `role`.`id`,\n"
-                + "    `role`.`role_name`,\n"
-                + "    `role`.`description`,\n"
-                + "    `role`.`status`\n"
-                + "FROM `childrencare`.`role`\n"
-                + "where status = 1;";
+        String query = "SELECT \n"
+                + "    `setting`.`setting_id`,\n"
+                + "    `setting`.`type_id`,\n"
+                + "    `setting`.`value`,\n"
+                + "    `setting`.`description`,\n"
+                + "    `setting`.`status`\n"
+                + "FROM\n"
+                + "    `childrencare`.`setting`\n"
+                + "WHERE\n"
+                + "    type_id = 3 && status = 1";
 
         try {
             ResultSet rs = executeQuery(query);
 
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String roleName = rs.getString("role_name");
+                int id = rs.getInt("setting_id");
+                String roleName = rs.getString("value");
 
                 Role r = new Role();
                 r.setId(id);
@@ -54,21 +58,21 @@ public class RoleDAO extends DBContext {
         ArrayList<Role> roles = new ArrayList<>();
 
         String query = "SELECT \n"
-                + "    r.id AS roleid,\n"
-                + "    r.role_name,\n"
-                + "    r.description as rdescription,\n"
-                + "    r.status as rstatus,\n"
+                + "    r.setting_id AS roleid,\n"
+                + "    r.value,\n"
+                + "    r.description AS rdescription,\n"
+                + "    r.status AS rstatus,\n"
                 + "    f.id AS featureid,\n"
                 + "    f.feature_name,\n"
                 + "    f.url,\n"
-                + "    f.description as fdescription,\n"
-                + "    rf.status as fstatus\n"
+                + "    f.description AS fdescription,\n"
+                + "    rf.status AS fstatus\n"
                 + "FROM\n"
-                + "    role r\n"
+                + "    setting r\n"
                 + "        JOIN\n"
-                + "    rolefeature rf ON r.id = rf.role_id\n"
+                + "    rolefeature rf ON r.setting_id = rf.role_id\n"
                 + "        JOIN\n"
-                + "    feature f ON f.id = rf.feature_id;";
+                + "    feature f ON f.id = rf.feature_id";
 
         try {
             ResultSet rs = executeQuery(query);
@@ -80,7 +84,7 @@ public class RoleDAO extends DBContext {
 
                 Role r = roleMap.get(roleId);
                 if (r == null) {
-                    String roleName = rs.getString("role_name");
+                    String roleName = rs.getString("value");
                     String description = rs.getString("rdescription");
                     boolean status = rs.getBoolean("rstatus");
 
@@ -147,16 +151,19 @@ public class RoleDAO extends DBContext {
     public Role getRoleById(int id) {
         Role result = null;
 
-        String sql = "SELECT `role`.`role_name`,\n"
-                + "    `role`.`description`\n"
-                + "FROM `childrencare`.`role`\n"
-                + "where id = ?";
+        String sql = "SELECT `setting`.`setting_id`,\n"
+                + "    `setting`.`type_id`,\n"
+                + "    `setting`.`value`,\n"
+                + "    `setting`.`description`,\n"
+                + "    `setting`.`status`\n"
+                + "FROM `childrencare`.`setting`\n"
+                + "where setting_id = ?";
 
         try {
             ResultSet rs = executeQuery(sql, id);
 
             if (rs.next()) {
-                String rname = rs.getString("role_name");
+                String rname = rs.getString("value");
                 String description = rs.getString("description");
 
                 result = new Role().builder()
