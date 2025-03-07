@@ -32,6 +32,7 @@ public class ReservationDetailController extends HttpServlet {
         WishListDAO wlDB = new WishListDAO();
         ArrayList<WishList> items = wlDB.listAllWishlistItems(userId);
 
+        
         request.setAttribute("items", items);
 
         request.getRequestDispatcher("../reservationDetail.jsp").forward(request, response);

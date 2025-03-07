@@ -39,7 +39,6 @@
         <url-pattern>/services/update</url-pattern>
         <url-pattern>/settings/add</url-pattern>
         <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
     <servlet>
         <servlet-name>DashboardNavigationController</servlet-name>
