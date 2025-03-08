@@ -6,6 +6,7 @@ package controller.customer.manager;
 
 import util.EmailUtil;
 import dal.ProfileDAO;
+import dal.RoleDAO;
 import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -91,7 +92,7 @@ public class CustomerCreateController extends HttpServlet {
         newUser.setVerificationToken(token);
         newUser.setTokenExpiration(new Timestamp(expirationTime));
 
-        boolean isRegistered = userDAO.register(newUser);
+        boolean isRegistered = userDAO.register(newUser, 15);
         if (isRegistered) {
 
             User user = userDAO.get(username, password);

@@ -26,9 +26,10 @@ public class UserListDashboardController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        int userId = (int) session.getAttribute("id");
         UserDAO uDB = new UserDAO();
-        ArrayList<User> users = uDB.listAllUsers();
+        ArrayList<User> users = uDB.listAllUsersExcept(userId);
 
         RoleDAO rDB = new RoleDAO();
         ArrayList<Role> roles = rDB.listAllAvailableRole();
@@ -42,7 +43,8 @@ public class UserListDashboardController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        int userId = (int) session.getAttribute("id");
         String action = request.getParameter("action");
         switch (action) {
             case "status" -> {
@@ -64,7 +66,7 @@ public class UserListDashboardController extends HttpServlet {
             }
             default -> {
                 UserDAO uDB = new UserDAO();
-                ArrayList<User> users = uDB.listAllUsers();
+                ArrayList<User> users = uDB.listAllUsersExcept(userId);
 
                 RoleDAO rDB = new RoleDAO();
                 ArrayList<Role> roles = rDB.listAllAvailableRole();
@@ -83,12 +85,12 @@ public class UserListDashboardController extends HttpServlet {
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             UserDAO userDB = new UserDAO();
             RoleDAO dbRole = new RoleDAO();
-            HttpSession session = req.getSession(false); // Không tạo mới nếu chưa có session
+            HttpSession session = req.getSession(); // Không tạo mới nếu chưa có session
             if (session != null) {
                 session.removeAttribute("sessionStatus");
                 session.removeAttribute("sessionRoleId");
             }
-
+            int userId = (int) session.getAttribute("id");
             // Get parameters from the request
             String id_raw = req.getParameter("id");
             String status_raw = req.getParameter("status");
@@ -108,7 +110,7 @@ public class UserListDashboardController extends HttpServlet {
             userDB.UpdateStatusByUser(id, status);
 
             // Fetch updated data
-            ArrayList<User> users = userDB.listAllUsers();
+            ArrayList<User> users = userDB.listAllUsersExcept(userId);
             ArrayList<Role> roles = dbRole.listAllAvailableRole();
 
             // Set attributes for the request
@@ -133,6 +135,7 @@ public class UserListDashboardController extends HttpServlet {
             // Lấy giá trị từ request parameter và session
             String Status_raw = req.getParameter("status");
             Integer RoleId_raw = (Integer) session.getAttribute("sessionRoleId");
+            int userId = (int) session.getAttribute("id");
 
             int statusSession = -1;
             int roleIdSession = -1;
@@ -149,7 +152,7 @@ public class UserListDashboardController extends HttpServlet {
 
             // Lấy danh sách roles và users từ database
             ArrayList<Role> roles = dbRole.listAllAvailableRole();
-            ArrayList<User> users = dbUser.getListUserByStatusAndRole(statusSession, roleIdSession);
+            ArrayList<User> users = dbUser.getListUserByStatusAndRole(statusSession, roleIdSession, userId);
 
             // Thiết lập các thuộc tính cho request và session
             req.setAttribute("users", users);
@@ -175,7 +178,7 @@ public class UserListDashboardController extends HttpServlet {
             // Thay đổi việc lấy giá trị từ session và đảm bảo kiểu dữ liệu đúng
             Integer Status_raw = (Integer) session.getAttribute("sessionStatus");
             String RoleId_raw = req.getParameter("role");
-
+            int userId = (int) session.getAttribute("id");
             int statusSession = -1;
             int roleIdSession = -1;
 
@@ -191,7 +194,7 @@ public class UserListDashboardController extends HttpServlet {
 
             // Lấy danh sách roles và users từ database
             ArrayList<Role> roles = dbRole.listAllAvailableRole();
-            ArrayList<User> users = dbUser.getListUserByStatusAndRole(statusSession, roleIdSession);
+            ArrayList<User> users = dbUser.getListUserByStatusAndRole(statusSession, roleIdSession, userId);
 
             // Thiết lập các thuộc tính cho request và session
             req.setAttribute("users", users);
@@ -212,6 +215,7 @@ public class UserListDashboardController extends HttpServlet {
             UserDAO dbUser = new UserDAO();
             RoleDAO dbRole = new RoleDAO();
             HttpSession session = req.getSession(false); // Không tạo mới nếu chưa có session
+            int userId = (int) session.getAttribute("id");
             if (session != null) {
                 session.removeAttribute("sessionStatus");
                 session.removeAttribute("sessionRoleId");
@@ -219,7 +223,7 @@ public class UserListDashboardController extends HttpServlet {
             String titleSearch = req.getParameter("search").trim();
 
             ArrayList<Role> roles = dbRole.listAllAvailableRole();
-            ArrayList<User> users = dbUser.getUserBySearch(titleSearch);
+            ArrayList<User> users = dbUser.getUserBySearch(titleSearch, userId);
 
             req.setAttribute("users", users);
             req.setAttribute("roles", roles);

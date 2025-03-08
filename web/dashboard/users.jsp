@@ -242,7 +242,7 @@
                                         });
                                         $('#userTable').DataTable({
                                             "paging": true,
-                                            "lengthMenu": [6],
+                                            "lengthMenu": [10],
                                             "searching": false,
                                             "ordering": true,
                                             "info": false,

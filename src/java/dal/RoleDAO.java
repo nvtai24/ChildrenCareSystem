@@ -214,5 +214,5 @@ public class RoleDAO extends DBContext {
             Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
 }
