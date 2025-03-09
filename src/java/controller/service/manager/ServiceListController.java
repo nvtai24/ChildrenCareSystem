@@ -78,9 +78,10 @@ public class ServiceListController extends HttpServlet {
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
             // get Id 
-            HttpSession session = request.getSession(false); // Không tạo mới nếu chưa có session
+            HttpSession session = request.getSession(); // Không tạo mới nếu chưa có session
             if (session != null) {
-                session.invalidate(); // Hủy toàn bộ session
+                session.removeAttribute("sessionStatus");
+                session.removeAttribute("sessionCategoryId");
             }
             String raw_id = request.getParameter("id");
             int id = Integer.parseInt(raw_id);

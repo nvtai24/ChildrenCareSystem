@@ -238,28 +238,26 @@ public class UserDAO extends DBContext {
         return false;
     }
 
-    public ArrayList<User> listAllUsers() {
+    public ArrayList<User> listAllUsersExcept(int idUser) {
         ArrayList<User> users = new ArrayList<>();
 
-        String query = "SELECT \n"
-                + "    u.id,\n"
-                + "    u.username,\n"
-                + "    p.firstname,\n"
-                + "    p.lastname,\n "
-                + "    u.email,\n"
-                + "    r.role_name,\n"
-                + "    u.status,\n"
-                + "    u.created_date,\n"
-                + "    u.updated_date\n"
-                + "FROM\n"
-                + "    user u\n"
-                + "        JOIN\n"
-                + "    role r ON u.role_id = r.id"
-                + "        LEFT JOIN"
-                + "        profile p on u.id = p.userid ";
+        String query = "select u.id"
+                + ",u.username"
+                + ",p.firstname"
+                + ",p.lastname"
+                + ",u.email"
+                + ",u.role_id"
+                + ",u.status"
+                + ",u.created_date"
+                + ",u.updated_date"
+                + ",s.value "
+                + "from user u join setting s on u.role_id = s.setting_id "
+                + "join settingtype st on s.type_id = st.id "
+                + "left join profile p on u.id = p.userid "
+                + "where st.name = 'Role' AND u.id NOT LIKE ?";
 
         try {
-            ResultSet rs = executeQuery(query);
+            ResultSet rs = executeQuery(query, idUser);
 
             while (rs.next()) {
                 int userId = rs.getInt("id");
@@ -273,7 +271,8 @@ public class UserDAO extends DBContext {
                 LocalDateTime createdDate = (createdTimestamp != null) ? createdTimestamp.toLocalDateTime() : null;
                 LocalDateTime updatedDate = (updatedTimestamp != null) ? updatedTimestamp.toLocalDateTime() : null;
 
-                String roleName = rs.getString("role_name");
+                int roleId = rs.getInt("role_id");
+                String roleName = rs.getString("value");
                 String firstname = rs.getString("firstname");
                 String lastname = rs.getString("lastname");
 
@@ -287,6 +286,7 @@ public class UserDAO extends DBContext {
                         .build();
 
                 Role r = new Role();
+                r.setId(roleId);
                 r.setRoleName(roleName);
                 u.setRole(r);
 
@@ -312,10 +312,22 @@ public class UserDAO extends DBContext {
         return users;
     }
 
-    public ArrayList<User> getListUserByStatusAndRole(int status, int roleId) {
+    public ArrayList<User> getListUserByStatusAndRole(int status, int roleId, int userId) {
         DBContext db = new DBContext();
         ArrayList<User> list = new ArrayList<>();
-        String sql = "select u.id,u.username,p.firstname,p.lastname,u.email,u.role_id,u.status,u.created_date,u.updated_date,r.role_name from user u join role r on u.role_id = r.id left join profile p on u.id = p.userid";
+        String sql = "select u.id"
+                + ",u.username"
+                + ",p.firstname"
+                + ",p.lastname"
+                + ",u.email"
+                + ",u.role_id"
+                + ",u.status"
+                + ",u.created_date"
+                + ",u.updated_date"
+                + ",s.value  "
+                + "from user u "
+                + "left join setting s on u.role_id = s.setting_id  "
+                + "left join profile p on u.id = p.userid ";
 
         List<Object> params = new ArrayList<>();
         if (status != -1 || roleId != -1) {
@@ -364,7 +376,7 @@ public class UserDAO extends DBContext {
                 u.setUpdatedDate(updatedDate);
                 Role r = new Role();
                 r.setId(rs.getInt("u.role_id"));
-                r.setRoleName(rs.getString("r.role_name"));
+                r.setRoleName(rs.getString("value"));
 
                 Profile p = new Profile();
                 p.setFirstName(rs.getString("p.firstname"));
@@ -372,7 +384,9 @@ public class UserDAO extends DBContext {
                 u.setProfile(p);
 
                 u.setRole(r);
-                list.add(u);
+                if (u.getId() != userId) {
+                    list.add(u);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -392,14 +406,22 @@ public class UserDAO extends DBContext {
         return list;
     }
 
-    public ArrayList<User> getUserBySearch(String title) {
+    public ArrayList<User> getUserBySearch(String title, int userId) {
         DBContext db = new DBContext();
         ArrayList<User> list = new ArrayList<>();
-        String sql = "SELECT u.id, u.username, p.firstname, p.lastname, u.password, u.email, "
-                + "u.role_id, u.status, u.created_date, u.updated_date, r.role_name "
-                + "FROM user u "
-                + "JOIN role r ON u.role_id = r.id "
-                + "LEFT JOIN profile p ON u.id = p.userid";
+        String sql = "select u.id"
+                + ",u.username"
+                + ",p.firstname"
+                + ",p.lastname"
+                + ",u.email"
+                + ",u.role_id"
+                + ",u.status"
+                + ",u.created_date"
+                + ",u.updated_date"
+                + ",s.value  "
+                + "from user u "
+                + "left join setting s on u.role_id = s.setting_id  "
+                + "left join profile p on u.id = p.userid ";
 
         ResultSet rs = null;
         String titleValue = "";
@@ -408,22 +430,21 @@ public class UserDAO extends DBContext {
             titleValue = "%" + title + "%";
             sql += " WHERE u.username LIKE ? "
                     + " OR u.email LIKE ? "
-                    + " OR r.role_name LIKE ? "
-                    + " OR u.id LIKE ? "
+                    + " OR s.value LIKE ? "
                     + " OR p.firstname LIKE ? "
                     + " OR p.lastname LIKE ? ";
         }
 
         try {
             if (title != null && !title.trim().isEmpty()) {
-                rs = db.executeQuery(sql, titleValue, titleValue, titleValue, titleValue, titleValue, titleValue);
+                rs = db.executeQuery(sql, titleValue, titleValue, titleValue, titleValue, titleValue);
             } else {
                 rs = db.executeQuery(sql);
             }
 
             while (rs.next()) {
                 User u = new User();
-                u.setId(rs.getInt("id"));  // Không cần "u.id"
+                u.setId(rs.getInt("id"));
                 u.setUsername(rs.getString("username"));
                 u.setEmail(rs.getString("email"));
                 u.setStatus(rs.getString("status").equalsIgnoreCase("1"));
@@ -433,7 +454,7 @@ public class UserDAO extends DBContext {
 
                 Role r = new Role();
                 r.setId(rs.getInt("role_id"));
-                r.setRoleName(rs.getString("role_name"));
+                r.setRoleName(rs.getString("value"));
 
                 Profile p = new Profile();
                 p.setFirstName(rs.getString("firstname"));
@@ -441,7 +462,9 @@ public class UserDAO extends DBContext {
                 u.setProfile(p);
 
                 u.setRole(r);
-                list.add(u);
+                if (u.getId() != userId) {
+                    list.add(u);
+                }
             }
 
         } catch (SQLException ex) {
@@ -481,19 +504,24 @@ public class UserDAO extends DBContext {
         User user = null;
         PreparedStatement stm = null;
         try {
-            String sql = "select u.id,"
-                    + "username"
-                    + ",email"
-                    + ",role_id"
-                    + ",role_name"
-                    + ",firstname"
-                    + ",lastname"
-                    + ",gender"
-                    + ",dob"
-                    + ",address"
-                    + ",phone"
-                    + ",avatar "
-                    + "from user u left join profile p on u.id = p.userid join role r on u.role_id = r.id where u.id = ?;";
+            String sql = "select u.id"
+                    + ",u.username"
+                    + ",p.firstname"
+                    + ",p.lastname"
+                    + ",u.email"
+                    + ",u.role_id"
+                    + ",u.status"
+                    + ",u.created_date"
+                    + ",u.updated_date"
+                    + ",s.value as 'role_name' "
+                    + ",p.address"
+                    + ",p.avatar"
+                    + ",p.dob"
+                    + ",p.gender"
+                    + ",p.phone\n"
+                    + "from user u \n"
+                    + "left join setting s on u.role_id = s.setting_id  \n"
+                    + "left join profile p on u.id = p.userid where u.id = ?";
             stm = dbContext.connection.prepareStatement(sql);
             stm.setInt(1, idUser);
 
@@ -553,14 +581,14 @@ public class UserDAO extends DBContext {
     public ArrayList<User> getCustomerList() {
         DBContext db = new DBContext();
         ArrayList<User> list = new ArrayList<>();
-        String sql = "SELECT u.id, u.username, u.email, u.status, "
-                + "r.id AS role_id, r.role_name, "
+        String sql = "SELECT u.id, u.username, u.email, u.status,u.role_id "
+                + ",r.value, "
                 + "p.firstname, p.lastname, p.gender, p.dob, p.address, p.phone, p.avatar, "
                 + "u.created_date, u.updated_date "
                 + "FROM user u "
-                + "JOIN role r ON u.role_id = r.id "
+                + "JOIN setting r ON u.role_id = r.setting_id "
                 + "LEFT JOIN profile p ON u.id = p.userid "
-                + "WHERE r.role_name = 'customer';";
+                + "WHERE r.value = 'customer';";
 
         ResultSet rs = null;
         try {
@@ -578,7 +606,7 @@ public class UserDAO extends DBContext {
 
                 Role r = new Role();
                 r.setId(rs.getInt("role_id"));
-                r.setRoleName(rs.getString("role_name"));
+                r.setRoleName(rs.getString("value"));
                 u.setRole(r);
 
                 Profile p = new Profile();
@@ -615,13 +643,13 @@ public class UserDAO extends DBContext {
         DBContext db = new DBContext();
         ArrayList<User> list = new ArrayList<>();
         String sql = "SELECT u.id, u.username, u.email, u.status, "
-                + "r.id AS role_id, r.role_name, "
+                + "r.setting_id AS role_id, r.value, "
                 + "p.firstname, p.lastname, p.gender, p.dob, p.address, p.phone, p.avatar, "
                 + "u.created_date, u.updated_date "
                 + "FROM user u "
-                + "JOIN role r ON u.role_id = r.id "
+                + "JOIN setting r ON u.role_id = r.setting_id "
                 + "LEFT JOIN profile p ON u.id = p.userid "
-                + "WHERE r.role_name = 'customer' ";
+                + "WHERE r.value = 'customer' ";
 
         if (status != -1) {
             sql += "AND u.status = ?"; // Điều kiện nếu status không phải -1
@@ -648,7 +676,7 @@ public class UserDAO extends DBContext {
 
                 Role r = new Role();
                 r.setId(rs.getInt("role_id"));
-                r.setRoleName(rs.getString("role_name"));
+                r.setRoleName(rs.getString("value"));
                 u.setRole(r);
 
                 Profile p = new Profile();
@@ -685,13 +713,13 @@ public class UserDAO extends DBContext {
         DBContext db = new DBContext();
         ArrayList<User> list = new ArrayList<>();
         String sql = "SELECT u.id, u.username, u.email, u.status, "
-                + "r.id AS role_id, r.role_name, "
+                + "r.setting_id AS role_id, r.value, "
                 + "p.firstname, p.lastname, p.gender, p.dob, p.address, p.phone, p.avatar, "
                 + "u.created_date, u.updated_date "
                 + "FROM user u "
-                + "JOIN role r ON u.role_id = r.id "
+                + "JOIN setting r ON u.role_id = r.setting_id "
                 + "LEFT JOIN profile p ON u.id = p.userid "
-                + "WHERE r.role_name = 'customer' ";
+                + "WHERE r.value = 'customer' ";
 
         // Nếu searchTerm là null hoặc rỗng, không thêm điều kiện tìm kiếm
         if (searchTerm != null && !searchTerm.isEmpty()) {
@@ -735,7 +763,7 @@ public class UserDAO extends DBContext {
 
                 Role r = new Role();
                 r.setId(rs.getInt("role_id"));
-                r.setRoleName(rs.getString("role_name"));
+                r.setRoleName(rs.getString("value"));
                 u.setRole(r);
 
                 Profile p = new Profile();
