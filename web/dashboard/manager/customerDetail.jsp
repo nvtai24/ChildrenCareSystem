@@ -238,7 +238,6 @@
         <script src="${pageContext.request.contextPath}/assets2/js/functions.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/vendors/chart/chart.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
-        <script src='${pageContext.request.contextPath}/assets2/vendors/switcher/switcher.js'></script>
 
         <script>
                                 $(document).ready(function () {
@@ -292,8 +291,25 @@
                                             $("#phoneError").text("");
                                         }
 
+                                        // Validate Date of Birth (Must be in the past)
+                                        var dob = $("#dob").val().trim();
+                                        if (dob === "") {
+                                            $("#dobError").text("Date of birth cannot be empty.");
+                                            isValid = false;
+                                        } else {
+                                            var today = new Date().toISOString().split("T")[0]; // 
+                                            if (dob > today) {
+                                                $("#dobError").text("Date of birth cannot be in the future.");
+                                                isValid = false;
+                                            } else {
+                                                $("#dobError").text("");
+                                            }
+
+                                        }
                                         return isValid;
                                     }
+
+
 
                                     // Validate on input change
                                     $("#firstName, #lastName, #dob, #address, #phone").on("input change", function () {

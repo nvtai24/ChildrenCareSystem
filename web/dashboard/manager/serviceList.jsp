@@ -21,15 +21,6 @@
         <meta name="author" content="" />
         <meta name="robots" content="" />
 
-        <!-- DESCRIPTION -->
-        <meta name="description" content="EduChamp : Education HTML Template" />
-
-        <!-- OG (Open Graph) ============================================= -->
-        <meta property="og:title" content="EduChamp : Education HTML Template" />
-        <meta property="og:description" content="EduChamp : Education HTML Template" />
-        <meta property="og:image" content="" />
-        <meta name="format-detection" content="telephone=no">
-
         <!-- PAGE TITLE ============================================= -->
         <title>Children Care</title>
 
@@ -224,52 +215,48 @@
                     </tbody>
                 </table>
             </div>                                       
-        </div>
-    </div>
+        </main>
+        <div class="ttr-overlay"></div>
+
+        <!-- External JavaScripts -->
+        <!-- jQuery: -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/js/jquery.min.js"></script> 
+
+        <!-- Bootstrap & Plugin  -->
+        <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+
+        <!-- Owl Carousel -->
+        <script src="${pageContext.request.contextPath}/assets2/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/magnific-popup/magnific-popup.js"></script>
+
+        <!-- Counter &  Scroll -->
+        <script src="${pageContext.request.contextPath}/assets2/vendors/counter/waypoints-min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/counter/counterup.min.js"></script>
+        <script src='${pageContext.request.contextPath}/assets2/vendors/scroll/scrollbar.min.js'></script>
+
+        <!-- Masonry & image -->
+        <script src="${pageContext.request.contextPath}/assets2/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/masonry/masonry.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/masonry/filter.js"></script>
+
+        <!-- DataTables  -->
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+        <!-- Chart & Admin Scripts -->
+        <script src="${pageContext.request.contextPath}/assets2/vendors/chart/chart.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
+
+        <!-- function website -->
+        <script src="${pageContext.request.contextPath}/assets2/js/functions.js"></script>
 
 
-</main>
-<div class="ttr-overlay"></div>
-
-<!-- External JavaScripts -->
-<!-- jQuery: -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets2/js/jquery.min.js"></script> 
-
-<!-- Bootstrap & Plugin  -->
-<script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/popper.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-
-<!-- Owl Carousel -->
-<script src="${pageContext.request.contextPath}/assets2/vendors/owl-carousel/owl.carousel.js"></script>
-<script src="${pageContext.request.contextPath}/assets2/vendors/magnific-popup/magnific-popup.js"></script>
-
-<!-- Counter &  Scroll -->
-<script src="${pageContext.request.contextPath}/assets2/vendors/counter/waypoints-min.js"></script>
-<script src="${pageContext.request.contextPath}/assets2/vendors/counter/counterup.min.js"></script>
-<script src='${pageContext.request.contextPath}/assets2/vendors/scroll/scrollbar.min.js'></script>
-
-<!-- Masonry & image -->
-<script src="${pageContext.request.contextPath}/assets2/vendors/imagesloaded/imagesloaded.js"></script>
-<script src="${pageContext.request.contextPath}/assets2/vendors/masonry/masonry.js"></script>
-<script src="${pageContext.request.contextPath}/assets2/vendors/masonry/filter.js"></script>
-
-<!-- DataTables  -->
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-<!-- Chart & Admin Scripts -->
-<script src="${pageContext.request.contextPath}/assets2/vendors/chart/chart.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
-
-<!-- function website -->
-<script src="${pageContext.request.contextPath}/assets2/js/functions.js"></script>
-<script src='${pageContext.request.contextPath}/assets2/vendors/switcher/switcher.js'></script>
-
-<!-- Custom Scripts -->
-<script>
+        <!-- Custom Scripts -->
+        <script>
                                         function confirmChangeStatus(event) {
                                             event.preventDefault();
 
@@ -327,9 +314,9 @@
                                                 });
                                             }
                                         });
-</script>
+        </script>
 
-</body>
+    </body>
 
-<!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
+    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
 </html>

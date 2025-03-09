@@ -93,7 +93,6 @@ public class CustomerDetailController extends HttpServlet {
 
             // Cập nhật role của user
             UserDAO userDAO = new UserDAO();
-            userDAO.updateRoleUser(userId, 3);
 
             // Load dữ liệu và điều hướng về trang userDetail
             RoleDAO rDB = new RoleDAO();

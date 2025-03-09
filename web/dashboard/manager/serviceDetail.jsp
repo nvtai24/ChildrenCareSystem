@@ -253,6 +253,7 @@
         <div class="ttr-overlay"></div>
 
         <!-- External JavaScripts -->
+        <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="${pageContext.request.contextPath}/assets2/js/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/popper.min.js"></script>
@@ -270,7 +271,6 @@
         <script src="${pageContext.request.contextPath}/assets2/js/functions.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/vendors/chart/chart.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
-        <script src='${pageContext.request.contextPath}/assets2/vendors/switcher/switcher.js'></script>
         <c:if test="${not empty notification}">
             <script>
                                                                     document.addEventListener("DOMContentLoaded", function () {
@@ -287,6 +287,9 @@
             </script>
         </c:if>
         <script>
+            CKEDITOR.replace('serviceDescription', {
+                versionCheck: false
+            });
             $(document).ready(function () {
                 function validateForm() {
                     var isValid = true;
