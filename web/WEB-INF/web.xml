@@ -164,6 +164,10 @@
         <servlet-name>SettingAddController</servlet-name>
         <servlet-class>controller.dashboard.admin.SettingAddController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReservationListController</servlet-name>
+        <servlet-class>controller.reservation.ReservationListController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
         <url-pattern>/error-handle</url-pattern>
@@ -375,6 +379,10 @@
     <servlet-mapping>
         <servlet-name>SettingAddController</servlet-name>
         <url-pattern>/settings/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservationListController</servlet-name>
+        <url-pattern>/reservations</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>

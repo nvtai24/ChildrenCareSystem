@@ -214,5 +214,21 @@ public class RoleDAO extends DBContext {
             Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public boolean checkStaffRole(int id) {
+        DBContext db = new DBContext();
+        String sql = "SELECT COUNT(*) AS count FROM user u "
+                + "JOIN setting s ON u.role_id = s.setting_id "
+                + "WHERE u.id = ? AND s.value = 'staff';";
+        try {
+            ResultSet rs = db.executeQuery(sql, id);
+            if (rs.next()) {
+                return rs.getInt("count") > 0;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
 }

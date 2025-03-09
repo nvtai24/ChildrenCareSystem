@@ -2,6 +2,7 @@ package dal;
 
 import java.sql.SQLException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Reservation;
@@ -86,5 +87,10 @@ public class ReservationDAO extends DBContext {
                 Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, "Closing connection failed!", ex);
             }
         }
+    }
+    
+    public ArrayList<Reservation> listAllReservation(){
+        
+        return null;
     }
 }
