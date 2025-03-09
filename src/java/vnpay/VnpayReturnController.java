@@ -24,13 +24,13 @@ import model.WishList;
 public class VnpayReturnController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Enumeration<String> params = request.getParameterNames();
-        StringBuilder result = new StringBuilder();
-        while (params.hasMoreElements()) {
-            String paramName = params.nextElement();
-            String paramValue = request.getParameter(paramName);
-            result.append(paramName).append(": ").append(paramValue).append("\n");
-        }
+//        Enumeration<String> params = request.getParameterNames();
+//        StringBuilder result = new StringBuilder();
+//        while (params.hasMoreElements()) {
+//            String paramName = params.nextElement();
+//            String paramValue = request.getParameter(paramName);
+//            result.append(paramName).append(": ").append(paramValue).append("\n");
+//        }
 
         String vnp_ResponseCode = request.getParameter("vnp_ResponseCode");
         if ("00".equals(vnp_ResponseCode)) {

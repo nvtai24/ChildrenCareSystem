@@ -113,7 +113,7 @@
                                                             class="form-control"
                                                             id="date"
                                                             name="date"
-                                                            value="2025-03-02"
+                                                            value="${requestScope.tommorow}"
                                                             required
                                                             />
                                                     </div>
@@ -140,7 +140,7 @@
                                                             class="form-control"
                                                             id="phone"
                                                             name="phone"
-                                                            placeholder="0373517718"
+                                                            placeholder="0xxxxxxxxxx"
                                                             value="${p.phone}"
                                                             required
                                                             />
