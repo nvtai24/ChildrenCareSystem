@@ -59,6 +59,9 @@ public class BookNowController extends HttpServlet {
         session.setAttribute("s", s);
         request.setAttribute("p", p);
 
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+
+        request.setAttribute("tommorow", tomorrow);
         request.getRequestDispatcher("booknow.jsp").forward(request, response);
     }
 
@@ -75,7 +78,7 @@ public class BookNowController extends HttpServlet {
         String timeStr = request.getParameter("time");
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
-        String note = request.getParameter("note");
+        String note = request.getParameter("note"); 
 
         LocalDate date = LocalDate.parse(dateStr);
         LocalTime time = LocalTime.parse(timeStr);
@@ -182,7 +185,7 @@ public class BookNowController extends HttpServlet {
                 response.setContentType("text/html;charset=UTF-8");
                 response.getWriter().write("Errror: " + e.getMessage());
             }
-            
+
         } else {
             r.setBanking(false);
 

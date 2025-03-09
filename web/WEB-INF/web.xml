@@ -154,7 +154,7 @@
     </servlet>
     <servlet>
         <servlet-name>BookNowSuccessController</servlet-name>
-        <servlet-class>vnpay.BookNowSuccessController</servlet-class>
+        <servlet-class>vnpay.BookNowReturnController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SettingToggleAjax</servlet-name>
@@ -163,6 +163,14 @@
     <servlet>
         <servlet-name>SettingAddController</servlet-name>
         <servlet-class>controller.dashboard.admin.SettingAddController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyReservationsController</servlet-name>
+        <servlet-class>controller.reservation.MyReservationsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReservationInfoController</servlet-name>
+        <servlet-class>controller.reservation.ReservationInfoController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
@@ -375,6 +383,14 @@
     <servlet-mapping>
         <servlet-name>SettingAddController</servlet-name>
         <url-pattern>/settings/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyReservationsController</servlet-name>
+        <url-pattern>/history</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservationInfoController</servlet-name>
+        <url-pattern>/reservation</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>

@@ -45,6 +45,158 @@
             .table td, .table th {
                 vertical-align: middle;
             }
+
+            .checkbox-wrapper-19 {
+                box-sizing: border-box;
+                --background-color: #fff;
+                --checkbox-height: 25px;
+            }
+
+            @-moz-keyframes dothabottomcheck-19 {
+                0% {
+                    height: 0;
+                }
+                100% {
+                    height: calc(var(--checkbox-height) / 2);
+                }
+            }
+
+            @-webkit-keyframes dothabottomcheck-19 {
+                0% {
+                    height: 0;
+                }
+                100% {
+                    height: calc(var(--checkbox-height) / 2);
+                }
+            }
+
+            @keyframes dothabottomcheck-19 {
+                0% {
+                    height: 0;
+                }
+                100% {
+                    height: calc(var(--checkbox-height) / 2);
+                }
+            }
+
+            @keyframes dothatopcheck-19 {
+                0% {
+                    height: 0;
+                }
+                50% {
+                    height: 0;
+                }
+                100% {
+                    height: calc(var(--checkbox-height) * 1.2);
+                }
+            }
+
+            @-webkit-keyframes dothatopcheck-19 {
+                0% {
+                    height: 0;
+                }
+                50% {
+                    height: 0;
+                }
+                100% {
+                    height: calc(var(--checkbox-height) * 1.2);
+                }
+            }
+
+            @-moz-keyframes dothatopcheck-19 {
+                0% {
+                    height: 0;
+                }
+                50% {
+                    height: 0;
+                }
+                100% {
+                    height: calc(var(--checkbox-height) * 1.2);
+                }
+            }
+
+            .checkbox-wrapper-19 input[type=checkbox] {
+                display: none;
+            }
+
+            .checkbox-wrapper-19 .check-box {
+                height: var(--checkbox-height);
+                width: var(--checkbox-height);
+                background-color: transparent;
+                border: calc(var(--checkbox-height) * .1) solid #000;
+                border-radius: 5px;
+                position: relative;
+                display: inline-block;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                -moz-transition: border-color ease 0.2s;
+                -o-transition: border-color ease 0.2s;
+                -webkit-transition: border-color ease 0.2s;
+                transition: border-color ease 0.2s;
+                cursor: pointer;
+            }
+            .checkbox-wrapper-19 .check-box::before,
+            .checkbox-wrapper-19 .check-box::after {
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                position: absolute;
+                height: 0;
+                width: calc(var(--checkbox-height) * .2);
+                background-color: #34b93d;
+                display: inline-block;
+                -moz-transform-origin: left top;
+                -ms-transform-origin: left top;
+                -o-transform-origin: left top;
+                -webkit-transform-origin: left top;
+                transform-origin: left top;
+                border-radius: 5px;
+                content: " ";
+                -webkit-transition: opacity ease 0.5;
+                -moz-transition: opacity ease 0.5;
+                transition: opacity ease 0.5;
+            }
+            .checkbox-wrapper-19 .check-box::before {
+                top: calc(var(--checkbox-height) * .72);
+                left: calc(var(--checkbox-height) * .41);
+                box-shadow: 0 0 0 calc(var(--checkbox-height) * .05) var(--background-color);
+                -moz-transform: rotate(-135deg);
+                -ms-transform: rotate(-135deg);
+                -o-transform: rotate(-135deg);
+                -webkit-transform: rotate(-135deg);
+                transform: rotate(-135deg);
+            }
+            .checkbox-wrapper-19 .check-box::after {
+                top: calc(var(--checkbox-height) * .37);
+                left: calc(var(--checkbox-height) * .05);
+                -moz-transform: rotate(-45deg);
+                -ms-transform: rotate(-45deg);
+                -o-transform: rotate(-45deg);
+                -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+            }
+
+            .checkbox-wrapper-19 input[type=checkbox]:checked + .check-box,
+            .checkbox-wrapper-19 .check-box.checked {
+                border-color: #34b93d;
+            }
+            .checkbox-wrapper-19 input[type=checkbox]:checked + .check-box::after,
+            .checkbox-wrapper-19 .check-box.checked::after {
+                height: calc(var(--checkbox-height) / 2);
+                -moz-animation: dothabottomcheck-19 0.2s ease 0s forwards;
+                -o-animation: dothabottomcheck-19 0.2s ease 0s forwards;
+                -webkit-animation: dothabottomcheck-19 0.2s ease 0s forwards;
+                animation: dothabottomcheck-19 0.2s ease 0s forwards;
+            }
+            .checkbox-wrapper-19 input[type=checkbox]:checked + .check-box::before,
+            .checkbox-wrapper-19 .check-box.checked::before {
+                height: calc(var(--checkbox-height) * 1.2);
+                -moz-animation: dothatopcheck-19 0.4s ease 0s forwards;
+                -o-animation: dothatopcheck-19 0.4s ease 0s forwards;
+                -webkit-animation: dothatopcheck-19 0.4s ease 0s forwards;
+                animation: dothatopcheck-19 0.4s ease 0s forwards;
+            }
         </style>
 
     </head>
@@ -73,191 +225,67 @@
                     </h3>
                 </div>
 
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Feature Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">URL</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${requestScope.allF}" var="a" varStatus="status">
-                            <tr>
-                                <th scope="row">${status.index + 1}</th>
-                                <td>${a.featureName}</td>
-                                <td>${a.description}</td>
-                                <td>${a.url}</td>
-                                <td>
-                                    <div class="checkbox-wrapper-19">
-                                        <input type="checkbox" class="permissionCheckbox"
-                                               data-rid="${requestScope.r.id}" data-fid="${a.id}"
-                                               id="cbtest-${a.id}" ${roleF != null && roleF.contains(a.url) ? 'checked' : ''}/>
-                                        <label for="cbtest-${a.id}" class="check-box">
+
+                <div class="toolbar">
+                    <div>
+                        <div class="form-row align-items-center">
+<!--                            <div class="col-auto">
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Status</div>
                                     </div>
+                                    <select name="status" id="selectStatus">
+                                        <option value="-1">All</option>
+                                        <option value="1">Active</option>      
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>-->
 
-                                    <style>
-                                        .checkbox-wrapper-19 {
-                                            box-sizing: border-box;
-                                            --background-color: #fff;
-                                            --checkbox-height: 25px;
-                                        }
 
-                                        @-moz-keyframes dothabottomcheck-19 {
-                                            0% {
-                                                height: 0;
-                                            }
-                                            100% {
-                                                height: calc(var(--checkbox-height) / 2);
-                                            }
-                                        }
+                            <div class="col-auto w-50" >
+                                <input type="text" id="featureSearchBox" class="form-control mb-2" name="keyword" placeholder="Search for features...">
+                            </div>
 
-                                        @-webkit-keyframes dothabottomcheck-19 {
-                                            0% {
-                                                height: 0;
-                                            }
-                                            100% {
-                                                height: calc(var(--checkbox-height) / 2);
-                                            }
-                                        }
+                            <div class="col-auto" id="clearSearch">
+                                <button type="submit" class="btn btn-primary mb-2">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
 
-                                        @keyframes dothabottomcheck-19 {
-                                            0% {
-                                                height: 0;
-                                            }
-                                            100% {
-                                                height: calc(var(--checkbox-height) / 2);
-                                            }
-                                        }
-
-                                        @keyframes dothatopcheck-19 {
-                                            0% {
-                                                height: 0;
-                                            }
-                                            50% {
-                                                height: 0;
-                                            }
-                                            100% {
-                                                height: calc(var(--checkbox-height) * 1.2);
-                                            }
-                                        }
-
-                                        @-webkit-keyframes dothatopcheck-19 {
-                                            0% {
-                                                height: 0;
-                                            }
-                                            50% {
-                                                height: 0;
-                                            }
-                                            100% {
-                                                height: calc(var(--checkbox-height) * 1.2);
-                                            }
-                                        }
-
-                                        @-moz-keyframes dothatopcheck-19 {
-                                            0% {
-                                                height: 0;
-                                            }
-                                            50% {
-                                                height: 0;
-                                            }
-                                            100% {
-                                                height: calc(var(--checkbox-height) * 1.2);
-                                            }
-                                        }
-
-                                        .checkbox-wrapper-19 input[type=checkbox] {
-                                            display: none;
-                                        }
-
-                                        .checkbox-wrapper-19 .check-box {
-                                            height: var(--checkbox-height);
-                                            width: var(--checkbox-height);
-                                            background-color: transparent;
-                                            border: calc(var(--checkbox-height) * .1) solid #000;
-                                            border-radius: 5px;
-                                            position: relative;
-                                            display: inline-block;
-                                            -moz-box-sizing: border-box;
-                                            -webkit-box-sizing: border-box;
-                                            box-sizing: border-box;
-                                            -moz-transition: border-color ease 0.2s;
-                                            -o-transition: border-color ease 0.2s;
-                                            -webkit-transition: border-color ease 0.2s;
-                                            transition: border-color ease 0.2s;
-                                            cursor: pointer;
-                                        }
-                                        .checkbox-wrapper-19 .check-box::before,
-                                        .checkbox-wrapper-19 .check-box::after {
-                                            -moz-box-sizing: border-box;
-                                            -webkit-box-sizing: border-box;
-                                            box-sizing: border-box;
-                                            position: absolute;
-                                            height: 0;
-                                            width: calc(var(--checkbox-height) * .2);
-                                            background-color: #34b93d;
-                                            display: inline-block;
-                                            -moz-transform-origin: left top;
-                                            -ms-transform-origin: left top;
-                                            -o-transform-origin: left top;
-                                            -webkit-transform-origin: left top;
-                                            transform-origin: left top;
-                                            border-radius: 5px;
-                                            content: " ";
-                                            -webkit-transition: opacity ease 0.5;
-                                            -moz-transition: opacity ease 0.5;
-                                            transition: opacity ease 0.5;
-                                        }
-                                        .checkbox-wrapper-19 .check-box::before {
-                                            top: calc(var(--checkbox-height) * .72);
-                                            left: calc(var(--checkbox-height) * .41);
-                                            box-shadow: 0 0 0 calc(var(--checkbox-height) * .05) var(--background-color);
-                                            -moz-transform: rotate(-135deg);
-                                            -ms-transform: rotate(-135deg);
-                                            -o-transform: rotate(-135deg);
-                                            -webkit-transform: rotate(-135deg);
-                                            transform: rotate(-135deg);
-                                        }
-                                        .checkbox-wrapper-19 .check-box::after {
-                                            top: calc(var(--checkbox-height) * .37);
-                                            left: calc(var(--checkbox-height) * .05);
-                                            -moz-transform: rotate(-45deg);
-                                            -ms-transform: rotate(-45deg);
-                                            -o-transform: rotate(-45deg);
-                                            -webkit-transform: rotate(-45deg);
-                                            transform: rotate(-45deg);
-                                        }
-
-                                        .checkbox-wrapper-19 input[type=checkbox]:checked + .check-box,
-                                        .checkbox-wrapper-19 .check-box.checked {
-                                            border-color: #34b93d;
-                                        }
-                                        .checkbox-wrapper-19 input[type=checkbox]:checked + .check-box::after,
-                                        .checkbox-wrapper-19 .check-box.checked::after {
-                                            height: calc(var(--checkbox-height) / 2);
-                                            -moz-animation: dothabottomcheck-19 0.2s ease 0s forwards;
-                                            -o-animation: dothabottomcheck-19 0.2s ease 0s forwards;
-                                            -webkit-animation: dothabottomcheck-19 0.2s ease 0s forwards;
-                                            animation: dothabottomcheck-19 0.2s ease 0s forwards;
-                                        }
-                                        .checkbox-wrapper-19 input[type=checkbox]:checked + .check-box::before,
-                                        .checkbox-wrapper-19 .check-box.checked::before {
-                                            height: calc(var(--checkbox-height) * 1.2);
-                                            -moz-animation: dothatopcheck-19 0.4s ease 0s forwards;
-                                            -o-animation: dothatopcheck-19 0.4s ease 0s forwards;
-                                            -webkit-animation: dothatopcheck-19 0.4s ease 0s forwards;
-                                            animation: dothatopcheck-19 0.4s ease 0s forwards;
-                                        }
-                                    </style>
-
-                                </td>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Feature Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">URL</th>
+                                <th scope="col">Action</th>
                             </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${requestScope.allF}" var="a" varStatus="status">
+                                <tr>
+                                    <th scope="row">${status.index + 1}</th>
+                                    <td>${a.featureName}</td>
+                                    <td>${a.description}</td>
+                                    <td>${a.url}</td>
+                                    <td>
+                                        <div class="checkbox-wrapper-19">
+                                            <input type="checkbox" class="permissionCheckbox"
+                                                   data-rid="${requestScope.r.id}" data-fid="${a.id}"
+                                                   id="cbtest-${a.id}" ${roleF != null && roleF.contains(a.url) ? 'checked' : ''}/>
+                                            <label for="cbtest-${a.id}" class="check-box">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
         </main>
         <div class="ttr-overlay"></div>
 
@@ -280,11 +308,6 @@
         <script src="assets2/js/admin.js"></script>
         <script src='assets2/vendors/calendar/moment.min.js'></script>
         <script src='assets2/vendors/calendar/fullcalendar.js'></script>
-        <script>
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        </script>
 
 
         <script>
@@ -304,6 +327,57 @@
                     });
                 });
             });
+
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const statusSelect = document.getElementById('selectStatus'); // Dùng id cụ thể
+                const keywordInput = document.getElementById('featureSearchBox');
+                const tableRows = document.querySelectorAll('.table tbody tr');
+
+                function applyFilters() {
+                    const keyword = keywordInput ? keywordInput.value.toLowerCase() : '';
+                    const statusValue = statusSelect ? statusSelect.value : '-1';
+
+                    console.log("Applying filters - Keyword:", keyword, "Status:", statusValue);
+
+                    tableRows.forEach(row => {
+                        const featureName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                        const description = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                        const url = row.querySelector('td:nth-child(4)').textContent.toLowerCase();
+                        const checkbox = row.querySelector('.permissionCheckbox');
+                        const matchesKeyword = keyword.trim() === '' ||
+                                featureName.includes(keyword) ||
+                                description.includes(keyword) ||
+                                url.includes(keyword);
+                        const featureStatus = checkbox && checkbox.checked ? '1' : '0';
+                        let matchesStatus = true;
+
+                        if (statusValue === '1') {
+                            matchesStatus = (featureStatus === '1');
+                        } else if (statusValue === '0') {
+                            matchesStatus = (featureStatus === '0');
+                        }
+
+                        row.style.display = (matchesKeyword && matchesStatus) ? '' : 'none';
+                    });
+                }
+
+                // Gắn sự kiện change cho statusSelect
+                if (statusSelect) {
+                    statusSelect.addEventListener('change', function () {
+                        console.log("Status changed to:", this.value);
+                        applyFilters();
+                    });
+                }
+
+                if (keywordInput) {
+                    keywordInput.addEventListener('input', applyFilters);
+                }
+
+                // Áp dụng bộ lọc ban đầu
+                applyFilters();
+            });
+
         </script>
 
     </body>
