@@ -5,34 +5,25 @@
 package vnpay;
 
 import dal.ReservationDAO;
-import dal.WishListDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.stream.Collectors;
 import model.Reservation;
-import model.WishList;
 import util.EmailUtil;
 
 /**
  *
  * @author Nvtai
  */
-public class VnpayReturnController extends HttpServlet {
+public class BookNowReturnController extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        Enumeration<String> params = request.getParameterNames();
-//        StringBuilder result = new StringBuilder();
-//        while (params.hasMoreElements()) {
-//            String paramName = params.nextElement();
-//            String paramValue = request.getParameter(paramName);
-//            result.append(paramName).append(": ").append(paramValue).append("\n");
-//        }
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         String vnp_ResponseCode = request.getParameter("vnp_ResponseCode");
         if ("00".equals(vnp_ResponseCode)) {
@@ -42,18 +33,8 @@ public class VnpayReturnController extends HttpServlet {
 
             r.setBanking(true);
             ReservationDAO rdb = new ReservationDAO();
-            System.out.println(r);
             int id = rdb.insertReservation(r);
 
-            ArrayList<WishList> items = (ArrayList<WishList>) session.getAttribute("items");
-            WishListDAO wlDB = new WishListDAO();
-
-            for (WishList item : items) {
-                wlDB.deleteWishlistItem(item.getUser().getId(), item.getService().getId());
-            }
-
-//            session.removeAttribute("items");
-//            r.setDetails(null);
             String email = r.getEmail(); // Get user email from Reservation object
             String subject = "Reservation Successful!";
             String serviceContent = r.getDetails().stream()
@@ -86,14 +67,11 @@ public class VnpayReturnController extends HttpServlet {
 
             EmailUtil.sendReserveNotification(email, subject, message);
 
-            session.setAttribute("r", r);
-
-            request.getRequestDispatcher("../reservation-complete.jsp").forward(request, response);
-//            response.getWriter().write("Success!\n " + result.toString());
+            request.getRequestDispatcher("../booknow_success.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("../reservation-confirm.jsp").forward(request, response);
-//            response.getWriter().write("Failed!\n " + result.toString());
+            response.sendRedirect("/app/services");
         }
+
     }
 
 }

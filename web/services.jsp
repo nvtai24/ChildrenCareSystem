@@ -156,7 +156,7 @@
                                                         <div class="mt-auto">
                                                             <p class="text-center">
                                                                 <del class="text-muted">$${s.price}</del> 
-                                                                <strong class="text-danger">$${s.price - s.discount}</strong>
+                                                                <strong class="text-danger">$${s.price * (1 - s.discount / 100)}</strong>
                                                             </p>
 
                                                             <button type="button" class="btn btn-success w-100 mb-2" onclick="addToWishlist(${s.id})">

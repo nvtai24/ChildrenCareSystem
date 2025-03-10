@@ -34,10 +34,7 @@ public class DashboardNavigationController extends HttpServlet {
         HttpSession session = request.getSession();
         User account = (User) session.getAttribute("account");
 
-        int roleId = account.getRole().getId();
-
         request.getRequestDispatcher("dashboard/dashboard.jsp").forward(request, response);
-
     }
 
     /**

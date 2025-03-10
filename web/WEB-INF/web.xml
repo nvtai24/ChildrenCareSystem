@@ -154,7 +154,7 @@
     </servlet>
     <servlet>
         <servlet-name>BookNowSuccessController</servlet-name>
-        <servlet-class>vnpay.BookNowSuccessController</servlet-class>
+        <servlet-class>vnpay.BookNowReturnController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SettingToggleAjax</servlet-name>
@@ -167,6 +167,22 @@
     <servlet>
         <servlet-name>ReservationListController</servlet-name>
         <servlet-class>controller.reservation.ReservationListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GoogleCallbackServlet</servlet-name>
+        <servlet-class>controller.auth.GoogleCallbackServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GoogleLogin</servlet-name>
+        <servlet-class>controller.auth.GoogleLogin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyReservationsController</servlet-name>
+        <servlet-class>controller.reservation.MyReservationsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReservationInfoController</servlet-name>
+        <servlet-class>controller.reservation.ReservationInfoController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
@@ -383,6 +399,22 @@
     <servlet-mapping>
         <servlet-name>ReservationListController</servlet-name>
         <url-pattern>/reservations</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GoogleCallbackServlet</servlet-name>
+        <url-pattern>/callback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GoogleLogin</servlet-name>
+        <url-pattern>/GoogleLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyReservationsController</servlet-name>
+        <url-pattern>/history</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservationInfoController</servlet-name>
+        <url-pattern>/reservation/info</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>

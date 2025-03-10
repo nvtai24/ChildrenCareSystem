@@ -107,7 +107,9 @@ public class SettingDAO extends DBContext {
                 + "FROM\n"
                 + "    setting s\n"
                 + "        JOIN\n"
-                + "    settingtype st ON s.type_id = st.id";
+                + "    settingtype st ON s.type_id = st.id\n"
+                + "WHERE\n"
+                + "    s.value not in ('Admin' , 'Dev')";
 
         try {
             ResultSet rs = executeQuery(query);

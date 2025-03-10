@@ -28,11 +28,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
 import model.Profile;
 import model.Reservation;
 import model.ReservationDetail;
 import model.Service;
 import model.auth.User;
+import util.EmailUtil;
 import vnpay.Config;
 
 /**
@@ -59,6 +61,9 @@ public class BookNowController extends HttpServlet {
         session.setAttribute("s", s);
         request.setAttribute("p", p);
 
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+
+        request.setAttribute("tommorow", tomorrow);
         request.getRequestDispatcher("booknow.jsp").forward(request, response);
     }
 
@@ -182,12 +187,42 @@ public class BookNowController extends HttpServlet {
                 response.setContentType("text/html;charset=UTF-8");
                 response.getWriter().write("Errror: " + e.getMessage());
             }
-            
+
         } else {
             r.setBanking(false);
 
             ReservationDAO rdb = new ReservationDAO();
-            rdb.insertReservation(r);
+            int id = rdb.insertReservation(r);
+
+            String subject = "Reservation Successful!";
+            String serviceContent = r.getDetails().stream()
+                    .map(s2 -> s2.getService().getName() + " x" + s2.getQuantity())
+                    .collect(Collectors.joining(", "));
+
+            double total = r.getDetails().stream().mapToDouble(d -> d.getPrice() * d.getQuantity()).sum();
+
+            String message = String.format(
+                    "Dear %s %s,\n\n"
+                    + "Your reservation has been successfully processed.\n\n"
+                    + "-----------------------------------------\n"
+                    + "🗓 Appointment Date: %s %s\n"
+                    + "📞 Phone: %s\n"
+                    + "📧 Email: %s\n"
+                    + "📌 Reservation ID: %d\n"
+                    + "💰 Total: $%.2f\n"
+                    + "💳 Payment Method: On Arrival\n"
+                    + "-----------------------------------------\n\n"
+                    + "Services:\n%s\n\n"
+                    + "Thank you for using our service!\n"
+                    + "Best regards,\nYour Service Team",
+                    r.getFirstName(), r.getLastName(),
+                    r.getReverseDate().toLocalDate(), r.getReverseDate().toLocalTime(),
+                    r.getPhone(), r.getEmail(),
+                    id, total,
+                    serviceContent
+            );
+
+            EmailUtil.sendReserveNotification(email, subject, message);
 
             session.setAttribute("r", r);
             request.getRequestDispatcher("booknow_success.jsp").forward(request, response);

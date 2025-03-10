@@ -21,6 +21,7 @@ import model.auth.User;
 @AllArgsConstructor
 @Builder
 public class Reservation {
+
     private int id;
     private User customer;
     private String firstName;
@@ -35,4 +36,7 @@ public class Reservation {
     private LocalDateTime updatedDate;
     private List<ReservationDetail> details;
     private List<MedicalExamination> examinations;
+
+    private double totalQuantity;
+    private double totalPrice;
 }

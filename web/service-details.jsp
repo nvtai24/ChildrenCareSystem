@@ -201,13 +201,12 @@
                                             <div class="review">
                                                 <span>${requestScope.feedbacks.size()} Review</span>
                                                 <ul class="cours-star">
-
-                                                    <c:forEach end="${requestScope.average}" begin="1">
+                                                    <c:forEach begin="1" end="${requestScope.average}">
                                                         <li class="active"><i class="fa fa-star"></i></li>
                                                         </c:forEach>
 
-                                                    <c:forEach end="${5 - requestScope.average}" begin="1">
-                                                        <li class="active"><i class="fa fa-star"></i></li>
+                                                    <c:forEach begin="1" end="${5 - requestScope.average}">
+                                                        <li><i class="fa fa-star"></i></li>
                                                         </c:forEach>
                                                 </ul>
                                             </div>
@@ -252,7 +251,6 @@
                                             <div class="all-review">
                                                 <h2 class="rating-type">5</h2>
                                                 <ul class="cours-star">
-
                                                     <c:forEach begin="1" end="${requestScope.average}">
                                                         <li class="active"><i class="fa fa-star"></i></li>
                                                         </c:forEach>
