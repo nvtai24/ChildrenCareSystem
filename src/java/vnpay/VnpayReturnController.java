@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import model.Reservation;
 import model.WishList;
+import util.EmailUtil;
 
 /**
  *
@@ -52,6 +53,17 @@ public class VnpayReturnController extends HttpServlet {
 
             session.removeAttribute("items");
             r.setDetails(null);
+
+            String email = r.getEmail(); // Get user email from Reservation object
+            String subject = "Reservation Successful!";
+            String message = "Dear " + r.getFirstName() + " " + r.getLastName() + ",\n\n"
+//                    + "Your reservation has been successfully processed for the service: " + r.getService().getName() + "\n"
+                    + "Appointment Date: " + r.getReverseDate().toString() + "\n"
+                    + "Reservation ID: " + r.getId() + "\n\n"
+                    + "Thank you for using our service!";
+            
+             EmailUtil.sendReserveNotification(email, subject, message);
+
             session.setAttribute("r", r);
 
             request.getRequestDispatcher("../reservation-complete.jsp").forward(request, response);

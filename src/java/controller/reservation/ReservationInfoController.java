@@ -33,7 +33,7 @@ public class ReservationInfoController extends HttpServlet {
 
         request.setAttribute("r", r);
         request.setAttribute("total", total);
-        request.getRequestDispatcher("reservation-info.jsp").forward(request, response);
+        request.getRequestDispatcher("../reservation-info.jsp").forward(request, response);
     }
 
     @Override

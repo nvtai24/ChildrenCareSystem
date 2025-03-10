@@ -46,7 +46,7 @@ public class EmailUtil {
             e.printStackTrace();
         }
     }
-    
+
     public static void sendResetPasswordEmail(String email, String resetLink) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -72,4 +72,31 @@ public class EmailUtil {
             e.printStackTrace();
         }
     }
+
+    public static void sendReserveNotification(String email, String subject, String messageBody) {
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", SMTP_HOST);
+        props.put("mail.smtp.port", SMTP_PORT);
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(EMAIL_SENDER, EMAIL_PASSWORD);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(EMAIL_SENDER));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+            message.setSubject(subject);
+            message.setText(messageBody);
+
+            Transport.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

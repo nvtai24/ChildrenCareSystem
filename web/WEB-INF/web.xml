@@ -390,7 +390,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReservationInfoController</servlet-name>
-        <url-pattern>/reservation</url-pattern>
+        <url-pattern>/reservation/info</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>
