@@ -325,11 +325,57 @@
                         });
                     }
 
-                    $(".status-toggle").on("click", function () {
+//                    $(".status-toggle").on("click", function () {
+//                        var $toggleButton = $(this);
+//                        var settingId = $toggleButton.data("id");
+//                        var currentStatus = $toggleButton.data("status");
+//                        var $statusLabel = $toggleButton.closest("td").prev().find(".badge");
+//
+//                        $.ajax({
+//                            url: "/app/setting/toggle",
+//                            type: "POST",
+//                            data: {stid: settingId},
+//                            success: function (response) {
+//                                if (currentStatus === true || currentStatus === "true") {
+//                                    // Switch to Inactive
+//                                    $toggleButton.html(`
+//                                            <div class="btn green mb-2" style="width: 100px">
+//                                                <i class="fa fa-refresh" aria-hidden="true"></i> Active
+//                                            </div>
+//                                        `);
+//                                    $toggleButton.data("status", false);
+//                                    $statusLabel
+//                                            .removeClass("badge-success")
+//                                            .addClass("badge-danger")
+//                                            .text("Inactive");
+//                                } else {
+//                                    // Switch to Active
+//                                    $toggleButton.html(`
+//                                <div class="btn red mb-2" style="width: 100px">
+//                                    <i class="fa fa-refresh" aria-hidden="true"></i> Inactive
+//                                </div>
+//                            `);
+//                                    $toggleButton.data("status", true);
+//                                    $statusLabel
+//                                            .removeClass("badge-danger")
+//                                            .addClass("badge-success")
+//                                            .text("Active");
+//                                }
+//                            },
+//                            error: function (xhr, status, error) {
+//                                alert("Error toggling status: " + error);
+//                            },
+//                        });
+//                    });
+
+
+                    $(document).on("click", ".status-toggle", function () {
                         var $toggleButton = $(this);
                         var settingId = $toggleButton.data("id");
                         var currentStatus = $toggleButton.data("status");
                         var $statusLabel = $toggleButton.closest("td").prev().find(".badge");
+                        var $row = $toggleButton.closest("tr"); // Lấy hàng hiện tại
+                        var table = $("#settingsTable").DataTable();
 
                         $.ajax({
                             url: "/app/setting/toggle",
@@ -339,35 +385,48 @@
                                 if (currentStatus === true || currentStatus === "true") {
                                     // Switch to Inactive
                                     $toggleButton.html(`
-                                            <div class="btn green mb-2" style="width: 100px">
-                                                <i class="fa fa-refresh" aria-hidden="true"></i> Active
-                                            </div>
-                                        `);
+                    <div class="btn green mb-2" style="width: 100px">
+                        <i class="fa fa-refresh" aria-hidden="true"></i> Active
+                    </div>
+                `);
                                     $toggleButton.data("status", false);
                                     $statusLabel
                                             .removeClass("badge-success")
                                             .addClass("badge-danger")
                                             .text("Inactive");
+
+                                    // Cập nhật dữ liệu trong DataTable
+                                    table.cell($row, 4).data('<span class="badge badge-danger mt-3" style="width: 70px">Inactive</span>');
                                 } else {
                                     // Switch to Active
                                     $toggleButton.html(`
-                                <div class="btn red mb-2" style="width: 100px">
-                                    <i class="fa fa-refresh" aria-hidden="true"></i> Inactive
-                                </div>
-                            `);
+                    <div class="btn red mb-2" style="width: 100px">
+                        <i class="fa fa-refresh" aria-hidden="true"></i> Inactive
+                    </div>
+                `);
                                     $toggleButton.data("status", true);
                                     $statusLabel
                                             .removeClass("badge-danger")
                                             .addClass("badge-success")
                                             .text("Active");
+
+                                    // Cập nhật dữ liệu trong DataTable
+                                    table.cell($row, 4).data('<span class="badge badge-success mt-3" style="width: 70px">Active</span>');
                                 }
+
+                                // Áp dụng lại bộ lọc sau khi dữ liệu thay đổi
+                                applyFilters();
                             },
                             error: function (xhr, status, error) {
                                 alert("Error toggling status: " + error);
                             },
                         });
                     });
+
+
                 });
+
+
             </script>
 
             <!-- External JavaScripts -->
