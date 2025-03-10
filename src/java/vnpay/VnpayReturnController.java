@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.stream.Collectors;
 import model.Reservation;
 import model.WishList;
 import util.EmailUtil;
@@ -42,7 +43,7 @@ public class VnpayReturnController extends HttpServlet {
             r.setBanking(true);
             ReservationDAO rdb = new ReservationDAO();
             System.out.println(r);
-            rdb.insertReservation(r);
+            int id = rdb.insertReservation(r);
 
             ArrayList<WishList> items = (ArrayList<WishList>) session.getAttribute("items");
             WishListDAO wlDB = new WishListDAO();
@@ -51,18 +52,39 @@ public class VnpayReturnController extends HttpServlet {
                 wlDB.deleteWishlistItem(item.getUser().getId(), item.getService().getId());
             }
 
-            session.removeAttribute("items");
-            r.setDetails(null);
-
+//            session.removeAttribute("items");
+//            r.setDetails(null);
             String email = r.getEmail(); // Get user email from Reservation object
             String subject = "Reservation Successful!";
-            String message = "Dear " + r.getFirstName() + " " + r.getLastName() + ",\n\n"
-//                    + "Your reservation has been successfully processed for the service: " + r.getService().getName() + "\n"
-                    + "Appointment Date: " + r.getReverseDate().toString() + "\n"
-                    + "Reservation ID: " + r.getId() + "\n\n"
-                    + "Thank you for using our service!";
-            
-             EmailUtil.sendReserveNotification(email, subject, message);
+            String serviceContent = r.getDetails().stream()
+                    .map(s -> s.getService().getName() + " x" + s.getQuantity())
+                    .collect(Collectors.joining(", "));
+
+            double total = r.getDetails().stream().mapToDouble(d -> d.getPrice() * d.getQuantity()).sum();
+
+            String message = String.format(
+                    "Dear %s %s,\n\n"
+                    + "🎉 Your reservation has been successfully processed! 🎉\n\n"
+                    + "--------------------------------------------------\n"
+                    + "🗓 Appointment Date: %s %s\n"
+                    + "📞 Phone: %s\n"
+                    + "📧 Email: %s\n"
+                    + "📌 Reservation ID: %d\n"
+                    + "💰 Total: $%.2f\n"
+                    + "💳 Payment Method: Online Banking\n"
+                    + "✅ Payment Status: Success\n"
+                    + "--------------------------------------------------\n\n"
+                    + "🛎️ Services Reserved:\n%s\n\n"
+                    + "Thank you for using our service! We look forward to serving you.\n\n"
+                    + "Best regards,\nYour Service Team",
+                    r.getFirstName(), r.getLastName(),
+                    r.getReverseDate().toLocalDate(), r.getReverseDate().toLocalTime(),
+                    r.getPhone(), r.getEmail(),
+                    id, total,
+                    serviceContent
+            );
+
+            EmailUtil.sendReserveNotification(email, subject, message);
 
             session.setAttribute("r", r);
 

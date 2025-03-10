@@ -17,8 +17,7 @@ import model.Service;
 
 public class ReservationDAO extends DBContext {
 
-    // đây là mới xử lí insert dữ liệu bởi phương thức thanh toán arrival, còn thanh toán online thì chưa (r.isBanking == true) -> payment table
-    public void insertReservation(Reservation r) {
+    public int insertReservation(Reservation r) {
         String reservationQuery = "INSERT INTO `childrencare`.`reservation` "
                 + "(`customer_id`, `first_name`, `last_name`, `reserve_date`, `phone`, `email`, `note`, `banking`) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -29,14 +28,15 @@ public class ReservationDAO extends DBContext {
 
         if (connection == null) {
             Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, "Database connection is null!");
-            return;
+            return -1;
         }
 
-        try {
-            connection.setAutoCommit(false); // Bắt đầu transaction
+        int reservationId = -1; // Default value
 
-            // Insert vào bảng reservation
-            int reservationId = -1;
+        try {
+            connection.setAutoCommit(false); // Start transaction
+
+            // Insert into reservation table
             try (PreparedStatement ps1 = connection.prepareStatement(reservationQuery, Statement.RETURN_GENERATED_KEYS)) {
                 ps1.setInt(1, r.getCustomer().getId());
                 ps1.setString(2, r.getFirstName());
@@ -52,16 +52,18 @@ public class ReservationDAO extends DBContext {
                     throw new SQLException("Creating reservation failed, no rows affected.");
                 }
 
+                // Get generated reservation ID
                 try (ResultSet generatedKeys = ps1.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         reservationId = generatedKeys.getInt(1);
+                        r.setId(reservationId); // Set ID in the Reservation object
                     } else {
                         throw new SQLException("Creating reservation failed, no ID obtained.");
                     }
                 }
             }
 
-            // Insert danh sách reservation details
+            // Insert reservation details
             try (PreparedStatement ps2 = connection.prepareStatement(detailsQuery)) {
                 for (ReservationDetail detail : r.getDetails()) {
                     ps2.setInt(1, reservationId);
@@ -73,22 +75,24 @@ public class ReservationDAO extends DBContext {
                 ps2.executeBatch();
             }
 
-            connection.commit(); // Xác nhận transaction
+            connection.commit(); // Commit transaction
+            return reservationId; // Return generated ID
 
         } catch (SQLException ex) {
             try {
                 if (connection != null) {
-                    connection.rollback(); // Nếu có lỗi, rollback toàn bộ
+                    connection.rollback(); // Rollback on failure
                 }
             } catch (SQLException rollbackEx) {
                 Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, "Rollback failed!", rollbackEx);
             }
             Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, "Insert reservation failed!", ex);
+            return -1; // Return -1 if insertion failed
         } finally {
             try {
                 if (connection != null) {
                     connection.setAutoCommit(true);
-                    connection.close(); // Đóng kết nối sau khi hoàn tất
+                    connection.close(); // Close connection
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, "Closing connection failed!", ex);
