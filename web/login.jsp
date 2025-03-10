@@ -108,7 +108,7 @@
                                 <div class="col-lg-12">
                                     <h6>Login with Social media</h6>
                                     <div class="d-flex">
-                                        <a class="btn flex-fill m-l5 google-plus" href="#"><i class="fa fa-google-plus"></i>Google Plus</a>
+                                        <a class="btn flex-fill m-l5 google-plus" href="GoogleLogin"><i class="fa fa-google-plus"></i>Google Plus</a>
                                     </div>
                                 </div>
                             </div>

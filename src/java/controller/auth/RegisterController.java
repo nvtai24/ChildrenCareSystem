@@ -114,9 +114,9 @@ public class RegisterController extends HttpServlet {
             newProfile.setUser(user); // Set userId after the user is inserted
             newProfile.setFirstName(firstname);
             newProfile.setLastName(lastname);
-            boolean genderValue = "1".equals(gender);  // Giả sử '1' là Male và '2' là Female
+            boolean genderValue = "1".equals(gender);  
             newProfile.setGender(genderValue);
-            newProfile.setDob(java.sql.Date.valueOf(dob)); // Convert DOB string to java.sql.Date
+            newProfile.setDob(java.sql.Date.valueOf(dob));
             newProfile.setAddress(address);
             newProfile.setPhone(phone);
 

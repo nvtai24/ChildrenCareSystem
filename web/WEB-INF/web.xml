@@ -165,6 +165,14 @@
         <servlet-class>controller.dashboard.admin.SettingAddController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>GoogleCallbackServlet</servlet-name>
+        <servlet-class>controller.auth.GoogleCallbackServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GoogleLogin</servlet-name>
+        <servlet-class>controller.auth.GoogleLogin</servlet-class>
+            </servlet>
+ <servlet>
         <servlet-name>MyReservationsController</servlet-name>
         <servlet-class>controller.reservation.MyReservationsController</servlet-class>
     </servlet>
@@ -385,6 +393,14 @@
         <url-pattern>/settings/add</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>GoogleCallbackServlet</servlet-name>
+        <url-pattern>/callback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GoogleLogin</servlet-name>
+        <url-pattern>/GoogleLogin</url-pattern>
+        </servlet-mapping>
+<servlet-mapping>
         <servlet-name>MyReservationsController</servlet-name>
         <url-pattern>/history</url-pattern>
     </servlet-mapping>
