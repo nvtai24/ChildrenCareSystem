@@ -109,13 +109,14 @@ public class RegisterController extends HttpServlet {
         newUser.setTokenExpiration(new Timestamp(expirationTime));
         boolean isRegistered = userDAO.register(newUser);
         if (isRegistered) {
+            User user = userDAO.get(username, password);
             Profile newProfile = new Profile();
-            newProfile.setUser(newUser); // Set userId after the user is inserted
+            newProfile.setUser(user);
             newProfile.setFirstName(firstname);
             newProfile.setLastName(lastname);
-            boolean genderValue = "1".equals(gender);  // Giả sử '1' là Male và '2' là Female
+            boolean genderValue = "1".equals(gender);  
             newProfile.setGender(genderValue);
-            newProfile.setDob(java.sql.Date.valueOf(dob)); // Convert DOB string to java.sql.Date
+            newProfile.setDob(java.sql.Date.valueOf(dob));
             newProfile.setAddress(address);
             newProfile.setPhone(phone);
 

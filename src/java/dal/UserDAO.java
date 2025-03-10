@@ -62,7 +62,7 @@ public class UserDAO extends DBContext {
     }
 
     public boolean register(User user) {
-        String sql = "INSERT INTO `user` (`username`, `password`, `email` ,`role_id`, `verification_token`, `token_expiration`, `email_verified`) VALUES (?, ?, ?, 3, ?, ?, 0)";
+        String sql = "INSERT INTO `user` (`username`, `password`, `email` ,`role_id`, `verification_token`, `token_expiration`, `email_verified`) VALUES (?, ?, ?, 15, ?, ?, 0)";
         try (PreparedStatement ps = dbContext.connection.prepareStatement(sql)) {
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
@@ -165,15 +165,20 @@ public class UserDAO extends DBContext {
     }
 
     public User getUserByEmail(String email) {
-        String sql = "SELECT * FROM user WHERE email = ?";
+        String sql = "SELECT id, username, email, role_id, status FROM user WHERE email = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
                 user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));
+                user.setStatus(rs.getInt("status") == 1);
+
+                Role role = new Role();
+                role.setId(rs.getInt("role_id"));
+                user.setRole(role);
                 return user;
             }
         } catch (SQLException e) {
@@ -782,6 +787,15 @@ public class UserDAO extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(ProfileDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        }
+    }
+
+    public void createUser(String email, String username, String password) {
+        String query = "INSERT INTO user (username, password, email, email_verified, role_id, status) VALUES (?, ?, ?, 1, 15, 1)";
+        try {
+            executeUpdate(query, username, password, email);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
