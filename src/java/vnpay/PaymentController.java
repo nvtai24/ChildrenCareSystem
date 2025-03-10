@@ -24,9 +24,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
 import model.Reservation;
 import model.ReservationDetail;
 import model.WishList;
+import util.EmailUtil;
 
 /**
  *
@@ -43,7 +45,7 @@ public class PaymentController extends HttpServlet {
         if (!payment.equals("banking")) {
             r.setBanking(false);
             ReservationDAO rdb = new ReservationDAO();
-            rdb.insertReservation(r);
+            int id = rdb.insertReservation(r);
 
             ArrayList<WishList> items = (ArrayList<WishList>) session.getAttribute("items");
             WishListDAO wlDB = new WishListDAO();
@@ -52,8 +54,39 @@ public class PaymentController extends HttpServlet {
                 wlDB.deleteWishlistItem(item.getUser().getId(), item.getService().getId());
             }
 
-            session.removeAttribute("items");
-            r.setDetails(null);
+//            session.removeAttribute("items");
+//            r.setDetails(null);
+            String email = r.getEmail(); // Get user email from Reservation object
+            String subject = "Reservation Successful!";
+            String serviceContent = r.getDetails().stream()
+                    .map(s -> s.getService().getName() + " x" + s.getQuantity())
+                    .collect(Collectors.joining(", "));
+
+            double total = r.getDetails().stream().mapToDouble(d -> d.getPrice() * d.getQuantity()).sum();
+
+            String message = String.format(
+                    "Dear %s %s,\n\n"
+                    + "Your reservation has been successfully processed.\n\n"
+                    + "-----------------------------------------\n"
+                    + "🗓 Appointment Date: %s %s\n"
+                    + "📞 Phone: %s\n"
+                    + "📧 Email: %s\n"
+                    + "📌 Reservation ID: %d\n"
+                    + "💰 Total: $%.2f\n"
+                    + "💳 Payment Method: On Arrival\n"
+                    + "-----------------------------------------\n\n"
+                    + "Services:\n%s\n\n"
+                    + "Thank you for using our service!\n"
+                    + "Best regards,\nYour Service Team",
+                    r.getFirstName(), r.getLastName(),
+                    r.getReverseDate().toLocalDate(), r.getReverseDate().toLocalTime(),
+                    r.getPhone(), r.getEmail(),
+                    id, total,
+                    serviceContent
+            );
+
+            EmailUtil.sendReserveNotification(email, subject, message);
+
             session.setAttribute("r", r);
 
             request.getRequestDispatcher("../reservation-complete.jsp").forward(request, response);

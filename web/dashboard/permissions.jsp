@@ -109,7 +109,7 @@
                             </div>
 
                             <table class="table table-hover">
-                                <thead>
+                                <thead class="thead-light align-middle">
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Feature Name</th>

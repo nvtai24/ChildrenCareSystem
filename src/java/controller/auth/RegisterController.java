@@ -111,7 +111,7 @@ public class RegisterController extends HttpServlet {
         if (isRegistered) {
             User user = userDAO.get(username, password);
             Profile newProfile = new Profile();
-            newProfile.setUser(user);
+            newProfile.setUser(user); // Set userId after the user is inserted
             newProfile.setFirstName(firstname);
             newProfile.setLastName(lastname);
             boolean genderValue = "1".equals(gender);  
@@ -125,7 +125,8 @@ public class RegisterController extends HttpServlet {
             boolean isProfileSaved = profileDAO.saveProfile(newProfile);
 
             if (isProfileSaved) {
-                String verificationLink = "http://localhost:8080/app/verify?token=" + token + "&redirect=login";
+                
+                String verificationLink = "http://localhost:8082/app/verify?token=" + token + "&redirect=login";
                 EmailUtil.sendVerificationEmail(email, verificationLink);
                 request.setAttribute("successMessage", "A verify link has been sent to your email.");
                 request.getRequestDispatcher("register.jsp").forward(request, response);

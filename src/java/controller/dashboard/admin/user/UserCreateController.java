@@ -101,7 +101,7 @@ public class UserCreateController extends HttpServlet {
         newUser.setTokenExpiration(new Timestamp(expirationTime));
 
         // Thực hiện đăng ký
-        boolean isRegistered = userDAO.register(newUser, role_id);
+        boolean isRegistered = userDAO.register(newUser,role_id);
 
         if (isRegistered) {
             // Redirect to create user with success message

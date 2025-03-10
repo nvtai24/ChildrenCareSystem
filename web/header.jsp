@@ -53,7 +53,7 @@
                                 </li>
 
 
-                                <c:if test="${sessionScope.account != null && sessionScope.account.role.id !=3}">
+                                <c:if test="${sessionScope.account != null && sessionScope.account.role.id !=15}">
                                     <li><a href="dashboard">Dashboard</a></li>
                                     </c:if>
                             </ul>
@@ -72,22 +72,24 @@
                                         </div>
                                     </li>
 
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="reservation/detail" style="color: black;">
-                                            <i class="fa fa-calendar-plus-o" aria-hidden="true" style="font-size: 20px" title="My Reservation"></i>
-                                        </a>
-                                    </li>
+                                    <c:if test="${sessionScope.account != null && sessionScope.account.role.id == 15  || sessionScope.account.role.id == 16}">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="reservation/detail" style="color: black;">
+                                                <i class="fa fa-calendar-plus-o" aria-hidden="true" style="font-size: 20px" title="My Reservation"></i>
+                                            </a>
+                                        </li>
 
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" style="color: black;">
-                                            <i class="fa fa-history" aria-hidden="true" style="font-size: 20px" title="History"></i>
-                                        </a>
-                                    </li>
-
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="history" style="color: black;">
+                                                <i class="fa fa-history" aria-hidden="true" style="font-size: 20px" title="History"></i>
+                                            </a>
+                                        </li>
+                                    </c:if>
 
                                 </c:if>
 
                                 <c:if test="${sessionScope.account == null}">
+
                                     <!-- Nếu chưa đăng nhập, chỉ hiển thị Login & Register -->
                                     <li class="nav-item"><a class="nav-link" href="login" style="text-decoration: none; color: black;">Login</a></li>
                                     <li class="nav-item"><a class="nav-link" href="register" style="text-decoration: none; color: black;">Register</a></li>

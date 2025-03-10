@@ -150,7 +150,7 @@
                                 <td>
                                     <label for="role">Role</label>
                                     <select name="role_id" class="form-control">
-                                        <option value="3">Customer</option>
+                                        <option value="15">Customer</option>
                                     </select>
                                 </td>
                                 <td>
@@ -230,7 +230,6 @@
         <script src="${pageContext.request.contextPath}/assets2/js/functions.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/vendors/chart/chart.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
-        <script src='${pageContext.request.contextPath}/assets2/vendors/switcher/switcher.js'></script>
         <c:if test="${not empty notification}">
             <script>
                     document.addEventListener("DOMContentLoaded", function () {
@@ -260,7 +259,7 @@
                     } else {
                         $("#usernameError").text("");
                         $.ajax({
-                            url: "../users/add",
+                            url: "../customer/add",
                             type: "GET",
                             data: {action: "checkUsername", username: username},
                             async: false,
@@ -284,7 +283,7 @@
                     } else {
                         $("#emailError").text("");
                         $.ajax({
-                            url: "../users/add",
+                            url: "../customer/add",
                             type: "GET",
                             data: {action: "checkEmail", email: email},
                             async: false,
@@ -369,9 +368,27 @@
                     } else {
                         $("#phoneError").text("");
                     }
-
+                    
+                    // Validate Date of Birth (Must be in the past)
+                    var dob = $("#dob").val().trim();
+                    if (dob === "") {
+                        $("#dobError").text("Date of birth cannot be empty.");
+                        isValid = false;
+                    } else {
+                        var today = new Date().toISOString().split("T")[0]; // 
+                        if (dob > today) {
+                            $("#dobError").text("Date of birth cannot be in the future.");
+                            isValid = false;
+                        } else {
+                            $("#dobError").text("");
+                        }
+                    }
+                    
                     return isValid;
                 }
+
+
+
 
 
                 $("#username, #email, #password, #confirmPassword, #firstName, #lastName, #dob, #address, #phone").on("input", function () {

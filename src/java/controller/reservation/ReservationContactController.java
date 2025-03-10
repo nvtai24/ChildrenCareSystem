@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import model.Profile;
 import model.WishList;
@@ -58,6 +59,9 @@ public class ReservationContactController extends HttpServlet {
             session.setAttribute("items", wishlist);
         }
 
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+
+        request.setAttribute("tommorow", tomorrow);
         request.setAttribute("p", p);
         request.getRequestDispatcher("../reservation-contact.jsp").forward(request, response);
     }

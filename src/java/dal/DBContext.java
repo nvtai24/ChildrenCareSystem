@@ -20,7 +20,8 @@ public class DBContext {
         try {
             String user = "root";
             String pass = "1234";
-            String url = "jdbc:mysql://localhost:3306/childrencare?useSSL=false&serverTimezone=UTC";
+            String url = "jdbc:mysql://localhost:3306/childrencare?useSSL=false";
+            
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, user, pass);

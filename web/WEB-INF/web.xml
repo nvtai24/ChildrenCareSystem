@@ -39,7 +39,6 @@
         <url-pattern>/services/update</url-pattern>
         <url-pattern>/settings/add</url-pattern>
         <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
     <servlet>
         <servlet-name>DashboardNavigationController</servlet-name>
@@ -155,7 +154,7 @@
     </servlet>
     <servlet>
         <servlet-name>BookNowSuccessController</servlet-name>
-        <servlet-class>vnpay.BookNowSuccessController</servlet-class>
+        <servlet-class>vnpay.BookNowReturnController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SettingToggleAjax</servlet-name>
@@ -172,6 +171,14 @@
     <servlet>
         <servlet-name>GoogleLogin</servlet-name>
         <servlet-class>controller.auth.GoogleLogin</servlet-class>
+            </servlet>
+ <servlet>
+        <servlet-name>MyReservationsController</servlet-name>
+        <servlet-class>controller.reservation.MyReservationsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReservationInfoController</servlet-name>
+        <servlet-class>controller.reservation.ReservationInfoController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
@@ -392,6 +399,14 @@
     <servlet-mapping>
         <servlet-name>GoogleLogin</servlet-name>
         <url-pattern>/GoogleLogin</url-pattern>
+        </servlet-mapping>
+<servlet-mapping>
+        <servlet-name>MyReservationsController</servlet-name>
+        <url-pattern>/history</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservationInfoController</servlet-name>
+        <url-pattern>/reservation/info</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>

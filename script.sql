@@ -189,7 +189,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,1,'Importance of Regular Checkups','Regular health checkups are essential for monitoring the growth and development of children.','assets/images/blog/blog1.jpg',1,'2025-01-31 23:46:56','2025-02-10 10:42:43'),(2,2,'Vaccination Schedule for Children','Ensure your child is up-to-date with their vaccinations to protect them from diseases.','assets/images/blog/blog2.jpg',1,'2025-01-31 23:46:56','2025-02-10 10:42:43'),(3,3,'Nutrition Tips for Kids','A balanced diet is crucial for the healthy development of children.','assets/images/blog/blog3.jpg',1,'2025-01-31 23:46:56','2025-02-10 10:42:43'),(16,1,'Common Childhood Illnesses','Understanding and preventing common childhood illnesses helps keep your child healthy.','assets/images/blog/blog16.jpg',1,'2025-02-01 09:12:45','2025-02-10 10:42:43'),(17,1,'How to Build Strong Immunity','Learn about the best ways to boost your child’s immune system.','assets/images/blog/blog17.jpg',1,'2025-02-01 09:15:20','2025-02-10 10:42:43'),(18,1,'First Aid for Children','Essential first aid tips for dealing with common injuries in children.','assets/images/blog/blog18.jpg',1,'2025-02-01 09:20:10','2025-02-10 10:42:43'),(19,1,'Sleep Routines for Kids','Establishing healthy sleep routines is vital for your child’s development.','assets/images/blog/blog19.jpg',1,'2025-02-01 09:22:35','2025-02-10 10:42:43'),(20,1,'Dental Care for Children','Starting dental care early can prevent future dental problems.','assets/images/blog/blog20.jpg',1,'2025-02-01 09:25:00','2025-02-10 10:42:43'),(21,1,'Mental Health in Children','Supporting your child’s mental health is as important as their physical health.','assets/images/blog/blog21.jpg',1,'2025-02-01 09:30:15','2025-02-10 10:42:43'),(22,1,'Exercise for Kids','Regular physical activity is key for your child’s growth and well-being.','assets/images/blog/blog22.jpg',1,'2025-02-01 09:35:10','2025-02-10 10:42:43'),(23,1,'Skin Care for Children','Learn the importance of gentle skin care for young children.','assets/images/blog/blog23.jpg',1,'2025-02-01 09:40:25','2025-02-10 10:42:43'),(24,1,'Sun Protection for Kids','Protect your child from harmful UV rays with the right sun protection.','assets/images/blog/blog24.jpg',1,'2025-02-01 09:45:35','2025-02-10 10:42:43');
+INSERT INTO `post` VALUES (1,1,'Importance of Regular Checkups','<p>Regular health checkups are essential for monitoring the growth and development of children.</p>\r\n\r\n<p><a href=\"https://letsenhance.io/\"><img alt=\"\" src=\"https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/6e61b/MainAfter.avif\" style=\"height:113px; width:200px\" /></a></p>\r\n\r\n<p>adnvaudviladv</p>\r\n\r\n<p>&nbsp;</p>\r\n','assets/images/blog/blog1.jpg',1,'2025-01-31 23:46:56','2025-03-06 09:42:31'),(2,2,'Vaccination Schedule for Children','Ensure your child is up-to-date with their vaccinations to protect them from diseases.','assets/images/blog/blog2.jpg',1,'2025-01-31 23:46:56','2025-02-10 10:42:43'),(3,3,'Nutrition Tips for Kids','A balanced diet is crucial for the healthy development of children.','assets/images/blog/blog3.jpg',1,'2025-01-31 23:46:56','2025-02-10 10:42:43'),(16,1,'Common Childhood Illnesses','Understanding and preventing common childhood illnesses helps keep your child healthy.','assets/images/blog/blog16.jpg',1,'2025-02-01 09:12:45','2025-02-10 10:42:43'),(17,1,'How to Build Strong Immunity','Learn about the best ways to boost your child’s immune system.','assets/images/blog/blog17.jpg',1,'2025-02-01 09:15:20','2025-02-10 10:42:43'),(18,1,'First Aid for Children','Essential first aid tips for dealing with common injuries in children.','assets/images/blog/blog18.jpg',1,'2025-02-01 09:20:10','2025-02-10 10:42:43'),(19,1,'Sleep Routines for Kids','Establishing healthy sleep routines is vital for your child’s development.','assets/images/blog/blog19.jpg',1,'2025-02-01 09:22:35','2025-02-10 10:42:43'),(20,1,'Dental Care for Children','Starting dental care early can prevent future dental problems.','assets/images/blog/blog20.jpg',1,'2025-02-01 09:25:00','2025-02-10 10:42:43'),(21,1,'Mental Health in Children','Supporting your child’s mental health is as important as their physical health.','assets/images/blog/blog21.jpg',1,'2025-02-01 09:30:15','2025-02-10 10:42:43'),(22,1,'Exercise for Kids','Regular physical activity is key for your child’s growth and well-being.','assets/images/blog/blog22.jpg',1,'2025-02-01 09:35:10','2025-02-10 10:42:43'),(23,1,'Skin Care for Children','Learn the importance of gentle skin care for young children.','assets/images/blog/blog23.jpg',1,'2025-02-01 09:40:25','2025-02-10 10:42:43'),(24,1,'Sun Protection for Kids','Protect your child from harmful UV rays with the right sun protection.','assets/images/blog/blog24.jpg',1,'2025-02-01 09:45:35','2025-02-10 10:42:43');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,7 +213,7 @@ CREATE TABLE `profile` (
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`userid`),
   CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -222,7 +222,7 @@ CREATE TABLE `profile` (
 
 LOCK TABLES `profile` WRITE;
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
-INSERT INTO `profile` VALUES (1,'Tai','Nguyen Van',1,'2004-11-20','Nghi Loc, Nghe An','0373517718','assets/images/profile/profile_1.jpg','2025-01-31 23:46:55','2025-03-04 10:11:20'),(2,'Anh','Do Minh',1,'1975-05-15','456 Health Lane kkk','124356789','assets/images/profile/profile_2.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(3,'Quyen','Nguyen Duc',0,'1985-08-20','789 Parent Road','345-678-9012','assets/images/profile/profile_3.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(4,'Long','Nguyen Hoang',1,'1990-03-10','101 Staff Avenue','456-789-0123','assets/images/profile/profile_4.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47');
+INSERT INTO `profile` VALUES (1,'Tai','Nguyen Van',1,'2004-11-10','Nghi Loc, Nghe An','0373517718','assets/images/profile/profile_1.jpg','2025-01-31 23:46:55','2025-03-06 09:10:54'),(2,'Anh','Do Minh',1,'1975-05-15','456 Health Lane kkk','124356789','assets/images/profile/profile_2.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(3,'Quyen','Nguyen Duc',0,'1985-08-20','789 Parent Road','345-678-9012','assets/images/profile/profile_3.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(4,'Long','Nguyen Hoang',1,'1990-03-10','101 Staff Avenue','456-789-0123','assets/images/profile/profile_4.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(29,'a','a',1,'2025-03-06','a','a','assets/images/profile/default.jpg','2025-03-06 09:00:12',NULL),(32,'qwe','qwe',1,'2025-03-11','sdsd','214122231','assets/images/profile/default.jpg','2025-03-06 02:17:41','2025-03-06 02:17:41');
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,7 +252,7 @@ CREATE TABLE `reservation` (
   KEY `IX_Reservation_Date` (`reserve_date`),
   CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `reservationstatus` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -261,7 +261,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (14,1,1,'2025-03-22 07:30:00','','2025-03-05 15:22:27',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(15,1,1,'2025-03-29 07:30:00','','2025-03-05 15:23:01',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0');
+INSERT INTO `reservation` VALUES (14,1,1,'2025-03-22 07:30:00','','2025-03-05 15:22:27',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(15,1,1,'2025-03-29 07:30:00','','2025-03-05 15:23:01',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(16,1,1,'2025-03-15 07:30:00','','2025-03-06 02:28:47',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(17,3,1,'2025-03-13 07:30:00','','2025-03-06 09:27:15',NULL,'Quyen','Nguyen Duc','parent1@childrencare.com','0373517718',_binary '\0');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -284,7 +284,7 @@ CREATE TABLE `reservationdetail` (
   KEY `service_id` (`service_id`),
   CONSTRAINT `reservationdetail_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`) ON DELETE CASCADE,
   CONSTRAINT `reservationdetail_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,7 +293,7 @@ CREATE TABLE `reservationdetail` (
 
 LOCK TABLES `reservationdetail` WRITE;
 /*!40000 ALTER TABLE `reservationdetail` DISABLE KEYS */;
-INSERT INTO `reservationdetail` VALUES (14,14,2,1,142.50,'2025-03-05 15:22:27'),(15,15,1,1,100.00,'2025-03-05 15:23:01'),(16,15,2,1,150.00,'2025-03-05 15:23:01'),(17,15,3,1,40.00,'2025-03-05 15:23:01'),(18,15,5,1,70.00,'2025-03-05 15:23:01');
+INSERT INTO `reservationdetail` VALUES (14,14,2,1,142.50,'2025-03-05 15:22:27'),(15,15,1,1,100.00,'2025-03-05 15:23:01'),(16,15,2,1,150.00,'2025-03-05 15:23:01'),(17,15,3,1,40.00,'2025-03-05 15:23:01'),(18,15,5,1,70.00,'2025-03-05 15:23:01'),(19,16,5,1,70.00,'2025-03-06 02:28:47'),(20,17,1,1,100.00,'2025-03-06 09:27:15');
 /*!40000 ALTER TABLE `reservationdetail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,32 +322,6 @@ INSERT INTO `reservationstatus` VALUES (1,'Pending'),(2,'Confirmed'),(3,'Complet
 UNLOCK TABLES;
 
 --
--- Table structure for table `role`
---
-
-DROP TABLE IF EXISTS `role`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `role` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `description` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `status` bit(1) DEFAULT b'1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `role`
---
-
-LOCK TABLES `role` WRITE;
-/*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,'Admin','Administrator with full access to the system.',_binary ''),(2,'Doctor','Medical professional providing health services.',_binary ''),(3,'Customer','Parent or guardian of a child using the services.',_binary ''),(4,'Manager','Support staff assisting in the operations.',_binary '');
-/*!40000 ALTER TABLE `role` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `rolefeature`
 --
 
@@ -360,7 +334,8 @@ CREATE TABLE `rolefeature` (
   `status` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`role_id`,`feature_id`),
   KEY `feature_id` (`feature_id`),
-  CONSTRAINT `rolefeature_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`),
+  KEY `rolefeature_ibfk_1_idx` (`role_id`),
+  CONSTRAINT `rolefeature_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `setting` (`setting_id`),
   CONSTRAINT `rolefeature_ibfk_2` FOREIGN KEY (`feature_id`) REFERENCES `feature` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -371,7 +346,7 @@ CREATE TABLE `rolefeature` (
 
 LOCK TABLES `rolefeature` WRITE;
 /*!40000 ALTER TABLE `rolefeature` DISABLE KEYS */;
-INSERT INTO `rolefeature` VALUES (1,20,1),(1,21,1),(1,22,1),(1,23,1),(1,24,1),(1,28,1),(1,29,1),(1,33,1),(2,17,1),(2,18,1),(2,19,1),(3,2,1),(3,3,1),(3,4,1),(3,5,1),(3,25,1),(3,27,1),(4,7,1),(4,8,1),(4,9,1),(4,10,1),(4,11,1),(4,12,1),(4,13,1),(4,14,1),(4,15,1),(4,16,1),(4,26,1),(4,30,1),(4,31,1),(4,32,1);
+INSERT INTO `rolefeature` VALUES (12,20,1),(12,21,1),(12,22,1),(12,23,1),(12,24,1),(12,28,1),(12,29,1),(12,33,1),(13,17,1),(13,18,1),(13,19,1),(14,7,1),(14,8,1),(14,9,1),(14,10,1),(14,11,1),(14,12,1),(14,13,1),(14,14,1),(14,15,1),(14,16,1),(14,26,1),(14,30,1),(14,31,1),(14,32,1),(15,2,1),(15,3,1),(15,4,1),(15,5,1),(15,25,1),(15,27,1),(16,2,1),(16,3,1),(16,4,1),(16,5,1),(16,6,1),(16,7,1),(16,8,1),(16,9,1),(16,10,1),(16,11,1),(16,12,1),(16,13,1),(16,14,1),(16,15,1),(16,16,1),(16,17,1),(16,18,1),(16,19,1),(16,20,1),(16,21,1),(16,22,1),(16,23,1),(16,24,1),(16,25,1),(16,26,1),(16,27,1),(16,28,1),(16,29,1),(16,30,1),(16,31,1),(16,32,1),(16,33,1);
 /*!40000 ALTER TABLE `rolefeature` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -426,7 +401,7 @@ CREATE TABLE `setting` (
   PRIMARY KEY (`setting_id`),
   KEY `type_id` (`type_id`),
   CONSTRAINT `setting_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `settingtype` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -435,7 +410,7 @@ CREATE TABLE `setting` (
 
 LOCK TABLES `setting` WRITE;
 /*!40000 ALTER TABLE `setting` DISABLE KEYS */;
-INSERT INTO `setting` VALUES (2,1,'General Checkup','Regular health checkups for 1children to monitor growth.1111',_binary ''),(3,1,'Vaccination','Vaccination services to protect children from various diseases.',_binary ''),(4,1,'Nutrition','Nutritional advice and dietary plans for children.',_binary ''),(5,1,'Dental Care','Dental health services for children, including checkups and treatments.',_binary ''),(6,1,'Emergency Care','Emergency medical services for children.',_binary ''),(7,1,'Physical Therapy','Physical therapy services to support children with movement issues.',_binary ''),(8,1,'Mental Health','Mental health support and counseling for children.',_binary ''),(9,2,'Health Tips','Posts related to health tips for children.',_binary ''),(10,2,'Vaccination','Posts related to vaccination information.',_binary ''),(11,2,'Nutrition','Posts related to child nutrition.',_binary '');
+INSERT INTO `setting` VALUES (2,1,'General Checkup','Regular health checkups for 1children to monitor growth.',_binary '\0'),(3,1,'Vaccination','Vaccination services to protect children from various diseases.',_binary ''),(4,1,'Nutrition','Nutritional advice and dietary plans for children.',_binary ''),(5,1,'Dental Care','Dental health services for children, including checkups and treatments.',_binary ''),(6,1,'Emergency Care','Emergency medical services for children.',_binary ''),(7,1,'Physical Therapy','Physical therapy services to support children with movement issues.',_binary ''),(8,1,'Mental Health','Mental health support and counseling for children.',_binary ''),(9,2,'Health Tips','Posts related to health tips for children.',_binary ''),(10,2,'Vaccination','Posts related to vaccination information.',_binary ''),(11,2,'Nutrition','Posts related to child nutrition.',_binary ''),(12,3,'Admin','Adminstrator with permissions for config',_binary ''),(13,3,'Staff','Medical professional providing health services',_binary ''),(14,3,'Manager','Manage and assign staff in the operations',_binary ''),(15,3,'Customer','User who using the services.',_binary ''),(16,3,'Dev','Role for developer',_binary '');
 /*!40000 ALTER TABLE `setting` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -450,7 +425,7 @@ CREATE TABLE `settingtype` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -459,7 +434,7 @@ CREATE TABLE `settingtype` (
 
 LOCK TABLES `settingtype` WRITE;
 /*!40000 ALTER TABLE `settingtype` DISABLE KEYS */;
-INSERT INTO `settingtype` VALUES (1,'Category'),(2,'Label');
+INSERT INTO `settingtype` VALUES (1,'Category'),(2,'Label'),(3,'Role');
 /*!40000 ALTER TABLE `settingtype` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -519,11 +494,11 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `username` (`username`),
-  KEY `role_id` (`role_id`),
   KEY `IX_User_Email` (`email`),
   KEY `IX_User_Username` (`username`),
-  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `userrole_fk1_idx` (`role_id`),
+  CONSTRAINT `userrole_fk1` FOREIGN KEY (`role_id`) REFERENCES `setting` (`setting_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -532,7 +507,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','123','buiblue123@gmail.com',0,NULL,NULL,1,1,'2025-01-31 23:46:55','2025-03-05 16:54:54',NULL,NULL),(2,'doctor1','123','doctor1@childrencare.com',0,NULL,NULL,2,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(3,'parent1','123','parent1@childrencare.com',0,NULL,NULL,3,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(4,'staff1','123','staff1@childrencare.com',0,NULL,NULL,4,1,'2025-01-31 23:46:55','2025-02-10 09:19:58',NULL,NULL),(5,'parent2','1234','parent2@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:27:52','2025-02-27 08:00:54',NULL,NULL),(6,'parent3','123','parent3@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:28:17','2025-02-10 09:19:58',NULL,NULL),(7,'parent4','123','parent$@gmail.com',0,NULL,NULL,3,1,'2025-02-03 12:28:38','2025-02-10 09:19:58',NULL,NULL),(8,'testuser','password123','testuser@example.com',1,NULL,NULL,3,1,'2025-02-24 10:38:04','2025-02-24 10:43:02',NULL,NULL),(10,'testuse1r','password123','testuser1@example.com',0,'abcd1234efgh5678','2025-03-01 12:00:00',3,1,'2025-02-24 10:44:03',NULL,NULL,NULL),(22,'parent12','Minhanh140904','dominhchi235@gmail.com',1,NULL,NULL,3,1,'2025-02-26 22:42:28','2025-03-02 21:21:06',NULL,NULL),(23,'parent123','Doanh140904','anhdmhe181481@fpt.edu.vn',1,NULL,NULL,3,1,'2025-03-02 21:23:35','2025-03-02 21:25:04',NULL,NULL);
+INSERT INTO `user` VALUES (1,'admin','123','buiblue123@gmail.com',0,NULL,NULL,12,1,'2025-01-31 23:46:55','2025-03-08 00:16:22',NULL,NULL),(2,'doctor1','123','doctor1@childrencare.com',0,NULL,NULL,13,1,'2025-01-31 23:46:55','2025-03-08 00:16:22',NULL,NULL),(3,'parent1','123','parent1@childrencare.com',0,NULL,NULL,15,1,'2025-01-31 23:46:55','2025-03-08 00:16:22',NULL,NULL),(4,'staff1','123','staff1@childrencare.com',0,NULL,NULL,13,1,'2025-01-31 23:46:55','2025-03-08 00:16:22',NULL,NULL),(29,'anhdm','Minhanh140904','ameebro99@gmail.com',1,NULL,NULL,14,1,'2025-03-06 09:00:12','2025-03-08 00:16:22','58f15957-fd71-412e-af6d-57999285bedc','2025-03-06 12:05:05'),(30,'dev','123','abc@gmail.com',1,NULL,NULL,16,1,'2025-03-06 09:07:53','2025-03-08 00:16:22',NULL,NULL),(31,'dev2','123','abc1@gmail.com',0,NULL,NULL,16,1,'2025-03-06 09:38:11','2025-03-08 00:16:22',NULL,NULL),(32,'quyen123','Ducquyen123','milo9a5@gmail.com',0,'82ecff6c-3e11-4962-92e3-4cd06639fa5a','2025-03-06 12:17:41',16,1,'2025-03-06 09:17:41','2025-03-08 00:16:22',NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -560,7 +535,7 @@ CREATE TABLE `wishlist` (
 
 LOCK TABLES `wishlist` WRITE;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
-INSERT INTO `wishlist` VALUES (7,2,1),(22,1,1);
+INSERT INTO `wishlist` VALUES (1,1,1),(1,2,2),(1,3,1),(1,4,1),(1,5,1);
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -573,4 +548,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-06  2:10:35
+-- Dump completed on 2025-03-08  0:17:24

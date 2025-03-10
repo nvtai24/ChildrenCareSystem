@@ -104,6 +104,7 @@
                                                             placeholder="Last Name"
                                                             value="${sessionScope.r.lastName != null ? sessionScope.r.lastName : requestScope.p.lastName}"
                                                             required
+                                                            value="Test 2"
                                                             />
                                                     </div>
                                                 </div>
@@ -117,7 +118,7 @@
                                                             class="form-control"
                                                             id="date"
                                                             name="date"
-                                                            value="${sessionScope.r.reverseDate != null ? sessionScope.r.reverseDate.toLocalDate() : '2025-03-02'}"
+                                                            value="${sessionScope.r.reverseDate != null ? sessionScope.r.reverseDate.toLocalDate() : requestScope.tommorow}"
                                                             required
                                                             />
                                                     </div>
@@ -144,7 +145,7 @@
                                                             class="form-control"
                                                             id="phone"
                                                             name="phone"
-                                                            placeholder="0373517718"
+                                                            placeholder="0xxxxxxxxxx"
                                                             value="${sessionScope.r.phone != null ? sessionScope.r.phone : requestScope.p.phone}"
                                                             required
                                                             />
