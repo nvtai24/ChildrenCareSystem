@@ -40,6 +40,35 @@
         <link class="skin" rel="stylesheet" type="text/css" href="assets2/css/color/color-1.css">
         <link rel="stylesheet" href="assets/css/myButton.css"/>
 
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+        <style>
+            th {
+                text-align: center;
+            }
+            div.dataTables_wrapper div.dataTables_paginate {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                padding: 15px 0;
+                font-size: 14px;
+            }
+
+
+            .dt-paging {
+                text-align: center;
+                margin-top: 0;
+                padding-top: 10px;
+            }
+
+
+            .paginate_button {
+                padding: 5px 10px;
+                margin: 0 5px;
+            }
+        </style>
+
 
         <style>
             .table td, .table th {
@@ -229,19 +258,18 @@
                 <div class="toolbar">
                     <div>
                         <div class="form-row align-items-center">
-<!--                            <div class="col-auto">
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">Status</div>
-                                    </div>
-                                    <select name="status" id="selectStatus">
-                                        <option value="-1">All</option>
-                                        <option value="1">Active</option>      
-                                        <option value="0">Inactive</option>
-                                    </select>
-                                </div>
-                            </div>-->
-
+                            <!--                            <div class="col-auto">
+                                                            <div class="input-group mb-2">
+                                                                <div class="input-group-prepend">
+                                                                    <div class="input-group-text">Status</div>
+                                                                </div>
+                                                                <select name="status" id="selectStatus">
+                                                                    <option value="-1">All</option>
+                                                                    <option value="1">Active</option>      
+                                                                    <option value="0">Inactive</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>-->
 
                             <div class="col-auto w-50" >
                                 <input type="text" id="featureSearchBox" class="form-control mb-2" name="keyword" placeholder="Search for features...">
@@ -256,7 +284,7 @@
                         </form>
                     </div>
 
-                    <table class="table table-hover">
+                    <table id="permissionTable" class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -285,12 +313,120 @@
                             </c:forEach>
                         </tbody>
                     </table>
+
+                    <div class="col-lg-12 m-b20">
+                        <div class="pagination-bx rounded-sm gray clearfix">
+                            <!-- Phân trang sẽ được cập nhật tự động ở đây -->
+                        </div>
+                    </div>
+
                 </div>
         </main>
         <div class="ttr-overlay"></div>
 
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+        <script>
+
+            $(document).ready(function () {
+                var table = $("#permissionTable").DataTable({
+                    paging: true,
+                    lengthMenu: [10], // Số dòng hiển thị trên mỗi trang
+                    ordering: true,
+                    searching: true,
+                    info: false,
+                    dom: "t", // Ẩn phân trang mặc định của DataTables
+                    columnDefs: [
+                        {targets: [4], orderable: false} // Vô hiệu hóa sắp xếp ở cột Action (index 4)
+                    ],
+                    drawCallback: function () {
+                        updatePagination(this.api()); // Cập nhật phân trang tùy chỉnh sau mỗi lần vẽ lại
+                    }
+                });
+
+                // **Sử dụng event delegation thay vì bind trực tiếp**
+                $(document).on("change", ".permissionCheckbox", function () {
+                    var checkbox = $(this);
+                    var roleId = checkbox.data("rid");
+                    var featureId = checkbox.data("fid");
+
+                    $.ajax({
+                        url: "/app/permissions/assign",
+                        type: "POST",
+                        data: {
+                            rid: roleId,
+                            fid: featureId
+                        }
+                    });
+                });
+
+                // Tìm kiếm theo từ khóa
+                $("#featureSearchBox").on("keyup", function () {
+                    table.search(this.value).draw();
+                });
+
+                function updatePagination(api) {
+                    var pageInfo = api.page.info();
+                    var paginationHTML = '<ul class="pagination">';
+
+                    // Nút Previous
+                    if (pageInfo.page > 0) {
+                        paginationHTML +=
+                                '<li class="previous"><a href="#" data-page="' +
+                                (pageInfo.page - 1) +
+                                '"><i class="ti-arrow-left"></i> Prev</a></li>';
+                    } else {
+                        paginationHTML +=
+                                '<li class="previous disabled"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>';
+                    }
+
+                    // Số trang
+                    for (var i = 0; i < pageInfo.pages; i++) {
+                        paginationHTML +=
+                                '<li class="' +
+                                (pageInfo.page === i ? "active" : "") +
+                                '"><a href="#" data-page="' +
+                                i +
+                                '">' +
+                                (i + 1) +
+                                "</a></li>";
+                    }
+
+                    // Nút Next
+                    if (pageInfo.page < pageInfo.pages - 1) {
+                        paginationHTML +=
+                                '<li class="next"><a href="#" data-page="' +
+                                (pageInfo.page + 1) +
+                                '">Next <i class="ti-arrow-right"></i></a></li>';
+                    } else {
+                        paginationHTML +=
+                                '<li class="next disabled"><a href="#">Next <i class="ti-arrow-right"></i></a></li>';
+                    }
+
+                    paginationHTML += "</ul>";
+
+                    // Cập nhật pagination vào giao diện
+                    $(".pagination-bx").html(paginationHTML);
+
+                    // Thêm sự kiện click cho pagination tùy chỉnh
+                    $(".pagination a").off("click").on("click", function (e) {
+                        e.preventDefault();
+                        var page = $(this).data("page");
+                        if (page !== undefined) {
+                            table.page(page).draw("page");
+                        }
+                    });
+                }
+            });
+
+        </script>
+
+
+
         <!-- External JavaScripts -->
-        <script src="assets2/js/jquery.min.js"></script>
+        <!--        <script src="assets2/js/jquery.min.js"></script>-->
         <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
         <script src="assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
@@ -308,77 +444,6 @@
         <script src="assets2/js/admin.js"></script>
         <script src='assets2/vendors/calendar/moment.min.js'></script>
         <script src='assets2/vendors/calendar/fullcalendar.js'></script>
-
-
-        <script>
-            $(document).ready(function () {
-                $(".permissionCheckbox").change(function () {
-                    var checkbox = $(this);
-                    var roleId = checkbox.data("rid");
-                    var featureId = checkbox.data("fid");
-
-                    $.ajax({
-                        url: "/app/permissions/assign",
-                        type: "POST",
-                        data: {
-                            rid: roleId,
-                            fid: featureId
-                        }
-                    });
-                });
-            });
-
-
-            document.addEventListener('DOMContentLoaded', function () {
-                const statusSelect = document.getElementById('selectStatus'); // Dùng id cụ thể
-                const keywordInput = document.getElementById('featureSearchBox');
-                const tableRows = document.querySelectorAll('.table tbody tr');
-
-                function applyFilters() {
-                    const keyword = keywordInput ? keywordInput.value.toLowerCase() : '';
-                    const statusValue = statusSelect ? statusSelect.value : '-1';
-
-                    console.log("Applying filters - Keyword:", keyword, "Status:", statusValue);
-
-                    tableRows.forEach(row => {
-                        const featureName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-                        const description = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
-                        const url = row.querySelector('td:nth-child(4)').textContent.toLowerCase();
-                        const checkbox = row.querySelector('.permissionCheckbox');
-                        const matchesKeyword = keyword.trim() === '' ||
-                                featureName.includes(keyword) ||
-                                description.includes(keyword) ||
-                                url.includes(keyword);
-                        const featureStatus = checkbox && checkbox.checked ? '1' : '0';
-                        let matchesStatus = true;
-
-                        if (statusValue === '1') {
-                            matchesStatus = (featureStatus === '1');
-                        } else if (statusValue === '0') {
-                            matchesStatus = (featureStatus === '0');
-                        }
-
-                        row.style.display = (matchesKeyword && matchesStatus) ? '' : 'none';
-                    });
-                }
-
-                // Gắn sự kiện change cho statusSelect
-                if (statusSelect) {
-                    statusSelect.addEventListener('change', function () {
-                        console.log("Status changed to:", this.value);
-                        applyFilters();
-                    });
-                }
-
-                if (keywordInput) {
-                    keywordInput.addEventListener('input', applyFilters);
-                }
-
-                // Áp dụng bộ lọc ban đầu
-                applyFilters();
-            });
-
-        </script>
 
     </body>
 

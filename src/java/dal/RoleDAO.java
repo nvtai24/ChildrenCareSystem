@@ -72,7 +72,8 @@ public class RoleDAO extends DBContext {
                 + "        JOIN\n"
                 + "    rolefeature rf ON r.setting_id = rf.role_id\n"
                 + "        JOIN\n"
-                + "    feature f ON f.id = rf.feature_id";
+                + "    feature f ON f.id = rf.feature_id\n"
+                + "where r.value not in ('admin')";
 
         try {
             ResultSet rs = executeQuery(query);
@@ -214,8 +215,8 @@ public class RoleDAO extends DBContext {
             Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public boolean checkStaffRole(int id) {
+    
+        public boolean checkStaffRole(int id) {
         DBContext db = new DBContext();
         String sql = "SELECT COUNT(*) AS count FROM user u "
                 + "JOIN setting s ON u.role_id = s.setting_id "
