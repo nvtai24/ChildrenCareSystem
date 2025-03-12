@@ -211,12 +211,11 @@
     <body id="bg">
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
-            
+
             <!-- Header Top ==== -->
             <jsp:include page="header.jsp"/>
-
             <!-- Header Top END ==== -->
-            
+
             <div class="page-content bg-white">
                 <!-- Main Slider -->
                 <div class="rev-slider">
@@ -258,90 +257,90 @@
                                              data-no-retina />
 
                                         <!-- LAYER NR. 1 -->
-                                        <a href="${slider.backLink}"><div class="tp-caption tp-shape tp-shapewrapper " 
-                                                                          id="slide-100-layer-1" 
-                                                                          data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
-                                                                          data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" 
-                                                                          data-width="full"
-                                                                          data-height="full"
-                                                                          data-whitespace="nowrap"
-                                                                          data-type="shape" 
-                                                                          data-basealign="slide" 
-                                                                          data-responsive_offset="off" 
-                                                                          data-responsive="off"
-                                                                          data-frames='[{"from":"opacity:0;","speed":1,"to":"o:1;","delay":0,"ease":"Power4.easeOut"},{"delay":"wait","speed":1,"to":"opacity:0;","ease":"Power4.easeOut"}]'
-                                                                          data-textAlign="['left','left','left','left']"
-                                                                          data-paddingtop="[0,0,0,0]"
-                                                                          data-paddingright="[0,0,0,0]"
-                                                                          data-paddingbottom="[0,0,0,0]"
-                                                                          data-paddingleft="[0,0,0,0]"
-                                                                          style="z-index: 5;background-color:rgba(2, 0, 11, 0.80);border-color:rgba(0, 0, 0, 0);border-width:0px;"> </div></a>
+                                        <a href="/app/${slider.backLink}"><div class="tp-caption tp-shape tp-shapewrapper " 
+                                                                               id="slide-100-layer-1" 
+                                                                               data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+                                                                               data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" 
+                                                                               data-width="full"
+                                                                               data-height="full"
+                                                                               data-whitespace="nowrap"
+                                                                               data-type="shape" 
+                                                                               data-basealign="slide" 
+                                                                               data-responsive_offset="off" 
+                                                                               data-responsive="off"
+                                                                               data-frames='[{"from":"opacity:0;","speed":1,"to":"o:1;","delay":0,"ease":"Power4.easeOut"},{"delay":"wait","speed":1,"to":"opacity:0;","ease":"Power4.easeOut"}]'
+                                                                               data-textAlign="['left','left','left','left']"
+                                                                               data-paddingtop="[0,0,0,0]"
+                                                                               data-paddingright="[0,0,0,0]"
+                                                                               data-paddingbottom="[0,0,0,0]"
+                                                                               data-paddingleft="[0,0,0,0]"
+                                                                               style="z-index: 5;background-color:rgba(2, 0, 11, 0.80);border-color:rgba(0, 0, 0, 0);border-width:0px;"> </div></a>
                                         <!-- LAYER NR. 2 -->
-                                        <a href="${slider.backLink}"><div class="tp-caption Newspaper-Title   tp-resizeme" 
-                                             id="slide-100-layer-2" 
-                                             data-x="['center','center','center','center']" 
-                                             data-hoffset="['0','0','0','0']" 
-                                             data-y="['top','top','top','top']" 
-                                             data-voffset="['250','250','250','240']" 
-                                             data-fontsize="['50','50','50','30']"
-                                             data-lineheight="['55','55','55','35']"
-                                             data-width="full"
-                                             data-height="none"
-                                             data-whitespace="normal"
-                                             data-type="text" 
-                                             data-responsive_offset="on" 
-                                             data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
-                                             data-textAlign="['center','center','center','center']"
-                                             data-paddingtop="[0,0,0,0]"
-                                             data-paddingright="[0,0,0,0]"
-                                             data-paddingbottom="[10,10,10,10]"
-                                             data-paddingleft="[0,0,0,0]"
-                                             style="z-index: 6; font-family:rubik; font-weight:700; text-align:center; white-space: normal;">
-                                            ${slider.title}
+                                        <a href="/app/${slider.backLink}"><div class="tp-caption Newspaper-Title   tp-resizeme" 
+                                                                               id="slide-100-layer-2" 
+                                                                               data-x="['center','center','center','center']" 
+                                                                               data-hoffset="['0','0','0','0']" 
+                                                                               data-y="['top','top','top','top']" 
+                                                                               data-voffset="['250','250','250','240']" 
+                                                                               data-fontsize="['50','50','50','30']"
+                                                                               data-lineheight="['55','55','55','35']"
+                                                                               data-width="full"
+                                                                               data-height="none"
+                                                                               data-whitespace="normal"
+                                                                               data-type="text" 
+                                                                               data-responsive_offset="on" 
+                                                                               data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
+                                                                               data-textAlign="['center','center','center','center']"
+                                                                               data-paddingtop="[0,0,0,0]"
+                                                                               data-paddingright="[0,0,0,0]"
+                                                                               data-paddingbottom="[10,10,10,10]"
+                                                                               data-paddingleft="[0,0,0,0]"
+                                                                               style="z-index: 6; font-family:rubik; font-weight:700; text-align:center; white-space: normal;">
+                                                ${slider.title}
                                             </div></a>
 
                                         <!-- LAYER NR. 3 -->
-                                        <a href="${slider.backLink}"><div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
-                                             id="slide-100-layer-3" 
-                                             data-x="['center','center','center','center']" 
-                                             data-hoffset="['0','0','0','0']" 
-                                             data-y="['top','top','top','top']" 
-                                             data-voffset="['210','210','210','210']" 
-                                             data-width="none"
-                                             data-height="none"
-                                             data-whitespace="nowrap"
-                                             data-type="text" 
-                                             data-responsive_offset="on"
-                                             data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
-                                             data-textAlign="['left','left','left','left']"
-                                             data-paddingtop="[0,0,0,0]"
-                                             data-paddingright="[0,0,0,0]"
-                                             data-paddingbottom="[0,0,0,0]"
-                                             data-paddingleft="[0,0,0,0]"
-                                             style="z-index: 7; white-space: nowrap; color:#fff; font-family:rubik; font-size:18px; font-weight:400;">
-                                            ${slider.title}
+                                        <a href="/app/${slider.backLink}"><div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
+                                                                               id="slide-100-layer-3" 
+                                                                               data-x="['center','center','center','center']" 
+                                                                               data-hoffset="['0','0','0','0']" 
+                                                                               data-y="['top','top','top','top']" 
+                                                                               data-voffset="['210','210','210','210']" 
+                                                                               data-width="none"
+                                                                               data-height="none"
+                                                                               data-whitespace="nowrap"
+                                                                               data-type="text" 
+                                                                               data-responsive_offset="on"
+                                                                               data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
+                                                                               data-textAlign="['left','left','left','left']"
+                                                                               data-paddingtop="[0,0,0,0]"
+                                                                               data-paddingright="[0,0,0,0]"
+                                                                               data-paddingbottom="[0,0,0,0]"
+                                                                               data-paddingleft="[0,0,0,0]"
+                                                                               style="z-index: 7; white-space: nowrap; color:#fff; font-family:rubik; font-size:18px; font-weight:400;">
+                                                ${slider.title}
                                             </div></a>
 
                                         <!-- LAYER NR. 3 -->
-                                        <a href="${slider.backLink}"><div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
-                                             id="slide-100-layer-4" 
-                                             data-x="['center','center','center','center']" 
-                                             data-hoffset="['0','0','0','0']" 
-                                             data-y="['top','top','top','top']" 
-                                             data-voffset="['320','320','320','290']" 
-                                             data-width="['800','800','700','420']"
-                                             data-height="['100','100','100','120']"
-                                             data-whitespace="unset"
-                                             data-type="text" 
-                                             data-responsive_offset="on"
-                                             data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
-                                             data-textAlign="['center','center','center','center']"
-                                             data-paddingtop="[0,0,0,0]"
-                                             data-paddingright="[0,0,0,0]"
-                                             data-paddingbottom="[0,0,0,0]"
-                                             data-paddingleft="[0,0,0,0]"
-                                             style="z-index: 7; text-transform:capitalize; white-space: unset; color:#fff; font-family:rubik; font-size:18px; line-height:28px; font-weight:400;">
-                                            We always provide the best service for you
+                                        <a href="/app/${slider.backLink}"><div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
+                                                                               id="slide-100-layer-4" 
+                                                                               data-x="['center','center','center','center']" 
+                                                                               data-hoffset="['0','0','0','0']" 
+                                                                               data-y="['top','top','top','top']" 
+                                                                               data-voffset="['320','320','320','290']" 
+                                                                               data-width="['800','800','700','420']"
+                                                                               data-height="['100','100','100','120']"
+                                                                               data-whitespace="unset"
+                                                                               data-type="text" 
+                                                                               data-responsive_offset="on"
+                                                                               data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
+                                                                               data-textAlign="['center','center','center','center']"
+                                                                               data-paddingtop="[0,0,0,0]"
+                                                                               data-paddingright="[0,0,0,0]"
+                                                                               data-paddingbottom="[0,0,0,0]"
+                                                                               data-paddingleft="[0,0,0,0]"
+                                                                               style="z-index: 7; text-transform:capitalize; white-space: unset; color:#fff; font-family:rubik; font-size:18px; line-height:28px; font-weight:400;">
+                                                We always provide the best service for you
                                             </div></a>
                                         <!-- LAYER NR. 4 -->
 
@@ -396,7 +395,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="section-area section-sp2 popular-courses-bx">
                         <div class="container">
                             <div class="row">

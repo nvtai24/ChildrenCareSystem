@@ -411,6 +411,44 @@ public class ServiceDAO extends DBContext {
         }
         return services;
     }
-    
 
+    public List<Service> getServicesBySearch(String search) {
+        List<Service> services = new ArrayList<>();
+
+        String query;
+        if (search.trim().isEmpty()) {
+            query = "SELECT * FROM service WHERE status = 1 ORDER BY created_date DESC";
+        } else {
+            search = search.replace("'", "''"); // Escape ký tự '
+            query = "SELECT * FROM service WHERE name LIKE '%" + search + "%' AND status = 1 ORDER BY created_date DESC";
+        }
+
+        System.out.println("Executing SQL: " + query); // Debug xem SQL có đúng không
+
+        try {
+            ResultSet rs = executeQuery(query);
+
+            while (rs.next()) {
+                Service service = new Service();
+                service.setName(rs.getString("name"));
+                service.setId(rs.getInt("id"));
+                service.setDescription(rs.getString("description"));
+                service.setBriefInfo(rs.getString("brief_info"));
+                service.setPrice(rs.getDouble("price"));
+                service.setDiscount(rs.getDouble("discount"));
+                service.setThumbnail(rs.getString("thumbnail"));
+                service.setStatus(rs.getDouble("status"));
+                service.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
+                if (rs.getTimestamp("updated_date") != null) {
+                    service.setUpdatedDate(rs.getTimestamp("updated_date").toLocalDateTime());
+                }
+                services.add(service);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Number of posts found: " + services.size()); // Debug số bài viết tìm được
+
+        return services;
+    }
 }

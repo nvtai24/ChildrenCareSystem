@@ -29,11 +29,24 @@
                                    ><i class="fa fa-envelope-o"></i>Support@website.com</a
                                 >
                             </li>
+                            <li class="search-btn">
+                                <button id="quik-search-btn" type="button" class="btn-link">Search<i class="fa fa-search"></i></button>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
+        <div class="nav-search-bar">
+            <form id="searchForm" method="get" action="/app" class="form-search">
+                <input name="search" value="${param.search}" type="text" class="form-control" placeholder="Type anything...">
+                <span id="search-icon"><i class="ti-search"></i></span>
+            </form>
+            <span id="search-remove"><i class="ti-close"></i></span>
+        </div>
+        <script>document.getElementById("search-icon").addEventListener("click", function () {
+                document.getElementById("searchForm").submit();
+            });</script>
     </body>
 </html>

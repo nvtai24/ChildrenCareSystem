@@ -66,7 +66,7 @@ public class HomePageController extends HttpServlet {
             ServiceDAO serviceDAO = new ServiceDAO();
             List<Service> listService = serviceDAO.getAllServices();
 
-            if(listService != null && listService.size() > 0) {
+            if (listService != null && listService.size() > 0) {
                 request.setAttribute("SERVICES", listService);
             } else {
                 System.out.println("Khong co service trong he thong");
@@ -87,7 +87,14 @@ public class HomePageController extends HttpServlet {
             } else {
                 System.out.println("Khong co listPost trong he thong");
             }
-            
+            String search = request.getParameter("search") != null ? request.getParameter("search") : "";
+            if (!"".equals(search)) {
+                List<Service> listServices = serviceDAO.getServicesBySearch(search);
+                List<Post> listPosts = postDAO.getPostsBySearch(search);
+                request.setAttribute("SEARCH", search);
+                request.setAttribute("POSTS", listPosts);
+                request.setAttribute("SERVICES", listServices);
+            }
             request.getRequestDispatcher("home.jsp").forward(request, response);
         } catch (Exception e) {
             System.out.println(e);

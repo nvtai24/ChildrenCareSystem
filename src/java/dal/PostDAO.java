@@ -4,7 +4,6 @@
  */
 package dal;
 
-import com.sun.jdi.connect.spi.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Post;
-import model.Service;
 
 /**
  *
@@ -83,7 +81,6 @@ public class PostDAO extends DBContext {
                 + "FROM post  \n"
                 + "JOIN user ON post.author_id = user.id   WHERE post.title LIKE ? AND post.status = 1";
 
-        
         query += " ORDER BY post.created_date DESC LIMIT ? OFFSET ?";
 
         try {
@@ -254,7 +251,7 @@ public class PostDAO extends DBContext {
             return result > 0;
         } catch (SQLException e) {
             Logger.getLogger(PostDAO.class.getName()).log(Level.SEVERE, null, e);
-        }finally {
+        } finally {
             try {
                 connection.close();
             } catch (SQLException e) {
@@ -300,6 +297,58 @@ public class PostDAO extends DBContext {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public List<Post> getPostsBySearch(String search) {
+        List<Post> posts = new ArrayList<>();
+
+        String query;
+        if (search.trim().isEmpty()) {
+            query = "SELECT post.id, post.title, post.content, post.thumbnail, post.status, "
+                    + "post.created_date, post.updated_date, user.username "
+                    + "FROM post "
+                    + "JOIN user ON post.author_id = user.id "
+                    + "WHERE post.status = 1 "
+                    + "ORDER BY post.created_date DESC";
+        } else {
+            search = search.replace("'", "''"); // Escape ký tự '
+            query = "SELECT post.id, post.title, post.content, post.thumbnail, post.status, "
+                    + "post.created_date, post.updated_date, user.username "
+                    + "FROM post "
+                    + "JOIN user ON post.author_id = user.id "
+                    + "WHERE post.title LIKE '%" + search + "%' AND post.status = 1 "
+                    + "ORDER BY post.created_date DESC";
+        }
+
+        System.out.println("Executing SQL: " + query); // Debug xem SQL có đúng không
+
+        try {
+            ResultSet rs = executeQuery(query);
+
+            while (rs.next()) {
+                Post post = new Post();
+                post.setId(rs.getInt("id"));
+                post.setTitle(rs.getString("title"));
+                post.setContent(rs.getString("content"));
+                post.setThumbnail(rs.getString("thumbnail"));
+                post.setUsername(rs.getString("username"));
+                post.setStatus(rs.getBoolean("status"));
+                post.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
+
+                if (rs.getTimestamp("updated_date") != null) {
+                    post.setUpdatedDate(rs.getTimestamp("updated_date").toLocalDateTime());
+                }
+
+                posts.add(post);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Number of posts found: " + posts.size()); // Debug số bài viết tìm được
+
+        return posts;
     }
 
 }
