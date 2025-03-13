@@ -171,14 +171,22 @@
     <servlet>
         <servlet-name>GoogleLogin</servlet-name>
         <servlet-class>controller.auth.GoogleLogin</servlet-class>
-            </servlet>
- <servlet>
+    </servlet>
+    <servlet>
         <servlet-name>MyReservationsController</servlet-name>
         <servlet-class>controller.reservation.MyReservationsController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ReservationInfoController</servlet-name>
         <servlet-class>controller.reservation.ReservationInfoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedbackListController</servlet-name>
+        <servlet-class>controller.feedback.manager.FeedbackListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedbackDetailController</servlet-name>
+        <servlet-class>controller.feedback.manager.FeedbackDetailController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
@@ -399,14 +407,22 @@
     <servlet-mapping>
         <servlet-name>GoogleLogin</servlet-name>
         <url-pattern>/GoogleLogin</url-pattern>
-        </servlet-mapping>
-<servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>MyReservationsController</servlet-name>
         <url-pattern>/history</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReservationInfoController</servlet-name>
         <url-pattern>/reservation/info</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackListController</servlet-name>
+        <url-pattern>/feedbacks</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackDetailController</servlet-name>
+        <url-pattern>/feedback</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>

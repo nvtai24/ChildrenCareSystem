@@ -52,6 +52,9 @@ public class LoginController extends HttpServlet {
         if (user == null && !hasError) {
             request.setAttribute("errorLogin", "Incorrect username or password.");
             hasError = true;
+        } else if (user != null && !user.isStatus()) {
+            request.setAttribute("errorLogin", "Your account is inactive. Please contact support.");
+            hasError = true;
         }
 
         if (hasError) {
