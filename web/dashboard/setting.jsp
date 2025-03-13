@@ -77,7 +77,6 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">Setting Detail</h4>
                     <ul class="db-breadcrumb-list">
                         <li><a href="settings"><i class="fa fa-home"></i>Setting List</a></li>
                         <li>Edit</li>

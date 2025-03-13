@@ -57,7 +57,11 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h3>Add New Setting</h3>
+                    
+                    <ul class="db-breadcrumb-list">
+                        <li><a href="../settings"><i class="fa fa-home"></i>Setting List</a></li>
+                        <li>Add</li>
+                    </ul>
                 </div>
 
                 <form action="add" method="post">
