@@ -827,4 +827,31 @@ public class UserDAO extends DBContext {
         }
     }
 
+    public List<User> getLatestFiveUsers() {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT u.username, u.email, p.avatar\n"
+                + "FROM user u\n"
+                + "JOIN profile p ON u.id = p.userid\n"
+                + "WHERE u.status = 1 \n"
+                + "AND u.role_id IN (2, 3, 4) \n"
+                + "AND DATE(u.created_date) >= DATE(NOW()) - INTERVAL 7 DAY\n"
+                + "ORDER BY u.created_date DESC \n"
+                + "LIMIT 5;";
+
+        try {
+            ResultSet rs = executeQuery(query);
+            while (rs.next()) {
+                User user = new User();
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+                user.setAvatar(rs.getString("avatar")); 
+                users.add(user);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
 }
