@@ -192,6 +192,10 @@
         <servlet-name>FeedbackDetailController</servlet-name>
         <servlet-class>controller.feedback.manager.FeedbackDetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReservationDetailBusinessController</servlet-name>
+        <servlet-class>controller.reservation.ReservationDetailBusinessController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
         <url-pattern>/error-handle</url-pattern>
@@ -431,6 +435,10 @@
     <servlet-mapping>
         <servlet-name>FeedbackDetailController</servlet-name>
         <url-pattern>/feedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservationDetailBusinessController</servlet-name>
+        <url-pattern>/reservation</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>

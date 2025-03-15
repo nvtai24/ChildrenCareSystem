@@ -184,9 +184,12 @@
                                 </td>
                                 <td class="text-center text-nowrap">
                                     <!-- Action Button to View Details -->
-                                    <a href="reservation?id=${r.id}" class="btn green mb-2">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i> Detail
-                                    </a>
+                                    <form action="reservation" method="POST">
+                                        <input type="hidden" name="id" value="${r.id}" />
+                                        <button type="submit" class="btn green mb-2">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i> Detail
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -202,13 +205,10 @@
         </main>
         <div class="ttr-overlay"></div>
 
-        <!-- Load jQuery -->
+        <!-- External JavaScripts -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <!-- Load DataTables JavaScript -->
-        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-        <!-- Load other JavaScript libraries -->
+        <script src="assets2/js/jquery.min.js"></script>
         <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
         <script src="assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
@@ -220,12 +220,14 @@
         <script src="assets2/vendors/masonry/masonry.js"></script>
         <script src="assets2/vendors/masonry/filter.js"></script>
         <script src="assets2/vendors/owl-carousel/owl.carousel.js"></script>
-        <script src="assets2/vendors/scroll/scrollbar.min.js"></script>
+        <script src='assets2/vendors/scroll/scrollbar.min.js'></script>
         <script src="assets2/js/functions.js"></script>
         <script src="assets2/vendors/chart/chart.min.js"></script>
         <script src="assets2/js/admin.js"></script>
-        <script src="assets2/vendors/calendar/moment.min.js"></script>
-        <script src="assets2/vendors/calendar/fullcalendar.js"></script>
+        <script src='assets2/vendors/calendar/moment.min.js'></script>
+        <script src='assets2/vendors/calendar/fullcalendar.js'></script>
+        <!-- DataTables  -->
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 
 

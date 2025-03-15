@@ -57,7 +57,7 @@ public class ReservationListController extends HttpServlet {
             double totalPrice = 0;
             for (ReservationDetail reservationDetail : reservation.getDetails()) {
                 totalQuantity += reservationDetail.getQuantity();
-                totalPrice += reservationDetail.getPrice();
+                totalPrice += reservationDetail.getPrice()* reservationDetail.getQuantity();
             }
             reservation.setTotalPrice(totalPrice);
             reservation.setTotalQuantity(totalQuantity);
