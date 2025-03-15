@@ -38,18 +38,16 @@ public class UserDAO extends DBContext {
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 user = new User();
-                if (rs.getInt("status") == 0) {
-                    return null;
-                }
                 int id = rs.getInt("id");
                 String email = rs.getString("email");
                 int roleId = rs.getInt("role_id");
                 boolean emailVerified = rs.getBoolean("email_verified");
-
+                boolean status = rs.getBoolean("status");
                 user.setId(id);
                 user.setUsername(username);
                 user.setEmail(email);
                 user.setEmailVerified(emailVerified);
+                user.setStatus(status);
 
                 Role r = new Role();
                 r.setId(roleId);

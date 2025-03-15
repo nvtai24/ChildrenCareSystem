@@ -548,6 +548,7 @@ public class ReservationDAO extends DBContext {
         return result;
     }
 
+
     public int countReservations1InLast7Days() {
         int totalReservations1 = 0;
         String query = "SELECT COUNT(*) AS total_reservations1 "
@@ -637,5 +638,6 @@ public class ReservationDAO extends DBContext {
         }
         return totalReservations;
     }
+
 
 }
