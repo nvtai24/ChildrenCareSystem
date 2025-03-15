@@ -103,8 +103,12 @@
                                                 <dt class="col-sm-4">Reservation Date:</dt>
                                                 <dd class="col-sm-8">${requestScope.r.reverseDate.toLocalTime()}  ${requestScope.r.reverseDate.toLocalDate()}</dd>
 
+                                                <dt class="col-sm-4">Payment: </dt>
+                                                <dd class="col-sm-8">${requestScope.r.banking ? 'Online Banking' : 'Cash on Arrival'}</dd>
+
                                                 <dt class="col-sm-4">Note:</dt>
                                                 <dd class="col-sm-8">${requestScope.r.note}</dd>
+
                                             </dl>
                                         </div>
                                     </div>
@@ -133,7 +137,7 @@
                                                             </div>
                                                         </td>
                                                         <td class="font-weight-bold align-middle">
-                                                                $${i.price}
+                                                            $${i.price}
                                                         </td>
                                                         <td class="align-middle font-weight-bold">${i.quantity}</td>
                                                         <td class="font-weight-bold total-price align-middle">$${i.price * i.quantity}</td>
@@ -149,44 +153,9 @@
                                                 </tr>
                                             </tfoot>
                                         </table>
-
-                                    </div>
-
-
-                                    <div class="section-header">
-                                        <h4 class="text-dark font-weight-bold">Payment</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <form action="/app/reservation/payment" id="submitForm" method="get">
-                                            <div class="form-check mb-3">
-                                                <input
-                                                    class="form-check-input"
-                                                    type="radio"
-                                                    name="payment"
-                                                    id="cash"
-                                                    value="cash"
-                                                    checked
-                                                    />
-                                                <label class="form-check-label" for="cash">
-                                                    Cash on Arrival
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check mb-3">
-                                                <input
-                                                    class="form-check-input"
-                                                    type="radio"
-                                                    name="payment"
-                                                    id="banking"
-                                                    value="banking"
-                                                    />
-                                                <label class="form-check-label" for="banking">
-                                                    Online Banking
-                                                </label>
-                                            </div>
-
-                                            <input type="hidden" name="amount" value="${sessionScope.amount}">
-
+                                                
+                                        <!--Redirect section-->
+                                        <div>
                                             <div class="form-row">
                                                 <div class="col-md-6">
                                                     <button type="button" class="btn btn-danger btn-block red">
@@ -195,40 +164,40 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <button type="submit" id="submitButton" class="btn btn-success btn-block green">
-                                                        Confirm
+                                                        Edit
                                                     </button>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <jsp:include page="footer.jsp"/>
         </div>
 
-        <jsp:include page="footer.jsp"/>
-    </div>
+        <!-- External JavaScripts -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="assets/vendors/counter/waypoints-min.js"></script>
+        <script src="assets/vendors/counter/counterup.min.js"></script>
+        <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="assets/vendors/masonry/masonry.js"></script>
+        <script src="assets/vendors/masonry/filter.js"></script>
+        <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src="assets/js/functions.js"></script>
+        <script src="assets/js/contact.js"></script>
 
-    <!-- External JavaScripts -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
-    <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-    <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-    <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
-    <script src="assets/vendors/counter/waypoints-min.js"></script>
-    <script src="assets/vendors/counter/counterup.min.js"></script>
-    <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
-    <script src="assets/vendors/masonry/masonry.js"></script>
-    <script src="assets/vendors/masonry/filter.js"></script>
-    <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
-    <script src="assets/js/functions.js"></script>
-    <script src="assets/js/contact.js"></script>
-
-</body>
+    </body>
 
 </html>

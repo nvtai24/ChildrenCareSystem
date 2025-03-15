@@ -169,9 +169,9 @@
                                                 </a>
 
                                                 <c:if  test="${r.status.id == 1}">
-                                                    <div class="btn blue mb-2" style="width: 100px">
+                                                    <a class="btn blue mb-2" style="width: 100px" href="/app/reservation/edit?id=${r.id}">
                                                         Edit
-                                                    </div>
+                                                    </a>
                                                 </c:if>
 
                                                 <c:if  test="${r.status.id <= 2}">
@@ -179,6 +179,7 @@
                                                         Cancel
                                                     </div>
                                                 </c:if>
+                                 
                                             </td>
                                         </tr>
                                     </c:forEach>

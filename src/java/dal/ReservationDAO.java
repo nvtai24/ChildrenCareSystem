@@ -37,7 +37,8 @@ public class ReservationDAO extends DBContext {
             connection.setAutoCommit(false); // Start transaction
 
             // Insert into reservation table
-            try (PreparedStatement ps1 = connection.prepareStatement(reservationQuery, Statement.RETURN_GENERATED_KEYS)) {
+            try (PreparedStatement ps1 = connection.prepareStatement(reservationQuery,
+                    Statement.RETURN_GENERATED_KEYS)) {
                 ps1.setInt(1, r.getCustomer().getId());
                 ps1.setString(2, r.getFirstName());
                 ps1.setString(3, r.getLastName());
@@ -548,7 +549,6 @@ public class ReservationDAO extends DBContext {
         return result;
     }
 
-
     public int countReservations1InLast7Days() {
         int totalReservations1 = 0;
         String query = "SELECT COUNT(*) AS total_reservations1 "
@@ -567,6 +567,7 @@ public class ReservationDAO extends DBContext {
         }
         return totalReservations1;
     }
+
     public int countReservations2InLast7Days() {
         int totalReservations2 = 0;
         String query = "SELECT COUNT(*) AS total_reservations2 "
@@ -585,6 +586,7 @@ public class ReservationDAO extends DBContext {
         }
         return totalReservations2;
     }
+
     public int countReservations3InLast7Days() {
         int totalReservations3 = 0;
         String query = "SELECT COUNT(*) AS total_reservations3 "
@@ -603,6 +605,7 @@ public class ReservationDAO extends DBContext {
         }
         return totalReservations3;
     }
+
     public int countReservations4InLast7Days() {
         int totalReservations4 = 0;
         String query = "SELECT COUNT(*) AS total_reservations4 "
@@ -621,6 +624,7 @@ public class ReservationDAO extends DBContext {
         }
         return totalReservations4;
     }
+
     public int countReservationsInLast7Days() {
         int totalReservations = 0;
         String query = "SELECT COUNT(*) AS total_reservations "
@@ -639,5 +643,22 @@ public class ReservationDAO extends DBContext {
         return totalReservations;
     }
 
+    public void updateReservationContact(Reservation r) {
+        String sql = "UPDATE `childrencare`.`reservation`\n"
+                + "SET\n"
+                + "`reserve_date` = ?,\n"
+                + "`note` = ?,\n"
+                + "`first_name` = ?,\n"
+                + "`last_name` = ?,\n"
+                + "`email` = ?,\n"
+                + "`phone` = ?\n"
+                + "WHERE `id` = ?";
+        try {
+            executeUpdate(sql, Timestamp.valueOf(r.getReverseDate()), r.getNote(), r.getFirstName(), r.getLastName(),
+                    r.getEmail(), r.getPhone(), r.getId());
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }
