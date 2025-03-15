@@ -336,4 +336,21 @@ public class ReservationDAO extends DBContext {
         return result;
     }
 
+    public void updateReservationContact(Reservation r) {
+        String sql = "UPDATE `childrencare`.`reservation`\n"
+                + "SET\n"
+                + "`reserve_date` = ?,\n"
+                + "`note` = ?,\n"
+                + "`first_name` = ?,\n"
+                + "`last_name` = ?,\n"
+                + "`email` = ?,\n"
+                + "`phone` = ?\n"
+                + "WHERE `id` = ?";
+        try {
+            executeUpdate(sql, Timestamp.valueOf(r.getReverseDate()), r.getNote(), r.getFirstName(), r.getLastName(), r.getEmail(), r.getPhone(), r.getId());
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

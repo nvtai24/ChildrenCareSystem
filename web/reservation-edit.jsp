@@ -69,7 +69,10 @@
                             <div class="row justify-content-center mt-2">
                                 <div class="container confirmation-container">
 
-                                    <form action="book" method="post">
+                                    <form action="/app/reservation/edit" method="post">
+                                        
+                                        <input type="hidden" id="id" name="id" value="${requestScope.r.id}">
+                                        
                                         <!-- Personal Information Section -->
                                         <div class="card p-4 mb-2">
                                             <div class="card-body">
@@ -85,7 +88,7 @@
                                                             id="firstName"
                                                             name="firstname"
                                                             placeholder="First Name"
-                                                            value="${p.firstName}"
+                                                            value="${requestScope.r.firstName}"
                                                             required
                                                             />
                                                     </div>
@@ -98,7 +101,7 @@
                                                             id="lastName"
                                                             name="lastname"
                                                             placeholder="Last Name"
-                                                            value="${p.lastName}"
+                                                            value="${requestScope.r.lastName}"
                                                             required
                                                             />
                                                     </div>
@@ -113,7 +116,7 @@
                                                             class="form-control"
                                                             id="date"
                                                             name="date"
-                                                            value="${requestScope.tommorow}"
+                                                            value="${requestScope.r.reverseDate.toLocalDate()}"
                                                             required
                                                             />
                                                     </div>
@@ -125,7 +128,7 @@
                                                             class="form-control"
                                                             id="time"
                                                             name="time"
-                                                            value="7:30"
+                                                            value="${requestScope.r.reverseDate.toLocalTime()}"
                                                             required
                                                             />
                                                     </div>
@@ -141,7 +144,7 @@
                                                             id="phone"
                                                             name="phone"
                                                             placeholder="0xxxxxxxxxx"
-                                                            value="${p.phone}"
+                                                            value="${requestScope.r.phone}"
                                                             required
                                                             />
                                                     </div>
@@ -153,7 +156,7 @@
                                                             id="email"
                                                             name="email"
                                                             placeholder="ex: myname@example.com"
-                                                            value="${sessionScope.account.email}"
+                                                            value="${requestScope.r.email}"
                                                             />
                                                     </div>
                                                 </div>
@@ -168,6 +171,7 @@
                                                         maxlength="300"
                                                         placeholder="Type your message here"
                                                         name="note"
+                                                        value="${requestScope.r.note}"
                                                         style="resize: none"
                                                         ></textarea>
                                                 </div>
@@ -175,80 +179,59 @@
                                             </div>
                                         </div>
 
+
                                         <!-- Services Section -->
                                         <div class="card p-4 mb-2">
-                                            <div class="section-header">
-                                                <h4 class="text-dark font-weight-bold">Your Services</h4>
-                                            </div>
-                                            <div class="card-body">
-                                                <table class="table table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Service</th>
-                                                            <th>Quantity</th>
-                                                            <th>Price</th>
-                                                            <th>Total</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>${s.name}</td>
-                                                            <td>1</td>
-                                                            <td>$${sessionScope.s.price * (1 - sessionScope.s.discount / 100)}</td>
-                                                            <td>$${sessionScope.s.price * (1 - sessionScope.s.discount / 100)}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <td colspan="3" class="text-right">
-                                                                <strong>Total Amount:</strong>
+                                            <table class="table table-hover">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th>Service</th>
+                                                        <th>Unit Price</th>
+                                                        <th>Quantity</th>
+                                                        <th>Sum</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach items="${requestScope.r.details}" var="i">
+                                                        <tr class="item-row">
+                                                            <td class="align-middle">
+                                                                <div class="d-flex">
+                                                                    <img src="${i.service.thumbnail}" class="img-fluid fixed-size-img mr-2" style="width: 150px; height: 100px;">
+                                                                    <div>
+                                                                        <h6 class="text-muted">${i.service.category.name}</h6>
+                                                                        <h5 class="font-weight-bold">${i.service.name}</h5>
+                                                                    </div>
+                                                                </div>
                                                             </td>
-                                                            <td><strong>$${sessionScope.s.price * (1 - sessionScope.s.discount/100)}</strong></td>
+                                                            <td class="font-weight-bold align-middle">
+                                                                $${i.price}
+                                                            </td>
+                                                            <td class="align-middle font-weight-bold">${i.quantity}</td>
+                                                            <td class="font-weight-bold total-price align-middle">$${i.price * i.quantity}</td>
                                                         </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
+                                                    </c:forEach>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="3" class="text-right align-middle">
+                                                            <strong>Total Amount:</strong>
+                                                        </td>
+                                                        <td class="align-middle"><strong>$${requestScope.total}</strong></td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
 
-                                            <div class="section-header">
-                                                <h4 class="text-dark font-weight-bold">Payment</h4>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="form-check mb-3">
-                                                    <input
-                                                        class="form-check-input"
-                                                        type="radio"
-                                                        name="payment"
-                                                        id="cash"
-                                                        value="cash"
-                                                        checked
-                                                        />
-                                                    <label class="form-check-label" for="cash">
-                                                        Cash on Arrival
-                                                    </label>
-                                                </div>
-
-                                                <div class="form-check mb-3">
-                                                    <input
-                                                        class="form-check-input"
-                                                        type="radio"
-                                                        name="payment"
-                                                        id="banking"
-                                                        value="banking"
-                                                        />
-                                                    <label class="form-check-label" for="banking">
-                                                        Online Banking
-                                                    </label>
-                                                </div>
-
+                                            <!--Redirect section-->
+                                            <div>
                                                 <div class="form-row">
                                                     <div class="col-md-6">
-                                                        <a href="/app/services" class="btn btn-danger btn-block red">
+                                                        <a type="button" class="btn btn-danger btn-block red" href="/app/history">
                                                             Cancel
                                                         </a>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <button type="submit" id="submitButton" class="btn btn-success btn-block green">
-                                                            Confirm
+                                                            Submit
                                                         </button>
                                                     </div>
                                                 </div>
