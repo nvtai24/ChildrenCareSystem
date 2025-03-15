@@ -21,7 +21,7 @@ import model.ReservationDetail;
  * @author milo9
  */
 public class ReservationDetailBusinessController extends HttpServlet {
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -29,24 +29,14 @@ public class ReservationDetailBusinessController extends HttpServlet {
         ReservationDetailDAO rdDAO = new ReservationDetailDAO();
         int id = Integer.parseInt(request.getParameter("id"));
         Reservation list = rDAO.getReservation(id);
+        Reservation reservation = rDAO.getReservation(id);
         ArrayList<ReservationDetail> rdList = rdDAO.getListReservationDetail(id);
         
+        
+        request.setAttribute("r", reservation);
+        request.setAttribute("rdList", rdList);
         request.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(request, response);
 
     }
-    
-    public ArrayList<Reservation> countTotalForReservation(ArrayList<Reservation> list) {
-        for (Reservation reservation : list) {
-            int totalQuantity = 0;
-            double totalPrice = 0;
-            for (ReservationDetail reservationDetail : reservation.getDetails()) {
-                totalQuantity += reservationDetail.getQuantity();
-                totalPrice += reservationDetail.getPrice() * reservationDetail.getQuantity();
-            }
-            reservation.setTotalPrice(totalPrice);
-            reservation.setTotalQuantity(totalQuantity);
-        }
-        
-        return list;
-    }
+
 }

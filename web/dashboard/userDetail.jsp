@@ -57,7 +57,6 @@
                 justify-content: center;
                 align-items: flex-start;
                 gap: 40px;
-                margin-top: 30px;
                 width: 100%;
             }
 
@@ -110,7 +109,7 @@
                 }
 
                 .profile-left, .profile-right {
-                    width: 90%;
+                    width: 100%;
                 }
             }
 

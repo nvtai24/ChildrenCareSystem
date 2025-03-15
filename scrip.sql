@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
 -- Host: localhost    Database: childrencare
 -- ------------------------------------------------------
--- Server version	8.4.4
+-- Server version	8.0.13
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `category`
+--
+
+DROP TABLE IF EXISTS `category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `category`
+--
+
+LOCK TABLES `category` WRITE;
+/*!40000 ALTER TABLE `category` DISABLE KEYS */;
+INSERT INTO `category` VALUES (1,'General Checkup','Regular health checkups for children to monitor growth and development.',1),(2,'Vaccination','Vaccination services to protect children from various diseases.',1),(3,'Nutrition','Nutritional advice and dietary plans for children.',1),(4,'Dental Care','Dental health services for children, including checkups and treatments.',1),(5,'Emergency Care','Emergency medical services for children.',1),(6,'Physical Therapy','Physical therapy services to support children with physical disabilities or injuries.',1),(7,'Mental Health','Mental health support and counseling for children.',1);
+/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `feature`
 --
 
@@ -23,10 +49,10 @@ DROP TABLE IF EXISTS `feature`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `feature` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `feature_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `feature_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `url` varchar(200) DEFAULT NULL,
-  `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -50,15 +76,14 @@ DROP TABLE IF EXISTS `feedback`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `feedback` (
-  `reservationdetail_id` int NOT NULL,
-  `rating` int DEFAULT NULL,
-  `comment` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `reservationdetail_id` int(11) NOT NULL,
+  `rating` int(11) DEFAULT NULL,
+  `comment` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`reservationdetail_id`),
-  CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`reservationdetail_id`) REFERENCES `reservationdetail` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `feedback_chk_1` CHECK (((`rating` >= 1) and (`rating` <= 5)))
+  CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`reservationdetail_id`) REFERENCES `reservationdetail` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -72,6 +97,32 @@ LOCK TABLES `feedback` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `label`
+--
+
+DROP TABLE IF EXISTS `label`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `label` (
+  `id` int(11) NOT NULL,
+  `labelName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `description` text,
+  `status` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `label`
+--
+
+LOCK TABLES `label` WRITE;
+/*!40000 ALTER TABLE `label` DISABLE KEYS */;
+INSERT INTO `label` VALUES (1,'Health Tips','Posts related to health tips for children.',1),(2,'Vaccination','Posts related to vaccination information.',1),(3,'Nutrition','Posts related to child nutrition.',1);
+/*!40000 ALTER TABLE `label` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `labelpost`
 --
 
@@ -79,8 +130,8 @@ DROP TABLE IF EXISTS `labelpost`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `labelpost` (
-  `label_id` int NOT NULL,
-  `post_id` int NOT NULL,
+  `label_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
   PRIMARY KEY (`label_id`,`post_id`),
   KEY `post_id` (`post_id`),
   CONSTRAINT `labelpost_ibfk_1` FOREIGN KEY (`label_id`) REFERENCES `setting` (`setting_id`),
@@ -106,20 +157,16 @@ DROP TABLE IF EXISTS `medicalexamination`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `medicalexamination` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `reservation_id` int DEFAULT NULL,
-  `staff_id` int DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `examination_date` datetime DEFAULT NULL,
-  `diagnosis` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `diagnosis` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `notes` text,
   `status` tinyint(1) DEFAULT '1',
-  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `done_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `reservationdetail_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `staff_id` (`staff_id`),
-  KEY `IX_MedicalExamination_Reservation` (`reservation_id`),
-  CONSTRAINT `medicalexamination_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `medicalexamination_ibfk_2` FOREIGN KEY (`staff_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+  KEY `fk_reservationdetail_id` (`reservationdetail_id`),
+  CONSTRAINT `fk_reservationdetail_id` FOREIGN KEY (`reservationdetail_id`) REFERENCES `reservationdetail` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -133,35 +180,6 @@ LOCK TABLES `medicalexamination` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `medicalprescription`
---
-
-DROP TABLE IF EXISTS `medicalprescription`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `medicalprescription` (
-  `id` int NOT NULL,
-  `examination_id` int NOT NULL,
-  `medicine_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `dosage` int DEFAULT NULL,
-  `instructions` text,
-  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `examination_id` (`examination_id`),
-  CONSTRAINT `medicalprescription_ibfk_1` FOREIGN KEY (`examination_id`) REFERENCES `medicalexamination` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `medicalprescription`
---
-
-LOCK TABLES `medicalprescription` WRITE;
-/*!40000 ALTER TABLE `medicalprescription` DISABLE KEYS */;
-/*!40000 ALTER TABLE `medicalprescription` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `post`
 --
 
@@ -169,9 +187,9 @@ DROP TABLE IF EXISTS `post`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `post` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `author_id` int DEFAULT NULL,
-  `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `author_id` int(11) DEFAULT NULL,
+  `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `content` text,
   `thumbnail` varchar(200) DEFAULT NULL,
   `status` tinyint(1) DEFAULT '1',
@@ -201,12 +219,12 @@ DROP TABLE IF EXISTS `profile`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `profile` (
-  `userid` int NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(255) DEFAULT NULL,
   `lastname` varchar(100) DEFAULT NULL,
   `gender` tinyint(1) DEFAULT NULL,
   `dob` date DEFAULT NULL,
-  `address` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `address` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `avatar` varchar(200) DEFAULT 'assets/images/profile/default.jpg',
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -234,11 +252,11 @@ DROP TABLE IF EXISTS `reservation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservation` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `customer_id` int NOT NULL,
-  `status_id` int NOT NULL DEFAULT '1',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL DEFAULT '1',
   `reserve_date` datetime NOT NULL,
-  `note` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `note` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `first_name` varchar(100) DEFAULT NULL,
@@ -273,15 +291,18 @@ DROP TABLE IF EXISTS `reservationdetail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservationdetail` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `reservation_id` int DEFAULT NULL,
-  `service_id` int DEFAULT NULL,
-  `quantity` int DEFAULT '1',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `reservation_id` int(11) DEFAULT NULL,
+  `service_id` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT '1',
   `price` decimal(10,2) DEFAULT NULL,
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `staff_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `reservation_id` (`reservation_id`),
   KEY `service_id` (`service_id`),
+  KEY `fk_staff_id` (`staff_id`),
+  CONSTRAINT `fk_staff_id` FOREIGN KEY (`staff_id`) REFERENCES `user` (`id`) ON DELETE SET NULL,
   CONSTRAINT `reservationdetail_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`) ON DELETE CASCADE,
   CONSTRAINT `reservationdetail_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -293,7 +314,7 @@ CREATE TABLE `reservationdetail` (
 
 LOCK TABLES `reservationdetail` WRITE;
 /*!40000 ALTER TABLE `reservationdetail` DISABLE KEYS */;
-INSERT INTO `reservationdetail` VALUES (14,14,2,1,142.50,'2025-03-05 15:22:27'),(15,15,1,1,100.00,'2025-03-05 15:23:01'),(16,15,2,1,150.00,'2025-03-05 15:23:01'),(17,15,3,1,40.00,'2025-03-05 15:23:01'),(18,15,5,1,70.00,'2025-03-05 15:23:01'),(19,16,5,1,70.00,'2025-03-06 02:28:47'),(20,17,1,1,100.00,'2025-03-06 09:27:15');
+INSERT INTO `reservationdetail` VALUES (14,14,2,1,142.50,'2025-03-05 15:22:27',NULL),(15,15,1,1,100.00,'2025-03-05 15:23:01',NULL),(16,15,2,1,150.00,'2025-03-05 15:23:01',NULL),(17,15,3,1,40.00,'2025-03-05 15:23:01',NULL),(18,15,5,1,70.00,'2025-03-05 15:23:01',NULL),(19,16,5,1,70.00,'2025-03-06 02:28:47',NULL),(20,17,1,1,100.00,'2025-03-06 09:27:15',NULL);
 /*!40000 ALTER TABLE `reservationdetail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -305,8 +326,8 @@ DROP TABLE IF EXISTS `reservationstatus`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservationstatus` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `status_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -322,6 +343,32 @@ INSERT INTO `reservationstatus` VALUES (1,'Pending'),(2,'Confirmed'),(3,'Complet
 UNLOCK TABLES;
 
 --
+-- Table structure for table `role`
+--
+
+DROP TABLE IF EXISTS `role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `description` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `status` bit(1) DEFAULT b'1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `role`
+--
+
+LOCK TABLES `role` WRITE;
+/*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` VALUES (1,'Admin','Administrator with full access to the system.',_binary ''),(2,'Doctor','Medical professional providing health services.',_binary ''),(3,'Customer','Parent or guardian of a child using the services.',_binary ''),(4,'Manager','Support staff assisting in the operations.',_binary '');
+/*!40000 ALTER TABLE `role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `rolefeature`
 --
 
@@ -329,8 +376,8 @@ DROP TABLE IF EXISTS `rolefeature`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rolefeature` (
-  `role_id` int NOT NULL,
-  `feature_id` int NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `feature_id` int(11) NOT NULL,
   `status` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`role_id`,`feature_id`),
   KEY `feature_id` (`feature_id`),
@@ -358,11 +405,11 @@ DROP TABLE IF EXISTS `service`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `service` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `description` text,
   `brief_info` text,
-  `category_id` int NOT NULL,
+  `category_id` int(11) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `discount` decimal(5,2) DEFAULT NULL,
   `thumbnail` varchar(200) DEFAULT NULL,
@@ -393,8 +440,8 @@ DROP TABLE IF EXISTS `setting`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `setting` (
-  `setting_id` int NOT NULL AUTO_INCREMENT,
-  `type_id` int DEFAULT NULL,
+  `setting_id` int(11) NOT NULL AUTO_INCREMENT,
+  `type_id` int(11) DEFAULT NULL,
   `value` varchar(200) DEFAULT NULL,
   `description` varchar(200) DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
@@ -422,7 +469,7 @@ DROP TABLE IF EXISTS `settingtype`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `settingtype` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -446,11 +493,11 @@ DROP TABLE IF EXISTS `slider`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `slider` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `image_url` varchar(200) DEFAULT NULL,
   `back_link` varchar(200) DEFAULT NULL,
-  `author_id` int DEFAULT NULL,
+  `author_id` int(11) DEFAULT NULL,
   `status` tinyint(1) DEFAULT '1',
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -478,14 +525,14 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `email_verified` tinyint(1) DEFAULT '0',
   `verification_token` varchar(255) DEFAULT NULL,
   `token_expiration` datetime DEFAULT NULL,
-  `role_id` int DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
   `status` tinyint(1) DEFAULT '1',
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -519,9 +566,9 @@ DROP TABLE IF EXISTS `wishlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `wishlist` (
-  `user_id` int NOT NULL,
-  `service_id` int NOT NULL,
-  `quantity` int DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `quantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`user_id`,`service_id`),
   KEY `service_id` (`service_id`),
   CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
@@ -548,4 +595,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-08  0:17:24
+-- Dump completed on 2025-03-15 22:47:52
