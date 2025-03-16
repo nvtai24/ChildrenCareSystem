@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -548,7 +549,6 @@ public class ReservationDAO extends DBContext {
         return result;
     }
 
-
     public int countReservations1InLast7Days() {
         int totalReservations1 = 0;
         String query = "SELECT COUNT(*) AS total_reservations1 "
@@ -567,6 +567,7 @@ public class ReservationDAO extends DBContext {
         }
         return totalReservations1;
     }
+
     public int countReservations2InLast7Days() {
         int totalReservations2 = 0;
         String query = "SELECT COUNT(*) AS total_reservations2 "
@@ -585,6 +586,7 @@ public class ReservationDAO extends DBContext {
         }
         return totalReservations2;
     }
+
     public int countReservations3InLast7Days() {
         int totalReservations3 = 0;
         String query = "SELECT COUNT(*) AS total_reservations3 "
@@ -603,6 +605,7 @@ public class ReservationDAO extends DBContext {
         }
         return totalReservations3;
     }
+
     public int countReservations4InLast7Days() {
         int totalReservations4 = 0;
         String query = "SELECT COUNT(*) AS total_reservations4 "
@@ -621,6 +624,7 @@ public class ReservationDAO extends DBContext {
         }
         return totalReservations4;
     }
+
     public int countReservationsInLast7Days() {
         int totalReservations = 0;
         String query = "SELECT COUNT(*) AS total_reservations "
@@ -639,5 +643,30 @@ public class ReservationDAO extends DBContext {
         return totalReservations;
     }
 
+    public List<Reservation> getRecentReservations() {
+        List<Reservation> reservations = new ArrayList<>();
+        String query = "SELECT id, status_id,reserve_date, first_name, last_name "
+                + "FROM reservation "
+                + "WHERE DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY "
+                + "ORDER BY created_date DESC "
+                + "LIMIT 5";
+
+        try {
+            ResultSet rs = executeQuery(query);
+            while (rs.next()) {
+                Reservation reservation = new Reservation();
+                reservation.setId(rs.getInt("id"));
+                reservation.setStatusId(rs.getInt("status_id")); // Lấy status_id dạng int
+                reservation.setReverseDate(rs.getTimestamp("reserve_date").toLocalDateTime());
+                reservation.setFirstName(rs.getString("first_name"));
+                reservation.setLastName(rs.getString("last_name"));
+
+                reservations.add(reservation);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reservations;
+    }
 
 }

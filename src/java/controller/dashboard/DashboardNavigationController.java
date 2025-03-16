@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Reservation;
 import model.auth.User;
 
 /**
@@ -37,11 +38,12 @@ public class DashboardNavigationController extends HttpServlet {
 
         HttpSession session = request.getSession();
         User account = (User) session.getAttribute("account");
+        ReservationDAO reservationDAO = new ReservationDAO();
         UserDAO userDAO = new UserDAO();
+        List<Reservation> reservations = reservationDAO.getRecentReservations();
         List<User> latestUsers = userDAO.getLatestFiveUsers();
         ReservationDetailDAO dao = new ReservationDetailDAO();
         double totalRevenue = dao.getTotalRevenue();
-        ReservationDAO reservationDAO = new ReservationDAO();
         int totalReservations = reservationDAO.countReservationsInLast7Days();
         int totalReservations1 = reservationDAO.countReservations1InLast7Days();
         int totalReservations2 = reservationDAO.countReservations2InLast7Days();
@@ -52,6 +54,7 @@ public class DashboardNavigationController extends HttpServlet {
         request.setAttribute("totalReservations2", totalReservations2);
         request.setAttribute("totalReservations3", totalReservations3);
         request.setAttribute("totalReservations4", totalReservations4);
+        request.setAttribute("reservations", reservations);
         request.setAttribute("latestUsers", latestUsers);
         request.setAttribute("totalRevenue", totalRevenue);
 

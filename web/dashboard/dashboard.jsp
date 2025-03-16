@@ -8,6 +8,15 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
+    <style>
+        .btn {
+            min-width: 80px; /* Giữ button có cùng độ rộng */
+            text-align: center;
+            padding: 8px 12px; /* Điều chỉnh padding */
+            border-radius: 5px; /* Bo góc nhẹ */
+            font-weight: bold;
+        }
+    </style>
     <head>
         <!-- META ============================================= -->
         <meta charset="utf-8">
@@ -200,8 +209,8 @@
                                 <h4>New Users</h4>
                             </div>
                             <c:forEach var="user" items="${latestUsers}">
-                            <div class="widget-inner">
-                                
+                                <div class="widget-inner">
+
                                     <div class="new-user-list">
                                         <ul>
                                             <li>
@@ -209,76 +218,58 @@
                                                     <img src="${user.avatar}" alt=""/>
                                                 </span>
                                                 <span class="new-users-text">
-                                                    <a href="#" class="new-users-name">${user.username} </a>
-                                                    <span class="new-users-info">${user.email}  </span>
+                                                    <a class="new-users-name">${user.lastname} ${user.firstname} </a>
+                                                    <span class="new-users-info">Username: ${user.username} </span>
                                                 </span>
                                                 <span class="new-users-btn">
-                                                    
+                                                    <a class="new-users-name">Email: ${user.email}</a>
                                                 </span>
                                             </li>
                                         </ul>
                                     </div>
-                              
-                            </div>
-                              </c:forEach>
+
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
                     <div class="col-lg-6 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>Orders</h4>
+                                <h4>Reservations</h4>
                             </div>
-                            <div class="widget-inner">
-                                <div class="orders-list">
-                                    <ul>
-                                        <li>
-                                            <span class="orders-title">
-                                                <a href="#" class="orders-title-name">Anna Strong </a>
-                                                <span class="orders-info">Order #02357 | Date 12/08/2019</span>
-                                            </span>
-                                            <span class="orders-btn">
-                                                <a href="#" class="btn button-sm red">Unpaid</a>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="orders-title">
-                                                <a href="#" class="orders-title-name">Revenue</a>
-                                                <span class="orders-info">Order #02357 | Date 12/08/2019</span>
-                                            </span>
-                                            <span class="orders-btn">
-                                                <a href="#" class="btn button-sm red">Unpaid</a>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="orders-title">
-                                                <a href="#" class="orders-title-name">Anna Strong </a>
-                                                <span class="orders-info">Order #02357 | Date 12/08/2019</span>
-                                            </span>
-                                            <span class="orders-btn">
-                                                <a href="#" class="btn button-sm green">Paid</a>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="orders-title">
-                                                <a href="#" class="orders-title-name">Revenue</a>
-                                                <span class="orders-info">Order #02357 | Date 12/08/2019</span>
-                                            </span>
-                                            <span class="orders-btn">
-                                                <a href="#" class="btn button-sm green">Paid</a>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="orders-title">
-                                                <a href="#" class="orders-title-name">Anna Strong </a>
-                                                <span class="orders-info">Order #02357 | Date 12/08/2019</span>
-                                            </span>
-                                            <span class="orders-btn">
-                                                <a href="#" class="btn button-sm green">Paid</a>
-                                            </span>
-                                        </li>
-                                    </ul>
+                            <c:forEach var="reservation" items="${reservations}">
+                                <div class="widget-inner">
+                                    <div class="orders-list">
+                                        <ul>
+                                            <li>
+                                                <span class="orders-title">
+                                                    <a  class="orders-title-name">${reservation.lastName} ${reservation.firstName} </a>
+                                                    <span class="orders-info">Reservation #${reservation.id} | Date Time: ${reservation.reverseDate} </span>
+                                                </span>
+                                                <span class="orders-btn">
+                                                    <span class="orders-btn">
+                                                        <a class="btn button-sm
+                                                           <c:choose>
+                                                               <c:when test='${reservation.statusId == 1}'>blue</c:when>
+                                                               <c:when test='${reservation.statusId == 2}'>yellow</c:when>
+                                                               <c:when test='${reservation.statusId == 3}'>green</c:when>
+                                                               <c:when test='${reservation.statusId == 4}'>red</c:when>
+                                                           </c:choose>">
+                                                            <c:choose>
+                                                                <c:when test="${reservation.statusId == 1}">Pending</c:when>
+                                                                <c:when test="${reservation.statusId == 2}">Confirmed</c:when>
+                                                                <c:when test="${reservation.statusId == 3}">Completed</c:when>
+                                                                <c:when test="${reservation.statusId == 4}">Cancelled</c:when>
+                                                                <c:otherwise>Unknown</c:otherwise>
+                                                            </c:choose>
+                                                        </a>
+                                                    </span>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
+                            </c:forEach>
                         </div>
                     </div>
 

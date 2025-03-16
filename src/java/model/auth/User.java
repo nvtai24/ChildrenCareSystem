@@ -44,5 +44,7 @@ public class User {
     private String avatar;
     private String verificationToken;
     private boolean verified;
+    private String firstname;
+    private String lastname;
 }
 
