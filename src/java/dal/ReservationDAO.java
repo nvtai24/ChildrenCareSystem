@@ -661,4 +661,131 @@ public class ReservationDAO extends DBContext {
         }
     }
 
+    public ArrayList<Reservation> listReservationsByStaffId(int staffId) {
+        ArrayList<Reservation> result = new ArrayList<>();
+
+        String sql = "SELECT \n"
+                + "    r.id,\n"
+                + "    rs.id AS statusid,\n"
+                + "    rs.status_name,\n"
+                + "    r.reserve_date,\n"
+                + "    r.created_date,\n"
+                + "    r.first_name,\n"
+                + "    r.last_name,\n"
+                + "    r.email,\n"
+                + "    r.phone,\n"
+                + "    r.note,\n"
+                + "    r.banking,\n"
+                + "    rd.id AS rdid,\n"
+                + "    rd.service_id,\n"
+                + "    s.name as sname,\n"
+                + "    rd.quantity,\n"
+                + "    rd.price\n"
+                + "FROM\n"
+                + "    reservation r\n"
+                + "        JOIN\n"
+                + "    reservationdetail rd ON r.id = rd.reservation_id\n"
+                + "        JOIN\n"
+                + "    reservationstatus rs ON r.status_id = rs.id\n"
+                + "        JOIN\n"
+                + "    service s ON rd.service_id = s.id\n"
+                + "WHERE\n"
+                + "    rd.staff_id = ? \n" // Lọc theo staff_id
+                + "ORDER BY r.created_date DESC"; // Lấy các đặt chỗ theo staff_id, sắp xếp theo ngày tạo
+
+        try {
+            // Thực thi câu truy vấn với staffId
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, staffId);
+            ResultSet rs = stmt.executeQuery();
+
+            Map<Integer, Reservation> rMap = new LinkedHashMap<>();
+
+            while (rs.next()) {
+                int rid = rs.getInt("id");
+
+                Reservation r = rMap.get(rid);
+
+                if (r == null) {
+                    String firstName = rs.getString("first_name");
+                    String lastName = rs.getString("last_name");
+                    String email = rs.getString("email");
+                    String phone = rs.getString("phone");
+                    String note = rs.getString("note");
+                    boolean banking = rs.getBoolean("banking");
+                    LocalDateTime createDate = rs.getTimestamp("created_date").toLocalDateTime();
+                    LocalDateTime reserveDate = rs.getTimestamp("reserve_date").toLocalDateTime();
+
+                    int rsid = rs.getInt("statusid");
+                    String status = rs.getString("status_name");
+                    ReservationStatus rstt = new ReservationStatus(rsid, status);
+
+                    r = new Reservation().builder()
+                            .id(rid)
+                            .firstName(firstName)
+                            .lastName(lastName)
+                            .email(email)
+                            .phone(phone)
+                            .note(note)
+                            .banking(banking)
+                            .createdDate(createDate)
+                            .reverseDate(reserveDate)
+                            .status(rstt)
+                            .details(new ArrayList<ReservationDetail>())
+                            .build();
+
+                    rMap.put(rid, r);
+                }
+
+                int rdid = rs.getInt("rdid");
+                int quantity = rs.getInt("quantity");
+                double price = rs.getDouble("price");
+
+                int sid = rs.getInt("service_id");
+                String sname = rs.getString("sname");
+
+                Service s = new Service().builder()
+                        .id(sid)
+                        .name(sname)
+                        .build();
+
+                ReservationDetail rd = new ReservationDetail().builder()
+                        .id(rdid)
+                        .quantity(quantity)
+                        .price(price)
+                        .service(s)
+                        .build();
+
+                r.getDetails().add(rd);
+            }
+
+            result.addAll(rMap.values());
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return result;
+    }
+
+    public boolean changeReservationStatus(int status, int reservation) {
+        DBContext db = new DBContext();
+        String sql = "UPDATE `reservation` SET `status_id` = ? WHERE id = ? ;";
+        try {
+            db.executeUpdate(sql, status, reservation);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            try {
+                db.connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }

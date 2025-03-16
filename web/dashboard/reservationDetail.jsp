@@ -133,31 +133,20 @@
                                 <textarea class="form-control" id="note" name="note" readonly>${r.note}</textarea>
                             </div>
 
-                            <div class="form-group">
-                                <label for="status">Status</label>
-                                <select class="form-control" id="status" name="status">
-                                    <option value="Pending" ${reservation.status == 'Pending' ? 'selected' : ''}>Pending</option>
-                                    <option value="Confirmed" ${reservation.status == 'Confirmed' ? 'selected' : ''}>Confirmed</option>
-                                    <option value="Completed" ${reservation.status == 'Completed' ? 'selected' : ''}>Completed</option>
-                                    <option value="Cancelled" ${reservation.status == 'Cancelled' ? 'selected' : ''}>Cancelled</option>
-                                </select>
-                            </div>
-
-                            <button type="submit" class="btn btn-warning btn-block">Change</button>
                         </form>
                     </div>
 
 
                     <div class="services-table">
-                        <table id="reservationdetailTable">
+                        <table id="reservationdetailTable" class="table">
                             <thead>
                                 <tr>
                                     <th>Service</th>
                                     <th>Quantity</th>
                                     <th>Price</th>
                                     <th>Total</th>
-                                    <th>Staff</th>
-                                    <th>Action</th>
+                                    <th>Assigned</th>
+                                    <th style="text-align: center;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -166,33 +155,42 @@
                                         <td>${rd.service.name}</td>
                                         <td>${rd.quantity}</td>
                                         <td>${rd.price}</td>
-                                        <td>${rd.quantity*rd.price}$</td>
+                                        <td>${rd.quantity * rd.price}$</td>
+                                        <td>${rd.staff.profile.lastName} ${rd.staff.profile.firstName}</td>                                        
                                         <td>
-                                            <select class="form-control" id="staff-select">
-                                                <option value="1" >John Doe</option>
-                                                <option value="2" >Jane Smith</option>
-                                                <option value="3" >Michael Johnson</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-block">Assign</button>
+                                            <form action="reservation" method="POST" style="display: flex; align-items: center; justify-content: center; gap: 5px;">
+                                                <select class="form-control" id="staff-select" name="staff_id">
+                                                    <option value="-1" selected="">Choose staff</option>
+                                                    <!-- Lặp qua danh sách nhân viên và tạo các option -->
+                                                    <c:forEach items="${staffs}" var="st">
+                                                        <option value="${st.id}">
+                                                            ${st.profile.lastName} ${st.profile.firstName}
+                                                        </option>
+                                                    </c:forEach>
+                                                </select>
+                                                <input type="hidden" name="servicename" value="${rd.service.name}" />
+                                                <input type="hidden" name="quantity" value="${rd.quantity}" />
+                                                <input type="hidden" name="price" value="${rd.price}" />
+                                                <input type="hidden" name="action" value="assign" />
+                                                <!-- Gửi reservation ID và reservation_detail_id qua form -->
+                                                <input type="hidden" name="reservation_id" value="${r.id}" />
+                                                <input type="hidden" name="reservation_detail_id" value="${rd.id}" />
+                                                <input type="submit" class="btn btn-block btn-primary" value="Assign"/>
+                                            </form>
                                         </td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
                         </table>
-                        <div class="col-lg-12 m-b20" >
+
+                        <!-- Phân trang -->
+                        <div class="col-lg-12 m-b20">
                             <div class="pagination-bx rounded-sm gray clearfix">
                                 <!-- Phân trang sẽ được cập nhật tự động ở đây -->
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
-
-
 
             </div>
         </main>
@@ -222,10 +220,13 @@
         <!-- DataTables  -->
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script>
+
+        </script>
+        <script>
             $(document).ready(function () {
                 var table = $('#reservationdetailTable').DataTable({
                     paging: true,
-                    lengthMenu: [2],
+                    lengthMenu: [8],
                     ordering: true,
                     searching: true,
                     info: false,

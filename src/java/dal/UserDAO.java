@@ -842,7 +842,7 @@ public class UserDAO extends DBContext {
                 User user = new User();
                 user.setUsername(rs.getString("username"));
                 user.setEmail(rs.getString("email"));
-                user.setAvatar(rs.getString("avatar")); 
+                user.setAvatar(rs.getString("avatar"));
                 users.add(user);
             }
 
@@ -850,6 +850,50 @@ public class UserDAO extends DBContext {
             e.printStackTrace();
         }
         return users;
+    }
+
+// Phương thức lấy danh sách nhân viên không bận trong khung giờ
+    public ArrayList<User> getAvailableStaff(LocalDateTime reserveDate) {
+        DBContext db = new DBContext();
+        ArrayList<User> availableStaff = new ArrayList<>();
+        String sql = "SELECT u.id, p.firstname, p.lastname, u.username, u.email "
+                + "FROM user u "
+                + "JOIN profile p ON u.id = p.userid "
+                + "WHERE u.role_id = 13 " // Chỉ lấy những nhân viên có role_id = 13
+                + "AND NOT EXISTS ( "
+                + "   SELECT 1 "
+                + "   FROM reservationdetail rd "
+                + "   JOIN reservation r ON rd.reservation_id = r.id "
+                + "   WHERE rd.staff_id = u.id "
+                + "   AND r.reserve_date BETWEEN ? AND ? "
+                + ")";
+
+        try {
+            // Tính thời gian kết thúc là reserveDate + 1 giờ
+            Timestamp startDate = Timestamp.valueOf(reserveDate);
+            Timestamp endDate = Timestamp.valueOf(reserveDate.plusHours(1));
+
+            ResultSet rs = db.executeQuery(sql, startDate, endDate);
+
+            while (rs.next()) {
+                User staff = new User();
+                staff.setId(rs.getInt("id"));
+                staff.setUsername(rs.getString("username"));
+                staff.setEmail(rs.getString("email"));
+
+                Profile profile = new Profile();
+                profile.setFirstName(rs.getString("firstname"));
+                profile.setLastName(rs.getString("lastname"));
+                staff.setProfile(profile);
+
+                availableStaff.add(staff);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log lỗi nếu có
+        }
+
+        return availableStaff;
     }
 
 }
