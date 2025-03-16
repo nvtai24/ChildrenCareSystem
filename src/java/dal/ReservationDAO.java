@@ -38,7 +38,8 @@ public class ReservationDAO extends DBContext {
             connection.setAutoCommit(false); // Start transaction
 
             // Insert into reservation table
-            try (PreparedStatement ps1 = connection.prepareStatement(reservationQuery, Statement.RETURN_GENERATED_KEYS)) {
+            try (PreparedStatement ps1 = connection.prepareStatement(reservationQuery,
+                    Statement.RETURN_GENERATED_KEYS)) {
                 ps1.setInt(1, r.getCustomer().getId());
                 ps1.setString(2, r.getFirstName());
                 ps1.setString(3, r.getLastName());
@@ -643,6 +644,7 @@ public class ReservationDAO extends DBContext {
         return totalReservations;
     }
 
+
     public List<Reservation> getRecentReservations() {
         List<Reservation> reservations = new ArrayList<>();
         String query = "SELECT id, status_id,reserve_date, first_name, last_name "
@@ -667,6 +669,23 @@ public class ReservationDAO extends DBContext {
             e.printStackTrace();
         }
         return reservations;
+    }
+    public void updateReservationContact(Reservation r) {
+        String sql = "UPDATE `childrencare`.`reservation`\n"
+                + "SET\n"
+                + "`reserve_date` = ?,\n"
+                + "`note` = ?,\n"
+                + "`first_name` = ?,\n"
+                + "`last_name` = ?,\n"
+                + "`email` = ?,\n"
+                + "`phone` = ?\n"
+                + "WHERE `id` = ?";
+        try {
+            executeUpdate(sql, Timestamp.valueOf(r.getReverseDate()), r.getNote(), r.getFirstName(), r.getLastName(),
+                    r.getEmail(), r.getPhone(), r.getId());
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
