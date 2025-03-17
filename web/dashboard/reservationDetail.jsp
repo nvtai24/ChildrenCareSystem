@@ -101,7 +101,7 @@
                 </div>	
                 <div class="reservation-detail">
                     <div class="reservation-info">
-                        <form action="" method="post">
+                        <form action="reservation" method="post" onsubmit="">
                             <!-- Reservation Information -->
                             <div class="form-group">
                                 <label for="first-name">First Name</label>
@@ -133,7 +133,29 @@
                                 <textarea class="form-control" id="note" name="note" readonly>${r.note}</textarea>
                             </div>
 
+
                         </form>
+                        <c:if test="${manager && r.status.statusName eq 'Pending'}">
+                            <div style="display: flex; align-content: center; justify-content: center; gap: 10px;">
+
+                                <form action="reservation" method="POST" onsubmit="confirmChangeStatus(event)">
+                                    <input type="hidden" name="reservation_id" value="${r.id}" />
+                                    <input type="hidden" name="action" value="confirm" />
+                                    <button type="submit" class="btn blue mb-2">
+                                        <i class="fa fa-check" aria-hidden="true"></i> Confirm
+                                    </button>
+                                </form>                                
+
+                                <form action="reservation" method="POST" onsubmit="confirmChangeStatusCancel(event)">
+                                    <input type="hidden" name="reservation_id" value="${r.id}" />
+                                    <input type="hidden" name="action" value="cancel" />
+                                    <button type="submit" class="btn red mb-2">
+                                        <i class="fa fa-times" aria-hidden="true"></i> Cancel
+                                    </button>
+                                </form>
+                            </div>
+                        </c:if>
+
                     </div>
 
 
@@ -158,25 +180,27 @@
                                         <td>${rd.quantity * rd.price}$</td>
                                         <td>${rd.staff.profile.lastName} ${rd.staff.profile.firstName}</td>                                        
                                         <td>
-                                            <form action="reservation" method="POST" style="display: flex; align-items: center; justify-content: center; gap: 5px;">
-                                                <select class="form-control" id="staff-select" name="staff_id">
-                                                    <option value="-1" selected="">Choose staff</option>
-                                                    <!-- Lặp qua danh sách nhân viên và tạo các option -->
-                                                    <c:forEach items="${staffs}" var="st">
-                                                        <option value="${st.id}">
-                                                            ${st.profile.lastName} ${st.profile.firstName}
-                                                        </option>
-                                                    </c:forEach>
-                                                </select>
-                                                <input type="hidden" name="servicename" value="${rd.service.name}" />
-                                                <input type="hidden" name="quantity" value="${rd.quantity}" />
-                                                <input type="hidden" name="price" value="${rd.price}" />
-                                                <input type="hidden" name="action" value="assign" />
-                                                <!-- Gửi reservation ID và reservation_detail_id qua form -->
-                                                <input type="hidden" name="reservation_id" value="${r.id}" />
-                                                <input type="hidden" name="reservation_detail_id" value="${rd.id}" />
-                                                <input type="submit" class="btn btn-block btn-primary" value="Assign"/>
-                                            </form>
+                                            <c:if test="${manager}">
+                                                <form action="reservation" method="POST" style="display: flex; align-items: center; justify-content: center; gap: 5px;">
+                                                    <select class="form-control" id="staff-select" name="staff_id">
+                                                        <option value="-1" selected="">Choose staff</option>
+                                                        <!-- Lặp qua danh sách nhân viên và tạo các option -->
+                                                        <c:forEach items="${staffs}" var="st">
+                                                            <option value="${st.id}">
+                                                                ${st.profile.lastName} ${st.profile.firstName}
+                                                            </option>
+                                                        </c:forEach>
+                                                    </select>
+                                                    <input type="hidden" name="servicename" value="${rd.service.name}" />
+                                                    <input type="hidden" name="quantity" value="${rd.quantity}" />
+                                                    <input type="hidden" name="price" value="${rd.price}" />
+                                                    <input type="hidden" name="action" value="assign" />
+                                                    <!-- Gửi reservation ID và reservation_detail_id qua form -->
+                                                    <input type="hidden" name="reservation_id" value="${r.id}" />
+                                                    <input type="hidden" name="reservation_detail_id" value="${rd.id}" />
+                                                    <input type="submit" class="btn btn-block btn-primary" value="Assign"/>
+                                                </form>
+                                            </c:if>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -220,7 +244,69 @@
         <!-- DataTables  -->
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script>
+                                    function confirmChangeStatus(event) {
+                                        event.preventDefault();
 
+                                        Swal.fire({
+                                            title: "Are you sure?",
+                                            text: "Do you really want to change the status?",
+                                            icon: "warning",
+                                            showCancelButton: true,
+                                            confirmButtonColor: "#3085d6",
+                                            cancelButtonColor: "#d33",
+                                            confirmButtonText: "Yes, change it!",
+                                            cancelButtonText: "No, cancel!"
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                event.target.submit();
+                                            }
+                                        });
+
+                                        return false;
+                                    }
+        </script>
+        <script>
+            function confirmChangeStatusCancel(event) {
+                event.preventDefault();
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "Do you really want to change the status?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, change it!",
+                    cancelButtonText: "No, cancel!",
+                    input: 'textarea', // Cho phép người dùng nhập lý do
+                    inputPlaceholder: 'Please enter the reason for cancellation...',
+                    inputAttributes: {
+                        'aria-label': 'Reason for cancellation'
+                    },
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return 'You need to provide a reason for cancellation!';
+                        }
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Nếu có lý do, thêm lý do vào form
+                        let reason = result.value;
+
+                        // Thêm lý do vào form hủy (cancel)
+                        var form = event.target;
+                        var reasonInput = document.createElement("input");
+                        reasonInput.type = "hidden";
+                        reasonInput.name = "reason"; // Tên trường dữ liệu
+                        reasonInput.value = reason; // Giá trị là lý do người dùng nhập
+                        form.appendChild(reasonInput);
+
+                        event.target.submit();
+                    }
+                });
+
+                return false;
+            }
         </script>
         <script>
             $(document).ready(function () {
