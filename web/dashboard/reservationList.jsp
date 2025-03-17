@@ -169,16 +169,16 @@
                                 <td><!-- Cột Status -->
                                     <c:choose>
                                         <c:when test="${r.status.id == 1}">
-                                            <span class="badge badge-warning mt-3" style="width: 70px">Pending</span>
+                                            <span class="badge badge-secondary" style="width: 70px">Pending</span>
                                         </c:when>
                                         <c:when test="${r.status.id == 2}">
-                                            <span class="badge badge-primary mt-3" style="width: 70px">Confirmed</span>
+                                            <span class="badge badge-success" style="width: 70px">Confirmed</span>
                                         </c:when>
                                         <c:when test="${r.status.id == 3}">
-                                            <span class="badge badge-success mt-3" style="width: 70px">Completed</span>
+                                            <span class="badge badge-primary" style="width: 70px">Completed</span>
                                         </c:when>
                                         <c:when test="${r.status.id == 4}">
-                                            <span class="badge badge-danger mt-3" style="width: 70px">Cancelled</span>
+                                            <span class="badge badge-danger" style="width: 70px">Cancelled</span>
                                         </c:when>                                        
                                     </c:choose>
                                 </td>
