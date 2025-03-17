@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -643,6 +644,32 @@ public class ReservationDAO extends DBContext {
         return totalReservations;
     }
 
+
+    public List<Reservation> getRecentReservations() {
+        List<Reservation> reservations = new ArrayList<>();
+        String query = "SELECT id, status_id,reserve_date, first_name, last_name "
+                + "FROM reservation "
+                + "WHERE DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY "
+                + "ORDER BY created_date DESC "
+                + "LIMIT 5";
+
+        try {
+            ResultSet rs = executeQuery(query);
+            while (rs.next()) {
+                Reservation reservation = new Reservation();
+                reservation.setId(rs.getInt("id"));
+                reservation.setStatusId(rs.getInt("status_id")); // Lấy status_id dạng int
+                reservation.setReverseDate(rs.getTimestamp("reserve_date").toLocalDateTime());
+                reservation.setFirstName(rs.getString("first_name"));
+                reservation.setLastName(rs.getString("last_name"));
+
+                reservations.add(reservation);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reservations;
+    }
     public void updateReservationContact(Reservation r) {
         String sql = "UPDATE `childrencare`.`reservation`\n"
                 + "SET\n"
