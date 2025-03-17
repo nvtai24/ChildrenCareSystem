@@ -17,6 +17,7 @@ import model.Profile;
 import model.auth.Role;
 import model.auth.User;
 import java.sql.Timestamp;
+import util.PasswordUtil;
 
 public class UserDAO extends DBContext {
 
@@ -62,6 +63,7 @@ public class UserDAO extends DBContext {
     public boolean register(User user) {
         String sql = "INSERT INTO `user` (`username`, `password`, `email` ,`role_id`, `verification_token`, `token_expiration`, `email_verified`) VALUES (?, ?, ?, 15, ?, ?, 0)";
         try (PreparedStatement ps = dbContext.connection.prepareStatement(sql)) {
+           
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getEmail());

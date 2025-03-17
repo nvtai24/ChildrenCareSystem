@@ -20,7 +20,10 @@ import java.util.Date;
 import model.auth.User;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Profile;
+import util.PasswordUtil;
 
 /**
  *
@@ -47,6 +50,7 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String action = request.getParameter("action");
         UserDAO userDAO = new UserDAO();
 
@@ -98,18 +102,17 @@ public class RegisterController extends HttpServlet {
             return;
         }
         String token = UUID.randomUUID().toString();
-        //String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         long expirationTime = System.currentTimeMillis() + TimeUnit.HOURS.toMillis(TOKEN_EXPIRATION_HOURS);
-
+        String hashedPassword = PasswordUtil.toSHA1(password);
         User newUser = new User();
         newUser.setUsername(username);
-        newUser.setPassword(password);
+        newUser.setPassword(hashedPassword);
         newUser.setEmail(email);
         newUser.setVerificationToken(token);
         newUser.setTokenExpiration(new Timestamp(expirationTime));
         boolean isRegistered = userDAO.register(newUser);
         if (isRegistered) {
-            User user = userDAO.get(username, password);
+            User user = userDAO.get(username, hashedPassword);
             Profile newProfile = new Profile();
             newProfile.setUser(user); // Set userId after the user is inserted
             newProfile.setFirstName(firstname);
@@ -120,13 +123,12 @@ public class RegisterController extends HttpServlet {
             newProfile.setAddress(address);
             newProfile.setPhone(phone);
 
-            // Save profile data
             ProfileDAO profileDAO = new ProfileDAO();
             boolean isProfileSaved = profileDAO.saveProfile(newProfile);
 
             if (isProfileSaved) {
                 
-                String verificationLink = "http://localhost:8082/app/verify?token=" + token + "&redirect=login";
+                String verificationLink = "http://localhost:8080/app/verify?token=" + token + "&redirect=login";
                 EmailUtil.sendVerificationEmail(email, verificationLink);
                 request.setAttribute("successMessage", "A verify link has been sent to your email.");
                 request.getRequestDispatcher("register.jsp").forward(request, response);
@@ -136,7 +138,8 @@ public class RegisterController extends HttpServlet {
             }
         } else {
             request.setAttribute("error", "Registration failed. Please try again.");
-            request.getRequestDispatcher("../register.jsp").forward(request, response);
+            request.getRequestDispatcher("register.jsp").forward(request, response);
         }
+        
     }
 }

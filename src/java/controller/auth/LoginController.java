@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Profile;
 import model.auth.User;
+import util.PasswordUtil;
 
 /**
  *
@@ -35,8 +36,9 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String usernameOrEmail = request.getParameter("dzName");
         String password = request.getParameter("dzPassword");
-
+        
         UserDAO udb = new UserDAO();
+        String hashedPassword = PasswordUtil.toSHA1(password);
         User user = udb.get(usernameOrEmail, password);
         boolean hasError = false;
         if (usernameOrEmail == null || usernameOrEmail.trim().isEmpty()) {
