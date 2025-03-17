@@ -2,30 +2,46 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package vnpay;
+package controller.reservation;
 
+import dal.PaymentHistoryDAO;
 import dal.ReservationDAO;
+import dal.WishListDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.stream.Collectors;
+import model.PaymentHistory;
 import model.Reservation;
+import model.WishList;
 import util.EmailUtil;
 
 /**
  *
  * @author Nvtai
  */
-public class BookNowReturnController extends HttpServlet {
+public class PaymentReturnController extends HttpServlet {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Enumeration<String> params = request.getParameterNames();
+        StringBuilder result = new StringBuilder();
+        while (params.hasMoreElements()) {
+            String paramName = params.nextElement();
+            String paramValue = request.getParameter(paramName);
+            result.append(paramName).append(": ").append(paramValue).append("\n");
+        }
 
         String vnp_ResponseCode = request.getParameter("vnp_ResponseCode");
+        String amount = request.getParameter("vnp_Amount");
+        String transactionDate = request.getParameter("vnp_PayDate");
+        String txnRef = request.getParameter("vnp_TxnRef");
+        String transactionNo = request.getParameter("vnp_TransactionNo");
+
         if ("00".equals(vnp_ResponseCode)) {
             HttpSession session = request.getSession();
 
@@ -33,8 +49,29 @@ public class BookNowReturnController extends HttpServlet {
 
             r.setBanking(true);
             ReservationDAO rdb = new ReservationDAO();
+            System.out.println(r);
             int id = rdb.insertReservation(r);
 
+            PaymentHistory ph = new PaymentHistory().builder()
+                    .rid(id)
+                    .amount(Integer.parseInt(amount))
+                    .transactionDateString(transactionDate)
+                    .txnRef(txnRef)
+                    .transactionNo(transactionNo)
+                    .build();
+
+            PaymentHistoryDAO phdb = new PaymentHistoryDAO();
+            phdb.insertPayment(ph);
+
+            ArrayList<WishList> items = (ArrayList<WishList>) session.getAttribute("items");
+            WishListDAO wlDB = new WishListDAO();
+
+            for (WishList item : items) {
+                wlDB.deleteWishlistItem(item.getUser().getId(), item.getService().getId());
+            }
+
+//            session.removeAttribute("items");
+//            r.setDetails(null);
             String email = r.getEmail(); // Get user email from Reservation object
             String subject = "Reservation Successful!";
             String serviceContent = r.getDetails().stream()
@@ -67,11 +104,14 @@ public class BookNowReturnController extends HttpServlet {
 
             EmailUtil.sendReserveNotification(email, subject, message);
 
-            request.getRequestDispatcher("../booknow_success.jsp").forward(request, response);
-        } else {
-            response.sendRedirect("/app/services");
-        }
+            session.setAttribute("r", r);
 
+//            request.getRequestDispatcher("../reservation-complete.jsp").forward(request, response);
+            response.getWriter().write("Success!\n " + result.toString());
+        } else {
+//            request.getRequestDispatcher("../reservation-confirm.jsp").forward(request, response);
+            response.getWriter().write("Failed!\n " + result.toString());
+        }
     }
 
 }
