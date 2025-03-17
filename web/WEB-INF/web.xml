@@ -114,11 +114,11 @@
     </servlet>
     <servlet>
         <servlet-name>PaymentController</servlet-name>
-        <servlet-class>vnpay.PaymentController</servlet-class>
+        <servlet-class>controller.reservation.PaymentController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>VnpayReturnController</servlet-name>
-        <servlet-class>vnpay.VnpayReturnController</servlet-class>
+        <servlet-class>controller.reservation.PaymentReturnController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PermissionController</servlet-name>
@@ -154,7 +154,7 @@
     </servlet>
     <servlet>
         <servlet-name>BookNowSuccessController</servlet-name>
-        <servlet-class>vnpay.BookNowReturnController</servlet-class>
+        <servlet-class>controller.reservation.BookNowReturnController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SettingToggleAjax</servlet-name>

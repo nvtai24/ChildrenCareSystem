@@ -122,6 +122,7 @@
                                                     <th>Unit Price</th>
                                                     <th>Quantity</th>
                                                     <th>Sum</th>
+                                                    <th>Status</th>
                                                         <c:if  test="${r.status.id == 3}">
                                                         <th>Action</th>
                                                         </c:if>
@@ -145,6 +146,34 @@
                                                         <td class="align-middle font-weight-bold">${i.quantity}</td>
                                                         <td class="font-weight-bold total-price align-middle">$${i.price * i.quantity}</td>
 
+                                                        <td class="align-middle">
+
+                                                            <c:if test="${i.status.id == 1}">
+                                                                <span class="badge badge-secondary mt-3" style="width: fit-content">Not Yet</span>
+                                                            </c:if>
+
+                                                            <c:if test="${i.status.id == 2}">
+                                                                <span class="badge badge-info mt-3" style="width: fit-content">Assigned</span>
+                                                            </c:if>
+
+                                                            <c:if test="${i.status.id == 3}">
+                                                                <span class="badge badge-danger mt-3" style="width: fit-content">Rejected</span>
+                                                            </c:if>
+
+                                                            <c:if test="${i.status.id == 4}">
+                                                                <span class="badge badge-success mt-3" style="width: fit-content">Confirmed</span>
+                                                            </c:if>
+
+                                                            <c:if test="${i.status.id == 5}">
+                                                                <span class="badge badge-warning mt-3" style="width: fit-content">Processing</span>
+                                                            </c:if>
+
+                                                            <c:if test="${i.status.id == 6}">
+                                                                <span class="badge badge-primary mt-3" style="width: fit-content">Completed</span>
+                                                            </c:if>
+
+                                                        </td>
+
                                                         <!--Nút này chỉ hiện thị khi toàn bộ dịch vụ đã thành công-->
                                                         <c:if  test="${r.status.id == 3}">
                                                             <td class="align-middle font-weight-bold">
@@ -159,7 +188,7 @@
 
                                             <tfoot>
                                                 <tr>
-                                                    <td colspan="${r.status.id != 3 ? 3 : 4}" class="text-right align-middle">
+                                                    <td colspan="${r.status.id != 3 ? 4 : 5}" class="text-right align-middle">
                                                         <strong>Total Amount:</strong>
                                                     </td>
                                                     <td class="align-middle"><strong>$${requestScope.total}</strong></td>

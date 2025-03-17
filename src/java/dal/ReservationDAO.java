@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import model.Category;
 import model.Reservation;
 import model.ReservationDetail;
+import model.ReservationDetailStatus;
 import model.ReservationStatus;
 import model.Service;
 
@@ -119,9 +120,10 @@ public class ReservationDAO extends DBContext {
                 + "    r.banking,\n"
                 + "    rd.id AS rdid,\n"
                 + "    rd.service_id,\n"
-                + "    s.name as sname,\n"
+                + "    s.name AS sname,\n"
                 + "    rd.quantity,\n"
-                + "    rd.price\n"
+                + "    rd.price,\n"
+                + "    rds.status AS detail_tatus\n"
                 + "FROM\n"
                 + "    reservation r\n"
                 + "        JOIN\n"
@@ -130,8 +132,11 @@ public class ReservationDAO extends DBContext {
                 + "    reservationstatus rs ON r.status_id = rs.id\n"
                 + "        JOIN\n"
                 + "    service s ON rd.service_id = s.id\n"
-                + "    where r.customer_id = ?"
-                + "  order by r.created_date desc";
+                + "        JOIN\n"
+                + "    reservationdetailstatus rds ON rds.id = rd.status_id\n"
+                + "WHERE\n"
+                + "    r.customer_id = ?\n"
+                + "ORDER BY r.created_date DESC";
 
         try {
             ResultSet rs = executeQuery(sql, uid);
@@ -181,6 +186,10 @@ public class ReservationDAO extends DBContext {
                 int sid = rs.getInt("service_id");
                 String sname = rs.getString("sname");
 
+                String detailStatus = rs.getString("detail_tatus");
+                ReservationDetailStatus rds = new ReservationDetailStatus();
+                rds.setStatus(detailStatus);
+
                 Service s = new Service().builder()
                         .id(sid)
                         .name(sname)
@@ -191,6 +200,7 @@ public class ReservationDAO extends DBContext {
                         .quantity(quantity)
                         .price(price)
                         .service(s)
+                        .status(rds)
                         .build();
 
                 r.getDetails().add(rd);
@@ -224,9 +234,11 @@ public class ReservationDAO extends DBContext {
                 + "    rd.service_id,\n"
                 + "    s.name AS sname,\n"
                 + "    s.thumbnail,\n"
-                + "    s2.value as category,\n"
+                + "    s2.value AS category,\n"
                 + "    rd.quantity,\n"
-                + "    rd.price\n"
+                + "    rd.price,\n"
+                + "    rds.id as detail_status_id,\n"
+                + "    rds.status AS detail_status\n"
                 + "FROM\n"
                 + "    reservation r\n"
                 + "        JOIN\n"
@@ -235,9 +247,13 @@ public class ReservationDAO extends DBContext {
                 + "    reservationstatus rs ON r.status_id = rs.id\n"
                 + "        JOIN\n"
                 + "    service s ON rd.service_id = s.id\n"
-                + "	join setting s2 on s.category_id = s2.setting_id\n"
-                + "WHERE r.id = ?";
-
+                + "        JOIN\n"
+                + "    setting s2 ON s.category_id = s2.setting_id\n"
+                + "        JOIN\n"
+                + "    reservationdetailstatus rds ON rd.status_id = rds.id\n"
+                + "WHERE\n"
+                + "    r.id = ?";
+        
         try (ResultSet rs = executeQuery(sql, id)) {
             Map<Integer, Reservation> rMap = new HashMap<>();
 
@@ -282,6 +298,9 @@ public class ReservationDAO extends DBContext {
                 int sid = rs.getInt("service_id");
                 String sname = rs.getString("sname");
                 String thumbnail = rs.getString("thumbnail");
+                
+                int detailStatusId = rs.getInt("detail_status_id");
+                String detailStatus = rs.getString("detail_status");
 
                 Category c = new Category()
                         .builder()
@@ -295,11 +314,18 @@ public class ReservationDAO extends DBContext {
                         .category(c)
                         .build();
 
+                ReservationDetailStatus rds = new ReservationDetailStatus().builder()
+                        .id(detailStatusId)
+                        .status(detailStatus)
+                        .build();
+                
+                rds.setStatus(detailStatus);
                 ReservationDetail rd = new ReservationDetail().builder()
                         .id(rdid)
                         .quantity(quantity)
                         .price(price)
                         .service(s)
+                        .status(rds)
                         .build();
 
                 rMap.get(rid).getDetails().add(rd);
@@ -813,6 +839,8 @@ public class ReservationDAO extends DBContext {
         }
 
         return true;
+
+    }
 
     public void cancelReservation(int rid) {
         String sql = "update reservation\n"
