@@ -88,6 +88,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 
                 reservation = rDAO.getReservation(Integer.parseInt(reservationId));
                 request.setAttribute("r", reservation);
+                rdList = rdDAO.getListReservationDetail(reservation.getId());
                 request.setAttribute("rdList", rdList);
                 staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
                 request.setAttribute("staffs", staffList);
