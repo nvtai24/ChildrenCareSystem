@@ -827,7 +827,7 @@ public class UserDAO extends DBContext {
 
     public List<User> getLatestFiveUsers() {
         List<User> users = new ArrayList<>();
-        String query = "SELECT u.username, u.email, p.avatar\n"
+        String query = "SELECT u.username, u.email, p.avatar, p.firstname, p.lastname\n"
                 + "FROM user u\n"
                 + "JOIN profile p ON u.id = p.userid\n"
                 + "WHERE u.status = 1 \n"
@@ -842,7 +842,9 @@ public class UserDAO extends DBContext {
                 User user = new User();
                 user.setUsername(rs.getString("username"));
                 user.setEmail(rs.getString("email"));
-                user.setAvatar(rs.getString("avatar"));
+                user.setAvatar(rs.getString("avatar")); 
+                user.setFirstname(rs.getString("firstname"));
+                user.setLastname(rs.getString("lastname"));
                 users.add(user);
             }
 

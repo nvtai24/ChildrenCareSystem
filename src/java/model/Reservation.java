@@ -23,6 +23,7 @@ import model.auth.User;
 public class Reservation {
 
     private int id;
+    private int statusId;
     private User customer;
     private String firstName;
     private String lastName;
