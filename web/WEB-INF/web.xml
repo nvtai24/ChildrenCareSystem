@@ -200,6 +200,10 @@
         <servlet-name>ReservationEditController</servlet-name>
         <servlet-class>controller.reservation.ReservationEditController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReservationCancelController</servlet-name>
+        <servlet-class>controller.reservation.ReservationCancelController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
         <url-pattern>/error-handle</url-pattern>
@@ -447,6 +451,10 @@
     <servlet-mapping>
         <servlet-name>ReservationEditController</servlet-name>
         <url-pattern>/reservation/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservationCancelController</servlet-name>
+        <url-pattern>/reservation/cancel</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>

@@ -644,7 +644,6 @@ public class ReservationDAO extends DBContext {
         return totalReservations;
     }
 
-
     public List<Reservation> getRecentReservations() {
         List<Reservation> reservations = new ArrayList<>();
         String query = "SELECT id, status_id,reserve_date, first_name, last_name "
@@ -670,6 +669,7 @@ public class ReservationDAO extends DBContext {
         }
         return reservations;
     }
+
     public void updateReservationContact(Reservation r) {
         String sql = "UPDATE `childrencare`.`reservation`\n"
                 + "SET\n"
@@ -813,6 +813,17 @@ public class ReservationDAO extends DBContext {
         }
 
         return true;
+
+    public void cancelReservation(int rid) {
+        String sql = "update reservation\n"
+                + "set status_id = 4\n"
+                + "where id = ?";
+
+        try {
+            executeUpdate(sql, rid);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

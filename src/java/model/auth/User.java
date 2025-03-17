@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import model.MedicalExamination;
 import model.Post;
 import model.Profile;
 import model.Reservation;
@@ -40,7 +39,6 @@ public class User {
     private List<Slider> sliders;
     private List<Post> posts;
     private List<Reservation> reservations;
-    private List<MedicalExamination> examinations;
     private String avatar;
     private String verificationToken;
     private boolean verified;
