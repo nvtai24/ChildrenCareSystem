@@ -135,8 +135,8 @@
 
 
                         </form>
-                        <c:if test="${manager && r.status.statusName eq 'Pending'}">
-                            <div style="display: flex; align-content: center; justify-content: center; gap: 10px;">
+                        <div style="display: flex; align-content: center; justify-content: center; gap: 10px;">
+                            <c:if test="${manager && r.status.statusName eq 'Pending'}">
 
                                 <form action="reservation" method="POST" onsubmit="confirmChangeStatus(event)">
                                     <input type="hidden" name="reservation_id" value="${r.id}" />
@@ -153,8 +153,14 @@
                                         <i class="fa fa-times" aria-hidden="true"></i> Cancel
                                     </button>
                                 </form>
-                            </div>
-                        </c:if>
+
+                            </c:if>
+                            <c:if test="${manager && r.banking && r.status.statusName eq 'Cancelled'}">
+                                <button type="submit" class="btn red mb-2" onclick="preRefund('/app/reservation/refund?id=${r.id}')"> 
+                                    Refund
+                                </button>
+                            </c:if>
+                        </div>
 
                     </div>
 
@@ -167,7 +173,8 @@
                                     <th>Quantity</th>
                                     <th>Price</th>
                                     <th>Total</th>
-                                    <th>Assigned</th>
+                                    <th>Status</th>
+                                    <th>Assigned</th>                              
                                     <th style="text-align: center;">Action</th>
                                 </tr>
                             </thead>
@@ -178,6 +185,31 @@
                                         <td>${rd.quantity}</td>
                                         <td>${rd.price}</td>
                                         <td>${rd.quantity * rd.price}$</td>
+                                        <td> 
+                                            <c:if test="${rd.status.id == 1}">
+                                                <span class="badge badge-secondary mt-3" style="width: fit-content">Not Yet</span>
+                                            </c:if>
+
+                                            <c:if test="${rd.status.id == 2}">
+                                                <span class="badge badge-info mt-3" style="width: fit-content">Assigned</span>
+                                            </c:if>
+
+                                            <c:if test="${rd.status.id == 3}">
+                                                <span class="badge badge-danger mt-3" style="width: fit-content">Rejected</span>
+                                            </c:if>
+
+                                            <c:if test="${rd.status.id == 4}">
+                                                <span class="badge badge-success mt-3" style="width: fit-content">Confirmed</span>
+                                            </c:if>
+
+                                            <c:if test="${rd.status.id == 5}">
+                                                <span class="badge badge-warning mt-3" style="width: fit-content">Processing</span>
+                                            </c:if>
+
+                                            <c:if test="${rd.status.id == 6}">
+                                                <span class="badge badge-primary mt-3" style="width: fit-content">Completed</span>
+                                            </c:if>
+                                        </td>
                                         <td>${rd.staff.profile.lastName} ${rd.staff.profile.firstName}</td>                                        
                                         <td>
                                             <c:if test="${manager}">
