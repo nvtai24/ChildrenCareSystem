@@ -67,7 +67,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 int reservation_detail_id = Integer.parseInt(request.getParameter("reservation_detail_id"));
                 int staff_id = Integer.parseInt(request.getParameter("staff_id"));
 
-                if (rdDAO.assignStaff(staff_id, reservation_detail_id) && staff_id != -1) {
+                if (rdDAO.assignStaff(staff_id, reservation_detail_id) && staff_id != -1 && rdDAO.changeStatusReservationDetail(2, reservation_detail_id)) {
                     User staff = uDAO.get(staff_id);
                     subject = "You have been assigned a new service task";
                     String message = String.format(
@@ -85,7 +85,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
                     );
                     EmailUtil.sendReserveNotification(staff.getEmail(), subject, message);
                 }
-                
+
                 reservation = rDAO.getReservation(Integer.parseInt(reservationId));
                 request.setAttribute("r", reservation);
                 rdList = rdDAO.getListReservationDetail(reservation.getId());
@@ -102,7 +102,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 String message2 = generateReservationMessage(reservation, "Confirmed", formattedDateTime, null, serviceContent);
                 EmailUtil.sendReserveNotification(reservation.getEmail(), subject, message2);
                 rDAO.changeReservationStatus(2, reservation.getId()); // 2 - Confirmed
-                
+
                 reservation = rDAO.getReservation(Integer.parseInt(reservationId));
                 request.setAttribute("r", reservation);
                 request.setAttribute("rdList", rdList);
@@ -121,6 +121,65 @@ public class ReservationDetailBusinessController extends HttpServlet {
 
                 reservation = rDAO.getReservation(Integer.parseInt(reservationId));
                 request.setAttribute("r", reservation);
+                request.setAttribute("rdList", rdList);
+                staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
+                request.setAttribute("staffs", staffList);
+                request.setAttribute("manager", !isStaff);
+                request.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(request, response);
+            }
+
+            case "rejectD" -> {
+                int reservation_detail_id = Integer.parseInt(request.getParameter("reservation_detail_id"));
+                rdDAO.changeStatusReservationDetail(3, reservation_detail_id);
+
+                reservation = rDAO.getReservation(Integer.parseInt(reservationId));
+                request.setAttribute("r", reservation);
+                rdList = rdDAO.getListReservationDetail(reservation.getId());
+                request.setAttribute("rdList", rdList);
+                staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
+                request.setAttribute("staffs", staffList);
+                request.setAttribute("manager", !isStaff);
+                request.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(request, response);
+            }
+
+            case "confirmD" -> {
+
+                int reservation_detail_id = Integer.parseInt(request.getParameter("reservation_detail_id"));
+                rdDAO.changeStatusReservationDetail(4, reservation_detail_id);
+
+                reservation = rDAO.getReservation(Integer.parseInt(reservationId));
+                request.setAttribute("r", reservation);
+                rdList = rdDAO.getListReservationDetail(reservation.getId());
+                request.setAttribute("rdList", rdList);
+                staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
+                request.setAttribute("staffs", staffList);
+                request.setAttribute("manager", !isStaff);
+                request.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(request, response);
+            }
+
+            case "processD" -> {
+
+                int reservation_detail_id = Integer.parseInt(request.getParameter("reservation_detail_id"));
+                rdDAO.changeStatusReservationDetail(5, reservation_detail_id);
+
+                reservation = rDAO.getReservation(Integer.parseInt(reservationId));
+                request.setAttribute("r", reservation);
+                rdList = rdDAO.getListReservationDetail(reservation.getId());
+                request.setAttribute("rdList", rdList);
+                staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
+                request.setAttribute("staffs", staffList);
+                request.setAttribute("manager", !isStaff);
+                request.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(request, response);
+            }
+
+            case "completeD" -> {
+
+                int reservation_detail_id = Integer.parseInt(request.getParameter("reservation_detail_id"));
+                rdDAO.changeStatusReservationDetail(6, reservation_detail_id);
+
+                reservation = rDAO.getReservation(Integer.parseInt(reservationId));
+                request.setAttribute("r", reservation);
+                rdList = rdDAO.getListReservationDetail(reservation.getId());
                 request.setAttribute("rdList", rdList);
                 staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
                 request.setAttribute("staffs", staffList);
@@ -151,9 +210,15 @@ public class ReservationDetailBusinessController extends HttpServlet {
         ReservationDetailDAO rdDAO = new ReservationDetailDAO();
         int id = Integer.parseInt(req.getParameter("id"));
         boolean isStaff = roleDAO.checkStaffRole(userId);
-
         Reservation reservation = rDAO.getReservation(id);
-        ArrayList<ReservationDetail> rdList = rdDAO.getListReservationDetail(id);
+
+        ArrayList<ReservationDetail> rdList;
+        if (isStaff) {
+            rdList = rdDAO.getListReservationDetail(id, userId);
+        } else {
+            rdList = rdDAO.getListReservationDetail(id);
+        }
+
         ArrayList<User> staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
 
         req.setAttribute("r", reservation);

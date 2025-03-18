@@ -187,33 +187,41 @@
                                         <td>${rd.quantity * rd.price}$</td>
                                         <td> 
                                             <c:if test="${rd.status.id == 1}">
-                                                <span class="badge badge-secondary mt-3" style="width: fit-content">Not Yet</span>
+                                                <span class="badge badge-secondary " style="width: fit-content">Not Yet</span>
                                             </c:if>
 
                                             <c:if test="${rd.status.id == 2}">
-                                                <span class="badge badge-info mt-3" style="width: fit-content">Assigned</span>
+                                                <span class="badge badge-info" style="width: fit-content">Assigned</span>
                                             </c:if>
 
                                             <c:if test="${rd.status.id == 3}">
-                                                <span class="badge badge-danger mt-3" style="width: fit-content">Rejected</span>
+                                                <span class="badge badge-danger" style="width: fit-content">Rejected</span>
                                             </c:if>
 
                                             <c:if test="${rd.status.id == 4}">
-                                                <span class="badge badge-success mt-3" style="width: fit-content">Confirmed</span>
+                                                <span class="badge badge-success" style="width: fit-content">Confirmed</span>
                                             </c:if>
 
                                             <c:if test="${rd.status.id == 5}">
-                                                <span class="badge badge-warning mt-3" style="width: fit-content">Processing</span>
+                                                <span class="badge badge-warning" style="width: fit-content">Processing</span>
                                             </c:if>
 
                                             <c:if test="${rd.status.id == 6}">
-                                                <span class="badge badge-primary mt-3" style="width: fit-content">Completed</span>
+                                                <span class="badge badge-primary" style="width: fit-content">Completed</span>
                                             </c:if>
                                         </td>
                                         <td>${rd.staff.profile.lastName} ${rd.staff.profile.firstName}</td>                                        
-                                        <td>
-                                            <c:if test="${manager}">
+                                        <td style="display: flex; align-items: center; justify-content: center; gap: 5px;">
+                                            <c:if test="${manager && r.status.statusName eq 'Confirmed'}">
                                                 <form action="reservation" method="POST" style="display: flex; align-items: center; justify-content: center; gap: 5px;">
+                                                    <input type="hidden" name="servicename" value="${rd.service.name}" />
+                                                    <input type="hidden" name="quantity" value="${rd.quantity}" />
+                                                    <input type="hidden" name="price" value="${rd.price}" />
+                                                    <input type="hidden" name="action" value="assign" />
+                                                    <!-- Gửi reservation ID và reservation_detail_id qua form -->
+                                                    <input type="hidden" name="reservation_id" value="${r.id}" />
+                                                    <input type="hidden" name="reservation_detail_id" value="${rd.id}" />
+                                                    <input type="submit" class="btn btn-block btn-primary" value="Assign"/>
                                                     <select class="form-control" id="staff-select" name="staff_id">
                                                         <option value="-1" selected="">Choose staff</option>
                                                         <!-- Lặp qua danh sách nhân viên và tạo các option -->
@@ -223,16 +231,50 @@
                                                             </option>
                                                         </c:forEach>
                                                     </select>
-                                                    <input type="hidden" name="servicename" value="${rd.service.name}" />
-                                                    <input type="hidden" name="quantity" value="${rd.quantity}" />
-                                                    <input type="hidden" name="price" value="${rd.price}" />
-                                                    <input type="hidden" name="action" value="assign" />
+                                                </form>
+                                            </c:if>
+                                            <c:if test="${!manager && rd.status.id eq 2 && rd.staff.id eq id}">
+                                                <form action="reservation" method="POST" onsubmit="confirmChangeStatus(event)">
+
+                                                    <input type="hidden" name="action" value="rejectD" />
                                                     <!-- Gửi reservation ID và reservation_detail_id qua form -->
                                                     <input type="hidden" name="reservation_id" value="${r.id}" />
                                                     <input type="hidden" name="reservation_detail_id" value="${rd.id}" />
-                                                    <input type="submit" class="btn btn-block btn-primary" value="Assign"/>
+                                                    <input type="submit" class="btn red" value="Reject"/>
+                                                </form>
+                                                <form action="reservation" method="POST" onsubmit="confirmChangeStatus(event)">
+
+                                                    <input type="hidden" name="action" value="confirmD" />
+                                                    <!-- Gửi reservation ID và reservation_detail_id qua form -->
+                                                    <input type="hidden" name="reservation_id" value="${r.id}" />
+                                                    <input type="hidden" name="reservation_detail_id" value="${rd.id}" />
+                                                    <input type="submit" class="btn blue" value="Confirm"/>
                                                 </form>
                                             </c:if>
+                                            <c:if test="${!manager && rd.status.id eq 4 && rd.staff.id eq id}">
+
+                                                <form action="reservation" method="POST" onsubmit="confirmChangeStatus(event)">
+
+                                                    <input type="hidden" name="action" value="processD" />
+                                                    <!-- Gửi reservation ID và reservation_detail_id qua form -->
+                                                    <input type="hidden" name="reservation_id" value="${r.id}" />
+                                                    <input type="hidden" name="reservation_detail_id" value="${rd.id}" />
+                                                    <input type="submit" class="btn gray" value="Processing"/>
+                                                </form>
+                                            </c:if>
+                                            <c:if test="${!manager && rd.status.id eq 5 && rd.staff.id eq id}">
+
+                                                <form action="reservation" method="POST" onsubmit="confirmChangeStatus(event)">
+
+                                                    <input type="hidden" name="action" value="completeD" />
+                                                    <!-- Gửi reservation ID và reservation_detail_id qua form -->
+                                                    <input type="hidden" name="reservation_id" value="${r.id}" />
+                                                    <input type="hidden" name="reservation_detail_id" value="${rd.id}" />
+                                                    <input type="submit" class="btn green" value="Processing"/>
+                                                </form>
+                                            </c:if>
+
+
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -276,26 +318,26 @@
         <!-- DataTables  -->
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script>
-                                    function confirmChangeStatus(event) {
-                                        event.preventDefault();
+                                                    function confirmChangeStatus(event) {
+                                                        event.preventDefault();
 
-                                        Swal.fire({
-                                            title: "Are you sure?",
-                                            text: "Do you really want to change the status?",
-                                            icon: "warning",
-                                            showCancelButton: true,
-                                            confirmButtonColor: "#3085d6",
-                                            cancelButtonColor: "#d33",
-                                            confirmButtonText: "Yes, change it!",
-                                            cancelButtonText: "No, cancel!"
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                event.target.submit();
-                                            }
-                                        });
+                                                        Swal.fire({
+                                                            title: "Are you sure?",
+                                                            text: "Do you really want to change the status?",
+                                                            icon: "warning",
+                                                            showCancelButton: true,
+                                                            confirmButtonColor: "#3085d6",
+                                                            cancelButtonColor: "#d33",
+                                                            confirmButtonText: "Yes, change it!",
+                                                            cancelButtonText: "No, cancel!"
+                                                        }).then((result) => {
+                                                            if (result.isConfirmed) {
+                                                                event.target.submit();
+                                                            }
+                                                        });
 
-                                        return false;
-                                    }
+                                                        return false;
+                                                    }
         </script>
         <script>
             function confirmChangeStatusCancel(event) {
@@ -350,7 +392,7 @@
                     info: false,
                     dom: "t",
                     columnDefs: [
-                        {targets: [4, 5], orderable: false}, // Vô hiệu hóa sắp xếp ở cột Action
+                        {targets: [4, 6], orderable: false}, // Vô hiệu hóa sắp xếp ở cột Action
                     ],
                     drawCallback: function () {
                         updatePagination(this.api());
