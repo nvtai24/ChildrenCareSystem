@@ -39,4 +39,5 @@ public class Reservation {
 
     private double totalQuantity;
     private double totalPrice;
+    private String fullName;
 }

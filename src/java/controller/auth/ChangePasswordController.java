@@ -4,6 +4,7 @@
  */
 package controller.auth;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.auth.User;
+import util.PasswordUtil;
 
 /**
  *
@@ -54,7 +56,8 @@ public class ChangePasswordController extends HttpServlet {
         if (hasError) {
             response.getWriter().write("{\"status\":\"error\", \"message\":\"" + errorMessage + "\"}");
         } else {
-            boolean isUpdated = userDAO.updatePassword(userId, newPassword);
+            String hashedNewPassword = PasswordUtil.toSHA1(newPassword);
+            boolean isUpdated = userDAO.updatePassword(userId, hashedNewPassword);
             if (isUpdated) {
                 response.getWriter().write("{\"status\":\"success\", \"message\":\"Password changed successfully.\"}");
             } else {
