@@ -270,7 +270,7 @@
                                                     <!-- Gửi reservation ID và reservation_detail_id qua form -->
                                                     <input type="hidden" name="reservation_id" value="${r.id}" />
                                                     <input type="hidden" name="reservation_detail_id" value="${rd.id}" />
-                                                    <input type="submit" class="btn green" value="Processing"/>
+                                                    <input type="submit" class="btn green" value="Complete"/>
                                                 </form>
                                             </c:if>
 
@@ -355,6 +355,17 @@
             Swal.fire({
                 title: "Cannot Confirmed!",
                 text: "Not have enough available staff to do this reservation.",
+                icon: "error",
+                confirmButtonText: "OK",
+                didOpen: () => {
+                    document.querySelector(".swal2-select")?.remove();
+                }
+            });
+            </c:if>
+            <c:if test="${notification eq 3}">
+            Swal.fire({
+                title: "Cannot Confirmed!",
+                text: "Cannot change status please try again.",
                 icon: "error",
                 confirmButtonText: "OK",
                 didOpen: () => {

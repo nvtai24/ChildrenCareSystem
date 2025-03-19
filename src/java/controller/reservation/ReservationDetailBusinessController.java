@@ -139,7 +139,11 @@ public class ReservationDetailBusinessController extends HttpServlet {
 
             case "rejectD" -> {
                 int reservation_detail_id = Integer.parseInt(request.getParameter("reservation_detail_id"));
-                rdDAO.changeStatusReservationDetail(3, reservation_detail_id);
+                if (rdDAO.changeStatusReservationDetail(3, reservation_detail_id)) {
+                    notification = 1;
+                } else {
+                    notification = 3;
+                }
 
                 reservation = rDAO.getReservation(Integer.parseInt(reservationId));
                 request.setAttribute("r", reservation);
@@ -148,13 +152,18 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
                 request.setAttribute("staffs", staffList);
                 request.setAttribute("manager", !isStaff);
+                request.setAttribute("notification", notification);
                 request.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(request, response);
             }
 
             case "confirmD" -> {
 
                 int reservation_detail_id = Integer.parseInt(request.getParameter("reservation_detail_id"));
-                rdDAO.changeStatusReservationDetail(4, reservation_detail_id);
+                if (rdDAO.changeStatusReservationDetail(4, reservation_detail_id)) {
+                    notification = 0;
+                } else {
+                    notification = 3;
+                }
 
                 reservation = rDAO.getReservation(Integer.parseInt(reservationId));
                 request.setAttribute("r", reservation);
@@ -163,13 +172,18 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
                 request.setAttribute("staffs", staffList);
                 request.setAttribute("manager", !isStaff);
+                request.setAttribute("notification", notification);
                 request.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(request, response);
             }
 
             case "processD" -> {
 
                 int reservation_detail_id = Integer.parseInt(request.getParameter("reservation_detail_id"));
-                rdDAO.changeStatusReservationDetail(5, reservation_detail_id);
+                if (rdDAO.changeStatusReservationDetail(5, reservation_detail_id)) {
+                    notification = 1;
+                } else {
+                    notification = 3;
+                }
 
                 reservation = rDAO.getReservation(Integer.parseInt(reservationId));
                 request.setAttribute("r", reservation);
@@ -178,13 +192,18 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
                 request.setAttribute("staffs", staffList);
                 request.setAttribute("manager", !isStaff);
+                request.setAttribute("notification", notification);
                 request.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(request, response);
             }
 
             case "completeD" -> {
 
                 int reservation_detail_id = Integer.parseInt(request.getParameter("reservation_detail_id"));
-                rdDAO.changeStatusReservationDetail(6, reservation_detail_id);
+                if (rdDAO.changeStatusReservationDetail(6, reservation_detail_id)) {
+                    notification = 1;
+                } else {
+                    notification = 3;
+                }
 
                 reservation = rDAO.getReservation(Integer.parseInt(reservationId));
                 request.setAttribute("r", reservation);
@@ -193,6 +212,8 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
                 request.setAttribute("staffs", staffList);
                 request.setAttribute("manager", !isStaff);
+
+                request.setAttribute("notification", notification);
                 request.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(request, response);
             }
 
