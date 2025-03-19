@@ -164,7 +164,7 @@
 
                                             </td>
                                             <td class="align-middle">
-                                                <a class="btn green mb-2" href="reservation/info?id=${r.id}" style="color: white; width: 100px">
+                                                <a class="btn green" href="reservation/info?id=${r.id}" style="color: white; width: 100px">
                                                     View
                                                 </a>
                                             </td>

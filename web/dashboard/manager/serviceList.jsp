@@ -5,9 +5,7 @@
 --%>
 
 
-
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -203,7 +201,7 @@
                                         <input type="hidden" name="id" value="${s.id}">
                                         <input type="hidden" name="action" value="change">
                                         <button type="submit" class="btn ${s.status == 1 ? 'red mb-2' : 'green mb-2'}">
-                                            ${s.status == 1 ? '<i class="fa fa-refresh" aria-hidden="true"></i> Deactivate' : '<i class="fa fa-pencil" aria-hidden="true"></i> Activate'}
+                                            ${s.status == 1 ? '<i class="fa fa-refresh" aria-hidden="true"></i> Deactivate' : '<i class="fa fa-refresh" aria-hidden="true"></i> Activate'}
                                         </button>
                                     </form>
                                     <a href="../services/update?id=${s.id}" class="btn green mb-2"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
