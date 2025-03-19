@@ -57,7 +57,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
         //get parameter from form
         String reservationId = request.getParameter("reservation_id");
 
-        Reservation reservation = reservation = rDAO.getReservation(Integer.parseInt(reservationId));;
+        Reservation reservation = reservation = rDAO.getReservation(Integer.parseInt(reservationId));
         ArrayList<ReservationDetail> rdList = rdDAO.getListReservationDetail(reservation.getId());
         ArrayList<User> staffList;
         String serviceContent = reservation.getDetails().stream()
@@ -86,6 +86,10 @@ public class ReservationDetailBusinessController extends HttpServlet {
                             formattedDateTime
                     );
                     EmailUtil.sendReserveNotification(staff.getEmail(), subject, message);
+                }
+                
+                if(staff_id == -1){
+                    rdDAO.changeStatusReservationDetail(1, reservation_detail_id);
                 }
 
                 reservation = rDAO.getReservation(Integer.parseInt(reservationId));
@@ -160,7 +164,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
 
                 int reservation_detail_id = Integer.parseInt(request.getParameter("reservation_detail_id"));
                 if (rdDAO.changeStatusReservationDetail(4, reservation_detail_id)) {
-                    notification = 0;
+                    notification = 1;
                 } else {
                     notification = 3;
                 }
@@ -203,6 +207,13 @@ public class ReservationDetailBusinessController extends HttpServlet {
                     notification = 1;
                 } else {
                     notification = 3;
+                }
+                
+                reservation = rDAO.getReservation(Integer.parseInt(reservationId));
+                if (reservation.getStatus().getId() == 3) {
+                    subject = "Reservation Completed!";
+                    String message1 = generateReservationMessage(reservation, "Completed", formattedDateTime, request.getParameter("reason"), serviceContent);
+                    EmailUtil.sendReserveNotification(reservation.getEmail(), subject, message1);
                 }
 
                 reservation = rDAO.getReservation(Integer.parseInt(reservationId));
@@ -264,12 +275,12 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 "Dear %s %s,\n\n"
                 + "Your reservation has been %s.\n\n"
                 + "-----------------------------------------\n"
-                + "🗓 %s time: %s \n"
+                + "+ %s time: %s \n"
                 + "%s"
-                + "📞 Phone: %s\n"
-                + "📧 Email: %s\n"
-                + "📌 Reservation ID: %d\n"
-                + "💳 Payment Method: On Arrival\n"
+                + "+ Phone: %s\n"
+                + "+ Email: %s\n"
+                + "+ Reservation ID: %d\n"
+                + "+ Payment Method: On Arrival\n"
                 + "-----------------------------------------\n\n"
                 + "Services:\n%s\n\n"
                 + "Thank you for using our service!\n"
@@ -277,7 +288,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 r.getFirstName(), r.getLastName(),
                 action,
                 action.equals("Cancelled") ? "Cancelled" : "Confirmed", formattedDateTime,
-                reason != null ? "📧 Reason: " + reason.trim() + "\n" : "",
+                reason != null ? "+ Reason: " + reason.trim() + "\n" : "",
                 r.getPhone(), r.getEmail(),
                 r.getId(),
                 serviceContent
