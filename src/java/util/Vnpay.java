@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package vnpay;
+package util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.net.URLEncoder;
@@ -31,9 +31,9 @@ public class Vnpay {
             String vnp_Version = "2.1.0";
             String vnp_Command = "pay";
             String orderType = "other";  // Hoặc lấy từ request parameter
-            String vnp_TxnRef = Config.getRandomNumber(8) + System.nanoTime(); // Tạo mã giao dịch ngẫu nhiên
-            String vnp_IpAddr = Config.getIpAddress(request);
-            String vnp_TmnCode = Config.vnp_TmnCode;
+            String vnp_TxnRef = VnpayConfig.getRandomNumber(8) + System.nanoTime(); // Tạo mã giao dịch ngẫu nhiên
+            String vnp_IpAddr = VnpayConfig.getIpAddress(request);
+            String vnp_TmnCode = VnpayConfig.vnp_TmnCode;
 
             // Tính số tiền thanh toán (lấy từ session hoặc tính từ các chi tiết)
             long totalAmount = (long) (amount * 100 * 23500); // Quy đổi tiền thành đơn vị VND (hệ số 100)
@@ -54,7 +54,7 @@ public class Vnpay {
             vnp_Params.put("vnp_OrderInfo", "Transaction Reference: " + vnp_TxnRef + ", " + serviceContent);
             vnp_Params.put("vnp_OrderType", orderType);
             vnp_Params.put("vnp_Locale", "vn");
-            vnp_Params.put("vnp_ReturnUrl", Config.vnp_ReturnUrl);
+            vnp_Params.put("vnp_ReturnUrl", VnpayConfig.vnp_ReturnUrl);
             vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
             // Thêm thời gian tạo giao dịch
@@ -91,9 +91,9 @@ public class Vnpay {
 
             // Tạo secure hash
             String queryUrl = query.toString();
-            String vnp_SecureHash = Config.hmacSHA512(Config.vnp_HashSecret, hashData.toString());
+            String vnp_SecureHash = VnpayConfig.hmacSHA512(VnpayConfig.vnp_HashSecret, hashData.toString());
             queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
-            return Config.vnp_PayUrl + "?" + queryUrl;
+            return VnpayConfig.vnp_PayUrl + "?" + queryUrl;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,9 +113,9 @@ public class Vnpay {
         try {
             String vnp_Version = "2.1.0";
             String vnp_Command = "refund";
-            String vnp_TmnCode = Config.vnp_TmnCode;
-            String vnp_TxnRef = Config.getRandomNumber(8); // Mã giao dịch hoàn tiền mới
-            String vnp_IpAddr = Config.getIpAddress(request);
+            String vnp_TmnCode = VnpayConfig.vnp_TmnCode;
+            String vnp_TxnRef = VnpayConfig.getRandomNumber(8); // Mã giao dịch hoàn tiền mới
+            String vnp_IpAddr = VnpayConfig.getIpAddress(request);
 
             // Tạo map chứa tham số
             Map<String, String> vnp_Params = new HashMap<>();
@@ -165,10 +165,10 @@ public class Vnpay {
 
             // Tạo secure hash
             String queryUrl = query.toString();
-            String vnp_SecureHash = Config.hmacSHA512(Config.vnp_HashSecret, hashData.toString());
+            String vnp_SecureHash = VnpayConfig.hmacSHA512(VnpayConfig.vnp_HashSecret, hashData.toString());
             queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
             
-            return Config.vnp_RefundUrl + "?" + queryUrl;
+            return VnpayConfig.vnp_RefundUrl + "?" + queryUrl;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

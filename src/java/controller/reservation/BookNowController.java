@@ -35,8 +35,8 @@ import model.ReservationDetail;
 import model.Service;
 import model.auth.User;
 import util.EmailUtil;
-import vnpay.Config;
-import vnpay.Vnpay;
+import util.VnpayConfig;
+import util.Vnpay;
 
 /**
  *
