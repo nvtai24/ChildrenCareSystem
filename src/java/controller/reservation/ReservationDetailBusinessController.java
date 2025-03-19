@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import model.Reservation;
 import model.ReservationDetail;
@@ -51,6 +52,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = currentDateTime.format(formatter);
         String subject = "";
+        int notification;
 
         //get parameter from form
         String reservationId = request.getParameter("reservation_id");
@@ -98,17 +100,23 @@ public class ReservationDetailBusinessController extends HttpServlet {
 
             case "confirm" -> {
 
-                subject = "Reservation confirmed!";
-                String message2 = generateReservationMessage(reservation, "Confirmed", formattedDateTime, null, serviceContent);
-                EmailUtil.sendReserveNotification(reservation.getEmail(), subject, message2);
-                rDAO.changeReservationStatus(2, reservation.getId()); // 2 - Confirmed
+                staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
+                if (checkEnoughStaffDoReservation(staffList, reservation.getDetails())) {
+                    subject = "Reservation confirmed!";
+                    String message2 = generateReservationMessage(reservation, "Confirmed", formattedDateTime, null, serviceContent);
+                    EmailUtil.sendReserveNotification(reservation.getEmail(), subject, message2);
+                    rDAO.changeReservationStatus(2, reservation.getId()); // 2 - Confirmed
+                    notification = 1;
+                } else {
+                    notification = 0;
+                }
 
                 reservation = rDAO.getReservation(Integer.parseInt(reservationId));
                 request.setAttribute("r", reservation);
                 request.setAttribute("rdList", rdList);
-                staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
                 request.setAttribute("staffs", staffList);
                 request.setAttribute("manager", !isStaff);
+                request.setAttribute("notification", notification);
                 request.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(request, response);
             }
 
@@ -118,13 +126,14 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 String message1 = generateReservationMessage(reservation, "Cancelled", formattedDateTime, request.getParameter("reason"), serviceContent);
                 EmailUtil.sendReserveNotification(reservation.getEmail(), subject, message1);
                 rDAO.changeReservationStatus(4, reservation.getId()); // 4 - Cancelled
-
+                notification = 1;
                 reservation = rDAO.getReservation(Integer.parseInt(reservationId));
                 request.setAttribute("r", reservation);
                 request.setAttribute("rdList", rdList);
                 staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
                 request.setAttribute("staffs", staffList);
                 request.setAttribute("manager", !isStaff);
+                request.setAttribute("notification", notification);
                 request.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(request, response);
             }
 
@@ -227,8 +236,8 @@ public class ReservationDetailBusinessController extends HttpServlet {
         req.setAttribute("manager", !isStaff);
         req.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(req, resp);
     }
-
     // Phương thức tạo thông báo cho email
+
     private String generateReservationMessage(Reservation r, String action, String formattedDateTime, String reason, String serviceContent) {
         return String.format(
                 "Dear %s %s,\n\n"
@@ -252,6 +261,11 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 r.getId(),
                 serviceContent
         );
+    }
+
+    private boolean checkEnoughStaffDoReservation(ArrayList<User> staffListAvailability, List<ReservationDetail> reservationDetailList) {
+
+        return staffListAvailability.size() >= reservationDetailList.size();
     }
 
 }

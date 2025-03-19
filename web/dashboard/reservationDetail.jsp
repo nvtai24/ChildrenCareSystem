@@ -340,6 +340,30 @@
                                                     }
         </script>
         <script>
+            <c:if test="${notification eq 1}">
+            Swal.fire({
+                title: "Success!",
+                text: "The reservation change status successfully.",
+                icon: "success",
+                confirmButtonText: "OK",
+                didOpen: () => {
+                    document.querySelector(".swal2-select")?.remove();
+                }
+            });
+            </c:if>
+            <c:if test="${notification eq 0}">
+            Swal.fire({
+                title: "Cannot Confirmed!",
+                text: "Not have enough available staff to do this reservation.",
+                icon: "error",
+                confirmButtonText: "OK",
+                didOpen: () => {
+                    document.querySelector(".swal2-select")?.remove();
+                }
+            });
+            </c:if>
+        </script>
+        <script>
             function confirmChangeStatusCancel(event) {
                 event.preventDefault();
 
