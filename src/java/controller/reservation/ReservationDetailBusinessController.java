@@ -92,7 +92,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 request.setAttribute("r", reservation);
                 rdList = rdDAO.getListReservationDetail(reservation.getId());
                 request.setAttribute("rdList", rdList);
-                staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
+                staffList = uDAO.getAvailableStaff(reservation.getReverseDate(), reservation.getId());
                 request.setAttribute("staffs", staffList);
                 request.setAttribute("manager", !isStaff);
                 request.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(request, response);
@@ -100,12 +100,12 @@ public class ReservationDetailBusinessController extends HttpServlet {
 
             case "confirm" -> {
 
-                staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
-                if (checkEnoughStaffDoReservation(staffList, reservation.getDetails())) {
+                staffList = uDAO.getAvailableStaff(reservation.getReverseDate(), reservation.getId());
+                if (checkEnoughStaffDoReservation(staffList)) {
                     subject = "Reservation confirmed!";
                     String message2 = generateReservationMessage(reservation, "Confirmed", formattedDateTime, null, serviceContent);
                     EmailUtil.sendReserveNotification(reservation.getEmail(), subject, message2);
-                    rDAO.changeReservationStatus(2, reservation.getId()); // 2 - Confirmed
+                    rDAO.changeReservationStatus(2, reservation.getId());
                     notification = 1;
                 } else {
                     notification = 0;
@@ -130,7 +130,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 reservation = rDAO.getReservation(Integer.parseInt(reservationId));
                 request.setAttribute("r", reservation);
                 request.setAttribute("rdList", rdList);
-                staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
+                staffList = uDAO.getAvailableStaff(reservation.getReverseDate(), reservation.getId());
                 request.setAttribute("staffs", staffList);
                 request.setAttribute("manager", !isStaff);
                 request.setAttribute("notification", notification);
@@ -149,7 +149,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 request.setAttribute("r", reservation);
                 rdList = rdDAO.getListReservationDetail(reservation.getId());
                 request.setAttribute("rdList", rdList);
-                staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
+                staffList = uDAO.getAvailableStaff(reservation.getReverseDate(), reservation.getId());
                 request.setAttribute("staffs", staffList);
                 request.setAttribute("manager", !isStaff);
                 request.setAttribute("notification", notification);
@@ -169,7 +169,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 request.setAttribute("r", reservation);
                 rdList = rdDAO.getListReservationDetail(reservation.getId());
                 request.setAttribute("rdList", rdList);
-                staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
+                staffList = uDAO.getAvailableStaff(reservation.getReverseDate(), reservation.getId());
                 request.setAttribute("staffs", staffList);
                 request.setAttribute("manager", !isStaff);
                 request.setAttribute("notification", notification);
@@ -189,7 +189,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 request.setAttribute("r", reservation);
                 rdList = rdDAO.getListReservationDetail(reservation.getId());
                 request.setAttribute("rdList", rdList);
-                staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
+                staffList = uDAO.getAvailableStaff(reservation.getReverseDate(), reservation.getId());
                 request.setAttribute("staffs", staffList);
                 request.setAttribute("manager", !isStaff);
                 request.setAttribute("notification", notification);
@@ -209,7 +209,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 request.setAttribute("r", reservation);
                 rdList = rdDAO.getListReservationDetail(reservation.getId());
                 request.setAttribute("rdList", rdList);
-                staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
+                staffList = uDAO.getAvailableStaff(reservation.getReverseDate(), reservation.getId());
                 request.setAttribute("staffs", staffList);
                 request.setAttribute("manager", !isStaff);
 
@@ -222,7 +222,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 reservation = rDAO.getReservation(Integer.parseInt(reservationId));
                 request.setAttribute("r", reservation);
                 request.setAttribute("rdList", rdList);
-                staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
+                staffList = uDAO.getAvailableStaff(reservation.getReverseDate(), reservation.getId());
                 request.setAttribute("staffs", staffList);
                 request.setAttribute("manager", !isStaff);
                 request.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(request, response);
@@ -249,7 +249,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
             rdList = rdDAO.getListReservationDetail(id);
         }
 
-        ArrayList<User> staffList = uDAO.getAvailableStaff(reservation.getReverseDate());
+        ArrayList<User> staffList = uDAO.getAvailableStaff(reservation.getReverseDate(), id);
 
         req.setAttribute("r", reservation);
         req.setAttribute("rdList", rdList);
@@ -284,9 +284,8 @@ public class ReservationDetailBusinessController extends HttpServlet {
         );
     }
 
-    private boolean checkEnoughStaffDoReservation(ArrayList<User> staffListAvailability, List<ReservationDetail> reservationDetailList) {
-
-        return staffListAvailability.size() >= reservationDetailList.size();
+    private boolean checkEnoughStaffDoReservation(ArrayList<User> staffListAvailability) {
+        return !staffListAvailability.isEmpty();
     }
 
 }

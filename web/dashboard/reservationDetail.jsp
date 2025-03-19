@@ -133,9 +133,17 @@
                                 <textarea class="form-control" id="note" name="note" readonly>${r.note}</textarea>
                             </div>
 
+                            <div class="form-group">
+                                <label for="note">Pay method</label>
+                                <div>
+                                    <c:if test="${r.banking}"><i class="fa fa-credit-card" aria-hidden="true"></i> Banking online</c:if>
+                                    <c:if test="${!r.banking}"><i class="fa fa-money" aria-hidden="true"></i> Cash Payment</c:if>
+                                    </div>
 
-                        </form>
-                        <div style="display: flex; align-content: center; justify-content: center; gap: 10px;">
+                                </div>
+
+                            </form>
+                            <div style="display: flex; align-content: center; justify-content: center; gap: 10px;">
                             <c:if test="${manager && r.status.statusName eq 'Pending'}">
 
                                 <form action="reservation" method="POST" onsubmit="confirmChangeStatus(event)">
