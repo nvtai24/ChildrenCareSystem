@@ -147,7 +147,6 @@
                                                         <td class="font-weight-bold total-price align-middle">$${i.price * i.quantity}</td>
 
                                                         <td class="align-middle">
-
                                                             <c:if test="${i.status.id == 1}">
                                                                 <span class="badge badge-secondary mt-3" style="width: fit-content">Not Yet</span>
                                                             </c:if>

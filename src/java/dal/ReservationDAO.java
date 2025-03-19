@@ -123,6 +123,7 @@ public class ReservationDAO extends DBContext {
                 + "    s.name AS sname,\n"
                 + "    rd.quantity,\n"
                 + "    rd.price,\n"
+                + "    rds.id AS detail_tatus_id,\n"
                 + "    rds.status AS detail_tatus\n"
                 + "FROM\n"
                 + "    reservation r\n"
@@ -186,8 +187,10 @@ public class ReservationDAO extends DBContext {
                 int sid = rs.getInt("service_id");
                 String sname = rs.getString("sname");
 
+                int detailStatusId = rs.getInt("detail_tatus_id");
                 String detailStatus = rs.getString("detail_tatus");
                 ReservationDetailStatus rds = new ReservationDetailStatus();
+                rds.setId(detailStatusId);
                 rds.setStatus(detailStatus);
 
                 Service s = new Service().builder()
