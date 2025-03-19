@@ -833,7 +833,7 @@ public class UserDAO extends DBContext {
                 + "FROM user u\n"
                 + "JOIN profile p ON u.id = p.userid\n"
                 + "WHERE u.status = 1 \n"
-                + "AND u.role_id IN (2, 3, 4) \n"
+                + "AND u.role_id IN (13, 14, 15) \n"
                 + "AND DATE(u.created_date) >= DATE(NOW()) - INTERVAL 7 DAY\n"
                 + "ORDER BY u.created_date DESC \n"
                 + "LIMIT 5;";
@@ -855,6 +855,27 @@ public class UserDAO extends DBContext {
         }
         return users;
     }
+    
+    public int countUsersInLast7Days() {
+        int totalUsers = 0;
+        String query = "SELECT COUNT(*) AS total_users "
+                + "FROM user "
+                + "WHERE role_id IN (13, 14, 15)"
+                + "AND DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY";
+
+        try {
+            ResultSet rs = executeQuery(query);
+            if (rs.next()) {
+                totalUsers = rs.getInt("total_users");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalUsers;
+    }
+
+
 
     public ArrayList<User> getAvailableStaff(LocalDateTime reserveDate, int reservationId) {
         DBContext db = new DBContext();

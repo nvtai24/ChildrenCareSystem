@@ -50,7 +50,7 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String action = request.getParameter("action");
         UserDAO userDAO = new UserDAO();
 
@@ -117,7 +117,7 @@ public class RegisterController extends HttpServlet {
             newProfile.setUser(user); // Set userId after the user is inserted
             newProfile.setFirstName(firstname);
             newProfile.setLastName(lastname);
-            boolean genderValue = "1".equals(gender);  
+            boolean genderValue = "1".equals(gender);
             newProfile.setGender(genderValue);
             newProfile.setDob(java.sql.Date.valueOf(dob));
             newProfile.setAddress(address);
@@ -127,8 +127,10 @@ public class RegisterController extends HttpServlet {
             boolean isProfileSaved = profileDAO.saveProfile(newProfile);
 
             if (isProfileSaved) {
-                
-                String verificationLink = "http://localhost:8080/app/verify?token=" + token + "&redirect=login";
+
+                String serverPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+                String contextPath = request.getContextPath();
+                String verificationLink = serverPath + contextPath + "/verify?token=" + token + "&redirect=login";
                 EmailUtil.sendVerificationEmail(email, verificationLink);
                 request.setAttribute("successMessage", "A verify link has been sent to your email.");
                 request.getRequestDispatcher("register.jsp").forward(request, response);
@@ -140,6 +142,6 @@ public class RegisterController extends HttpServlet {
             request.setAttribute("error", "Registration failed. Please try again.");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
-        
+
     }
 }

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import model.Reservation;
 import model.WishList;
 import util.EmailUtil;
-import vnpay.Vnpay;
+import util.Vnpay;
 
 public class PaymentController extends HttpServlet {
 

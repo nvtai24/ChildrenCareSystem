@@ -168,7 +168,7 @@
         }
 
         .search-container input {
-            margin-right: 8px; 
+            margin-right: 8px;
         }
 
         /* ----- Responsive trên màn hình nhỏ ----- */
@@ -285,11 +285,12 @@
                                             </div>
                                             <div class="info-bx">
                                                 <ul class="media-post">
-                                                    <li><a><i class="fa fa-calendar"></i>${post.createdDate}</a></li>    
+                                                    <li><a><i class="fa fa-calendar"></i>${post.createdDateOnly}</a></li>
+                                                    <li><a><i class="fa fa-clock-o" aria-hidden="true"></i>${post.createdTimeOnly}</a></li>    
                                                     <li><a><i class="fa fa-user"></i>By ${post.username}</a></li>
                                                 </ul>
                                                 <h5 class="post-title"><a href="blog?id=${post.id}">${post.title}</a></h5>
-                                                <p>${post.content}</p>
+                                                <p>${post.briefInfo}</p>
                                                 <div class="post-extra">
                                                     <a href="blog?id=${post.id}" class="btn-link">READ MORE</a>
                                                 </div>

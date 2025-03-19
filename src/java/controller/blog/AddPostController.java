@@ -86,6 +86,7 @@ public class AddPostController extends HttpServlet {
             throws ServletException, IOException {
         String title = request.getParameter("title");
         String content = request.getParameter("content");
+        String brief_info = request.getParameter("brief_info");
 
         HttpSession session = request.getSession();
         int currentUserId = 0;
@@ -142,7 +143,7 @@ public class AddPostController extends HttpServlet {
 
         // Lưu vào database
         PostDAO postDAO = new PostDAO();
-        boolean result1 = postDAO.AddNewPost(title, "assets/images/blog/" + fileName1, content, currentUserId);
+        boolean result1 = postDAO.AddNewPost(title, "assets/images/blog/" + fileName1, content, brief_info, currentUserId);
 
         if (result1) {
             session.setAttribute("MESSAGE", "Add post successfully!");

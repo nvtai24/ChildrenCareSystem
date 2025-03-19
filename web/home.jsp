@@ -258,7 +258,7 @@
                                              data-no-retina />
 
                                         <!-- LAYER NR. 1 -->
-                                        <a href="/app/${slider.backLink}"><div class="tp-caption tp-shape tp-shapewrapper " 
+                                        <a href="/app${slider.backLink}"><div class="tp-caption tp-shape tp-shapewrapper " 
                                                                                id="slide-100-layer-1" 
                                                                                data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
                                                                                data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" 
@@ -277,7 +277,7 @@
                                                                                data-paddingleft="[0,0,0,0]"
                                                                                style="z-index: 5;background-color:rgba(2, 0, 11, 0.80);border-color:rgba(0, 0, 0, 0);border-width:0px;"> </div></a>
                                         <!-- LAYER NR. 2 -->
-                                        <a href="/app/${slider.backLink}"><div class="tp-caption Newspaper-Title   tp-resizeme" 
+                                        <a href="/app${slider.backLink}"><div class="tp-caption Newspaper-Title   tp-resizeme" 
                                                                                id="slide-100-layer-2" 
                                                                                data-x="['center','center','center','center']" 
                                                                                data-hoffset="['0','0','0','0']" 
@@ -301,7 +301,7 @@
                                             </div></a>
 
                                         <!-- LAYER NR. 3 -->
-                                        <a href="/app/${slider.backLink}"><div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
+                                        <a href="/app${slider.backLink}"><div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
                                                                                id="slide-100-layer-3" 
                                                                                data-x="['center','center','center','center']" 
                                                                                data-hoffset="['0','0','0','0']" 
@@ -323,7 +323,7 @@
                                             </div></a>
 
                                         <!-- LAYER NR. 3 -->
-                                        <a href="/app/${slider.backLink}"><div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
+                                        <a href="/app${slider.backLink}"><div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
                                                                                id="slide-100-layer-4" 
                                                                                data-x="['center','center','center','center']" 
                                                                                data-hoffset="['0','0','0','0']" 
@@ -364,7 +364,7 @@
                                         </div>
                                         <div class="info-bx text-center">
 
-                                            <h4><a href="#">Professional Service</a></h4>
+                                            <h4><a >Professional Service</a></h4>
 
                                         </div>
                                     </div>
@@ -376,7 +376,7 @@
                                         </div>
                                         <div class="info-bx text-center">
 
-                                            <h4><a href="#">Give Parents Peace Of Mind</a></h4>
+                                            <h4><a >Give Parents Peace Of Mind</a></h4>
 
                                         </div>
                                     </div>
@@ -388,7 +388,7 @@
                                         </div>
                                         <div class="info-bx text-center">
 
-                                            <h4><a href="#">Build Good Habits</a></h4>
+                                            <h4><a >Build Good Habits</a></h4>
 
                                         </div>
                                     </div>
@@ -444,7 +444,7 @@
                                 <div class="col-md-12 heading-bx left">
 
 
-                                    <h2 class="title-head">Blog</h2>
+                                    <h2 class="title-head">Blogs</h2>
 
 
                                 </div>
@@ -459,13 +459,14 @@
                                                 </div>
                                                 <div class="info-bx">
                                                     <ul class="media-post">
-                                                        <li><a><i class="fa fa-calendar"></i>${post.createdDate}</a></li>
+                                                        <li><a><i class="fa fa-calendar"></i>${post.createdDateOnly}</a></li>
+                                                        <li><a><i class="fa fa-clock-o" aria-hidden="true"></i>${post.createdTimeOnly}</a></li>
                                                         <li><a><i class="fa fa-user"></i>By ${post.username}</a></li>
                                                     </ul>
                                                     <h5 class="post-title">
                                                         <a href="blog?id=${post.id}">${post.title}</a>
                                                     </h5>
-                                                    <p>${post.content}</p>
+                                                    <p>${post.briefInfo}</p>
                                                     <div class="post-extra">
                                                         <a href="blog?id=${post.id}">READ MORE</a>
                                                     </div>

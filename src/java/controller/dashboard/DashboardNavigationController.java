@@ -4,6 +4,7 @@
  */
 package controller.dashboard;
 
+import dal.FeedbackDAO;
 import dal.ReservationDAO;
 import dal.ReservationDetailDAO;
 import dal.UserDAO;
@@ -40,9 +41,12 @@ public class DashboardNavigationController extends HttpServlet {
         User account = (User) session.getAttribute("account");
         ReservationDAO reservationDAO = new ReservationDAO();
         UserDAO userDAO = new UserDAO();
+        FeedbackDAO feedbackDAO = new FeedbackDAO();
         List<Reservation> reservations = reservationDAO.getRecentReservations();
         List<User> latestUsers = userDAO.getLatestFiveUsers();
         ReservationDetailDAO dao = new ReservationDetailDAO();
+        int totalFeedback = feedbackDAO.countFeedbackInLast7Days();
+        int totalUsers = userDAO.countUsersInLast7Days();
         double totalRevenue = dao.getTotalRevenue();
         int totalReservations = reservationDAO.countReservationsInLast7Days();
         int totalReservations1 = reservationDAO.countReservations1InLast7Days();
@@ -57,6 +61,8 @@ public class DashboardNavigationController extends HttpServlet {
         request.setAttribute("reservations", reservations);
         request.setAttribute("latestUsers", latestUsers);
         request.setAttribute("totalRevenue", totalRevenue);
+        request.setAttribute("totalUsers", totalUsers);
+        request.setAttribute("totalFeedback", totalFeedback);
 
         request.getRequestDispatcher("dashboard/dashboard.jsp").forward(request, response);
     }
