@@ -45,7 +45,10 @@ public class ForgetPasswordController extends HttpServlet {
             boolean isTokenGenerated = userDAO.generatePasswordResetToken(user.getId(), token, new Timestamp(expirationTime));
 
             if (isTokenGenerated) {
-                String resetLink = "http://localhost:8082/app/reset?token=" + token;
+                //String resetLink = "http://localhost:8082/app/reset?token=" + token;
+                String serverPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+                String contextPath = request.getContextPath();
+                String resetLink = serverPath + contextPath + "/reset?token=" + token;
                 EmailUtil.sendResetPasswordEmail(email, resetLink);
                 request.setAttribute("successMessage", "A reset password link has been sent to your email.");
                 request.getRequestDispatcher("forget-password.jsp").forward(request, response);

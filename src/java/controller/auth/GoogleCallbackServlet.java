@@ -19,25 +19,27 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.auth.User;
 import org.json.JSONObject;
+import util.PasswordUtil;
 
 public class GoogleCallbackServlet extends HttpServlet {
     private static final String CLIENT_ID = "481466145521-si59hh8m95j78lmurspingd4q14ffc4q.apps.googleusercontent.com";
     private static final String CLIENT_SECRET = "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";
-    private static final String REDIRECT_URI = "http://localhost:8080/app/callback";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String serverPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        String contextPath = request.getContextPath();
+        String redirectUri = serverPath + contextPath + "/callback";
         String code = request.getParameter("code");
         if (code == null || code.isEmpty()) {
             response.getWriter().println("Login failed!");
             return;
         }
 
-        // Đổi mã code lấy access token
         String tokenEndpoint = "https://oauth2.googleapis.com/token";
         String params = "code=" + code
                 + "&client_id=" + CLIENT_ID
                 + "&client_secret=" + CLIENT_SECRET
-                + "&redirect_uri=" + REDIRECT_URI
+                + "&redirect_uri=" + redirectUri
                 + "&grant_type=authorization_code";
 
         URL url = new URL(tokenEndpoint);
@@ -50,7 +52,6 @@ public class GoogleCallbackServlet extends HttpServlet {
             os.write(params.getBytes());
         }
 
-        // Đọc phản hồi từ Google
         Scanner scanner = new Scanner(conn.getInputStream());
         StringBuilder responseBody = new StringBuilder();
         while (scanner.hasNext()) {
@@ -61,7 +62,6 @@ public class GoogleCallbackServlet extends HttpServlet {
         JSONObject json = new JSONObject(responseBody.toString());
         String accessToken = json.getString("access_token");
 
-        // Lấy thông tin user từ Google
         URL userInfoURL = new URL("https://www.googleapis.com/oauth2/v2/userinfo?access_token=" + accessToken);
         conn = (HttpURLConnection) userInfoURL.openConnection();
         conn.setRequestMethod("GET");
@@ -80,13 +80,12 @@ public class GoogleCallbackServlet extends HttpServlet {
         UserDAO userDAO = new UserDAO();
         User user = userDAO.getUserByEmail(email);
         if (user == null) {
-            // Nếu chưa có user, tạo mới
             String defaultPassword = "123456";
-            userDAO.createUser(email, name, defaultPassword);
+            String hashedPassword = PasswordUtil.toSHA1(defaultPassword);
+            userDAO.createUser(email, name, hashedPassword);
             user = userDAO.getUserByEmail(email);
         }
 
-        // Lưu user vào session
         HttpSession session = request.getSession();
         session.setAttribute("account", user);
 
