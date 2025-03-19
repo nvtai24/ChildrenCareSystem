@@ -64,6 +64,7 @@ public class UpdatePostController extends HttpServlet {
             int postId = Integer.parseInt(request.getParameter("id"));
             String title = request.getParameter("title");
             String content = request.getParameter("content");
+            String brief_info = request.getParameter("brief_info");
             
             HttpSession session = request.getSession();
             int currentUserId = 0;
@@ -130,15 +131,16 @@ public class UpdatePostController extends HttpServlet {
                 fileName = existingPost.getThumbnail();  // Giữ nguyên ảnh cũ
             }
 
-            // Cập nhật thông tin vào đối tượng Slider
+            
             Post post = new Post();
             post.setTitle(title);
             post.setId(postId);
             post.setContent(content);
+            post.setBriefInfo(brief_info);
             post.setThumbnail(fileName); // Lưu đường dẫn ảnh vào database
 
             
-            // Cập nhật Slider trong database
+            
             boolean result = postDAO.updatePost(post);
 
             if (result) {
@@ -147,7 +149,7 @@ public class UpdatePostController extends HttpServlet {
                 session.setAttribute("MESSAGE", "Update post failed");
             }
 
-            // Chuyển hướng về trang slider sau khi cập nhật
+            
             response.sendRedirect(request.getContextPath() + "/posts");
         } catch (Exception e) {
             e.printStackTrace();

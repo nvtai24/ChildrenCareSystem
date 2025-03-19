@@ -97,13 +97,19 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-12">
-                                        <h3>2. Content</h3>
+                                        <h3>2. Brief Infomation</h3>
+                                        <div>
+                                            <input name="brief_info" class="form-control" type="text" placeholder="Type anything..." required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <h3>3. Content</h3>
                                         <div>
                                             <textarea id="content" name="content" class="form-control" rows="5" required></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group col-6">
-                                        <h3>3. Thumbnail</h3>
+                                        <h3>4. Thumbnail</h3>
                                         <div>
                                             <input class="form-control" type="file" name="thumbnail" accept="image/*" required>
                                         </div>
