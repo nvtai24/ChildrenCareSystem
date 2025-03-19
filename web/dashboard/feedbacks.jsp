@@ -43,7 +43,7 @@
         <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/color/color-1.css">
         <!-- DATA TABLES ============================================= -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-        
+
         <style>
             div.dataTables_wrapper div.dataTables_paginate {
                 display: flex;
@@ -64,28 +64,28 @@
                 padding: 5px 10px;
                 margin: 0 5px;
             }
-            
+
             .feedback-container {
                 margin-bottom: 20px;
             }
-            
+
             /* Hide elements when using DataTable to avoid display conflicts */
             .dataTables_length, .dataTables_filter {
                 display: none;
             }
-            
+
             .toolbar {
                 margin-bottom: 20px;
             }
-            
+
             .badge-success {
                 background-color: #36b37e;
             }
-            
+
             .badge-danger {
                 background-color: #ff5630;
             }
-            
+
             .badge {
                 padding: 5px 10px;
                 border-radius: 4px;
@@ -112,7 +112,7 @@
                         <li>Feedback</li>
                     </ul>
                 </div>
-                
+
                 <!-- Add filter section -->
                 <div class="toolbar">
                     <div class="form-row align-items-center">
@@ -150,6 +150,21 @@
                                 </div>
                             </div>
                         </form>
+                        <form action="feedbacks" method="POST">
+                            <input type="hidden" name="action" value="status"/>
+                            <div class="col-auto">
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Status</div>
+                                    </div>
+                                    <select name="status" onchange="this.form.submit()">
+                                        <option value="-1" ${sessionScope.sessionStatus == -1 ? 'selected' : ''}>All</option>
+                                        <option value="1" ${sessionScope.sessionStatus == 1 ? 'selected' : ''}>Active</option>
+                                        <option value="0" ${sessionScope.sessionStatus == 0 ? 'selected' : ''}>Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
                         <form action="feedbacks" method="POST" class="d-flex align-items-center">
                             <input type="hidden" name="action" value="search"/>
                             <div class="input-group">
@@ -161,7 +176,7 @@
                         </form>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <!-- Your Profile Views Chart -->
                     <div class="col-lg-12 m-b30">
@@ -190,7 +205,7 @@
                                                                     <ul class="card-courses-view">
                                                                         <li class="card-courses-user">
                                                                             <div class="card-courses-user-pic">
-                                                                                <img src="${feedback.avatar}" alt=""/>
+                                                                                <img src="${feedback.avatar}" alt="" style="object-fit: cover" width="150px" height="150px"/>
                                                                             </div>
                                                                             <div class="card-courses-user-info">
                                                                                 <h5>Reviewer</h5>
@@ -203,11 +218,11 @@
                                                                                 <c:forEach begin="1" end="5" var="i">
                                                                                     <c:if test="${i <= feedback.rating}">
                                                                                         <li class="active"><i class="fa fa-star"></i></li>
-                                                                                    </c:if>
-                                                                                    <c:if test="${i > feedback.rating}">
+                                                                                        </c:if>
+                                                                                        <c:if test="${i > feedback.rating}">
                                                                                         <li><i class="fa fa-star"></i></li>
-                                                                                    </c:if>
-                                                                                </c:forEach>
+                                                                                        </c:if>
+                                                                                    </c:forEach>
                                                                             </ul>
                                                                         </li>
                                                                         <li class="card-courses-categories">
@@ -229,7 +244,7 @@
                                                                     </div>
                                                                     <div class="col-md-12">
                                                                         <div class="d-flex">
-                                                                            <a href="#" class="btn" data-toggle="modal" data-target="#replyModal${feedback.id}">Reply Review</a>
+                                                                            <!--<a href="#" class="btn" data-toggle="modal" data-target="#replyModal${feedback.id}">Reply Review</a>-->
                                                                             <form action="feedbacks" method="POST" onsubmit="confirmChangeStatus(event)" class="ml-2">
                                                                                 <input type="hidden" name="id" value="${feedback.id}">
                                                                                 <input type="hidden" name="status" value="${feedback.status}">
@@ -249,7 +264,7 @@
                                         </c:forEach>
                                     </tbody>
                                 </table>
-                                
+
                                 <!-- Modals for all feedbacks -->
                                 <c:forEach items="${feedbackList}" var="feedback">
                                     <div class="modal fade review-bx-reply" id="replyModal${feedback.id}" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel${feedback.id}" aria-hidden="true">
@@ -300,41 +315,41 @@
         <script src='${pageContext.request.contextPath}/assets2/vendors/switcher/switcher.js'></script>
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        
+
         <script>
-            function confirmChangeStatus(event) {
-                event.preventDefault();
-                
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "Do you really want to change the status of this feedback?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, change it!",
-                    cancelButtonText: "No, cancel!"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        event.target.submit();
-                    }
-                });
-                
-                return false;
-            }
-            
-            $(document).ready(function() {
-                $('#feedbackTable').DataTable({
-                    "paging": true,
-                    "lengthMenu": [5, 10, 15],
-                    "pageLength": 5,
-                    "searching": false,
-                    "ordering": false,
-                    "info": false,
-                    "autoWidth": false,
-                    "dom": 't<"dt-paging"p>'
-                });
-            });
+                                                                                function confirmChangeStatus(event) {
+                                                                                    event.preventDefault();
+
+                                                                                    Swal.fire({
+                                                                                        title: "Are you sure?",
+                                                                                        text: "Do you really want to change the status of this feedback?",
+                                                                                        icon: "warning",
+                                                                                        showCancelButton: true,
+                                                                                        confirmButtonColor: "#3085d6",
+                                                                                        cancelButtonColor: "#d33",
+                                                                                        confirmButtonText: "Yes, change it!",
+                                                                                        cancelButtonText: "No, cancel!"
+                                                                                    }).then((result) => {
+                                                                                        if (result.isConfirmed) {
+                                                                                            event.target.submit();
+                                                                                        }
+                                                                                    });
+
+                                                                                    return false;
+                                                                                }
+
+                                                                                $(document).ready(function () {
+                                                                                    $('#feedbackTable').DataTable({
+                                                                                        "paging": true,
+                                                                                        "lengthMenu": [5, 10, 15],
+                                                                                        "pageLength": 5,
+                                                                                        "searching": false,
+                                                                                        "ordering": false,
+                                                                                        "info": false,
+                                                                                        "autoWidth": false,
+                                                                                        "dom": 't<"dt-paging"p>'
+                                                                                    });
+                                                                                });
         </script>
     </body>
 </html>
