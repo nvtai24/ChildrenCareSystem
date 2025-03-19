@@ -74,6 +74,10 @@
                 padding: 5px 10px;
                 margin: 0 5px;
             }
+            
+            .center-datarow {
+                 vertical-align: middle;
+            }
         </style>
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
@@ -141,99 +145,74 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="container-fluid">
-                    <table id="settingsTable" class="table table-striped table-hover" style="width:100%">
-                        <thead class="thead-light">
+                <table id="settingsTable" class="table table-striped table-hover" style="width:100%">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center">Value</th>
+                            <th scope="col" class="text-center">Type</th>
+                            <th scope="col" class="text-center">Description</th>
+                            <th scope="col" class="text-center">Status</th>
+                            <th scope="col" class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${requestScope.settings}" var="s" varStatus="status">
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Value</th>
-                                <th scope="col">Type</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Status</th>
-                                <th scope="col" class="text-center">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${requestScope.settings}" var="s" varStatus="status">
-                                <tr>
-                                    <td scope="row">${status.index + 1}</td>
-                                    <td>${s.settingValue}</td>
-                                    <td>${s.settingType.name}</td>
-                                    <td>${s.description}</td>
-                                    <td>
+                                <td scope="row" class="align-middle">${status.index + 1}</td>
+                                <td class="text-nowrap align-middle">${s.settingValue}</td>
+                                <td class="center-datarow align-middle">${s.settingType.name}</td>
+                                <td class="center-datarow align-middle">${s.description}</td>
+                                <td class="center-datarow align-middle">
+                                    <c:choose>
+                                        <c:when test="${s.status}">
+                                            <span class="badge badge-success" style="width: 70px">Active</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="badge badge-danger" style="width: 70px">Inactive</span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td style="display: flex; gap: 20px" class="text-center text-nowrap align-middle">
+                                    <div class="status-toggle" data-id="${s.id}" data-status="${s.status}">
                                         <c:choose>
                                             <c:when test="${s.status}">
-                                                <span class="badge badge-success mt-3" style="width: 70px">Active</span>
+                                                <div class="btn red mb-2" style="width: 100px">
+                                                    <i class="fa fa-refresh" aria-hidden="true"></i> Inactive
+                                                </div>
                                             </c:when>
                                             <c:otherwise>
-                                                <span class="badge badge-danger mt-3" style="width: 70px">Inactive</span>
+                                                <div class="btn green mb-2" style="width: 100px">
+                                                    <i class="fa fa-refresh" aria-hidden="true"></i> Active
+                                                </div>
                                             </c:otherwise>
                                         </c:choose>
-                                    </td>
-                                    <td style="display: flex; gap: 20px" class="text-center text-nowrap">
-                                        <div class="status-toggle" data-id="${s.id}" data-status="${s.status}">
-                                            <c:choose>
-                                                <c:when test="${s.status}">
-                                                    <div class="btn red mb-2" style="width: 100px">
-                                                        <i class="fa fa-refresh" aria-hidden="true"></i> Inactive
-                                                    </div>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <div class="btn green mb-2" style="width: 100px">
-                                                        <i class="fa fa-refresh" aria-hidden="true"></i> Active
-                                                    </div>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </div>
-                                        <button type="submit" class="btn green mb-2" style="width: 100px">
-                                            <a href="setting?id=${s.id}" style="color: white">
-                                                <i class="fa fa-pencil" aria-hidden="true"></i> Edit
-                                            </a>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody> 
-                    </table>
+                                    </div>
+                                    <button type="submit" class="btn green mb-2" style="width: 100px">
+                                        <a href="setting?id=${s.id}" style="color: white">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+                                        </a>
+                                    </button>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody> 
+                </table>
 
 
-                    <div class="col-lg-12 m-b20">
-                        <div class="pagination-bx rounded-sm gray clearfix">
-                            <!-- Phân trang sẽ được cập nhật tự động ở đây -->
-                        </div>
+                <div class="col-lg-12 m-b20">
+                    <div class="pagination-bx rounded-sm gray clearfix">
+                        <!-- Phân trang sẽ được cập nhật tự động ở đây -->
                     </div>
-
                 </div>
+            </div>
 
         </main>
         <div class="ttr-overlay"></div>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
-
-
-        <!-- External JavaScripts -->
-        <script src="assets2/js/jquery.min.js"></script>
-        <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
-        <script src="assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-        <script src="assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-        <script src="assets2/vendors/magnific-popup/magnific-popup.js"></script>
-        <script src="assets2/vendors/counter/waypoints-min.js"></script>
-        <script src="assets2/vendors/counter/counterup.min.js"></script>
-        <script src="assets2/vendors/imagesloaded/imagesloaded.js"></script>
-        <script src="assets2/vendors/masonry/masonry.js"></script>
-        <script src="assets2/vendors/masonry/filter.js"></script>
-        <script src="assets2/vendors/owl-carousel/owl.carousel.js"></script>
-        <script src='assets2/vendors/scroll/scrollbar.min.js'></script>
-        <script src="assets2/js/functions.js"></script>
-        <script src="assets2/vendors/chart/chart.min.js"></script>
-        <script src="assets2/js/admin.js"></script>
-        <script src='assets2/vendors/calendar/moment.min.js'></script>
-        <script src='assets2/vendors/calendar/fullcalendar.js'></script>
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
         <script>
             $(document).ready(function () {
                 var table = $("#settingsTable").DataTable({
@@ -348,48 +327,48 @@
                     });
                 }
 
-                //                    $(".status-toggle").on("click", function () {
-                //                        var $toggleButton = $(this);
-                //                        var settingId = $toggleButton.data("id");
-                //                        var currentStatus = $toggleButton.data("status");
-                //                        var $statusLabel = $toggleButton.closest("td").prev().find(".badge");
-                //
-                //                        $.ajax({
-                //                            url: "/app/setting/toggle",
-                //                            type: "POST",
-                //                            data: {stid: settingId},
-                //                            success: function (response) {
-                //                                if (currentStatus === true || currentStatus === "true") {
-                //                                    // Switch to Inactive
-                //                                    $toggleButton.html(`
-                //                                            <div class="btn green mb-2" style="width: 100px">
-                //                                                <i class="fa fa-refresh" aria-hidden="true"></i> Active
-                //                                            </div>
-                //                                        `);
-                //                                    $toggleButton.data("status", false);
-                //                                    $statusLabel
-                //                                            .removeClass("badge-success")
-                //                                            .addClass("badge-danger")
-                //                                            .text("Inactive");
-                //                                } else {
-                //                                    // Switch to Active
-                //                                    $toggleButton.html(`
-                //                                <div class="btn red mb-2" style="width: 100px">
-                //                                    <i class="fa fa-refresh" aria-hidden="true"></i> Inactive
-                //                                </div>
-                //                            `);
-                //                                    $toggleButton.data("status", true);
-                //                                    $statusLabel
-                //                                            .removeClass("badge-danger")
-                //                                            .addClass("badge-success")
-                //                                            .text("Active");
-                //                                }
-                //                            },
-                //                            error: function (xhr, status, error) {
-                //                                alert("Error toggling status: " + error);
-                //                            },
-                //                        });
-                //                    });
+//                    $(".status-toggle").on("click", function () {
+//                        var $toggleButton = $(this);
+//                        var settingId = $toggleButton.data("id");
+//                        var currentStatus = $toggleButton.data("status");
+//                        var $statusLabel = $toggleButton.closest("td").prev().find(".badge");
+//
+//                        $.ajax({
+//                            url: "/app/setting/toggle",
+//                            type: "POST",
+//                            data: {stid: settingId},
+//                            success: function (response) {
+//                                if (currentStatus === true || currentStatus === "true") {
+//                                    // Switch to Inactive
+//                                    $toggleButton.html(`
+//                                            <div class="btn green mb-2" style="width: 100px">
+//                                                <i class="fa fa-refresh" aria-hidden="true"></i> Active
+//                                            </div>
+//                                        `);
+//                                    $toggleButton.data("status", false);
+//                                    $statusLabel
+//                                            .removeClass("badge-success")
+//                                            .addClass("badge-danger")
+//                                            .text("Inactive");
+//                                } else {
+//                                    // Switch to Active
+//                                    $toggleButton.html(`
+//                                <div class="btn red mb-2" style="width: 100px">
+//                                    <i class="fa fa-refresh" aria-hidden="true"></i> Inactive
+//                                </div>
+//                            `);
+//                                    $toggleButton.data("status", true);
+//                                    $statusLabel
+//                                            .removeClass("badge-danger")
+//                                            .addClass("badge-success")
+//                                            .text("Active");
+//                                }
+//                            },
+//                            error: function (xhr, status, error) {
+//                                alert("Error toggling status: " + error);
+//                            },
+//                        });
+//                    });
 
 
                 $(document).on("click", ".status-toggle", function () {
@@ -408,10 +387,10 @@
                             if (currentStatus === true || currentStatus === "true") {
                                 // Switch to Inactive
                                 $toggleButton.html(`
-                           <div class="btn green mb-2" style="width: 100px">
-                               <i class="fa fa-refresh" aria-hidden="true"></i> Active
-                           </div>
-                       `);
+                <div class="btn green mb-2" style="width: 100px">
+                    <i class="fa fa-refresh" aria-hidden="true"></i> Active
+                </div>
+            `);
                                 $toggleButton.data("status", false);
                                 $statusLabel
                                         .removeClass("badge-success")
@@ -423,10 +402,10 @@
                             } else {
                                 // Switch to Active
                                 $toggleButton.html(`
-                           <div class="btn red mb-2" style="width: 100px">
-                               <i class="fa fa-refresh" aria-hidden="true"></i> Inactive
-                           </div>
-                       `);
+                <div class="btn red mb-2" style="width: 100px">
+                    <i class="fa fa-refresh" aria-hidden="true"></i> Inactive
+                </div>
+            `);
                                 $toggleButton.data("status", true);
                                 $statusLabel
                                         .removeClass("badge-danger")
@@ -451,6 +430,27 @@
 
 
         </script>
+
+        <!-- External JavaScripts -->
+        <!--<script src="assets2/js/jquery.min.js"></script>-->
+        <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="assets2/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="assets2/vendors/counter/waypoints-min.js"></script>
+        <script src="assets2/vendors/counter/counterup.min.js"></script>
+        <script src="assets2/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="assets2/vendors/masonry/masonry.js"></script>
+        <script src="assets2/vendors/masonry/filter.js"></script>
+        <script src="assets2/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src='assets2/vendors/scroll/scrollbar.min.js'></script>
+        <script src="assets2/js/functions.js"></script>
+        <script src="assets2/vendors/chart/chart.min.js"></script>
+        <script src="assets2/js/admin.js"></script>
+        <script src='assets2/vendors/calendar/moment.min.js'></script>
+        <script src='assets2/vendors/calendar/fullcalendar.js'></script>
+
 
     </body>
 
