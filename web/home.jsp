@@ -75,6 +75,7 @@
             />
 
         <style>
+            
             .recent-news-carousel .item {
                 width: 100%; /* Chiều rộng 100% của container */
                 display: flex;
