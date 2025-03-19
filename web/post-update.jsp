@@ -98,14 +98,20 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-12">
-                                            <h3>2. Content</h3>
+                                            <h3>2. Brief Information</h3>
+                                            <div>
+                                                <input name="brief_info" class="form-control" type="text" value="${POST.briefInfo}" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-12">
+                                            <h3>3. Content</h3>
                                             <div>
                                                 <textarea id="content" name="content" class="form-control" rows="5" required>${POST.content}</textarea>
                                             </div>
                                         </div>
                                         <!--                                        </div>-->
                                         <div class="form-group col-6">
-                                            <h3>3. Thumbnail</h3>
+                                            <h3>4. Thumbnail</h3>
                                             <div>
                                                 <!-- Hiển thị ảnh hiện tại nếu có -->
                                                 <img src="${POST.thumbnail}" alt="Thumbnail" class="img-thumbnail" width="300">

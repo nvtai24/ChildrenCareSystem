@@ -22,14 +22,23 @@ public class PostDAO extends DBContext {
 
     public List<Post> getAllPosts() {
         List<Post> posts = new ArrayList<>();
-        String query = "SELECT post.id, post.title, post.content, post.thumbnail, post.status,  post.created_date, post.updated_date, user.username  \n"
+        String query = "SELECT \n"
+                + "    post.id, \n"
+                + "    post.title, \n"
+                + "    post.content, \n"
+                + "    post.thumbnail, \n"
+                + "    post.status, \n"
+                + "    post.brief_info,  \n"
+                + "    DATE(post.created_date) AS created_date_only, \n"
+                + "    TIME(post.created_date) AS created_time_only, \n"
+                + "    user.username  \n"
                 + "FROM post  \n"
-                + "JOIN user ON post.author_id = user.id WHERE post.status = 1";
+                + "JOIN user ON post.author_id = user.id \n"
+                + "WHERE post.status = 1;";
 
         try {
             ResultSet rs = executeQuery(query);
             while (rs.next()) {
-                // Tạo đối tượng Service"id"));
                 Post post = new Post();
                 post.setId(rs.getInt("id"));
                 post.setTitle(rs.getString("title"));
@@ -37,10 +46,12 @@ public class PostDAO extends DBContext {
                 post.setThumbnail(rs.getString("thumbnail"));
                 post.setUsername(rs.getString("username"));
                 post.setStatus(rs.getBoolean("status"));
-                post.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
-                if (rs.getTimestamp("updated_date") != null) {
-                    post.setUpdatedDate(rs.getTimestamp("updated_date").toLocalDateTime());
-                }
+                post.setBriefInfo(rs.getString("brief_info"));
+
+                // Lấy ngày và giờ riêng biệt
+                post.setCreatedDateOnly(rs.getDate("created_date_only").toLocalDate());
+                post.setCreatedTimeOnly(rs.getTime("created_time_only").toLocalTime());
+
                 posts.add(post);
             }
         } catch (SQLException e) {
@@ -77,15 +88,18 @@ public class PostDAO extends DBContext {
 
     public List<Post> getPostsByPageSearchAndStatus(int page, int postsPerPage, String search, Boolean status) {
         List<Post> posts = new ArrayList<>();
-        String query = "SELECT post.id, post.title, post.content, post.thumbnail, post.status,  post.created_date, post.updated_date, user.username  \n"
-                + "FROM post  \n"
-                + "JOIN user ON post.author_id = user.id   WHERE post.title LIKE ? AND post.status = 1";
 
-        query += " ORDER BY post.created_date DESC LIMIT ? OFFSET ?";
+        String query = "SELECT post.id, post.title, post.content, post.thumbnail, post.status, post.brief_info, "
+                + "DATE(post.created_date) AS created_date_only, "
+                + "TIME(post.created_date) AS created_time_only, "
+                + "post.updated_date, user.username "
+                + "FROM post "
+                + "JOIN user ON post.author_id = user.id "
+                + "WHERE post.title LIKE ? AND post.status = 1 "
+                + "ORDER BY post.created_date DESC LIMIT ? OFFSET ?";
 
         try {
             int offset = (page - 1) * postsPerPage;
-
             ResultSet rs = executeQuery(query, "%" + search + "%", postsPerPage, offset);
 
             while (rs.next()) {
@@ -96,7 +110,11 @@ public class PostDAO extends DBContext {
                 post.setThumbnail(rs.getString("thumbnail"));
                 post.setUsername(rs.getString("username"));
                 post.setStatus(rs.getBoolean("status"));
-                post.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
+                post.setBriefInfo(rs.getString("brief_info"));
+
+                // Tách riêng ngày và giờ
+                post.setCreatedDateOnly(rs.getDate("created_date_only").toLocalDate());
+                post.setCreatedTimeOnly(rs.getTime("created_time_only").toLocalTime());
 
                 if (rs.getTimestamp("updated_date") != null) {
                     post.setUpdatedDate(rs.getTimestamp("updated_date").toLocalDateTime());
@@ -237,13 +255,14 @@ public class PostDAO extends DBContext {
         return posts;
     }
 
-    public boolean AddNewPost(String title, String thumbnail, String content, int author_id) {
+    public boolean AddNewPost(String title, String thumbnail, String content, String brief_info, int author_id) {
         try {
-            String query = "INSERT INTO post (title, thumbnail, content, status, created_date, author_id) VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO post (title, thumbnail, content, brief_info, status, created_date, author_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
             int result = executeUpdate(query,
                     title,
                     thumbnail,
                     content,
+                    brief_info,
                     true, // Status mặc định là true
                     java.sql.Timestamp.valueOf(LocalDateTime.now(ZoneId.systemDefault())),
                     author_id
@@ -274,6 +293,7 @@ public class PostDAO extends DBContext {
                 post.setThumbnail(rs.getString("thumbnail"));
                 post.setContent(rs.getString("content"));
                 post.setStatus(rs.getBoolean("status"));
+                post.setBriefInfo(rs.getString("brief_info"));
                 post.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
                 if (rs.getTimestamp("updated_date") != null) {
                     post.setUpdatedDate(rs.getTimestamp("updated_date").toLocalDateTime());
@@ -287,9 +307,9 @@ public class PostDAO extends DBContext {
     }
 
     public boolean updatePost(Post post) {
-        String query = "UPDATE post SET title = ?, thumbnail = ?, content = ? WHERE id = ? ";
+        String query = "UPDATE post SET title = ?, thumbnail = ?, content = ?, brief_info = ? WHERE id = ? ";
         try {
-            int result = executeUpdate(query, post.getTitle(), post.getThumbnail(), post.getContent(), post.getId());
+            int result = executeUpdate(query, post.getTitle(), post.getThumbnail(), post.getContent(), post.getBriefInfo(), post.getId());
             if (result > 0) {
                 return true;
             }
@@ -304,7 +324,7 @@ public class PostDAO extends DBContext {
 
         String query;
         if (search.trim().isEmpty()) {
-            query = "SELECT post.id, post.title, post.content, post.thumbnail, post.status, "
+            query = "SELECT post.id, post.title, post.content, post.thumbnail, post.status, post.brief_info, "
                     + "post.created_date, post.updated_date, user.username "
                     + "FROM post "
                     + "JOIN user ON post.author_id = user.id "
@@ -312,7 +332,7 @@ public class PostDAO extends DBContext {
                     + "ORDER BY post.created_date DESC";
         } else {
             search = search.replace("'", "''"); // Escape ký tự '
-            query = "SELECT post.id, post.title, post.content, post.thumbnail, post.status, "
+            query = "SELECT post.id, post.title, post.content, post.thumbnail, post.status, post.brief_info, "
                     + "post.created_date, post.updated_date, user.username "
                     + "FROM post "
                     + "JOIN user ON post.author_id = user.id "
@@ -333,6 +353,7 @@ public class PostDAO extends DBContext {
                 post.setThumbnail(rs.getString("thumbnail"));
                 post.setUsername(rs.getString("username"));
                 post.setStatus(rs.getBoolean("status"));
+                post.setBriefInfo(rs.getString("brief_info"));
                 post.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
 
                 if (rs.getTimestamp("updated_date") != null) {

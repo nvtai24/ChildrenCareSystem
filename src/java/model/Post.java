@@ -4,7 +4,9 @@
  */
 package model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,14 +23,18 @@ import model.auth.User;
 @AllArgsConstructor
 @Builder
 public class Post {
+
     private int id;
     private User author;
     private String title;
     private String content;
     private String thumbnail;
     private String username;
+    private String briefInfo;
     private boolean status;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private List<Label> labels;
+    private LocalDate createdDateOnly; // Chỉ ngày
+    private LocalTime createdTimeOnly;
 }
