@@ -122,6 +122,10 @@
                                                     <th>Unit Price</th>
                                                     <th>Quantity</th>
                                                     <th>Sum</th>
+                                                    <th>Status</th>
+                                                        <c:if  test="${r.status.id == 3}">
+                                                        <th>Action</th>
+                                                        </c:if>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -141,63 +145,132 @@
                                                         </td>
                                                         <td class="align-middle font-weight-bold">${i.quantity}</td>
                                                         <td class="font-weight-bold total-price align-middle">$${i.price * i.quantity}</td>
+
+                                                        <td class="align-middle">
+                                                            <c:if test="${i.status.id == 1}">
+                                                                <span class="badge badge-secondary mt-3" style="width: fit-content">Not Yet</span>
+                                                            </c:if>
+
+                                                            <c:if test="${i.status.id == 2}">
+                                                                <span class="badge badge-info mt-3" style="width: fit-content">Assigned</span>
+                                                            </c:if>
+
+                                                            <c:if test="${i.status.id == 3}">
+                                                                <span class="badge badge-danger mt-3" style="width: fit-content">Rejected</span>
+                                                            </c:if>
+
+                                                            <c:if test="${i.status.id == 4}">
+                                                                <span class="badge badge-success mt-3" style="width: fit-content">Confirmed</span>
+                                                            </c:if>
+
+                                                            <c:if test="${i.status.id == 5}">
+                                                                <span class="badge badge-warning mt-3" style="width: fit-content">Processing</span>
+                                                            </c:if>
+
+                                                            <c:if test="${i.status.id == 6}">
+                                                                <span class="badge badge-primary mt-3" style="width: fit-content">Completed</span>
+                                                            </c:if>
+
+                                                        </td>
+
+                                                        <!--Nút này chỉ hiện thị khi toàn bộ dịch vụ đã thành công-->
+                                                        <c:if  test="${r.status.id == 3}">
+                                                            <td class="align-middle font-weight-bold">
+                                                                <button class="btn blue mb-2" style="width: auto">
+                                                                    <i class="fa fa-comment" aria-hidden="true"></i> Feedback
+                                                                </button>
+                                                            </td>
+                                                        </c:if>
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>
+
                                             <tfoot>
                                                 <tr>
-                                                    <td colspan="3" class="text-right align-middle">
+                                                    <td colspan="${r.status.id != 3 ? 4 : 5}" class="text-right align-middle">
                                                         <strong>Total Amount:</strong>
                                                     </td>
                                                     <td class="align-middle"><strong>$${requestScope.total}</strong></td>
                                                 </tr>
                                             </tfoot>
                                         </table>
-                                                
+
                                         <!--Redirect section-->
                                         <div>
                                             <div class="form-row">
-                                                <div class="col-md-6">
-                                                    <button type="button" class="btn btn-danger btn-block red">
-                                                        Back
-                                                    </button>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <button type="submit" id="submitButton" class="btn btn-success btn-block green">
-                                                        Edit
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                <c:if  test="${r.status.id == 1}">
 
+                                                    <div class="col-md-6">
+                                                        <a class="btn btn-block btn-danger red mb-2" style="color: white" onclick="preCancel(event, '/app/reservation/cancel?id=${r.id}')">
+                                                            Cancel
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <a class="btn btn-block btn-success green mb-2" href="/app/reservation/edit?id=${r.id}">
+                                                            Edit
+                                                        </a>
+                                                    </div>
+
+                                                </c:if>
+                                            </div>
+
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
             </div>
-
-            <jsp:include page="footer.jsp"/>
         </div>
 
-        <!-- External JavaScripts -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
-        <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-        <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-        <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
-        <script src="assets/vendors/counter/waypoints-min.js"></script>
-        <script src="assets/vendors/counter/counterup.min.js"></script>
-        <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
-        <script src="assets/vendors/masonry/masonry.js"></script>
-        <script src="assets/vendors/masonry/filter.js"></script>
-        <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
-        <script src="assets/js/functions.js"></script>
-        <script src="assets/js/contact.js"></script>
+        <jsp:include page="footer.jsp"/>
+    </div>
 
-    </body>
+    <script>
+
+        function preCancel(event, url) {
+            event.preventDefault();
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "Do you want to cancel this reservation?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#6c757d",
+                confirmButtonText: "Yes, cancel it!",
+                cancelButtonText: "No"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        }
+
+    </script>
+
+
+    <!-- External JavaScripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
+    <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+    <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
+    <script src="assets/vendors/counter/waypoints-min.js"></script>
+    <script src="assets/vendors/counter/counterup.min.js"></script>
+    <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
+    <script src="assets/vendors/masonry/masonry.js"></script>
+    <script src="assets/vendors/masonry/filter.js"></script>
+    <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
+    <script src="assets/js/functions.js"></script>
+    <script src="assets/js/contact.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
 
 </html>

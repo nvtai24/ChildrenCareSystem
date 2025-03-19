@@ -26,4 +26,5 @@ public class Feedback {
     private boolean status;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
+    private String avatar;
 }

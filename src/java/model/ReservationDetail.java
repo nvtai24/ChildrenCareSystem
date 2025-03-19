@@ -28,5 +28,5 @@ public class ReservationDetail {
     private int quantity;
     private double price;
     private double total;
-    private boolean status;
+    private ReservationDetailStatus status;
 }

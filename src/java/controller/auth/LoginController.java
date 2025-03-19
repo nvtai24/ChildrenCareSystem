@@ -10,6 +10,7 @@ import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Profile;
 import model.auth.User;
+import util.PasswordUtil;
 
 /**
  *
@@ -35,8 +37,9 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String usernameOrEmail = request.getParameter("dzName");
         String password = request.getParameter("dzPassword");
-
+        boolean rememberMe = request.getParameter("customControlAutosizing") != null; 
         UserDAO udb = new UserDAO();
+        String hashedPassword = PasswordUtil.toSHA1(password);
         User user = udb.get(usernameOrEmail, password);
         boolean hasError = false;
         if (usernameOrEmail == null || usernameOrEmail.trim().isEmpty()) {
@@ -79,6 +82,15 @@ public class LoginController extends HttpServlet {
             request.getSession().setAttribute("account", user);
             request.getSession().setAttribute("password", user.getPassword());
             request.getSession().setAttribute("id", user.getId());
+            if (rememberMe) {
+            Cookie usernameCookie = new Cookie("username", usernameOrEmail);
+            usernameCookie.setMaxAge(60 * 60 * 24 * 7);  
+            response.addCookie(usernameCookie);
+
+            Cookie passwordCookie = new Cookie("password", password);
+            passwordCookie.setMaxAge(60 * 60 * 24 * 7);  
+            response.addCookie(passwordCookie);
+        }
 
             response.sendRedirect("/app");
         } else {

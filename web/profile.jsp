@@ -21,7 +21,6 @@
         <main class="ttr-wrapper">
             <!-- The Modal -->
             <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
-
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -31,7 +30,7 @@
                             </button>
                         </div>
 
-                        <form class="edit-profile" action="profile" method="post" enctype="multipart/form-data">
+                        <form class="edit-profile" onreset="resetChange()" onsubmit="submitChange(event)" enctype="multipart/form-data">
 
                             <div class="modal-body">
                                 <div class="row">
@@ -42,7 +41,7 @@
                                         </div>
                                         <!-- Chỉnh sửa nút Choose File -->
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="avatarInput" name="avatar" style="display: none;" onchange="updateFileName()">
+                                            <input type="file" class="custom-file-input" id="avatarInput" name="avatar" style="display: none;" onchange="handleAvatarChange(event)">
                                             <button type="button" class="btn btn-light" onclick="document.getElementById('avatarInput').click()">Choose file</button>
                                         </div>
                                     </div>
@@ -114,8 +113,8 @@
 
                     </div>
                 </div>
-
             </div>
+                                            
             <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
                 <div class="modal-dialog" style="max-width: 500px;">
                     <div class="modal-content" style="padding: 20px; border-radius: 10px; font-family: 'Arial', sans-serif; font-size: 14px; color: #333;">
@@ -176,68 +175,83 @@
             </div>                                
         </main>
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
-        <script>
-                                                // JavaScript để thay đổi ảnh đại diện ngay khi người dùng chọn ảnh mới
-                                                const avatarInput = document.getElementById('avatarInput');
-                                                const avatarImage = document.getElementById('avatarImage');
-
-                                                avatarInput.addEventListener('change', function (event) {
-                                                    const file = event.target.files[0];
-                                                    if (file) {
-                                                        const reader = new FileReader();
-                                                        reader.onload = function (e) {
-                                                            avatarImage.src = e.target.result; // Cập nhật ảnh đại diện ngay lập tức
-                                                        };
-                                                        reader.readAsDataURL(file); // Đọc ảnh dưới dạng URL và thay đổi ảnh
-                                                    }
-                                                });
-        </script>
 
         <script>
-            var originalAvatar = $("#avatarImage").attr("src");
+            function handleAvatarChange(event) {
+                var file = event.target.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#avatarImage').attr('src', e.target.result); // Cập nhật ảnh đại diện ngay lập tức
+                    };
+                    reader.readAsDataURL(file); // Đọc ảnh dưới dạng URL và thay đổi ảnh
+                }
+            }
 
-            $(".edit-profile").on("reset", function () {
-                setTimeout(function () {
-                    $("#avatarImage").attr("src", originalAvatar);
-                    $("#avatarInput").val("");
-                }, 10);
-            });
-        </script>
+            // for image
+            function resetChange() {
+                var originalAvatar = $("#avatarImage").attr("src");
 
-        <script>
-            $(document).ready(function () {
-                $(".edit-profile").submit(function (event) {
-                    event.preventDefault();
-
-                    var formData = new FormData(this);
-
-                    $.ajax({
-                        url: "ajax-profile",
-                        type: "POST",
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function (response) {
-                            alert("Profile updated successfully!");
-
-                            if (formData.get("avatar").name) {
-                                const reader = new FileReader();
-                                reader.onload = function (e) {
-                                    $("#userAvatar").attr("src", e.target.result);
-                                };
-                                reader.readAsDataURL(formData.get("avatar"));
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            alert("Update failed: " + xhr.responseText);
-                        }
-                    });
+                $(".edit-profile").on("reset", function () {
+                    setTimeout(function () {
+                        $("#avatarImage").attr("src", originalAvatar);
+                        $("#avatarInput").val("");
+                    }, 10);
                 });
-            });
+            }
+
+            function submitChange(event) {
+                event.preventDefault();
+
+                var formData = new FormData(event.target);
+
+                $.ajax({
+                    url: "ajax-profile",
+                    type: "POST",
+                    data: formData,
+                    processData: false, // Don't process data
+                    contentType: false, // Don't set content type (multipart)
+                    success: function (response) {
+                        var avatarFile = formData.get("avatar"); // Lấy file avatar
+
+                        if (avatarFile && avatarFile.size > 0) { // Kiểm tra nếu có ảnh mới
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                $("#userAvatar").attr("src", e.target.result); // Cập nhật ảnh đại diện
+                            };
+                            reader.readAsDataURL(avatarFile); // Đọc ảnh dưới dạng Data URL
+                        } else {
+                            // Nếu không có ảnh mới, có thể giữ lại ảnh cũ hoặc làm gì đó khác
+                            console.log("No new avatar image selected.");
+                        }
+                        
+                         $("#profileModal").modal("hide");
+
+                        Swal.fire({
+                            icon: "success",
+                            title: "Profile updated successfully",
+                            timer: 5000
+                        });
+
+                    },
+                    error: function (xhr, status, error) {
+
+                        Swal.fire({
+                            icon: "error",
+                            title: "Something went wrong!",
+                            timer: 3000
+                        });
+
+                        alert("Update failed: " + xhr.responseText); // Error message
+                    }
+                });
+            }
+
         </script>
+
+
         <script>
             $(document).ready(function () {
                 $("#changePasswordForm").submit(function (event) {
@@ -303,6 +317,10 @@
             }
 
         </script>
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </body>
     <!-- Mirrored from educhamp.themetrades.com/demo/admin/user-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
 </html>

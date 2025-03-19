@@ -125,7 +125,7 @@
                                                             class="form-control"
                                                             id="time"
                                                             name="time"
-                                                            value="7:30"
+                                                            value="07:30"
                                                             required
                                                             />
                                                     </div>

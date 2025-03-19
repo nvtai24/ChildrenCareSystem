@@ -167,19 +167,6 @@
                                                 <a class="btn green mb-2" href="reservation/info?id=${r.id}" style="color: white; width: 100px">
                                                     View
                                                 </a>
-
-                                                <c:if  test="${r.status.id == 1}">
-                                                    <a class="btn blue mb-2" style="width: 100px" href="/app/reservation/edit?id=${r.id}">
-                                                        Edit
-                                                    </a>
-                                                </c:if>
-
-                                                <c:if  test="${r.status.id <= 2}">
-                                                    <div class="btn red mb-2" style="width: 100px">
-                                                        Cancel
-                                                    </div>
-                                                </c:if>
-                                 
                                             </td>
                                         </tr>
                                     </c:forEach>

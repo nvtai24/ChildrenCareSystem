@@ -60,7 +60,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <label>Your Name</label>
-                                            <input name="dzName" type="text" required="" class="form-control">
+                                            <input name="dzName" type="text" required="" class="form-control" value="${cookie.username != null ? cookie.username : ''}">
                                         </div>
                                         <c:if test="${not empty errorUsername}">
                                             <small class="text-danger">${errorUsername}</small>
@@ -71,7 +71,7 @@
                                     <div class="form-group">
                                         <div class="input-group"> 
                                             <label>Your Password</label>
-                                            <input name="dzPassword" type="password" class="form-control" required="">
+                                            <input name="dzPassword" type="password" class="form-control" required="" value="${cookie.password != null ? cookie.password : ''}">
                                         </div>
                                         <c:if test="${not empty errorPassword}">
                                             <small class="text-danger">${errorPassword}</small>
@@ -82,7 +82,7 @@
                                     <div class="form-group form-forget">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
-                                            <!--									<label class="custom-control-label" for="customControlAutosizing">Remember me</label>-->
+                                            <label class="custom-control-label" for="customControlAutosizing">Remember me</label>
                                         </div>
                                         <a href="forget-password.jsp" class="ml-auto">Forgot Password?</a>
                                     </div>

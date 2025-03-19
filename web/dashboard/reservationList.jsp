@@ -169,27 +169,30 @@
                                 <td><!-- Cột Status -->
                                     <c:choose>
                                         <c:when test="${r.status.id == 1}">
-                                            <span class="badge badge-warning mt-3" style="width: 70px">Pending</span>
+                                            <span class="badge badge-secondary" style="width: 70px">Pending</span>
                                         </c:when>
                                         <c:when test="${r.status.id == 2}">
-                                            <span class="badge badge-primary mt-3" style="width: 70px">Confirmed</span>
+                                            <span class="badge badge-success" style="width: 70px">Confirmed</span>
                                         </c:when>
                                         <c:when test="${r.status.id == 3}">
-                                            <span class="badge badge-success mt-3" style="width: 70px">Completed</span>
+                                            <span class="badge badge-primary" style="width: 70px">Completed</span>
                                         </c:when>
                                         <c:when test="${r.status.id == 4}">
-                                            <span class="badge badge-danger mt-3" style="width: 70px">Cancelled</span>
+                                            <span class="badge badge-danger" style="width: 70px">Cancelled</span>
                                         </c:when>                                        
                                     </c:choose>
                                 </td>
-                                <td class="text-center text-nowrap">
+                                <td class="text-center text-nowrap" style="display: flex; gap: 5px;  align-items: center; justify-content: center;">
                                     <!-- Action Button to View Details -->
-                                    <form action="reservation" method="POST">
+                                    <form action="reservation" method="GET">
                                         <input type="hidden" name="id" value="${r.id}" />
                                         <button type="submit" class="btn green mb-2">
                                             <i class="fa fa-pencil" aria-hidden="true"></i> Detail
                                         </button>
                                     </form>
+                                    
+
+                                    
                                 </td>
                             </tr>
                         </c:forEach>
@@ -228,9 +231,6 @@
         <script src='assets2/vendors/calendar/fullcalendar.js'></script>
         <!-- DataTables  -->
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-
-
         <script>
             $(document).ready(function () {
                 var table = $('#reservationTable').DataTable({

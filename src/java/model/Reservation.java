@@ -36,8 +36,8 @@ public class Reservation {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private List<ReservationDetail> details;
-    private List<MedicalExamination> examinations;
 
     private double totalQuantity;
     private double totalPrice;
+    private String fullName;
 }
