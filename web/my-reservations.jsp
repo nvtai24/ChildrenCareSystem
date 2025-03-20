@@ -144,7 +144,7 @@
                                             <td class="align-middle">
                                                 <fmt:formatNumber value="${r.totalQuantity}" type="number" pattern="#"/>
                                             </td>
-                                            <td class="align-middle">${r.totalPrice}</td>
+                                            <td class="align-middle">$${r.totalPrice}</td>
                                             <td class="align-middle">
                                                 <c:if test="${r.status.id == 1}">
                                                     <span class="badge badge-secondary">Pending</span>

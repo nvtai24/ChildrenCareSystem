@@ -73,7 +73,7 @@
             type="text/css"
             href="assets/css/shortcodes/button.css"
             />
-
+        
         <style>
             
             .recent-news-carousel .item {

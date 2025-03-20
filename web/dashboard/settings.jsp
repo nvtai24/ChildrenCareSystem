@@ -171,8 +171,12 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
+<<<<<<< HEAD
                                 <td
                                     style="display: flex; align-items: center; justify-content: center; gap: 20px">
+=======
+                                <td style="display: flex; gap: 20px; justify-content: center; align-items: center">
+>>>>>>> TaiNV
                                     <div class="status-toggle" data-id="${s.id}" data-status="${s.status}">
                                         <c:choose>
                                             <c:when test="${s.status}">

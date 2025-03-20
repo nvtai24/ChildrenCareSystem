@@ -204,6 +204,14 @@
         <servlet-name>ReservationCancelController</servlet-name>
         <servlet-class>controller.reservation.ReservationCancelController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ResetPasswordAjaxController</servlet-name>
+        <servlet-class>controller.auth.ResetPasswordAjaxController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BanUserAjaxController</servlet-name>
+        <servlet-class>controller.auth.BanUserAjaxController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
         <url-pattern>/error-handle</url-pattern>
@@ -455,6 +463,14 @@
     <servlet-mapping>
         <servlet-name>ReservationCancelController</servlet-name>
         <url-pattern>/reservation/cancel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordAjaxController</servlet-name>
+        <url-pattern>/reset-ajax</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BanUserAjaxController</servlet-name>
+        <url-pattern>/ban-ajax</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>

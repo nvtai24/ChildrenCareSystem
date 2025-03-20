@@ -151,24 +151,40 @@
                                      </c:otherwise>
                                  </c:choose>
                                  " alt="Profile Image">
-                            <h3>User profile</h3>
-                            <input type="hidden" value="${user.id}" name="id"/>
-                            <p><strong>Username:</strong> ${user.username}</p>
-                            <p><strong>Email:</strong> ${user.email}</p>
+
+                            <br>
+
                             <!-- Button to trigger file input -->
                             <button type="button" class="btn btn-info" onclick="document.getElementById('avatarInput').click();">
                                 <i class="fa fa-picture-o" aria-hidden="true"></i> Change Avatar
                             </button> 
 
-                            <!-- Hidden File Input -->
-                            <input type="file" id="avatarInput" name="avatar" accept="image/*" style="display: none;" onchange="previewAvatar(event)">                            
-                            <p><strong>Role </strong>
-                                <select name="role">
-                                    <c:forEach items="${roles}" var="r">
-                                        <option value="${r.id}" ${user.role.id == r.id ? 'selected' : ''}>${r.roleName}</option>                                      
-                                    </c:forEach>
-                                </select>
-                            </p>
+                            <!--<h3>User profile</h3>-->
+
+                            <input type="hidden" value="${user.id}" name="id"/>
+                            <p><strong>Username:</strong> ${user.username}</p>
+                            <p><strong>Email:</strong> ${user.email}</p>
+
+
+                            <input type="hidden" id="hiddenMail" value="${user.email}">
+                            <input type="hidden" id="hiddenStatus" value="${user.status ? 1 : 0}">
+
+                            <input type="file" id="avatarInput" name="avatar" accept="image/*" style="display: none;" onchange="previewAvatar(event)">                             
+
+
+                            <div style="margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 10px" >
+                                <button onclick="resetPasswordAjax()" type="button" class="btn btn-success green" style="width: 50%">Reset password</button>
+
+                                <c:if test="${user.status == true}">
+                                    <button  onclick="banUserAjax()" id="banButton" type="button" class="btn btn-danger red" style="width: 50%">Ban</button>
+                                </c:if>
+
+                                <c:if test="${user.status == false}">
+                                    <button  onclick="banUserAjax()" id="banButton" type="button" class="btn btn-success green" style="width: 50%">Unban</button>
+                                </c:if>
+
+
+                            </div>
 
                         </div>
 
@@ -189,6 +205,7 @@
 
                             <div class="form-group">
                                 <label for="gender">Gender</label> 
+                                <br>
                                 <input type="radio" name="gender" value="1" ${user.profile.gender  ? "checked" : ""}> Male <i class="fa fa-male" aria-hidden="true"></i>
                                 <input type="radio" name="gender" value="0" ${!user.profile.gender  ? "checked" : ""}> Female <i class="fa fa-female" aria-hidden="true"></i>
                             </div>
@@ -211,9 +228,18 @@
                                 <small id="phoneError" class="error-text text-danger"></small>
                             </div>
 
+                            <div class="form-group">
+                                <label>Role</label>
+                                <select name="role" style="width: 100%">
+                                    <c:forEach items="${roles}" var="r">
+                                        <option value="${r.id}" ${user.role.id == r.id ? 'selected' : ''}>${r.roleName}</option>                                      
+                                    </c:forEach>
+                                </select>
+                            </div>
+
+
                             <div style="display: flex; gap: 10px; justify-content: center; width: 100%;">
-                                <a href="#" style="flex: 1;"><button type="button" class="btn btn-success btn-update">Reset password</button></a> 
-                                <a href="#" style="flex: 1;"><button type="button" class="btn btn-success btn-update">Ban</button></a>
+
                                 <button type="submit" class="btn btn-success btn-update" style="flex: 1;">Save</button>
                             </div>
                         </div>
@@ -227,35 +253,22 @@
 
         <!-- External JavaScripts -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="${pageContext.request.contextPath}/assets2/js/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/popper.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-        <script src="${pageContext.request.contextPath}/assets2/vendors/magnific-popup/magnific-popup.js"></script>
-        <script src="${pageContext.request.contextPath}/assets2/vendors/counter/waypoints-min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets2/vendors/counter/counterup.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets2/vendors/imagesloaded/imagesloaded.js"></script>
-        <script src="${pageContext.request.contextPath}/assets2/vendors/masonry/masonry.js"></script>
-        <script src="${pageContext.request.contextPath}/assets2/vendors/masonry/filter.js"></script>
-        <script src="${pageContext.request.contextPath}/assets2/vendors/owl-carousel/owl.carousel.js"></script>
-        <script src='${pageContext.request.contextPath}/assets2/vendors/scroll/scrollbar.min.js'></script>
-        <script src="${pageContext.request.contextPath}/assets2/js/functions.js"></script>
-        <script src="${pageContext.request.contextPath}/assets2/vendors/chart/chart.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
         <c:if test="${not empty notification}">
             <script>
-                                document.addEventListener("DOMContentLoaded", function () {
-                                    Swal.fire({
-                                        title: "<c:out value='${notification eq "successfull" ? "Success!" : "Oops..."}' />",
-                                        text: "<c:out value='${notification eq "successfull" ? "User has been created successfully." : "User cannot update please try again!"}' />",
-                                        icon: "<c:out value='${notification eq "successfull" ? "success" : "error"}' />",
-                                        confirmButtonText: "OK",
-                                        didOpen: () => {
-                                            document.querySelector(".swal2-select")?.remove();
-                                        }
-                                    });
-                                });
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            Swal.fire({
+                                                title: "<c:out value='${notification eq "successfull" ? "Success!" : "Oops..."}' />",
+                                                text: "<c:out value='${notification eq "successfull" ? "User has been created successfully." : "User cannot update please try again!"}' />",
+                                                icon: "<c:out value='${notification eq "successfull" ? "success" : "error"}' />",
+                                                confirmButtonText: "OK",
+                                                didOpen: () => {
+                                                    document.querySelector(".swal2-select")?.remove();
+                                                }
+                                            });
+                                        });
             </script>
         </c:if>
         <script>
@@ -358,5 +371,106 @@
                 }
             }
         </script>
+
+
+
+        <script>
+
+            var email = $('#hiddenMail').val();
+
+            function resetPasswordAjax() {
+
+                $.ajax({
+                    url: "/app/reset-ajax",
+                    type: "POST",
+                    data: {email: email},
+                    success: function (response) {
+                        Swal.fire({
+                            title: "Good job!",
+                            text: "Reset password link sent successfully!",
+                            icon: "success"
+                        });
+
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something went wrong!",
+                            footer: '<a href="#">Why do I have this issue?</a>'
+                        });
+                    }
+                });
+            }
+
+
+            function banUserAjax() {
+                let status = $('#hiddenStatus').val();
+
+                let msg = '';
+                let contentBtn = '';
+                let classBtn = '';
+                let newStatus;
+
+
+                if (status == 1) {
+                    msg = 'User has been banned!';
+                    contentBtn = 'Unban';
+                    classBtn = 'btn btn-success green';
+                    newStatus = 0;
+
+                } else {
+                    msg = 'Unban successfully!';
+                    contentBtn = 'Ban';
+                    classBtn = 'btn btn-danger red';
+                    newStatus = 1;
+                }
+
+                $.ajax({
+                    url: "/app/ban-ajax",
+                    type: "POST",
+                    data: {email: email},
+                    success: function (response) {
+                        Swal.fire({
+                            title: "Done!",
+                            text: msg,
+                            icon: "success"
+                        });
+
+                        $('#banButton').html(contentBtn);
+                        $('#banButton').attr('class', classBtn);
+                        $('#hiddenStatus').val(newStatus);
+
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something went wrong!",
+                            footer: '<a href="#">Why do I have this issue?</a>'
+                        });
+                    }
+                });
+
+            }
+        </script>
+
+        <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="assets2/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="assets2/vendors/counter/waypoints-min.js"></script>
+        <script src="assets2/vendors/counter/counterup.min.js"></script>
+        <script src="assets2/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="assets2/vendors/masonry/masonry.js"></script>
+        <script src="assets2/vendors/masonry/filter.js"></script>
+        <script src="assets2/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src='assets2/vendors/scroll/scrollbar.min.js'></script>
+        <script src="assets2/js/functions.js"></script>
+        <script src="assets2/vendors/chart/chart.min.js"></script>
+        <script src="assets2/js/admin.js"></script>
+        <script src='assets2/vendors/calendar/moment.min.js'></script>
+        <script src='assets2/vendors/calendar/fullcalendar.js'></script>
     </body>
 </html>
