@@ -121,8 +121,13 @@
 
                     <div class="ttr-header-submenu">
                         <ul>
+<<<<<<< HEAD
                             <!--<li><a href="${pageContext.request.contextPath}/profile">My Profile</a></li>-->
                             <li><a href="logout" style="color: red">Log Out</a></li>
+=======
+                            <li><a href="${pageContext.request.contextPath}/profile">My Profile</a></li>
+                            <li><a href="${pageContext.request.contextPath}/logout" style="color: red">Log Out</a></li>
+>>>>>>> e4135a6b9d4f48970128ed2ed8df99f3e17cfeee
                         </ul>
                     </div>
                 </li>

@@ -584,7 +584,7 @@ public class ReservationDAO extends DBContext {
         String query = "SELECT COUNT(*) AS total_reservations1 "
                 + "FROM reservation "
                 + "WHERE status_id = 1 "
-                + "AND DATE(reserve_date) >= DATE(NOW()) - INTERVAL 7 DAY";
+                + "AND DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY";
 
         try {
             ResultSet rs = executeQuery(query);
@@ -603,7 +603,7 @@ public class ReservationDAO extends DBContext {
         String query = "SELECT COUNT(*) AS total_reservations2 "
                 + "FROM reservation "
                 + "WHERE status_id = 2 "
-                + "AND DATE(reserve_date) >= DATE(NOW()) - INTERVAL 7 DAY";
+                + "AND DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY";
 
         try {
             ResultSet rs = executeQuery(query);
@@ -622,7 +622,7 @@ public class ReservationDAO extends DBContext {
         String query = "SELECT COUNT(*) AS total_reservations3 "
                 + "FROM reservation "
                 + "WHERE status_id = 3 "
-                + "AND DATE(reserve_date) >= DATE(NOW()) - INTERVAL 7 DAY";
+                + "AND DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY";
 
         try {
             ResultSet rs = executeQuery(query);
@@ -641,7 +641,7 @@ public class ReservationDAO extends DBContext {
         String query = "SELECT COUNT(*) AS total_reservations4 "
                 + "FROM reservation "
                 + "WHERE status_id = 4 "
-                + "AND DATE(reserve_date) >= DATE(NOW()) - INTERVAL 7 DAY";
+                + "AND DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY";
 
         try {
             ResultSet rs = executeQuery(query);
@@ -659,7 +659,7 @@ public class ReservationDAO extends DBContext {
         int totalReservations = 0;
         String query = "SELECT COUNT(*) AS total_reservations "
                 + "FROM reservation "
-                + "WHERE DATE(reserve_date) >= DATE(NOW()) - INTERVAL 7 DAY";
+                + "WHERE DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY";
 
         try {
             ResultSet rs = executeQuery(query);

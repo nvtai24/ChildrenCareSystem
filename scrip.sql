@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
--- Host: localhost    Database: childrencare
+-- Host: 127.0.0.1    Database: childrencare
 -- ------------------------------------------------------
--- Server version	8.0.41
+-- Server version	8.0.29
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `category`
+--
+
+DROP TABLE IF EXISTS `category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `category` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
+  `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `category`
+--
+
+LOCK TABLES `category` WRITE;
+/*!40000 ALTER TABLE `category` DISABLE KEYS */;
+INSERT INTO `category` VALUES (1,'General Checkup','Regular health checkups for children to monitor growth and development.',1),(2,'Vaccination','Vaccination services to protect children from various diseases.',1),(3,'Nutrition','Nutritional advice and dietary plans for children.',1),(4,'Dental Care','Dental health services for children, including checkups and treatments.',1),(5,'Emergency Care','Emergency medical services for children.',1),(6,'Physical Therapy','Physical therapy services to support children with physical disabilities or injuries.',1),(7,'Mental Health','Mental health support and counseling for children.',1);
+/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `feature`
 --
 
@@ -24,9 +50,9 @@ DROP TABLE IF EXISTS `feature`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `feature` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `feature_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `feature_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
   `url` varchar(200) DEFAULT NULL,
-  `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -52,7 +78,7 @@ DROP TABLE IF EXISTS `feedback`;
 CREATE TABLE `feedback` (
   `reservationdetail_id` int NOT NULL,
   `rating` int DEFAULT NULL,
-  `comment` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `comment` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -68,6 +94,32 @@ CREATE TABLE `feedback` (
 LOCK TABLES `feedback` WRITE;
 /*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `label`
+--
+
+DROP TABLE IF EXISTS `label`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `label` (
+  `id` int NOT NULL,
+  `labelName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
+  `description` text,
+  `status` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `label`
+--
+
+LOCK TABLES `label` WRITE;
+/*!40000 ALTER TABLE `label` DISABLE KEYS */;
+INSERT INTO `label` VALUES (1,'Health Tips','Posts related to health tips for children.',1),(2,'Vaccination','Posts related to vaccination information.',1),(3,'Nutrition','Posts related to child nutrition.',1);
+/*!40000 ALTER TABLE `label` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -135,7 +187,7 @@ DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
   `id` int NOT NULL AUTO_INCREMENT,
   `author_id` int DEFAULT NULL,
-  `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
   `content` text,
   `thumbnail` varchar(200) DEFAULT NULL,
   `status` tinyint(1) DEFAULT '1',
@@ -171,14 +223,14 @@ CREATE TABLE `profile` (
   `lastname` varchar(100) DEFAULT NULL,
   `gender` tinyint(1) DEFAULT NULL,
   `dob` date DEFAULT NULL,
-  `address` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `address` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `avatar` varchar(200) DEFAULT 'assets/images/profile/default.jpg',
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`userid`),
   CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,7 +239,7 @@ CREATE TABLE `profile` (
 
 LOCK TABLES `profile` WRITE;
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
-INSERT INTO `profile` VALUES (1,'Tai 123123','Nguyen Van',1,'2004-11-10','Nghi Loc, Nghe An','037628123','assets/images/profile/profile_1.jpg','2025-01-31 23:46:55','2025-03-19 16:37:37'),(2,'Anh','Do Minh',1,'1975-05-15','456 Health Lane kkk','124356789','assets/images/profile/profile_2.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(3,'Quyen','Nguyen Duc',0,'1985-08-20','789 Parent Road','345-678-9012','assets/images/profile/profile_3.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(4,'Long','Nguyen Hoang',1,'1990-03-10','101 Staff Avenue','456-789-0123','assets/images/profile/profile_4.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(29,'a','a',1,'2025-03-06','a','a','assets/images/profile/default.jpg','2025-03-06 09:00:12',NULL),(32,'qwe','qwe',1,'2025-03-11','sdsd','214122231','assets/images/profile/default.jpg','2025-03-06 02:17:41','2025-03-06 02:17:41'),(35,'Tai 123123','Nguyen Van',1,'2004-11-20','Nghi Loc, Nghe An 1233112231','1234546345','assets/images/profile/profile_35.jpg','2025-03-15 23:36:25','2025-03-19 17:24:12'),(36,'Long','Nguyen Hoang',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_35.jpg','2025-03-19 22:06:11',NULL);
+INSERT INTO `profile` VALUES (1,'Tai 123123','Nguyen Van',1,'2004-11-10','Nghi Loc, Nghe An','037628123','assets/images/profile/profile_1.jpg','2025-01-31 23:46:55','2025-03-19 16:37:37'),(2,'Anh','Do Minh',1,'1975-05-15','456 Health Lane kkk','124356789','assets/images/profile/profile_2.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(3,'Quyen','Nguyen Duc',0,'1985-08-20','789 Parent Road','345-678-9012','assets/images/profile/profile_3.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(4,'Long','Nguyen Hoang',1,'1990-03-10','101 Staff Avenue','456-789-0123','assets/images/profile/profile_4.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(29,'a','a',1,'2025-03-06','a','a','assets/images/profile/default.jpg','2025-03-06 09:00:12',NULL),(32,'qwe','qwe',1,'2025-03-11','sdsd','214122231','assets/images/profile/default.jpg','2025-03-06 02:17:41','2025-03-06 02:17:41'),(35,'Tai 123123','Nguyen Van',1,'2004-11-20','Nghi Loc, Nghe An 1233112231','1234546345','assets/images/profile/profile_35.jpg','2025-03-15 23:36:25','2025-03-19 17:24:12'),(36,'Long','Nguyen Hoang',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_35.jpg','2025-03-19 22:06:11',NULL),(37,'A','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_35.jpg','2025-03-20 07:46:35',NULL),(42,'B','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_36.jpg','2025-03-20 07:52:49',NULL),(43,'C','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_37.jpg','2025-03-20 07:52:53',NULL),(53,'D','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_38.jpg','2025-03-20 07:54:43',NULL),(59,'E','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_39.jpg','2025-03-20 07:54:54',NULL),(60,'F','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_40.jpg','2025-03-20 07:57:38',NULL),(61,'G','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_41.jpg','2025-03-20 07:59:04',NULL),(62,'H','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_42.jpg','2025-03-20 07:59:11',NULL),(63,'I','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_43.jpg','2025-03-20 07:59:18',NULL),(64,'J','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_44.jpg','2025-03-20 07:59:25',NULL);
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,7 +255,7 @@ CREATE TABLE `reservation` (
   `customer_id` int NOT NULL,
   `status_id` int NOT NULL DEFAULT '1',
   `reserve_date` datetime NOT NULL,
-  `note` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `note` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `first_name` varchar(100) DEFAULT NULL,
@@ -301,7 +353,7 @@ DROP TABLE IF EXISTS `reservationstatus`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservationstatus` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `status_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `status_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -325,8 +377,8 @@ DROP TABLE IF EXISTS `role`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `description` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `role_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
+  `description` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -380,7 +432,7 @@ DROP TABLE IF EXISTS `service`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `service` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
   `description` text,
   `brief_info` text,
   `category_id` int NOT NULL,
@@ -468,7 +520,7 @@ DROP TABLE IF EXISTS `slider`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `slider` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `image_url` varchar(200) DEFAULT NULL,
   `back_link` varchar(200) DEFAULT NULL,
   `author_id` int DEFAULT NULL,
@@ -519,7 +571,7 @@ CREATE TABLE `user` (
   KEY `IX_User_Username` (`username`),
   KEY `userrole_fk1_idx` (`role_id`),
   CONSTRAINT `userrole_fk1` FOREIGN KEY (`role_id`) REFERENCES `setting` (`setting_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -528,7 +580,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','123','nvtai24norip@gmail.com',0,NULL,NULL,16,1,'2025-01-31 23:46:55','2025-03-19 15:10:21',NULL,NULL),(2,'doctor1','123','doctor1@childrencare.com',0,NULL,NULL,13,1,'2025-01-31 23:46:55','2025-03-08 00:16:22',NULL,NULL),(3,'parent1','123','parent1@childrencare.com',0,NULL,NULL,15,1,'2025-01-31 23:46:55','2025-03-08 00:16:22',NULL,NULL),(4,'staff1','123','staff1@childrencare.com',0,NULL,NULL,13,1,'2025-01-31 23:46:55','2025-03-08 00:16:22',NULL,NULL),(29,'anhdm','Minhanh140904','ameebro99@gmail.com',1,NULL,NULL,14,1,'2025-03-06 09:00:12','2025-03-08 00:16:22','58f15957-fd71-412e-af6d-57999285bedc','2025-03-06 12:05:05'),(30,'dev','123','abc@gmail.com',1,NULL,NULL,16,1,'2025-03-06 09:07:53','2025-03-08 00:16:22',NULL,NULL),(31,'dev2','123','abc1@gmail.com',0,NULL,NULL,16,1,'2025-03-06 09:38:11','2025-03-08 00:16:22',NULL,NULL),(32,'quyen123','Ducquyen123','milo9a5@gmail.com',0,'82ecff6c-3e11-4962-92e3-4cd06639fa5a','2025-03-06 12:17:41',16,1,'2025-03-06 09:17:41','2025-03-08 00:16:22',NULL,NULL),(35,'devip','123','buiblue123@gmail.com',0,NULL,NULL,16,1,'2025-03-15 23:35:07',NULL,NULL,NULL),(36,'long','123','long@gmail.com',0,NULL,NULL,14,1,'2025-03-19 22:05:14','2025-03-19 22:15:53',NULL,NULL);
+INSERT INTO `user` VALUES (1,'admin','123','nvtai24norip@gmail.com',0,NULL,NULL,16,1,'2025-01-31 23:46:55','2025-03-19 15:10:21',NULL,NULL),(2,'doctor1','123','doctor1@childrencare.com',0,NULL,NULL,13,1,'2025-01-31 23:46:55','2025-03-08 00:16:22',NULL,NULL),(3,'parent1','123','parent1@childrencare.com',0,NULL,NULL,15,1,'2025-01-31 23:46:55','2025-03-08 00:16:22',NULL,NULL),(4,'staff1','123','staff1@childrencare.com',0,NULL,NULL,13,1,'2025-01-31 23:46:55','2025-03-08 00:16:22',NULL,NULL),(29,'anhdm','Minhanh140904','ameebro99@gmail.com',1,NULL,NULL,14,1,'2025-03-06 09:00:12','2025-03-08 00:16:22','58f15957-fd71-412e-af6d-57999285bedc','2025-03-06 12:05:05'),(30,'dev','123','abc@gmail.com',1,NULL,NULL,16,1,'2025-03-06 09:07:53','2025-03-08 00:16:22',NULL,NULL),(31,'dev2','123','abc1@gmail.com',0,NULL,NULL,16,1,'2025-03-06 09:38:11','2025-03-08 00:16:22',NULL,NULL),(32,'quyen123','Ducquyen123','milo9a5@gmail.com',0,'82ecff6c-3e11-4962-92e3-4cd06639fa5a','2025-03-06 12:17:41',16,1,'2025-03-06 09:17:41','2025-03-08 00:16:22',NULL,NULL),(35,'devip','123','buiblue123@gmail.com',0,NULL,NULL,16,1,'2025-03-15 23:35:07',NULL,NULL,NULL),(36,'long','123','long@gmail.com',0,NULL,NULL,14,1,'2025-03-19 22:05:14','2025-03-19 22:15:53',NULL,NULL),(37,'staffA','123','abc2@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:45:11',NULL,NULL,NULL),(42,'staffB','123','abc3@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:51:59',NULL,NULL,NULL),(43,'staffC','123','abc4@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:52:08',NULL,NULL,NULL),(53,'staffD','123','abc5@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:54:02',NULL,NULL,NULL),(59,'staffE','123','abc6@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:54:48',NULL,NULL,NULL),(60,'staffF','123','abc7@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:54:59',NULL,NULL,NULL),(61,'staffG','123','abc8@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:59:01',NULL,NULL,NULL),(62,'staffH','123','abc9@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:59:08',NULL,NULL,NULL),(63,'staffI','123','abc10@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:59:14',NULL,NULL,NULL),(64,'staffJ','123','abc11@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:59:21',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -569,29 +621,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-19 22:38:11
-
-
-DELIMITER //
-
-create TRIGGER update_reservation_status
-AFTER UPDATE ON reservationdetail
-FOR EACH ROW
-BEGIN
-    -- Check if the status of the updated reservationdetail is 6 (completed)
-    IF NEW.status_id = 6 THEN
-        -- Check if all reservationdetails for the same reservation_id have status 6
-        IF NOT EXISTS (
-            SELECT 1
-            FROM reservationdetail
-            WHERE reservation_id = NEW.reservation_id
-            AND status_id != 6
-        ) THEN
-            -- Update the status of reservation to 3 (completed)
-            UPDATE reservation
-            SET status_id = 3
-            WHERE id = NEW.reservation_id;
-        END IF;
-    END IF;
-END //
-
+-- Dump completed on 2025-03-20  9:41:20

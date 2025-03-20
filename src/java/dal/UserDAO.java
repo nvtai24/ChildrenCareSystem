@@ -63,7 +63,7 @@ public class UserDAO extends DBContext {
     public boolean register(User user) {
         String sql = "INSERT INTO `user` (`username`, `password`, `email` ,`role_id`, `verification_token`, `token_expiration`, `email_verified`) VALUES (?, ?, ?, 15, ?, ?, 0)";
         try (PreparedStatement ps = dbContext.connection.prepareStatement(sql)) {
-           
+
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getEmail());
@@ -833,7 +833,7 @@ public class UserDAO extends DBContext {
                 + "FROM user u\n"
                 + "JOIN profile p ON u.id = p.userid\n"
                 + "WHERE u.status = 1 \n"
-                + "AND u.role_id IN (2, 3, 4) \n"
+                + "AND u.role_id IN (13, 14, 15) \n"
                 + "AND DATE(u.created_date) >= DATE(NOW()) - INTERVAL 7 DAY\n"
                 + "ORDER BY u.created_date DESC \n"
                 + "LIMIT 5;";
@@ -844,7 +844,7 @@ public class UserDAO extends DBContext {
                 User user = new User();
                 user.setUsername(rs.getString("username"));
                 user.setEmail(rs.getString("email"));
-                user.setAvatar(rs.getString("avatar")); 
+                user.setAvatar(rs.getString("avatar"));
                 user.setFirstname(rs.getString("firstname"));
                 user.setLastname(rs.getString("lastname"));
                 users.add(user);
@@ -855,28 +855,59 @@ public class UserDAO extends DBContext {
         }
         return users;
     }
+    
+    public int countUsersInLast7Days() {
+        int totalUsers = 0;
+        String query = "SELECT COUNT(*) AS total_users "
+                + "FROM user "
+                + "WHERE role_id IN (13, 14, 15)"
+                + "AND DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY";
 
-// Phương thức lấy danh sách nhân viên không bận trong khung giờ
-    public ArrayList<User> getAvailableStaff(LocalDateTime reserveDate) {
+        try {
+            ResultSet rs = executeQuery(query);
+            if (rs.next()) {
+                totalUsers = rs.getInt("total_users");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalUsers;
+    }
+
+
+
+    public ArrayList<User> getAvailableStaff(LocalDateTime reserveDate, int reservationId) {
         DBContext db = new DBContext();
         ArrayList<User> availableStaff = new ArrayList<>();
+
+        // SQL truy vấn các nhân viên không bận trong khoảng thời gian đã cho
         String sql = "SELECT u.id, p.firstname, p.lastname, u.username, u.email "
                 + "FROM user u "
                 + "JOIN profile p ON u.id = p.userid "
-                + "WHERE u.role_id = 13 " // Chỉ lấy những nhân viên có role_id = 13
+                + "WHERE u.role_id = 13 "
                 + "AND NOT EXISTS ( "
-                + "   SELECT 1 "
-                + "   FROM reservationdetail rd "
-                + "   JOIN reservation r ON rd.reservation_id = r.id "
-                + "   WHERE rd.staff_id = u.id "
-                + "   AND r.reserve_date BETWEEN ? AND ? "
+                + "    SELECT 1 "
+                + "    FROM reservationdetail rd "
+                + "    JOIN reservation r ON rd.reservation_id = r.id "
+                + "    WHERE rd.staff_id = u.id "
+                + "    AND r.reserve_date BETWEEN ? AND ? "
                 + ")";
+
+        // SQL truy vấn các nhân viên làm việc theo reservation_id
+        String reservationStaffSql = "SELECT u.id, p.firstname, p.lastname, u.username, u.email "
+                + "FROM user u "
+                + "JOIN profile p ON u.id = p.userid "
+                + "JOIN reservationdetail rd ON rd.staff_id = u.id "
+                + "JOIN reservation r ON r.id = rd.reservation_id "
+                + "WHERE r.id = ?";
 
         try {
             // Tính thời gian kết thúc là reserveDate + 1 giờ
             Timestamp startDate = Timestamp.valueOf(reserveDate);
             Timestamp endDate = Timestamp.valueOf(reserveDate.plusHours(1));
 
+            // Thực thi câu truy vấn để lấy các nhân viên không bận
             ResultSet rs = db.executeQuery(sql, startDate, endDate);
 
             while (rs.next()) {
@@ -891,6 +922,26 @@ public class UserDAO extends DBContext {
                 staff.setProfile(profile);
 
                 availableStaff.add(staff);
+            }
+
+            // Lấy danh sách nhân viên làm theo reservation_id
+            ResultSet rsReservation = db.executeQuery(reservationStaffSql, reservationId);
+            while (rsReservation.next()) {
+                User staff = new User();
+                staff.setId(rsReservation.getInt("id"));
+                staff.setUsername(rsReservation.getString("username"));
+                staff.setEmail(rsReservation.getString("email"));
+
+                Profile profile = new Profile();
+                profile.setFirstName(rsReservation.getString("firstname"));
+                profile.setLastName(rsReservation.getString("lastname"));
+                staff.setProfile(profile);
+
+                // Kiểm tra nếu nhân viên chưa có trong danh sách
+                boolean exists = availableStaff.stream().anyMatch(existingStaff -> existingStaff.getId() == staff.getId());
+                if (!exists) {
+                    availableStaff.add(staff);
+                }
             }
 
         } catch (SQLException e) {

@@ -340,13 +340,16 @@
                                                             ${slider.status ? 'Hide' : 'Show'}
                                                         </button>
                                                     </form>
-                                                    <form method="post" action="DeleteSlider" style="display:inline;">
-                                                        <input type="hidden" name="id" value="${slider.id}">
-                                                        <button type="submit" class="btn delete">
-                                                            <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                                            Delete
-                                                        </button>
-                                                    </form>
+                                                    <div id="slider-${slider.id}" class="slider-item">
+
+                                                        <form style="display:inline;">
+                                                            <input type="hidden" name="id" value="${slider.id}">
+                                                            <button type="button" class="btn delete" onclick="confirmDelete('${slider.id}')">
+                                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                                Delete
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                     <form method="get" action="sliders-update" style="display:inline;">
                                                         <input  type="hidden" name="id" value="${slider.id}">
                                                         <button type="submit" class="btn update" style="display:inline;">
@@ -415,6 +418,46 @@
         <script src="assets/js/functions.js"></script>
         <script src="assets/vendors/chart/chart.min.js"></script>
         <script src="assets/js/admin.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+                                                                function confirmDelete(sliderId) {
+                                                                    Swal.fire({
+                                                                        title: "Are you sure?",
+                                                                        text: "You won't be able to revert this!",
+                                                                        icon: "warning",
+                                                                        showCancelButton: true,
+                                                                        confirmButtonColor: "#d33",
+                                                                        cancelButtonColor: "#3085d6",
+                                                                        confirmButtonText: "Yes, delete it!"
+                                                                    }).then((result) => {
+                                                                        if (result.isConfirmed) {
+                                                                            $.ajax({
+                                                                                url: "DeleteSlider", // Đổi thành API phù hợp
+                                                                                type: "POST",
+                                                                                data: {id: sliderId},
+                                                                                success: function (response) {
+
+                                                                                    Swal.fire({
+                                                                                        title: "Deleted!",
+                                                                                        text: "Your slider has been deleted.",
+                                                                                        icon: "success",
+                                                                                        timer: 1000,
+                                                                                        showConfirmButton: false
+                                                                                    })
+                                                                                            .then(() => {
+                                                                                                window.location.href = "/app/sliders"; // Load lại trang /post
+                                                                                            });
+                                                                                    ;
+                                                                                },
+                                                                                error: function (xhr, status, error) {
+                                                                                    Swal.fire("Error!", "Something went wrong.", "error");
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                    });
+                                                                }
+        </script>
     </body>
 
     <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
