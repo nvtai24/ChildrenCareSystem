@@ -505,6 +505,18 @@ public class UserDAO extends DBContext {
         }
     }
 
+    public void toggleStatus(String email) {
+        String sql = "update user\n"
+                + "set status = status  ^ 1\n"
+                + "where email = ?";
+
+        try {
+            executeUpdate(sql, email);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public User get(int idUser) {
         User user = null;
         PreparedStatement stm = null;
@@ -536,6 +548,7 @@ public class UserDAO extends DBContext {
                 user.setId(rs.getInt("u.id"));
                 user.setUsername(rs.getString("username"));
                 user.setEmail(rs.getString("email"));
+                user.setStatus(rs.getBoolean("status"));
 
                 Role r = new Role();
 
@@ -855,7 +868,7 @@ public class UserDAO extends DBContext {
         }
         return users;
     }
-    
+
     public int countUsersInLast7Days() {
         int totalUsers = 0;
         String query = "SELECT COUNT(*) AS total_users "
@@ -874,8 +887,6 @@ public class UserDAO extends DBContext {
         }
         return totalUsers;
     }
-
-
 
     public ArrayList<User> getAvailableStaff(LocalDateTime reserveDate, int reservationId) {
         DBContext db = new DBContext();

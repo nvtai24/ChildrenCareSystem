@@ -173,22 +173,22 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
-                                <td style="display: flex; gap: 20px" class="text-center text-nowrap align-middle">
+                                <td style="display: flex; gap: 20px; justify-content: center; align-items: center">
                                     <div class="status-toggle" data-id="${s.id}" data-status="${s.status}">
                                         <c:choose>
                                             <c:when test="${s.status}">
-                                                <div class="btn red mb-2" style="width: 100px">
+                                                <div class="btn red" style="width: 100px">
                                                     <i class="fa fa-refresh" aria-hidden="true"></i> Inactive
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
-                                                <div class="btn green mb-2" style="width: 100px">
+                                                <div class="btn green" style="width: 100px">
                                                     <i class="fa fa-refresh" aria-hidden="true"></i> Active
                                                 </div>
                                             </c:otherwise>
                                         </c:choose>
                                     </div>
-                                    <button type="submit" class="btn green mb-2" style="width: 100px">
+                                    <button type="submit" class="btn green" style="width: 100px">
                                         <a href="setting?id=${s.id}" style="color: white">
                                             <i class="fa fa-pencil" aria-hidden="true"></i> Edit
                                         </a>

@@ -144,7 +144,7 @@
                                             <td class="align-middle">
                                                 <fmt:formatNumber value="${r.totalQuantity}" type="number" pattern="#"/>
                                             </td>
-                                            <td class="align-middle">${r.totalPrice}</td>
+                                            <td class="align-middle">$${r.totalPrice}</td>
                                             <td class="align-middle">
                                                 <c:if test="${r.status.id == 1}">
                                                     <span class="badge badge-secondary">Pending</span>
@@ -164,7 +164,7 @@
 
                                             </td>
                                             <td class="align-middle">
-                                                <a class="btn green mb-2" href="reservation/info?id=${r.id}" style="color: white; width: 100px">
+                                                <a class="btn green" href="reservation/info?id=${r.id}" style="color: white; width: 100px">
                                                     View
                                                 </a>
                                             </td>

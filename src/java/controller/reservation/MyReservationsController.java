@@ -34,6 +34,8 @@ public class MyReservationsController extends HttpServlet {
         ReservationDAO rdb = new ReservationDAO();
         ArrayList<Reservation> r = rdb.listMyReservations(current.getId());
 
+        System.out.println(current.getId());
+
         for (Reservation reservation : r) {
             int quantiy = 0;
             double total = 0;

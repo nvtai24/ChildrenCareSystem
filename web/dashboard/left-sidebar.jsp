@@ -90,12 +90,12 @@ Nvtai --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                     </c:if>
                 </li>
 
-                <li>
+<!--                <li>
                     <a href="/app/profile" class="ttr-material-button">
                         <span class="ttr-icon"><i class="fa fa-user"></i></span>
                         <span class="ttr-label">My Profile</span>
                     </a>
-                </li>
+                </li>-->
 
                 <li>
                     <c:if test="${sessionScope.permissions.contains('/permissions')}">
