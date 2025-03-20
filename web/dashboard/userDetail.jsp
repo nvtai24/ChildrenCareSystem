@@ -211,9 +211,13 @@
                                 <small id="phoneError" class="error-text text-danger"></small>
                             </div>
 
-
-                            <button type="submit" class="btn btn-success btn-update">Save</button>
+                            <div style="display: flex; gap: 10px; justify-content: center; width: 100%;">
+                                <a href="#" style="flex: 1;"><button type="button" class="btn btn-success btn-update">Reset password</button></a> 
+                                <a href="#" style="flex: 1;"><button type="button" class="btn btn-success btn-update">Ban</button></a>
+                                <button type="submit" class="btn btn-success btn-update" style="flex: 1;">Save</button>
+                            </div>
                         </div>
+
                     </div>
                 </form>
 
