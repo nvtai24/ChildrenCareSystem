@@ -159,9 +159,9 @@
                             <tr>
                                 <td scope="row" class="align-middle">${status.index + 1}</td>
                                 <td class="text-nowrap align-middle">${s.settingValue}</td>
-                                <td class="center-datarow align-middle">${s.settingType.name}</td>
+                                <td class="center-datarow align-middle text-center">${s.settingType.name}</td>
                                 <td class="center-datarow align-middle">${s.description}</td>
-                                <td class="center-datarow align-middle">
+                                <td class="center-datarow align-middle text-center">
                                     <c:choose>
                                         <c:when test="${s.status}">
                                             <span class="badge badge-success" style="width: 70px">Active</span>
@@ -171,12 +171,8 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
-<<<<<<< HEAD
-                                <td
-                                    style="display: flex; align-items: center; justify-content: center; gap: 20px">
-=======
+
                                 <td style="display: flex; gap: 20px; justify-content: center; align-items: center">
->>>>>>> TaiNV
                                     <div class="status-toggle" data-id="${s.id}" data-status="${s.status}">
                                         <c:choose>
                                             <c:when test="${s.status}">

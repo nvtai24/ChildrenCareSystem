@@ -115,19 +115,14 @@
                 <li>
                     <a href="#" class="ttr-material-button ttr-submenu-toggle">
                         <span class="ttr-user-avatar">
-                            <img alt="" style="width: 100%; height: 100%" src="${pageContext.request.contextPath}/${sessionScope.account.profile.avatar != null ? sessionScope.account.profile.avatar : "assets/images/profile/default.jpg"}">
+                            <img alt="" style="width: 100%; height: 100%; object-fit: cover" src="${pageContext.request.contextPath}/${sessionScope.account.profile.avatar != null ? sessionScope.account.profile.avatar : "assets/images/profile/default.jpg"}">
                         </span>
                     </a>
 
                     <div class="ttr-header-submenu">
                         <ul>
-<<<<<<< HEAD
                             <!--<li><a href="${pageContext.request.contextPath}/profile">My Profile</a></li>-->
                             <li><a href="logout" style="color: red">Log Out</a></li>
-=======
-                            <li><a href="${pageContext.request.contextPath}/profile">My Profile</a></li>
-                            <li><a href="${pageContext.request.contextPath}/logout" style="color: red">Log Out</a></li>
->>>>>>> e4135a6b9d4f48970128ed2ed8df99f3e17cfeee
                         </ul>
                     </div>
                 </li>
