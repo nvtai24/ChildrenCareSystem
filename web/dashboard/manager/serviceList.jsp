@@ -153,14 +153,14 @@
                 <table id="serviceTable" class="table table-striped table-hover" style="width:100%">
                     <thead class="thead-light">
                         <tr>
-                            <th>Service Name</th>
-                            <th>Thumbnail</th>
-                            <th>Category</th>
-                            <th>Price</th>
-                            <th>Discount</th>
-                            <th>Sale Price</th>
-                            <th>Brief Info</th>
-                            <th>Status</th>
+                            <th class="text-center">Service Name</th>
+                            <th class="text-center">Thumbnail</th>
+                            <th class="text-center">Category</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Discount</th>
+                            <th class="text-center">Sale Price</th>
+                            <th class="text-center">Brief Info</th>
+                            <th class="text-center">Status</th>
                             <th class="text-center">Actions</th>
 
                         </tr>

@@ -144,14 +144,14 @@
                     <thead class="thead-light">
                         <tr>
                             <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Reserved Date</th>
-                            <th>Phone</th>
-                            <th>Email</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
-                            <th>Status</th>
+                            <th class="text-center">First Name</th>
+                            <th class="text-center">Last Name</th>
+                            <th class="text-center">Reserved Date</th>
+                            <th class="text-center">Phone</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Total</th>
+                            <th class="text-center">Status</th>
                             <th class="text-center">Actions</th> <!-- Add actions column -->
                         </tr>
                     </thead>
@@ -169,17 +169,20 @@
                                 <td><!-- Cột Status -->
                                     <c:choose>
                                         <c:when test="${r.status.id == 1}">
-                                            <span class="badge badge-secondary" style="width: 70px">Pending</span>
+                                            <span class="badge badge-secondary" >Pending</span>
                                         </c:when>
                                         <c:when test="${r.status.id == 2}">
-                                            <span class="badge badge-success" style="width: 70px">Confirmed</span>
+                                            <span class="badge badge-success" >Confirmed</span>
                                         </c:when>
                                         <c:when test="${r.status.id == 3}">
-                                            <span class="badge badge-primary" style="width: 70px">Completed</span>
+                                            <span class="badge badge-primary" >Completed</span>
                                         </c:when>
                                         <c:when test="${r.status.id == 4}">
-                                            <span class="badge badge-danger" style="width: 70px">Cancelled</span>
-                                        </c:when>                                        
+                                            <span class="badge badge-danger" >Cancelled</span>
+                                        </c:when>
+                                        <c:when test="${r.status.id == 5}">
+                                            <span class="badge badge-warning"  >Pending Refund</span>
+                                        </c:when>
                                     </c:choose>
                                 </td>
                                 <td class="text-center text-nowrap" style="display: flex; gap: 5px;  align-items: center; justify-content: center;">
@@ -190,9 +193,9 @@
                                             <i class="fa fa-pencil" aria-hidden="true"></i> Detail
                                         </button>
                                     </form>
-                                    
 
-                                    
+
+
                                 </td>
                             </tr>
                         </c:forEach>
