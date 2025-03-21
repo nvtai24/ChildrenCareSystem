@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
--- Host: localhost    Database: childrencare
+-- Host: 127.0.0.1    Database: childrencare
 -- ------------------------------------------------------
--- Server version	8.0.40
+-- Server version	8.0.29
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,8 +24,8 @@ DROP TABLE IF EXISTS `category`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `category` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
+  `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `status` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -50,9 +50,9 @@ DROP TABLE IF EXISTS `feature`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `feature` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `feature_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `feature_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
   `url` varchar(200) DEFAULT NULL,
-  `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS `feedback`;
 CREATE TABLE `feedback` (
   `reservationdetail_id` int NOT NULL,
   `rating` int DEFAULT NULL,
-  `comment` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `comment` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -106,7 +106,7 @@ DROP TABLE IF EXISTS `label`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `label` (
   `id` int NOT NULL,
-  `labelName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `labelName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
   `description` text,
   `status` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
@@ -160,7 +160,7 @@ DROP TABLE IF EXISTS `medicalexamination`;
 CREATE TABLE `medicalexamination` (
   `id` int NOT NULL AUTO_INCREMENT,
   `examination_date` datetime DEFAULT NULL,
-  `diagnosis` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `diagnosis` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `notes` text,
   `status` tinyint(1) DEFAULT '1',
   `done_date` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -190,7 +190,7 @@ DROP TABLE IF EXISTS `medicalprescription`;
 CREATE TABLE `medicalprescription` (
   `id` int NOT NULL,
   `examination_id` int NOT NULL,
-  `medicine_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `medicine_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `dosage` int DEFAULT NULL,
   `instructions` text,
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -247,7 +247,7 @@ DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
   `id` int NOT NULL AUTO_INCREMENT,
   `author_id` int DEFAULT NULL,
-  `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
   `content` text,
   `thumbnail` varchar(200) DEFAULT NULL,
   `status` tinyint(1) DEFAULT '1',
@@ -283,7 +283,7 @@ CREATE TABLE `profile` (
   `lastname` varchar(100) DEFAULT NULL,
   `gender` tinyint(1) DEFAULT NULL,
   `dob` date DEFAULT NULL,
-  `address` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `address` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `avatar` varchar(200) DEFAULT 'assets/images/profile/default.jpg',
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -315,7 +315,7 @@ CREATE TABLE `reservation` (
   `customer_id` int NOT NULL,
   `status_id` int NOT NULL DEFAULT '1',
   `reserve_date` datetime NOT NULL,
-  `note` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `note` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `first_name` varchar(100) DEFAULT NULL,
@@ -329,7 +329,7 @@ CREATE TABLE `reservation` (
   KEY `IX_Reservation_Date` (`reserve_date`),
   CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `reservationstatus` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -338,7 +338,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (14,1,3,'2025-03-22 07:30:00','','2025-03-05 15:22:27','2025-03-19 21:40:15','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(15,1,1,'2025-03-29 07:30:00','','2025-03-05 15:23:01',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(16,1,1,'2025-03-15 07:30:00','','2025-03-06 02:28:47',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(17,3,1,'2025-03-13 07:30:00','','2025-03-06 09:27:15',NULL,'Quyen','Nguyen Duc','parent1@childrencare.com','0373517718',_binary '\0'),(18,35,1,'2025-03-16 14:30:00','','2025-03-15 23:38:07',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(19,35,1,'2025-03-28 14:30:00','','2025-03-15 23:39:25','2025-03-16 00:58:53','Tai 1','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(20,35,1,'2025-03-18 00:08:00','','2025-03-17 10:08:15',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(21,35,1,'2025-03-18 07:30:00','','2025-03-17 10:09:54',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(22,35,1,'2025-03-18 07:30:00','','2025-03-17 10:10:26',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(23,35,1,'2025-03-18 08:30:00','','2025-03-17 10:11:08','2025-03-17 15:57:13','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(24,35,2,'2025-03-18 07:30:00','','2025-03-17 10:13:22','2025-03-17 10:52:28','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(25,35,2,'2025-03-18 07:30:00','','2025-03-17 10:16:36','2025-03-17 10:52:08','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(26,35,4,'2025-03-18 07:30:00','','2025-03-17 10:20:19','2025-03-17 10:51:58','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(27,35,1,'2025-03-18 14:30:00','','2025-03-17 15:58:52',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(28,35,1,'2025-03-18 14:30:00','','2025-03-17 16:00:54',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(29,35,1,'2025-03-18 14:30:00','','2025-03-17 16:10:20',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(30,35,1,'2025-03-18 14:30:00','','2025-03-17 16:18:38',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(31,35,1,'2025-03-18 07:30:00','','2025-03-17 16:47:14',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(32,35,1,'2025-03-18 14:30:00','','2025-03-17 17:42:27',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(33,35,1,'2025-03-18 07:30:00','','2025-03-17 18:17:38',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(34,35,1,'2025-03-18 07:30:00','','2025-03-17 18:18:41',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(35,35,1,'2025-03-18 14:30:00','','2025-03-17 18:21:03',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(36,35,1,'2025-03-18 14:30:00','','2025-03-17 18:21:55',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(37,35,4,'2025-03-18 07:30:00','','2025-03-17 18:24:13','2025-03-19 15:02:40','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(38,35,2,'2025-03-18 14:30:00','','2025-03-17 18:33:14','2025-03-19 15:01:55','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(39,35,2,'2025-03-18 07:30:00','','2025-03-17 18:34:19','2025-03-19 03:41:55','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(40,35,2,'2025-03-18 07:30:00','','2025-03-17 18:34:53','2025-03-19 03:41:45','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '');
+INSERT INTO `reservation` VALUES (14,1,3,'2025-03-22 07:30:00','','2025-03-05 15:22:27','2025-03-19 21:40:15','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(15,1,1,'2025-03-29 07:30:00','','2025-03-05 15:23:01',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(16,1,1,'2025-03-15 07:30:00','','2025-03-06 02:28:47',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(17,3,1,'2025-03-13 07:30:00','','2025-03-06 09:27:15',NULL,'Quyen','Nguyen Duc','parent1@childrencare.com','0373517718',_binary '\0'),(18,35,1,'2025-03-16 14:30:00','','2025-03-15 23:38:07',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(19,35,1,'2025-03-28 14:30:00','','2025-03-15 23:39:25','2025-03-16 00:58:53','Tai 1','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(20,35,1,'2025-03-18 00:08:00','','2025-03-17 10:08:15',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(21,35,1,'2025-03-18 07:30:00','','2025-03-17 10:09:54',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(22,35,1,'2025-03-18 07:30:00','','2025-03-17 10:10:26',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(23,35,1,'2025-03-18 08:30:00','','2025-03-17 10:11:08','2025-03-17 15:57:13','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(24,35,2,'2025-03-18 07:30:00','','2025-03-17 10:13:22','2025-03-17 10:52:28','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(25,35,2,'2025-03-18 07:30:00','','2025-03-17 10:16:36','2025-03-17 10:52:08','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(26,35,4,'2025-03-18 07:30:00','','2025-03-17 10:20:19','2025-03-17 10:51:58','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(27,35,1,'2025-03-18 14:30:00','','2025-03-17 15:58:52',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(28,35,1,'2025-03-18 14:30:00','','2025-03-17 16:00:54',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(29,35,1,'2025-03-18 14:30:00','','2025-03-17 16:10:20',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(30,35,1,'2025-03-18 14:30:00','','2025-03-17 16:18:38',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(31,35,1,'2025-03-18 07:30:00','','2025-03-17 16:47:14',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(32,35,1,'2025-03-18 14:30:00','','2025-03-17 17:42:27',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(33,35,1,'2025-03-18 07:30:00','','2025-03-17 18:17:38',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(34,35,1,'2025-03-18 07:30:00','','2025-03-17 18:18:41',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(35,35,1,'2025-03-18 14:30:00','','2025-03-17 18:21:03',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(36,35,4,'2025-03-18 14:30:00','','2025-03-17 18:21:55','2025-03-21 09:41:41','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(37,35,4,'2025-03-18 07:30:00','','2025-03-17 18:24:13','2025-03-19 15:02:40','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(38,35,2,'2025-03-18 14:30:00','','2025-03-17 18:33:14','2025-03-19 15:01:55','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(39,35,2,'2025-03-18 07:30:00','','2025-03-17 18:34:19','2025-03-19 03:41:55','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(40,35,2,'2025-03-18 07:30:00','','2025-03-17 18:34:53','2025-03-19 03:41:45','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(41,30,4,'2025-03-22 07:30:00','','2025-03-21 09:42:45','2025-03-21 09:44:23','Quyen','Nguyen','abc@gmail.com','0352587107',_binary ''),(42,30,1,'2025-03-22 07:30:00','','2025-03-21 10:05:15','2025-03-21 10:05:56','Quyen123','Test','abc@gmail.com','0352587107',_binary ''),(43,30,4,'2025-03-22 07:30:00','','2025-03-21 10:06:33','2025-03-21 10:06:47','Quyen123','qweqwe','abc@gmail.com','0352587107',_binary '\0'),(44,30,5,'2025-03-22 07:30:00','','2025-03-21 10:06:34','2025-03-21 10:07:53','Quyen123','qweqwe','abc@gmail.com','0352587107',_binary '');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -367,7 +367,7 @@ CREATE TABLE `reservationdetail` (
   CONSTRAINT `reservationdetail_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`) ON DELETE CASCADE,
   CONSTRAINT `reservationdetail_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE CASCADE,
   CONSTRAINT `reservationdetail_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `reservationdetailstatus` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -376,7 +376,7 @@ CREATE TABLE `reservationdetail` (
 
 LOCK TABLES `reservationdetail` WRITE;
 /*!40000 ALTER TABLE `reservationdetail` DISABLE KEYS */;
-INSERT INTO `reservationdetail` VALUES (14,14,2,1,142.50,'2025-03-05 15:22:27',30,6),(15,15,1,1,100.00,'2025-03-05 15:23:01',NULL,1),(16,15,2,1,150.00,'2025-03-05 15:23:01',NULL,1),(17,15,3,1,40.00,'2025-03-05 15:23:01',NULL,1),(18,15,5,1,70.00,'2025-03-05 15:23:01',NULL,1),(19,16,5,1,70.00,'2025-03-06 02:28:47',NULL,1),(20,17,1,1,100.00,'2025-03-06 09:27:15',NULL,1),(21,18,2,1,142.50,'2025-03-15 23:38:07',NULL,1),(22,19,1,1,100.00,'2025-03-15 23:39:25',NULL,1),(23,20,2,1,142.50,'2025-03-17 10:08:15',NULL,1),(24,21,6,1,90.00,'2025-03-17 10:09:54',NULL,1),(25,22,8,1,80.00,'2025-03-17 10:10:26',NULL,1),(26,23,6,1,90.00,'2025-03-17 10:11:08',NULL,1),(27,23,7,1,120.00,'2025-03-17 10:11:08',NULL,1),(28,23,8,1,80.00,'2025-03-17 10:11:08',NULL,1),(29,23,12,1,150.00,'2025-03-17 10:11:08',NULL,1),(30,24,2,2,150.00,'2025-03-17 10:13:22',NULL,1),(31,24,15,1,130.00,'2025-03-17 10:13:22',NULL,1),(32,24,16,1,110.00,'2025-03-17 10:13:22',NULL,1),(33,24,17,1,120.00,'2025-03-17 10:13:22',NULL,1),(34,24,18,1,130.00,'2025-03-17 10:13:22',NULL,1),(35,25,2,1,142.50,'2025-03-17 10:16:36',4,1),(36,26,1,1,100.00,'2025-03-17 10:20:19',NULL,1),(37,26,2,2,150.00,'2025-03-17 10:20:19',NULL,1),(38,26,3,2,40.00,'2025-03-17 10:20:19',NULL,1),(39,26,4,1,60.00,'2025-03-17 10:20:19',NULL,1),(40,26,5,1,70.00,'2025-03-17 10:20:19',NULL,1),(41,26,6,1,90.00,'2025-03-17 10:20:19',NULL,1),(42,27,2,1,150.00,'2025-03-17 15:58:52',NULL,1),(43,27,3,1,40.00,'2025-03-17 15:58:52',NULL,1),(44,28,2,1,150.00,'2025-03-17 16:00:54',NULL,1),(45,28,3,1,40.00,'2025-03-17 16:00:54',NULL,1),(46,28,4,1,60.00,'2025-03-17 16:00:54',NULL,1),(47,28,5,1,70.00,'2025-03-17 16:00:54',NULL,1),(48,28,6,1,90.00,'2025-03-17 16:00:54',NULL,1),(49,29,1,1,100.00,'2025-03-17 16:10:20',NULL,1),(50,29,2,1,150.00,'2025-03-17 16:10:20',NULL,1),(51,29,3,1,40.00,'2025-03-17 16:10:20',NULL,1),(52,29,4,1,60.00,'2025-03-17 16:10:20',NULL,1),(53,29,5,1,70.00,'2025-03-17 16:10:20',NULL,1),(54,29,6,1,90.00,'2025-03-17 16:10:20',NULL,1),(55,29,7,1,120.00,'2025-03-17 16:10:20',NULL,1),(56,29,8,1,80.00,'2025-03-17 16:10:20',NULL,1),(57,29,9,1,50.00,'2025-03-17 16:10:20',NULL,1),(58,29,10,1,100.00,'2025-03-17 16:10:20',NULL,1),(59,29,12,1,150.00,'2025-03-17 16:10:20',NULL,1),(60,29,13,1,120.00,'2025-03-17 16:10:20',NULL,1),(61,29,14,1,110.00,'2025-03-17 16:10:20',NULL,1),(62,29,15,1,130.00,'2025-03-17 16:10:20',NULL,1),(63,29,16,1,110.00,'2025-03-17 16:10:20',NULL,1),(64,29,17,1,120.00,'2025-03-17 16:10:20',NULL,1),(65,29,18,1,130.00,'2025-03-17 16:10:20',NULL,1),(66,29,19,1,70.00,'2025-03-17 16:10:20',NULL,1),(67,30,1,1,100.00,'2025-03-17 16:18:38',NULL,1),(68,30,2,1,150.00,'2025-03-17 16:18:38',NULL,1),(69,30,3,1,40.00,'2025-03-17 16:18:38',NULL,1),(70,30,4,1,60.00,'2025-03-17 16:18:38',NULL,1),(71,30,5,1,70.00,'2025-03-17 16:18:38',NULL,1),(72,30,6,1,90.00,'2025-03-17 16:18:38',NULL,1),(73,31,2,1,142.50,'2025-03-17 16:47:14',NULL,1),(74,32,1,1,100.00,'2025-03-17 17:42:27',NULL,1),(75,32,2,1,150.00,'2025-03-17 17:42:27',NULL,1),(76,32,3,1,40.00,'2025-03-17 17:42:27',NULL,1),(77,33,2,1,142.50,'2025-03-17 18:17:38',NULL,1),(78,34,2,1,142.50,'2025-03-17 18:18:41',NULL,1),(79,35,2,1,150.00,'2025-03-17 18:21:03',NULL,1),(80,35,3,1,40.00,'2025-03-17 18:21:03',NULL,1),(81,35,4,1,60.00,'2025-03-17 18:21:03',NULL,1),(82,35,5,1,70.00,'2025-03-17 18:21:03',NULL,1),(83,35,6,1,90.00,'2025-03-17 18:21:03',NULL,1),(84,36,1,1,100.00,'2025-03-17 18:21:55',NULL,1),(85,36,2,1,150.00,'2025-03-17 18:21:55',NULL,1),(86,36,3,1,40.00,'2025-03-17 18:21:55',NULL,1),(87,36,5,1,70.00,'2025-03-17 18:21:55',NULL,1),(88,36,6,1,90.00,'2025-03-17 18:21:55',NULL,1),(89,37,2,1,142.50,'2025-03-17 18:24:13',2,1),(90,38,1,1,100.00,'2025-03-17 18:33:14',NULL,1),(91,38,2,1,150.00,'2025-03-17 18:33:14',2,1),(92,38,3,1,40.00,'2025-03-17 18:33:14',4,1),(93,38,5,1,70.00,'2025-03-17 18:33:14',NULL,1),(94,39,2,1,142.50,'2025-03-17 18:34:19',NULL,1),(95,40,3,1,40.00,'2025-03-17 18:34:53',NULL,1);
+INSERT INTO `reservationdetail` VALUES (14,14,2,1,142.50,'2025-03-05 15:22:27',30,6),(15,15,1,1,100.00,'2025-03-05 15:23:01',NULL,1),(16,15,2,1,150.00,'2025-03-05 15:23:01',NULL,1),(17,15,3,1,40.00,'2025-03-05 15:23:01',NULL,1),(18,15,5,1,70.00,'2025-03-05 15:23:01',NULL,1),(19,16,5,1,70.00,'2025-03-06 02:28:47',NULL,1),(20,17,1,1,100.00,'2025-03-06 09:27:15',NULL,1),(21,18,2,1,142.50,'2025-03-15 23:38:07',NULL,1),(22,19,1,1,100.00,'2025-03-15 23:39:25',NULL,1),(23,20,2,1,142.50,'2025-03-17 10:08:15',NULL,1),(24,21,6,1,90.00,'2025-03-17 10:09:54',NULL,1),(25,22,8,1,80.00,'2025-03-17 10:10:26',NULL,1),(26,23,6,1,90.00,'2025-03-17 10:11:08',NULL,1),(27,23,7,1,120.00,'2025-03-17 10:11:08',NULL,1),(28,23,8,1,80.00,'2025-03-17 10:11:08',NULL,1),(29,23,12,1,150.00,'2025-03-17 10:11:08',NULL,1),(30,24,2,2,150.00,'2025-03-17 10:13:22',NULL,1),(31,24,15,1,130.00,'2025-03-17 10:13:22',NULL,1),(32,24,16,1,110.00,'2025-03-17 10:13:22',NULL,1),(33,24,17,1,120.00,'2025-03-17 10:13:22',NULL,1),(34,24,18,1,130.00,'2025-03-17 10:13:22',NULL,1),(35,25,2,1,142.50,'2025-03-17 10:16:36',4,1),(36,26,1,1,100.00,'2025-03-17 10:20:19',NULL,1),(37,26,2,2,150.00,'2025-03-17 10:20:19',NULL,1),(38,26,3,2,40.00,'2025-03-17 10:20:19',NULL,1),(39,26,4,1,60.00,'2025-03-17 10:20:19',NULL,1),(40,26,5,1,70.00,'2025-03-17 10:20:19',NULL,1),(41,26,6,1,90.00,'2025-03-17 10:20:19',NULL,1),(42,27,2,1,150.00,'2025-03-17 15:58:52',NULL,1),(43,27,3,1,40.00,'2025-03-17 15:58:52',NULL,1),(44,28,2,1,150.00,'2025-03-17 16:00:54',NULL,1),(45,28,3,1,40.00,'2025-03-17 16:00:54',NULL,1),(46,28,4,1,60.00,'2025-03-17 16:00:54',NULL,1),(47,28,5,1,70.00,'2025-03-17 16:00:54',NULL,1),(48,28,6,1,90.00,'2025-03-17 16:00:54',NULL,1),(49,29,1,1,100.00,'2025-03-17 16:10:20',NULL,1),(50,29,2,1,150.00,'2025-03-17 16:10:20',NULL,1),(51,29,3,1,40.00,'2025-03-17 16:10:20',NULL,1),(52,29,4,1,60.00,'2025-03-17 16:10:20',NULL,1),(53,29,5,1,70.00,'2025-03-17 16:10:20',NULL,1),(54,29,6,1,90.00,'2025-03-17 16:10:20',NULL,1),(55,29,7,1,120.00,'2025-03-17 16:10:20',NULL,1),(56,29,8,1,80.00,'2025-03-17 16:10:20',NULL,1),(57,29,9,1,50.00,'2025-03-17 16:10:20',NULL,1),(58,29,10,1,100.00,'2025-03-17 16:10:20',NULL,1),(59,29,12,1,150.00,'2025-03-17 16:10:20',NULL,1),(60,29,13,1,120.00,'2025-03-17 16:10:20',NULL,1),(61,29,14,1,110.00,'2025-03-17 16:10:20',NULL,1),(62,29,15,1,130.00,'2025-03-17 16:10:20',NULL,1),(63,29,16,1,110.00,'2025-03-17 16:10:20',NULL,1),(64,29,17,1,120.00,'2025-03-17 16:10:20',NULL,1),(65,29,18,1,130.00,'2025-03-17 16:10:20',NULL,1),(66,29,19,1,70.00,'2025-03-17 16:10:20',NULL,1),(67,30,1,1,100.00,'2025-03-17 16:18:38',NULL,1),(68,30,2,1,150.00,'2025-03-17 16:18:38',NULL,1),(69,30,3,1,40.00,'2025-03-17 16:18:38',NULL,1),(70,30,4,1,60.00,'2025-03-17 16:18:38',NULL,1),(71,30,5,1,70.00,'2025-03-17 16:18:38',NULL,1),(72,30,6,1,90.00,'2025-03-17 16:18:38',NULL,1),(73,31,2,1,142.50,'2025-03-17 16:47:14',NULL,1),(74,32,1,1,100.00,'2025-03-17 17:42:27',NULL,1),(75,32,2,1,150.00,'2025-03-17 17:42:27',NULL,1),(76,32,3,1,40.00,'2025-03-17 17:42:27',NULL,1),(77,33,2,1,142.50,'2025-03-17 18:17:38',NULL,1),(78,34,2,1,142.50,'2025-03-17 18:18:41',NULL,1),(79,35,2,1,150.00,'2025-03-17 18:21:03',NULL,1),(80,35,3,1,40.00,'2025-03-17 18:21:03',NULL,1),(81,35,4,1,60.00,'2025-03-17 18:21:03',NULL,1),(82,35,5,1,70.00,'2025-03-17 18:21:03',NULL,1),(83,35,6,1,90.00,'2025-03-17 18:21:03',NULL,1),(84,36,1,1,100.00,'2025-03-17 18:21:55',NULL,1),(85,36,2,1,150.00,'2025-03-17 18:21:55',NULL,1),(86,36,3,1,40.00,'2025-03-17 18:21:55',NULL,1),(87,36,5,1,70.00,'2025-03-17 18:21:55',NULL,1),(88,36,6,1,90.00,'2025-03-17 18:21:55',NULL,1),(89,37,2,1,142.50,'2025-03-17 18:24:13',2,1),(90,38,1,1,100.00,'2025-03-17 18:33:14',NULL,1),(91,38,2,1,150.00,'2025-03-17 18:33:14',2,1),(92,38,3,1,40.00,'2025-03-17 18:33:14',4,1),(93,38,5,1,70.00,'2025-03-17 18:33:14',NULL,1),(94,39,2,1,142.50,'2025-03-17 18:34:19',NULL,1),(95,40,3,1,40.00,'2025-03-17 18:34:53',NULL,1),(96,41,1,1,100.00,'2025-03-21 09:42:45',NULL,1),(97,42,1,1,100.00,'2025-03-21 10:05:15',NULL,1),(98,43,1,1,100.00,'2025-03-21 10:06:33',NULL,1),(99,44,1,1,100.00,'2025-03-21 10:06:34',NULL,1);
 /*!40000 ALTER TABLE `reservationdetail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -413,9 +413,9 @@ DROP TABLE IF EXISTS `reservationstatus`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservationstatus` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `status_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `status_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -424,7 +424,7 @@ CREATE TABLE `reservationstatus` (
 
 LOCK TABLES `reservationstatus` WRITE;
 /*!40000 ALTER TABLE `reservationstatus` DISABLE KEYS */;
-INSERT INTO `reservationstatus` VALUES (1,'Pending'),(2,'Confirmed'),(3,'Completed'),(4,'Cancelled');
+INSERT INTO `reservationstatus` VALUES (1,'Pending'),(2,'Confirmed'),(3,'Completed'),(4,'Cancelled'),(5,'Pending Refund');
 /*!40000 ALTER TABLE `reservationstatus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -437,8 +437,8 @@ DROP TABLE IF EXISTS `role`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `description` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `role_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
+  `description` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -492,7 +492,7 @@ DROP TABLE IF EXISTS `service`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `service` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
   `description` text,
   `brief_info` text,
   `category_id` int NOT NULL,
@@ -580,7 +580,7 @@ DROP TABLE IF EXISTS `slider`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `slider` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
   `image_url` varchar(200) DEFAULT NULL,
   `back_link` varchar(200) DEFAULT NULL,
   `author_id` int DEFAULT NULL,
@@ -681,4 +681,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-21  9:13:37
+-- Dump completed on 2025-03-21 10:22:41
