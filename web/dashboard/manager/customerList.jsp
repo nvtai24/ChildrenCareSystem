@@ -127,14 +127,14 @@
                 <table id="userTable" class="table table-striped table-hover" style="width:100%">
                     <thead class="thead-light">
                         <tr>
-                            <th>#</th>
-                            <th>User Name</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Gender</th>
-                            <th>Email</th>
-                            <th>Mobile</th>
-                            <th>Status</th>                            
+                            <th class="text-center">#</th>
+                            <th class="text-center">User Name</th>
+                            <th class="text-center">First Name</th>
+                            <th class="text-center">Last Name</th>
+                            <th class="text-center">Gender</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">Mobile</th>
+                            <th class="text-center">Status</th>                            
                             <th class="text-center">Actions</th>
                         </tr>
                     </thead>

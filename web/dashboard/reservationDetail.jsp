@@ -163,7 +163,7 @@
                                 </form>
 
                             </c:if>
-                            <c:if test="${manager && r.banking && r.status.statusName eq 'Cancelled'}">
+                            <c:if test="${manager && r.status.id eq 5}">
                                 <button type="submit" class="btn red mb-2" onclick="preRefund('/app/reservation/refund?id=${r.id}')"> 
                                     Refund
                                 </button>
@@ -177,12 +177,12 @@
                         <table id="reservationdetailTable" class="table">
                             <thead>
                                 <tr>
-                                    <th>Service</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
-                                    <th>Total</th>
-                                    <th>Status</th>
-                                    <th>Assigned</th>                              
+                                    <th class="text-center">Service</th>
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-center">Price</th>
+                                    <th class="text-center">Total</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Assigned</th>                              
                                     <th style="text-align: center;">Action</th>
                                 </tr>
                             </thead>
@@ -372,7 +372,7 @@
             </c:if>
             <c:if test="${notification eq 3}">
             Swal.fire({
-                title: "Cannot Confirmed!",
+                title: "Cannot Change!",
                 text: "Cannot change status please try again.",
                 icon: "error",
                 confirmButtonText: "OK",
