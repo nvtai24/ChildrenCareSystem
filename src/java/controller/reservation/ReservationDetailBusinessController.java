@@ -87,8 +87,8 @@ public class ReservationDetailBusinessController extends HttpServlet {
                     );
                     EmailUtil.sendReserveNotification(staff.getEmail(), subject, message);
                 }
-                
-                if(staff_id == -1){
+
+                if (staff_id == -1) {
                     rdDAO.changeStatusReservationDetail(1, reservation_detail_id);
                 }
 
@@ -126,11 +126,28 @@ public class ReservationDetailBusinessController extends HttpServlet {
 
             case "cancel" -> {
 
-                subject = "Reservation cancel!";
-                String message1 = generateReservationMessage(reservation, "Cancelled", formattedDateTime, request.getParameter("reason"), serviceContent);
-                EmailUtil.sendReserveNotification(reservation.getEmail(), subject, message1);
-                rDAO.changeReservationStatus(4, reservation.getId()); // 4 - Cancelled
-                notification = 1;
+                boolean changeOnlineBankingMethod = reservation.isBanking();
+                boolean checkChangeSuccess;
+
+                if (changeOnlineBankingMethod) {
+                    checkChangeSuccess = rDAO.changeReservationStatus(5, reservation.getId());
+                } else {
+                    checkChangeSuccess = rDAO.changeReservationStatus(4, reservation.getId());
+                }
+
+                if (checkChangeSuccess && changeOnlineBankingMethod) {
+                    subject = "Reservation pending refund!";
+                    String message1 = generateReservationMessage(reservation, "Pending refund", formattedDateTime, request.getParameter("reason"), serviceContent);
+                    EmailUtil.sendReserveNotification(reservation.getEmail(), subject, message1);
+                    notification = 1;
+                } else if (checkChangeSuccess && !changeOnlineBankingMethod) {
+                    subject = "Reservation cancel!";
+                    String message1 = generateReservationMessage(reservation, "Cancelled", formattedDateTime, request.getParameter("reason"), serviceContent);
+                    EmailUtil.sendReserveNotification(reservation.getEmail(), subject, message1);
+                    notification = 1;
+                } else {
+                    notification = 3;
+                }
                 reservation = rDAO.getReservation(Integer.parseInt(reservationId));
                 request.setAttribute("r", reservation);
                 request.setAttribute("rdList", rdList);
@@ -208,7 +225,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 } else {
                     notification = 3;
                 }
-                
+
                 reservation = rDAO.getReservation(Integer.parseInt(reservationId));
                 if (reservation.getStatus().getId() == 3) {
                     subject = "Reservation Completed!";
