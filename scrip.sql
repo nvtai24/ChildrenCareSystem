@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: childrencare
+-- Host: localhost    Database: childrencare
 -- ------------------------------------------------------
--- Server version	8.0.29
+-- Server version	8.0.40
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,8 +24,8 @@ DROP TABLE IF EXISTS `category`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `category` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
-  `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `status` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -50,9 +50,9 @@ DROP TABLE IF EXISTS `feature`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `feature` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `feature_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
+  `feature_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `url` varchar(200) DEFAULT NULL,
-  `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS `feedback`;
 CREATE TABLE `feedback` (
   `reservationdetail_id` int NOT NULL,
   `rating` int DEFAULT NULL,
-  `comment` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `comment` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -93,6 +93,7 @@ CREATE TABLE `feedback` (
 
 LOCK TABLES `feedback` WRITE;
 /*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
+INSERT INTO `feedback` VALUES (14,5,'Great service, very satisfied with the care provided',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(15,4,'Good experience overall, would recommend',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(16,5,'Excellent staff, very attentive to needs',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(17,3,'Satisfactory service, some areas need improvement',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(18,4,'Professional and caring staff',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(19,5,'Highly recommended for quality childcare',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(20,4,'Good facilities and activities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(21,3,'Average experience, could be better',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(22,5,'Fantastic care and attention to detail',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(23,4,'Very good service, child enjoyed their time',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(24,5,'Excellent communication from staff',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(25,3,'Decent service but room for improvement',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(26,4,'Good quality care, child felt comfortable',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(27,5,'Outstanding service, exceeded expectations',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(28,4,'Reliable and trustworthy service',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(29,3,'Adequate care provided, but limited activities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(30,5,'Exceptional care and attention',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(31,4,'Very satisfied with the service',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(32,5,'Amazing staff, very friendly and helpful',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(33,3,'Service was okay, staff could be more attentive',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(34,4,'Good environment for children',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(35,5,'Wonderful experience, will use again',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(36,4,'Very good service and facilities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(37,3,'Average service, nothing special',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(38,5,'Superb care, child loved it',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(39,4,'Good quality care and activities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(40,5,'Excellent service, highly recommended',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(41,3,'Satisfactory but could improve communication',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(42,4,'Good care provided, child was happy',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(43,5,'Fantastic service from start to finish',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(44,4,'Very professional and caring staff',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(45,3,'Decent service but understaffed at times',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(46,5,'Outstanding care and facilities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(47,4,'Good experience, would use again',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(48,5,'Exceptional service, very satisfied',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(49,3,'Average experience, some improvements needed',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(50,4,'Good quality care provided',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(51,5,'Excellent service and staff',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(52,4,'Very good experience overall',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(53,3,'Satisfactory service provided',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(54,5,'Wonderful care, child was very happy',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(55,4,'Good staff and facilities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(56,5,'Excellent care and attention to detail',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(57,3,'Average service, could be more engaging',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(58,4,'Good quality childcare service',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(59,5,'Fantastic experience, will definitely return',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(60,4,'Very satisfied with the care provided',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(61,1,'Very poor service, would not recommend',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(62,1,'Disappointing experience, staff was inattentive',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(63,1,'Inadequate facilities and supervision',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(64,1,'Poor communication and service quality',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(65,1,'Unsatisfactory experience, many issues',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(66,1,'Very unhappy with the service provided',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(67,1,'Extremely disappointed, will not return',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(68,2,'Below average service, needs significant improvement',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(69,2,'Not satisfied with the quality of care',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(70,2,'Poor facilities but staff tried their best',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(71,2,'Subpar experience, many areas need attention',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(72,2,'Disappointed with the level of service',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(73,2,'Below expectations, would not recommend',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(74,2,'Mediocre service and facilities',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41');
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,7 +106,7 @@ DROP TABLE IF EXISTS `label`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `label` (
   `id` int NOT NULL,
-  `labelName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
+  `labelName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `description` text,
   `status` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
@@ -150,6 +151,65 @@ INSERT INTO `labelpost` VALUES (9,1),(10,2),(11,3),(9,16),(10,17),(11,18),(9,19)
 UNLOCK TABLES;
 
 --
+-- Table structure for table `medicalexamination`
+--
+
+DROP TABLE IF EXISTS `medicalexamination`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `medicalexamination` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `examination_date` datetime DEFAULT NULL,
+  `diagnosis` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `notes` text,
+  `status` tinyint(1) DEFAULT '1',
+  `done_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `reservationdetail_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_reservationdetail_id` (`reservationdetail_id`),
+  CONSTRAINT `fk_reservationdetail_id` FOREIGN KEY (`reservationdetail_id`) REFERENCES `reservationdetail` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `medicalexamination`
+--
+
+LOCK TABLES `medicalexamination` WRITE;
+/*!40000 ALTER TABLE `medicalexamination` DISABLE KEYS */;
+/*!40000 ALTER TABLE `medicalexamination` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `medicalprescription`
+--
+
+DROP TABLE IF EXISTS `medicalprescription`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `medicalprescription` (
+  `id` int NOT NULL,
+  `examination_id` int NOT NULL,
+  `medicine_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `dosage` int DEFAULT NULL,
+  `instructions` text,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `examination_id` (`examination_id`),
+  CONSTRAINT `medicalprescription_ibfk_1` FOREIGN KEY (`examination_id`) REFERENCES `medicalexamination` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `medicalprescription`
+--
+
+LOCK TABLES `medicalprescription` WRITE;
+/*!40000 ALTER TABLE `medicalprescription` DISABLE KEYS */;
+/*!40000 ALTER TABLE `medicalprescription` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `paymenthistory`
 --
 
@@ -187,7 +247,7 @@ DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
   `id` int NOT NULL AUTO_INCREMENT,
   `author_id` int DEFAULT NULL,
-  `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
+  `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `content` text,
   `thumbnail` varchar(200) DEFAULT NULL,
   `status` tinyint(1) DEFAULT '1',
@@ -223,7 +283,7 @@ CREATE TABLE `profile` (
   `lastname` varchar(100) DEFAULT NULL,
   `gender` tinyint(1) DEFAULT NULL,
   `dob` date DEFAULT NULL,
-  `address` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `address` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `avatar` varchar(200) DEFAULT 'assets/images/profile/default.jpg',
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -255,7 +315,7 @@ CREATE TABLE `reservation` (
   `customer_id` int NOT NULL,
   `status_id` int NOT NULL DEFAULT '1',
   `reserve_date` datetime NOT NULL,
-  `note` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `note` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `first_name` varchar(100) DEFAULT NULL,
@@ -353,7 +413,7 @@ DROP TABLE IF EXISTS `reservationstatus`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservationstatus` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `status_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
+  `status_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -377,8 +437,8 @@ DROP TABLE IF EXISTS `role`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
-  `description` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `role_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `description` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -432,7 +492,7 @@ DROP TABLE IF EXISTS `service`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `service` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `description` text,
   `brief_info` text,
   `category_id` int NOT NULL,
@@ -520,7 +580,7 @@ DROP TABLE IF EXISTS `slider`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `slider` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `image_url` varchar(200) DEFAULT NULL,
   `back_link` varchar(200) DEFAULT NULL,
   `author_id` int DEFAULT NULL,
@@ -621,4 +681,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-20  9:41:20
+-- Dump completed on 2025-03-21  9:13:37
