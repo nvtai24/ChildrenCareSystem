@@ -215,7 +215,9 @@ contentType="text/html" pageEncoding="UTF-8"%>
                       <span class="badge badge-danger">Cancelled</span>
                     </c:when>
                     <c:when test="${r.status.id == 5}">
-                      <span class="badge badge-warning text-white">Pending Refund</span>
+                      <span class="badge badge-warning text-white"
+                        >Pending Refund</span
+                      >
                     </c:when>
                   </c:choose>
                 </td>
