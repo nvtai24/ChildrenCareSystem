@@ -49,7 +49,6 @@ public class ResetPasswordAjaxController extends HttpServlet {
 
             out.print("{\"success\": true, \"message\": \"Email sent successfully\"}");
             out.flush();
-
             response.setStatus(HttpServletResponse.SC_OK);
         } else {
             out.print("{\"success\": false, \"message\": \"Some thing wrong!\"}");
