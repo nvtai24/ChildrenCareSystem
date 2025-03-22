@@ -166,7 +166,7 @@
                             <c:if test="${manager && r.status.id eq 5}">
 
                                 <input type="hidden" id="hiddenId" value="${r.id}">
-                                <button type="submit" class="btn red mb-2" onclick="preRefund(event)"> 
+                                <button id="refundBtn" class="btn red mb-2" onclick="preRefund(event)"> 
                                     Refund
                                 </button>
                             </c:if>
@@ -351,8 +351,6 @@
 
                                                     function preRefund(event)
                                                     {
-
-
                                                         Swal.fire({
                                                             title: "Are you sure?",
                                                             text: "Do you really want to refund for this reservation?",
@@ -363,12 +361,35 @@
                                                             confirmButtonText: "Yes, change it!",
                                                             cancelButtonText: "No, cancel!"
                                                         }).then((result) => {
-
                                                             if (result.isConfirmed) {
                                                                 let id = $('#hiddenId').val();
-                                                                url = '/app/reservation/refund?id=' + id;
+//                                                                url = '/app/reservation/refund?id=' + id;
+//                                                                window.location.href = url;
+
+                                                                $.ajax({
+                                                                    url: '/app/reservation/refund',
+                                                                    type: 'POST',
+                                                                    data: {id: id},
+                                                                    success: function (response) {
+                                                                        $('#refundBtn').hide();
+
+                                                                        Swal.fire({
+                                                                            title: "Good job!",
+                                                                            text: "Refund successfully!",
+                                                                            icon: "success"
+                                                                        });
+                                                                    },
+                                                                    error: function (jqXHR, textStatus, errorThrown) {
+                                                                        Swal.fire({
+                                                                            icon: "error",
+                                                                            title: "Oops...",
+                                                                            text: "Something went wrong!",
+                                                                            footer: '<a href="#">Why do I have this issue?</a>'
+                                                                        });
+                                                                    }
+                                                                });
+
                                                             }
-                                                            window.location.href = url;
                                                         });
                                                     }
         </script>
