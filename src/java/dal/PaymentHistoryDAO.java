@@ -38,29 +38,35 @@ public class PaymentHistoryDAO extends DBContext {
 
         PaymentHistory ph = null;
 
-        String sql = "SELECT `paymenthistory`.`reservation_id`,\n"
+        String sql = "SELECT \n"
+                + "    `paymenthistory`.`reservation_id`,\n"
                 + "    `paymenthistory`.`amount`,\n"
                 + "    `paymenthistory`.`transactiondate`,\n"
                 + "    `paymenthistory`.`txnref`,\n"
                 + "    `paymenthistory`.`transactiono`\n"
-                + "FROM `childrencare`.`paymenthistory`\n"
-                + "where reservation_id = ?";
+                + "FROM\n"
+                + "    `childrencare`.`paymenthistory`\n"
+                + "WHERE\n"
+                + "    reservation_id = ?";
 
         try {
             ResultSet rs = executeQuery(sql, rid);
 
-            int amount = rs.getInt("amount");
-            String transactionDateString = rs.getString("transactiondate");
-            String txnRef = rs.getString("txnref");
-            String transactionNo = rs.getString("transactiono");
+            if (rs.next()) {
+                long amount = rs.getLong("amount");
+                String transactionDateString = rs.getString("transactiondate");
+                String txnRef = rs.getString("txnref");
+                String transactionNo = rs.getString("transactiono");
 
-            ph = new PaymentHistory()
-                    .builder()
-                    .amount(amount)
-                    .transactionDateString(transactionDateString)
-                    .txnRef(txnRef)
-                    .transactionNo(transactionNo)
-                    .build();
+                ph = new PaymentHistory()
+                        .builder()
+                        .rid(rid)
+                        .amount(amount)
+                        .transactionDateString(transactionDateString)
+                        .txnRef(txnRef)
+                        .transactionNo(transactionNo)
+                        .build();
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(PaymentHistoryDAO.class.getName()).log(Level.SEVERE, null, ex);
