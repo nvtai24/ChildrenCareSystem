@@ -39,32 +39,38 @@ public class DashboardNavigationController extends HttpServlet {
 
         HttpSession session = request.getSession();
         User account = (User) session.getAttribute("account");
-        ReservationDAO reservationDAO = new ReservationDAO();
-        UserDAO userDAO = new UserDAO();
-        FeedbackDAO feedbackDAO = new FeedbackDAO();
-        List<Reservation> reservations = reservationDAO.getRecentReservations();
-        List<User> latestUsers = userDAO.getLatestFiveUsers();
-        ReservationDetailDAO dao = new ReservationDetailDAO();
-        int totalFeedback = feedbackDAO.countFeedbackInLast7Days();
-        int totalUsers = userDAO.countUsersInLast7Days();
-        double totalRevenue = dao.getTotalRevenue();
-        int totalReservations = reservationDAO.countReservationsInLast7Days();
-        int totalReservations1 = reservationDAO.countReservations1InLast7Days();
-        int totalReservations2 = reservationDAO.countReservations2InLast7Days();
-        int totalReservations3 = reservationDAO.countReservations3InLast7Days();
-        int totalReservations4 = reservationDAO.countReservations4InLast7Days();
-        request.setAttribute("totalReservations", totalReservations);
-        request.setAttribute("totalReservations1", totalReservations1);
-        request.setAttribute("totalReservations2", totalReservations2);
-        request.setAttribute("totalReservations3", totalReservations3);
-        request.setAttribute("totalReservations4", totalReservations4);
-        request.setAttribute("reservations", reservations);
-        request.setAttribute("latestUsers", latestUsers);
-        request.setAttribute("totalRevenue", totalRevenue);
-        request.setAttribute("totalUsers", totalUsers);
-        request.setAttribute("totalFeedback", totalFeedback);
 
-        request.getRequestDispatcher("dashboard/dashboard.jsp").forward(request, response);
+        if (account.getRole().getId() == 12 || (account.getRole().getId() == 14) || (account.getRole().getId() == 16)) {
+
+            ReservationDAO reservationDAO = new ReservationDAO();
+            UserDAO userDAO = new UserDAO();
+            FeedbackDAO feedbackDAO = new FeedbackDAO();
+            List<Reservation> reservations = reservationDAO.getRecentReservations();
+            List<User> latestUsers = userDAO.getLatestFiveUsers();
+            ReservationDetailDAO dao = new ReservationDetailDAO();
+            int totalFeedback = feedbackDAO.countFeedbackInLast7Days();
+            int totalUsers = userDAO.countUsersInLast7Days();
+            double totalRevenue = dao.getTotalRevenue();
+            int totalReservations = reservationDAO.countReservationsInLast7Days();
+            int totalReservations1 = reservationDAO.countReservations1InLast7Days();
+            int totalReservations2 = reservationDAO.countReservations2InLast7Days();
+            int totalReservations3 = reservationDAO.countReservations3InLast7Days();
+            int totalReservations4 = reservationDAO.countReservations4InLast7Days();
+            request.setAttribute("totalReservations", totalReservations);
+            request.setAttribute("totalReservations1", totalReservations1);
+            request.setAttribute("totalReservations2", totalReservations2);
+            request.setAttribute("totalReservations3", totalReservations3);
+            request.setAttribute("totalReservations4", totalReservations4);
+            request.setAttribute("reservations", reservations);
+            request.setAttribute("latestUsers", latestUsers);
+            request.setAttribute("totalRevenue", totalRevenue);
+            request.setAttribute("totalUsers", totalUsers);
+            request.setAttribute("totalFeedback", totalFeedback);
+
+            request.getRequestDispatcher("dashboard/dashboard.jsp").forward(request, response);
+        } else if (account.getRole().getId() == 13) {
+            response.sendRedirect("/app/reservations");
+        }
     }
 
     /**

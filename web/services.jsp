@@ -159,13 +159,17 @@
                                                                 <strong class="text-danger">$${s.price * (1 - s.discount / 100)}</strong>
                                                             </p>
 
-                                                            <button type="button" class="btn btn-success w-100 mb-2" onclick="addToWishlist(${s.id})">
-                                                                Add Appointment
-                                                            </button>
 
-                                                            <button type="button" class="btn btn-success w-100" onclick="bookNow(${s.id})">
-                                                                Book Now
-                                                            </button>
+                                                            <c:if test="${sessionScope.account.role.id == 15}">
+                                                                <button type="button" class="btn btn-success w-100 mb-2" onclick="addToWishlist(${s.id})">
+                                                                    Add Appointment
+                                                                </button>
+
+                                                                <button type="button" class="btn btn-success w-100" onclick="bookNow(${s.id})">
+                                                                    Book Now
+                                                                </button>
+                                                            </c:if>
+
 
                                                             <script>
                                                                 function addToWishlist(serviceId) {

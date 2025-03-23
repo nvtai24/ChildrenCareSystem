@@ -6,6 +6,7 @@ package controller.auth;
 
 import dal.FeatureDAO;
 import dal.ProfileDAO;
+import dal.RoleDAO;
 import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import model.Profile;
+import model.auth.Role;
 import model.auth.User;
 import util.PasswordUtil;
 
@@ -77,7 +79,8 @@ public class LoginController extends HttpServlet {
 
             FeatureDAO fDB = new FeatureDAO();
             ArrayList<String> permissions = fDB.getPermissions(user.getRole().getId());
-
+            
+      
             request.getSession().setAttribute("permissions", permissions);
             request.getSession().setAttribute("account", user);
             request.getSession().setAttribute("password", user.getPassword());
