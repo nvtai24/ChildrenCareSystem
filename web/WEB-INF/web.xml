@@ -475,6 +475,8 @@
     <servlet-mapping>
         <servlet-name>CustomerFeedbackController</servlet-name>
         <url-pattern>/customer-feedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ResetPasswordAjaxController</servlet-name>
         <url-pattern>/reset-ajax</url-pattern>
     </servlet-mapping>
