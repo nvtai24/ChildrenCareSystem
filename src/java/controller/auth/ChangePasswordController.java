@@ -31,18 +31,19 @@ public class ChangePasswordController extends HttpServlet {
         boolean hasError = false;
         String errorMessage = "";
         String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$";
+        String hashedPassword = PasswordUtil.toSHA1(oldPassword);
 
         int userId = (Integer) request.getSession().getAttribute("id");
         UserDAO userDAO = new UserDAO();
         User user = userDAO.getUserById(userId);
 
-        if (user == null || !user.getPassword().equals(oldPassword)) {
+        if (user == null || !user.getPassword().equals(hashedPassword)) {
             hasError = true;
             errorMessage = "Incorrect current password.";
         } else if (!newPassword.matches(passwordPattern)) {
             hasError = true;
             errorMessage = "Password must be 8-15 characters with at least one uppercase letter, one lowercase letter, and one number.";
-        } else if (newPassword.equals(oldPassword)) {
+        } else if (newPassword.equals(hashedPassword)) {
             hasError = true;
             errorMessage = "New password cannot be the same as the old password.";
         } else if (!newPassword.equals(confirmNewPassword)) {
