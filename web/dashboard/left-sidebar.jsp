@@ -7,13 +7,15 @@
         <!-- side menu logo end -->
         <!-- sidebar menu start -->
         <nav class="ttr-sidebar-navi">
-            
+
             <ul>
                 <li>
-                    <a href="/app/dashboard" class="ttr-material-button">
-                        <span class="ttr-icon"><i class="fa fa-home"></i></span>
-                        <span class="ttr-label">Dashboard</span>
-                    </a>
+                    <c:if test="${sessionScope.permissions.contains('/dashboard')}">
+                        <a href="/app/dashboard" class="ttr-material-button">
+                            <span class="ttr-icon"><i class="fa fa-home"></i></span>
+                            <span class="ttr-label">Dashboard</span>
+                        </a>
+                    </c:if>
                 </li>
 
                 <li>
@@ -90,12 +92,12 @@
                     </c:if>
                 </li>
 
-<!--                <li>
-                    <a href="/app/profile" class="ttr-material-button">
-                        <span class="ttr-icon"><i class="fa fa-user"></i></span>
-                        <span class="ttr-label">My Profile</span>
-                    </a>
-                </li>-->
+                <!--                <li>
+                                    <a href="/app/profile" class="ttr-material-button">
+                                        <span class="ttr-icon"><i class="fa fa-user"></i></span>
+                                        <span class="ttr-label">My Profile</span>
+                                    </a>
+                                </li>-->
 
                 <li>
                     <c:if test="${sessionScope.permissions.contains('/permissions')}">
