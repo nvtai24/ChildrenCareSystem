@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import util.PasswordUtil;
 
 /**
  *
@@ -42,9 +43,9 @@ public class ResetPasswordController extends HttpServlet {
             request.getRequestDispatcher("reset-password.jsp").forward(request, response);
             return;
         }
-
+        String hashedPassword = PasswordUtil.toSHA1(newPassword);
         UserDAO userDAO = new UserDAO();
-        boolean isPasswordUpdated = userDAO.resetPassword(token, newPassword);
+        boolean isPasswordUpdated = userDAO.resetPassword(token, hashedPassword);
 
         if (isPasswordUpdated) {
             request.setAttribute("successMessage", "Password has been reset successfully.");
