@@ -61,7 +61,7 @@ public class Vnpay {
             vnp_Params.put("vnp_OrderInfo", "Transaction Reference: " + vnp_TxnRef + ", " + serviceContent);
             vnp_Params.put("vnp_OrderType", orderType);
             vnp_Params.put("vnp_Locale", "vn");
-            vnp_Params.put("vnp_ReturnUrl", VnpayConfig.vnp_ReturnUrl);
+            vnp_Params.put("vnp_ReturnUrl", VnpayConfig.getReturnUrl(request));
             vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
             // Thêm thời gian tạo giao dịch

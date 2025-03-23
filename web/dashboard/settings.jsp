@@ -92,9 +92,12 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="toolbar">
-                    <a href="settings/add" class="btn btn-primary mb-2">
-                        <i class="fa fa-plus-circle mr-1"></i> Add New Setting
-                    </a>
+                    <div class="db-breadcrumb">
+                        <h4 class="breadcrumb-title">Setting List</h4>
+                        <a href="settings/add" class="btn btn-primary mb-2">
+                            <i class="fa fa-plus-circle mr-1"></i> Add New Setting
+                        </a>
+                    </div>
 
                     <div class="toolbar mt-2">
                         <div class="form-row align-items-center">

@@ -161,7 +161,9 @@
                                                 <c:if test="${r.status.id == 4}">
                                                     <span class="badge badge-danger">Cancelled</span>
                                                 </c:if>
-
+                                                    <c:if test="${r.status.id == 5}">
+                                                    <span class="badge badge-warning text-white">Refunding</span>
+                                                </c:if>
                                             </td>
                                             <td class="align-middle">
                                                 <a class="btn green" href="reservation/info?id=${r.id}" style="color: white; width: 100px">
