@@ -45,6 +45,10 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
         <style>
+            th {
+                text-align: center;
+            }
+
             div.dataTables_wrapper div.dataTables_paginate {
                 display: flex;
                 justify-content: center;
@@ -91,6 +95,41 @@
                 border-radius: 4px;
                 color: white;
                 font-weight: 500;
+            }
+
+            /* Custom pagination styles from settings */
+            .pagination-bx {
+                margin-top: 20px;
+            }
+
+            .pagination {
+                display: flex;
+                justify-content: center;
+                list-style: none;
+                padding: 0;
+            }
+
+            .pagination li {
+                margin: 0 5px;
+            }
+
+            .pagination li a {
+                padding: 8px 12px;
+                border: 1px solid #ddd;
+                text-decoration: none;
+                border-radius: 4px;
+                color: #333;
+            }
+
+            .pagination li.active a {
+                background-color: #4c1864;
+                color: white;
+                border-color: #4c1864;
+            }
+
+            .pagination li.disabled a {
+                color: #aaa;
+                cursor: not-allowed;
             }
         </style>
     </head>
@@ -205,7 +244,15 @@
                                                                     <ul class="card-courses-view">
                                                                         <li class="card-courses-user">
                                                                             <div class="card-courses-user-pic">
-                                                                                <img src="${feedback.avatar}" alt="" style="object-fit: cover" width="150px" height="150px"/>
+                                                                                <img src="<c:choose>
+                                                                                         <c:when test="${not empty feedback.avatar}">
+                                                                                             ${pageContext.request.contextPath}/${feedback.avatar}
+                                                                                         </c:when>
+                                                                                         <c:otherwise>
+                                                                                             ${pageContext.request.contextPath}/assets/images/profile/default.jpg
+                                                                                         </c:otherwise>
+                                                                                     </c:choose>" 
+                                                                                     alt=""/>
                                                                             </div>
                                                                             <div class="card-courses-user-info">
                                                                                 <h5>Reviewer</h5>
@@ -227,7 +274,7 @@
                                                                         </li>
                                                                         <li class="card-courses-categories">
                                                                             <h5>Date</h5>
-                                                                            <h4>${feedback.createdDate}</h4>
+                                                                            <h4>${feedback.createdDate.toLocalTime()} ${feedback.createdDate.toLocalDate()}</h4>
                                                                         </li>
                                                                         <li class="card-courses-categories">
                                                                             <h5>Status</h5>
@@ -244,7 +291,6 @@
                                                                     </div>
                                                                     <div class="col-md-12">
                                                                         <div class="d-flex">
-                                                                            <!--<a href="#" class="btn" data-toggle="modal" data-target="#replyModal${feedback.id}">Reply Review</a>-->
                                                                             <form action="feedbacks" method="POST" onsubmit="confirmChangeStatus(event)" class="ml-2">
                                                                                 <input type="hidden" name="id" value="${feedback.id}">
                                                                                 <input type="hidden" name="status" value="${feedback.status}">
@@ -262,8 +308,15 @@
                                                 </td>
                                             </tr>
                                         </c:forEach>
-                                    </tbody>
+                                    </tbody> 
                                 </table>
+
+                                <!-- Custom pagination from settings page -->
+                                <div class="col-lg-12 m-b20">
+                                    <div class="pagination-bx rounded-sm gray clearfix">
+                                        <!-- Pagination will be dynamically added here by JavaScript -->
+                                    </div>
+                                </div>
 
                                 <!-- Modals for all feedbacks -->
                                 <c:forEach items="${feedbackList}" var="feedback">
@@ -339,16 +392,112 @@
                                                                                 }
 
                                                                                 $(document).ready(function () {
-                                                                                    $('#feedbackTable').DataTable({
-                                                                                        "paging": true,
-                                                                                        "lengthMenu": [5, 10, 15],
-                                                                                        "pageLength": 5,
-                                                                                        "searching": false,
-                                                                                        "ordering": false,
-                                                                                        "info": false,
-                                                                                        "autoWidth": false,
-                                                                                        "dom": 't<"dt-paging"p>'
+                                                                                    var table = $("#feedbackTable").DataTable({
+                                                                                        paging: true,
+                                                                                        lengthMenu: [5, 10, 15],
+                                                                                        pageLength: 5,
+                                                                                        ordering: false,
+                                                                                        searching: false,
+                                                                                        info: false,
+                                                                                        dom: "t",
+                                                                                        drawCallback: function () {
+                                                                                            updatePagination(this.api());
+                                                                                        }
                                                                                     });
+
+                                                                                    // Custom pagination function from settings page
+                                                                                    function updatePagination(api) {
+                                                                                        var pageInfo = api.page.info();
+                                                                                        var paginationHTML = '<ul class="pagination">';
+
+                                                                                        // Previous button
+                                                                                        if (pageInfo.page > 0) {
+                                                                                            paginationHTML +=
+                                                                                                    '<li class="previous"><a href="#" data-page="' +
+                                                                                                    (pageInfo.page - 1) +
+                                                                                                    '"><i class="ti-arrow-left"></i> Prev</a></li>';
+                                                                                        } else {
+                                                                                            paginationHTML +=
+                                                                                                    '<li class="previous disabled"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>';
+                                                                                        }
+
+                                                                                        var maxPagesToShow = 5;
+
+                                                                                        if (pageInfo.pages <= maxPagesToShow) {
+                                                                                            for (var i = 0; i < pageInfo.pages; i++) {
+                                                                                                paginationHTML +=
+                                                                                                        '<li class="' +
+                                                                                                        (pageInfo.page === i ? "active" : "") +
+                                                                                                        '"><a href="#" data-page="' +
+                                                                                                        i +
+                                                                                                        '">' +
+                                                                                                        (i + 1) +
+                                                                                                        "</a></li>";
+                                                                                            }
+                                                                                        } else {
+                                                                                            var startPage = Math.max(0, pageInfo.page - Math.floor(maxPagesToShow / 2));
+                                                                                            var endPage = Math.min(pageInfo.pages - 1, startPage + maxPagesToShow - 1);
+
+                                                                                            if (endPage - startPage + 1 < maxPagesToShow) {
+                                                                                                startPage = Math.max(0, endPage - maxPagesToShow + 1);
+                                                                                            }
+
+                                                                                            if (startPage > 0) {
+                                                                                                paginationHTML +=
+                                                                                                        '<li><a href="#" data-page="0">1</a></li>';
+
+                                                                                                if (startPage > 1) {
+                                                                                                    paginationHTML += '<li class="disabled"><a href="#">...</a></li>';
+                                                                                                }
+                                                                                            }
+
+                                                                                            for (var i = startPage; i <= endPage; i++) {
+                                                                                                paginationHTML +=
+                                                                                                        '<li class="' +
+                                                                                                        (pageInfo.page === i ? "active" : "") +
+                                                                                                        '"><a href="#" data-page="' +
+                                                                                                        i +
+                                                                                                        '">' +
+                                                                                                        (i + 1) +
+                                                                                                        "</a></li>";
+                                                                                            }
+
+                                                                                            if (endPage < pageInfo.pages - 1) {
+                                                                                                if (endPage < pageInfo.pages - 2) {
+                                                                                                    paginationHTML += '<li class="disabled"><a href="#">...</a></li>';
+                                                                                                }
+
+                                                                                                paginationHTML +=
+                                                                                                        '<li><a href="#" data-page="' +
+                                                                                                        (pageInfo.pages - 1) +
+                                                                                                        '">' +
+                                                                                                        pageInfo.pages +
+                                                                                                        "</a></li>";
+                                                                                            }
+                                                                                        }
+
+                                                                                        if (pageInfo.page < pageInfo.pages - 1) {
+                                                                                            paginationHTML +=
+                                                                                                    '<li class="next"><a href="#" data-page="' +
+                                                                                                    (pageInfo.page + 1) +
+                                                                                                    '">Next <i class="ti-arrow-right"></i></a></li>';
+                                                                                        } else {
+                                                                                            paginationHTML +=
+                                                                                                    '<li class="next disabled"><a href="#">Next <i class="ti-arrow-right"></i></a></li>';
+                                                                                        }
+
+                                                                                        paginationHTML += "</ul>";
+
+                                                                                        $(".pagination-bx").html(paginationHTML);
+
+                                                                                        $(".pagination a").on("click", function (e) {
+                                                                                            e.preventDefault();
+                                                                                            var page = $(this).data("page");
+                                                                                            if (page !== undefined) {
+                                                                                                table.page(page).draw("page");
+                                                                                            }
+                                                                                        });
+                                                                                    }
                                                                                 });
         </script>
     </body>
