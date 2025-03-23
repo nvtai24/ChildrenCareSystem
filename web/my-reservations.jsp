@@ -59,6 +59,8 @@
             }
         </style>
 
+
+
     </head>
     <body id="bg">
         <div class="page-wraper">
@@ -67,6 +69,14 @@
             <!-- Header Top ==== -->
             <jsp:include page="header.jsp"/>
             <!-- header END ==== -->
+            
+            
+            <c:if test="${sessionScope.errorMessage != null}">
+                <div class="alert alert-success">${sessionScope.errorMessage}</div>
+            </c:if>
+            <!-- Xóa message khỏi session sau khi hiển thị -->
+            <c:remove var="errorMessage" scope="session"/>
+
 
             <!-- Content -->
             <div class="page-content bg-white">
@@ -81,6 +91,12 @@
                                     </ul>
                                 </div>
                             </div>
+
+                            <c:if test="${sessionScope.successMessage != null}">
+                                <div class="alert alert-success">${sessionScope.successMessage}</div>
+                            </c:if>
+                            <!-- Xóa message khỏi session sau khi hiển thị -->
+                            <c:remove var="successMessage" scope="session"/>
 
                             <div class="toolbar mt-2">
                                 <form>

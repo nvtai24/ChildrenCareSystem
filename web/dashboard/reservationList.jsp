@@ -91,29 +91,30 @@ contentType="text/html" pageEncoding="UTF-8"%>
     <jsp:include page="left-sidebar.jsp" />
     <!-- Left sidebar menu end -->
 
-    <!--Main container start -->
-    <main class="ttr-wrapper">
-      <div class="container-fluid">
-        <div class="db-breadcrumb">
-          <h4 class="breadcrumb-title">Reservation List</h4>
-        </div>
-        <div class="toolbar">
-          <div class="form-row align-items-center">
-            <div class="col-auto">
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">Status</div>
-                </div>
-                <select name="status" id="statusFilter">
-                  <option value="-1">All</option>
-                  <!-- All statuses -->
-                  <option value="Pending">Pending</option>
-                  <option value="Confirmed">Confirmed</option>
-                  <option value="Completed">Completed</option>
-                  <option value="Cancelled">Cancelled</option>
-                </select>
-              </div>
-            </div>
+        <!--Main container start -->
+        <main class="ttr-wrapper">
+          <div class="container-fluid">
+              <div class="db-breadcrumb">
+                  <h4 class="breadcrumb-title">Reservation List</h4>
+              </div>	
+              <div class="toolbar">
+                  <div class="form-row align-items-center">  
+
+                      <div class="col-auto">
+                          <div class="input-group mb-2">
+                              <div class="input-group-prepend">
+                                  <div class="input-group-text">Status</div>
+                              </div>
+                              <select name="status" id="statusFilter">
+                                  <option value="-1">All</option> <!-- All statuses -->
+                                  <option value="Pending">Pending</option>
+                                  <option value="Confirmed">Confirmed</option>
+                                  <option value="Completed">Completed</option>
+                                  <option value="Cancelled">Cancelled</option>
+                                  <option value="Pending Refund">Pending Refund</option>
+                              </select>
+                          </div>
+                      </div>
 
             <div class="col-auto">
               <div class="input-group mb-2">

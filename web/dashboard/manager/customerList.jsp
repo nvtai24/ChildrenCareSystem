@@ -170,6 +170,11 @@
                         </c:forEach>
                     </tbody>
                 </table>
+                <div class="col-lg-12 m-b20">
+                    <div class="pagination-bx rounded-sm gray clearfix">
+                        <!-- Phân trang sẽ được cập nhật tự động ở đây -->
+                    </div>
+                </div>
 
             </div>
         </main>
@@ -218,18 +223,75 @@
                                             });
                                         }
                                         $(document).ready(function () {
-                                            $('[data-toggle="tooltip"]').tooltip();
-                                        });
-                                        $('#userTable').DataTable({
-                                            "paging": true,
-                                            "lengthMenu": [10],
-                                            "searching": false,
-                                            "ordering": true,
-                                            "info": false,
-                                            "columnDefs": [
-                                                {"orderable": false, "targets": [7, 8]}
-                                            ],
-                                            "dom": 't<"dt-paging"p>'
+
+                                            var table = $('#userTable').DataTable({
+                                                paging: true,
+                                                lengthMenu: [10],
+                                                ordering: true,
+                                                searching: true,
+                                                info: false,
+                                                dom: "t",
+                                                columnDefs: [
+                                                    {targets: [7, 8], orderable: false}, // Vô hiệu hóa sắp xếp ở cột Action
+                                                ],
+                                                drawCallback: function () {
+                                                    updatePagination(this.api());
+                                                },
+                                            });
+
+
+                                            function updatePagination(api) {
+                                                var pageInfo = api.page.info();
+                                                var paginationHTML = '<ul class="pagination">';
+
+                                                // Nút Previous
+                                                if (pageInfo.page > 0) {
+                                                    paginationHTML +=
+                                                            '<li class="previous"><a href="#" data-page="' +
+                                                            (pageInfo.page - 1) +
+                                                            '"><i class="ti-arrow-left"></i> Prev</a></li>';
+                                                } else {
+                                                    paginationHTML +=
+                                                            '<li class="previous disabled"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>';
+                                                }
+
+                                                // Số trang
+                                                for (var i = 0; i < pageInfo.pages; i++) {
+                                                    paginationHTML +=
+                                                            '<li class="' +
+                                                            (pageInfo.page === i ? "active" : "") +
+                                                            '"><a href="#" data-page="' +
+                                                            i +
+                                                            '">' +
+                                                            (i + 1) +
+                                                            "</a></li>";
+                                                }
+
+                                                // Nút Next
+                                                if (pageInfo.page < pageInfo.pages - 1) {
+                                                    paginationHTML +=
+                                                            '<li class="next"><a href="#" data-page="' +
+                                                            (pageInfo.page + 1) +
+                                                            '">Next <i class="ti-arrow-right"></i></a></li>';
+                                                } else {
+                                                    paginationHTML +=
+                                                            '<li class="next disabled"><a href="#">Next <i class="ti-arrow-right"></i></a></li>';
+                                                }
+
+                                                paginationHTML += "</ul>";
+
+                                                // Cập nhật pagination vào giao diện
+                                                $(".pagination-bx").html(paginationHTML);
+
+                                                // Thêm sự kiện click cho pagination tùy chỉnh
+                                                $(".pagination a").on("click", function (e) {
+                                                    e.preventDefault();
+                                                    var page = $(this).data("page");
+                                                    if (page !== undefined) {
+                                                        table.page(page).draw("page");
+                                                    }
+                                                });
+                                            }
                                         });
 
         </script>
