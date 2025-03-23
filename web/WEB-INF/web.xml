@@ -205,6 +205,10 @@
         <servlet-class>controller.reservation.ReservationCancelController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CustomerFeedbackController</servlet-name>
+        <servlet-class>controller.common.CustomerFeedbackController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ResetPasswordAjaxController</servlet-name>
         <servlet-class>controller.auth.ResetPasswordAjaxController</servlet-class>
     </servlet>
@@ -469,6 +473,8 @@
         <url-pattern>/reservation/cancel</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>CustomerFeedbackController</servlet-name>
+        <url-pattern>/customer-feedback</url-pattern>
         <servlet-name>ResetPasswordAjaxController</servlet-name>
         <url-pattern>/reset-ajax</url-pattern>
     </servlet-mapping>

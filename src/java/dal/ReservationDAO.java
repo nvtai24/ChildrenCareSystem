@@ -256,7 +256,7 @@ public class ReservationDAO extends DBContext {
                 + "    reservationdetailstatus rds ON rd.status_id = rds.id\n"
                 + "WHERE\n"
                 + "    r.id = ?";
-        
+
         try (ResultSet rs = executeQuery(sql, id)) {
             Map<Integer, Reservation> rMap = new HashMap<>();
 
@@ -301,7 +301,7 @@ public class ReservationDAO extends DBContext {
                 int sid = rs.getInt("service_id");
                 String sname = rs.getString("sname");
                 String thumbnail = rs.getString("thumbnail");
-                
+
                 int detailStatusId = rs.getInt("detail_status_id");
                 String detailStatus = rs.getString("detail_status");
 
@@ -321,7 +321,7 @@ public class ReservationDAO extends DBContext {
                         .id(detailStatusId)
                         .status(detailStatus)
                         .build();
-                
+
                 rds.setStatus(detailStatus);
                 ReservationDetail rd = new ReservationDetail().builder()
                         .id(rdid)
@@ -846,12 +846,23 @@ public class ReservationDAO extends DBContext {
     }
 
     public void cancelReservation(int rid) {
+
+        Reservation r = getReservation(rid);
+
+        int newStatus = -1;
+
+        if (r.isBanking()) {
+            newStatus = 5;
+        } else {
+            newStatus = 4;
+        }
+
         String sql = "update reservation\n"
-                + "set status_id = 4\n"
+                + "set status_id = ?\n"
                 + "where id = ?";
 
         try {
-            executeUpdate(sql, rid);
+            executeUpdate(sql, newStatus,rid);
         } catch (SQLException ex) {
             Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

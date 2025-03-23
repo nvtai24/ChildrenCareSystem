@@ -36,7 +36,6 @@ public class ChangePasswordController extends HttpServlet {
         int userId = (Integer) request.getSession().getAttribute("id");
         UserDAO userDAO = new UserDAO();
         User user = userDAO.getUserById(userId);
-
         if (user == null || !user.getPassword().equals(hashedPassword)) {
             hasError = true;
             errorMessage = "Incorrect current password.";
