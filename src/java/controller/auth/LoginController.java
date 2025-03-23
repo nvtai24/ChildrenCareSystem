@@ -40,7 +40,7 @@ public class LoginController extends HttpServlet {
         boolean rememberMe = request.getParameter("customControlAutosizing") != null; 
         UserDAO udb = new UserDAO();
         String hashedPassword = PasswordUtil.toSHA1(password);
-        User user = udb.get(usernameOrEmail, hashedPassword);
+        User user = udb.get(usernameOrEmail, password);
         boolean hasError = false;
         if (usernameOrEmail == null || usernameOrEmail.trim().isEmpty()) {
             request.setAttribute("errorUsername", "Please enter your username.");

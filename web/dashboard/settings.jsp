@@ -22,7 +22,7 @@
 
             <!-- MOBILE SPECIFIC ============================================= -->
             <meta name="viewport" content="width=device-width, initial-scale=1" />
-            ->
+           
 
             <!-- All PLUGINS CSS ============================================= -->
             <link rel="stylesheet" type="text/css" href="assets2/css/assets.css" />
