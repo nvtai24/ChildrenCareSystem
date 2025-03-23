@@ -116,7 +116,7 @@
                                     <!-- Services Section -->
                                     <div class="card p-4 mb-2">
                                         <table class="table table-hover">
-                                            <thead class="thead-light">
+                                            <thead class="thead-light text-center">
                                                 <tr>
                                                     <th>Service</th>
                                                     <th>Unit Price</th>
@@ -130,7 +130,7 @@
                                             </thead>
                                             <tbody>
                                                 <c:forEach items="${requestScope.r.details}" var="i">
-                                                    <tr class="item-row">
+                                                    <tr class="item-row text-center">
                                                         <td class="align-middle">
                                                             <div class="d-flex">
                                                                 <img src="${i.service.thumbnail}" class="img-fluid fixed-size-img mr-2" style="width: 150px; height: 100px;">
@@ -148,27 +148,27 @@
 
                                                         <td class="align-middle">
                                                             <c:if test="${i.status.id == 1}">
-                                                                <span class="badge badge-secondary mt-3" style="width: fit-content">Not Yet</span>
+                                                                <span class="badge badge-secondary" style="width: fit-content">Not Yet</span>
                                                             </c:if>
 
                                                             <c:if test="${i.status.id == 2}">
-                                                                <span class="badge badge-info mt-3" style="width: fit-content">Assigned</span>
+                                                                <span class="badge badge-info" style="width: fit-content">Assigned</span>
                                                             </c:if>
 
                                                             <c:if test="${i.status.id == 3}">
-                                                                <span class="badge badge-danger mt-3" style="width: fit-content">Rejected</span>
+                                                                <span class="badge badge-danger" style="width: fit-content">Rejected</span>
                                                             </c:if>
 
                                                             <c:if test="${i.status.id == 4}">
-                                                                <span class="badge badge-success mt-3" style="width: fit-content">Confirmed</span>
+                                                                <span class="badge badge-success" style="width: fit-content">Confirmed</span>
                                                             </c:if>
 
                                                             <c:if test="${i.status.id == 5}">
-                                                                <span class="badge badge-warning mt-3" style="width: fit-content">Processing</span>
+                                                                <span class="badge badge-warning" style="width: fit-content">Processing</span>
                                                             </c:if>
 
                                                             <c:if test="${i.status.id == 6}">
-                                                                <span class="badge badge-primary mt-3" style="width: fit-content">Completed</span>
+                                                                <span class="badge badge-primary" style="width: fit-content">Completed</span>
                                                             </c:if>
 
                                                         </td>

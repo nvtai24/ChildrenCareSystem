@@ -54,7 +54,7 @@ public class PaymentReturnController extends HttpServlet {
 
             PaymentHistory ph = new PaymentHistory().builder()
                     .rid(id)
-                    .amount(Integer.parseInt(amount))
+                    .amount(Long.parseLong(amount))
                     .transactionDateString(transactionDate)
                     .txnRef(txnRef)
                     .transactionNo(transactionNo)
@@ -64,10 +64,13 @@ public class PaymentReturnController extends HttpServlet {
             phdb.insertPayment(ph);
 
             ArrayList<WishList> items = (ArrayList<WishList>) session.getAttribute("items");
-            WishListDAO wlDB = new WishListDAO();
 
-            for (WishList item : items) {
-                wlDB.deleteWishlistItem(item.getUser().getId(), item.getService().getId());
+            if (items != null) {
+                WishListDAO wlDB = new WishListDAO();
+
+                for (WishList item : items) {
+                    wlDB.deleteWishlistItem(item.getUser().getId(), item.getService().getId());
+                }
             }
 
 //            session.removeAttribute("items");

@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: childrencare
 -- ------------------------------------------------------
--- Server version	8.0.41
+-- Server version	8.4.4
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,6 +14,32 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `category`
+--
+
+DROP TABLE IF EXISTS `category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `category` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `category`
+--
+
+LOCK TABLES `category` WRITE;
+/*!40000 ALTER TABLE `category` DISABLE KEYS */;
+INSERT INTO `category` VALUES (1,'General Checkup','Regular health checkups for children to monitor growth and development.',1),(2,'Vaccination','Vaccination services to protect children from various diseases.',1),(3,'Nutrition','Nutritional advice and dietary plans for children.',1),(4,'Dental Care','Dental health services for children, including checkups and treatments.',1),(5,'Emergency Care','Emergency medical services for children.',1),(6,'Physical Therapy','Physical therapy services to support children with physical disabilities or injuries.',1),(7,'Mental Health','Mental health support and counseling for children.',1);
+/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `feature`
@@ -67,7 +93,34 @@ CREATE TABLE `feedback` (
 
 LOCK TABLES `feedback` WRITE;
 /*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
+INSERT INTO `feedback` VALUES (14,5,'Great service, very satisfied with the care provided',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(15,4,'Good experience overall, would recommend',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(16,5,'Excellent staff, very attentive to needs',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(17,3,'Satisfactory service, some areas need improvement',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(18,4,'Professional and caring staff',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(19,5,'Highly recommended for quality childcare',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(20,4,'Good facilities and activities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(21,3,'Average experience, could be better',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(22,5,'Fantastic care and attention to detail',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(23,4,'Very good service, child enjoyed their time',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(24,5,'Excellent communication from staff',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(25,3,'Decent service but room for improvement',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(26,4,'Good quality care, child felt comfortable',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(27,5,'Outstanding service, exceeded expectations',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(28,4,'Reliable and trustworthy service',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(29,3,'Adequate care provided, but limited activities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(30,5,'Exceptional care and attention',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(31,4,'Very satisfied with the service',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(32,5,'Amazing staff, very friendly and helpful',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(33,3,'Service was okay, staff could be more attentive',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(34,4,'Good environment for children',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(35,5,'Wonderful experience, will use again',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(36,4,'Very good service and facilities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(37,3,'Average service, nothing special',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(38,5,'Superb care, child loved it',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(39,4,'Good quality care and activities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(40,5,'Excellent service, highly recommended',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(41,3,'Satisfactory but could improve communication',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(42,4,'Good care provided, child was happy',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(43,5,'Fantastic service from start to finish',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(44,4,'Very professional and caring staff',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(45,3,'Decent service but understaffed at times',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(46,5,'Outstanding care and facilities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(47,4,'Good experience, would use again',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(48,5,'Exceptional service, very satisfied',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(49,3,'Average experience, some improvements needed',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(50,4,'Good quality care provided',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(51,5,'Excellent service and staff',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(52,4,'Very good experience overall',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(53,3,'Satisfactory service provided',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(54,5,'Wonderful care, child was very happy',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(55,4,'Good staff and facilities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(56,5,'Excellent care and attention to detail',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(57,3,'Average service, could be more engaging',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(58,4,'Good quality childcare service',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(59,5,'Fantastic experience, will definitely return',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(60,4,'Very satisfied with the care provided',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(61,1,'Very poor service, would not recommend',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(62,1,'Disappointing experience, staff was inattentive',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(63,1,'Inadequate facilities and supervision',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(64,1,'Poor communication and service quality',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(65,1,'Unsatisfactory experience, many issues',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(66,1,'Very unhappy with the service provided',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(67,1,'Extremely disappointed, will not return',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(68,2,'Below average service, needs significant improvement',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(69,2,'Not satisfied with the quality of care',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(70,2,'Poor facilities but staff tried their best',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(71,2,'Subpar experience, many areas need attention',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(72,2,'Disappointed with the level of service',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(73,2,'Below expectations, would not recommend',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(74,2,'Mediocre service and facilities',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41');
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `label`
+--
+
+DROP TABLE IF EXISTS `label`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `label` (
+  `id` int NOT NULL,
+  `labelName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `description` text,
+  `status` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `label`
+--
+
+LOCK TABLES `label` WRITE;
+/*!40000 ALTER TABLE `label` DISABLE KEYS */;
+INSERT INTO `label` VALUES (1,'Health Tips','Posts related to health tips for children.',1),(2,'Vaccination','Posts related to vaccination information.',1),(3,'Nutrition','Posts related to child nutrition.',1);
+/*!40000 ALTER TABLE `label` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -98,6 +151,65 @@ INSERT INTO `labelpost` VALUES (9,1),(10,2),(11,3),(9,16),(10,17),(11,18),(9,19)
 UNLOCK TABLES;
 
 --
+-- Table structure for table `medicalexamination`
+--
+
+DROP TABLE IF EXISTS `medicalexamination`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `medicalexamination` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `examination_date` datetime DEFAULT NULL,
+  `diagnosis` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `notes` text,
+  `status` tinyint(1) DEFAULT '1',
+  `done_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `reservationdetail_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_reservationdetail_id` (`reservationdetail_id`),
+  CONSTRAINT `fk_reservationdetail_id` FOREIGN KEY (`reservationdetail_id`) REFERENCES `reservationdetail` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `medicalexamination`
+--
+
+LOCK TABLES `medicalexamination` WRITE;
+/*!40000 ALTER TABLE `medicalexamination` DISABLE KEYS */;
+/*!40000 ALTER TABLE `medicalexamination` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `medicalprescription`
+--
+
+DROP TABLE IF EXISTS `medicalprescription`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `medicalprescription` (
+  `id` int NOT NULL,
+  `examination_id` int NOT NULL,
+  `medicine_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `dosage` int DEFAULT NULL,
+  `instructions` text,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `examination_id` (`examination_id`),
+  CONSTRAINT `medicalprescription_ibfk_1` FOREIGN KEY (`examination_id`) REFERENCES `medicalexamination` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `medicalprescription`
+--
+
+LOCK TABLES `medicalprescription` WRITE;
+/*!40000 ALTER TABLE `medicalprescription` DISABLE KEYS */;
+/*!40000 ALTER TABLE `medicalprescription` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `paymenthistory`
 --
 
@@ -106,7 +218,7 @@ DROP TABLE IF EXISTS `paymenthistory`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `paymenthistory` (
   `reservation_id` int NOT NULL,
-  `amount` int DEFAULT NULL,
+  `amount` bigint DEFAULT NULL,
   `transactiondate` varchar(100) DEFAULT NULL,
   `txnref` varchar(100) DEFAULT NULL,
   `transactiono` varchar(100) DEFAULT NULL,
@@ -121,7 +233,7 @@ CREATE TABLE `paymenthistory` (
 
 LOCK TABLES `paymenthistory` WRITE;
 /*!40000 ALTER TABLE `paymenthistory` DISABLE KEYS */;
-INSERT INTO `paymenthistory` VALUES (38,846000000,'20250317183305','99641153187120802800','14850430'),(40,94000000,'20250317183443','76231131315511322900','14850433');
+INSERT INTO `paymenthistory` VALUES (38,846000000,'20250317183305','99641153187120802800','14850430'),(40,94000000,'20250317183443','76231131315511322900','14850433'),(49,2232500000,'20250321120338','745086845541894210900','14858904'),(50,235000000,'20250322160409','19648896797246912100','14861012'),(51,235000000,'20250322160409','19648896797246912100','14861012'),(52,334875000,'20250322160727','79546164976816020600','14861019'),(53,334875000,'20250322170630','541521384555923556400','14861094'),(54,334875000,'20250322174044','861631856584257545900','14861134'),(55,334875000,'20250322180152','966070137862697901100','14861158');
 /*!40000 ALTER TABLE `paymenthistory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +290,7 @@ CREATE TABLE `profile` (
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`userid`),
   CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,7 +299,7 @@ CREATE TABLE `profile` (
 
 LOCK TABLES `profile` WRITE;
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
-INSERT INTO `profile` VALUES (1,'Tai 123123','Nguyen Van',1,'2004-11-10','Nghi Loc, Nghe An','037628123','assets/images/profile/profile_1.jpg','2025-01-31 23:46:55','2025-03-19 16:37:37'),(2,'Anh','Do Minh',1,'1975-05-15','456 Health Lane kkk','124356789','assets/images/profile/profile_2.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(3,'Quyen','Nguyen Duc',0,'1985-08-20','789 Parent Road','345-678-9012','assets/images/profile/profile_3.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(4,'Long','Nguyen Hoang',1,'1990-03-10','101 Staff Avenue','456-789-0123','assets/images/profile/profile_4.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(29,'a','a',1,'2025-03-06','a','a','assets/images/profile/default.jpg','2025-03-06 09:00:12',NULL),(32,'qwe','qwe',1,'2025-03-11','sdsd','214122231','assets/images/profile/default.jpg','2025-03-06 02:17:41','2025-03-06 02:17:41'),(35,'Tai 123123','Nguyen Van',1,'2004-11-20','Nghi Loc, Nghe An 1233112231','1234546345','assets/images/profile/profile_35.jpg','2025-03-15 23:36:25','2025-03-19 17:24:12'),(36,'Long','Nguyen Hoang',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_35.jpg','2025-03-19 22:06:11',NULL);
+INSERT INTO `profile` VALUES (1,'Tai 123123','Nguyen Van',1,'2004-11-10','Nghi Loc, Nghe An','037628123','assets/images/profile/profile_1.jpg','2025-01-31 23:46:55','2025-03-19 16:37:37'),(2,'Anh','Do Minh',1,'1975-05-15','456 Health Lane kkk','124356789','assets/images/profile/profile_2.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(3,'Quyen','Nguyen Duc',0,'1985-08-20','789 Parent Road','345-678-9012','assets/images/profile/profile_3.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(4,'Long','Nguyen Hoang',1,'1990-03-10','101 Staff Avenue','456-789-0123','assets/images/profile/profile_4.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(29,'a','a',1,'2025-03-06','a','a','assets/images/profile/default.jpg','2025-03-06 09:00:12',NULL),(32,'qwe','qwe',1,'2025-03-11','sdsd','214122231','assets/images/profile/default.jpg','2025-03-06 02:17:41','2025-03-06 02:17:41'),(35,'Tai 123123','Nguyen Van',1,'2004-11-20','Nghi Loc, Nghe An 1233112231','0373517718','assets/images/profile/profile_35.jpg','2025-03-15 23:36:25','2025-03-21 11:54:32'),(36,'Long','Nguyen Hoang',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_35.jpg','2025-03-19 22:06:11',NULL),(37,'A','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_35.jpg','2025-03-20 07:46:35',NULL),(42,'B','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_36.jpg','2025-03-20 07:52:49',NULL),(43,'C','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_37.jpg','2025-03-20 07:52:53',NULL),(53,'D','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_38.jpg','2025-03-20 07:54:43',NULL),(59,'E','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_39.jpg','2025-03-20 07:54:54',NULL),(60,'F','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_40.jpg','2025-03-20 07:57:38',NULL),(61,'G','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_41.jpg','2025-03-20 07:59:04',NULL),(62,'H','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_42.jpg','2025-03-20 07:59:11',NULL),(63,'I','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_43.jpg','2025-03-20 07:59:18',NULL),(64,'J','Nguyen Van',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_44.jpg','2025-03-20 07:59:25',NULL);
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +329,7 @@ CREATE TABLE `reservation` (
   KEY `IX_Reservation_Date` (`reserve_date`),
   CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `reservationstatus` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -226,7 +338,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (14,1,3,'2025-03-22 07:30:00','','2025-03-05 15:22:27','2025-03-19 21:40:15','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(15,1,1,'2025-03-29 07:30:00','','2025-03-05 15:23:01',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(16,1,1,'2025-03-15 07:30:00','','2025-03-06 02:28:47',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(17,3,1,'2025-03-13 07:30:00','','2025-03-06 09:27:15',NULL,'Quyen','Nguyen Duc','parent1@childrencare.com','0373517718',_binary '\0'),(18,35,1,'2025-03-16 14:30:00','','2025-03-15 23:38:07',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(19,35,1,'2025-03-28 14:30:00','','2025-03-15 23:39:25','2025-03-16 00:58:53','Tai 1','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(20,35,1,'2025-03-18 00:08:00','','2025-03-17 10:08:15',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(21,35,1,'2025-03-18 07:30:00','','2025-03-17 10:09:54',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(22,35,1,'2025-03-18 07:30:00','','2025-03-17 10:10:26',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(23,35,1,'2025-03-18 08:30:00','','2025-03-17 10:11:08','2025-03-17 15:57:13','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(24,35,2,'2025-03-18 07:30:00','','2025-03-17 10:13:22','2025-03-17 10:52:28','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(25,35,2,'2025-03-18 07:30:00','','2025-03-17 10:16:36','2025-03-17 10:52:08','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(26,35,4,'2025-03-18 07:30:00','','2025-03-17 10:20:19','2025-03-17 10:51:58','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(27,35,1,'2025-03-18 14:30:00','','2025-03-17 15:58:52',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(28,35,1,'2025-03-18 14:30:00','','2025-03-17 16:00:54',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(29,35,1,'2025-03-18 14:30:00','','2025-03-17 16:10:20',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(30,35,1,'2025-03-18 14:30:00','','2025-03-17 16:18:38',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(31,35,1,'2025-03-18 07:30:00','','2025-03-17 16:47:14',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(32,35,1,'2025-03-18 14:30:00','','2025-03-17 17:42:27',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(33,35,1,'2025-03-18 07:30:00','','2025-03-17 18:17:38',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(34,35,1,'2025-03-18 07:30:00','','2025-03-17 18:18:41',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(35,35,1,'2025-03-18 14:30:00','','2025-03-17 18:21:03',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(36,35,1,'2025-03-18 14:30:00','','2025-03-17 18:21:55',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(37,35,4,'2025-03-18 07:30:00','','2025-03-17 18:24:13','2025-03-19 15:02:40','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(38,35,2,'2025-03-18 14:30:00','','2025-03-17 18:33:14','2025-03-19 15:01:55','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(39,35,2,'2025-03-18 07:30:00','','2025-03-17 18:34:19','2025-03-19 03:41:55','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(40,35,2,'2025-03-18 07:30:00','','2025-03-17 18:34:53','2025-03-19 03:41:45','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '');
+INSERT INTO `reservation` VALUES (14,1,3,'2025-03-22 07:30:00','','2025-03-05 15:22:27','2025-03-19 21:40:15','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(15,1,1,'2025-03-29 07:30:00','','2025-03-05 15:23:01',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(16,1,1,'2025-03-15 07:30:00','','2025-03-06 02:28:47',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(17,3,1,'2025-03-13 07:30:00','','2025-03-06 09:27:15',NULL,'Quyen','Nguyen Duc','parent1@childrencare.com','0373517718',_binary '\0'),(18,35,1,'2025-03-16 14:30:00','','2025-03-15 23:38:07',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(19,35,1,'2025-03-28 14:30:00','','2025-03-15 23:39:25','2025-03-16 00:58:53','Tai 1','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(20,35,1,'2025-03-18 00:08:00','','2025-03-17 10:08:15',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(21,35,1,'2025-03-18 07:30:00','','2025-03-17 10:09:54',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(22,35,1,'2025-03-18 07:30:00','','2025-03-17 10:10:26',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(23,35,1,'2025-03-18 08:30:00','','2025-03-17 10:11:08','2025-03-17 15:57:13','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(24,35,2,'2025-03-18 07:30:00','','2025-03-17 10:13:22','2025-03-17 10:52:28','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(25,35,2,'2025-03-18 07:30:00','','2025-03-17 10:16:36','2025-03-17 10:52:08','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(26,35,4,'2025-03-18 07:30:00','','2025-03-17 10:20:19','2025-03-17 10:51:58','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(27,35,1,'2025-03-18 14:30:00','','2025-03-17 15:58:52',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(28,35,1,'2025-03-18 14:30:00','','2025-03-17 16:00:54',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(29,35,1,'2025-03-18 14:30:00','','2025-03-17 16:10:20',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(30,35,4,'2025-03-18 14:30:00','','2025-03-17 16:18:38','2025-03-21 11:29:47','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(31,35,1,'2025-03-18 07:30:00','','2025-03-17 16:47:14',NULL,'Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(32,35,4,'2025-03-18 14:30:00','','2025-03-17 17:42:27','2025-03-21 10:29:24','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(33,35,4,'2025-03-18 07:30:00','','2025-03-17 18:17:38','2025-03-21 11:30:11','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(34,35,4,'2025-03-18 07:30:00','','2025-03-17 18:18:41','2025-03-21 11:29:23','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(35,35,4,'2025-03-18 14:30:00','','2025-03-17 18:21:03','2025-03-21 11:29:18','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(36,35,4,'2025-03-18 14:30:00','','2025-03-17 18:21:55','2025-03-21 09:41:41','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(37,35,4,'2025-03-18 07:30:00','','2025-03-17 18:24:13','2025-03-19 15:02:40','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(38,35,2,'2025-03-18 14:30:00','','2025-03-17 18:33:14','2025-03-19 15:01:55','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(39,35,2,'2025-03-18 07:30:00','','2025-03-17 18:34:19','2025-03-19 03:41:55','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(40,35,2,'2025-03-18 07:30:00','','2025-03-17 18:34:53','2025-03-19 03:41:45','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(41,30,4,'2025-03-22 07:30:00','','2025-03-21 09:42:45','2025-03-21 09:44:23','Quyen','Nguyen','abc@gmail.com','0352587107',_binary ''),(42,30,5,'2025-03-22 07:30:00','','2025-03-21 10:05:15','2025-03-21 11:31:25','Quyen123','Test','abc@gmail.com','0352587107',_binary ''),(43,30,4,'2025-03-22 07:30:00','','2025-03-21 10:06:33','2025-03-21 10:06:47','Quyen123','qweqwe','abc@gmail.com','0352587107',_binary '\0'),(44,30,5,'2025-03-22 07:30:00','','2025-03-21 10:06:34','2025-03-21 10:07:53','Quyen123','qweqwe','abc@gmail.com','0352587107',_binary ''),(45,35,1,'2025-03-22 14:30:00','','2025-03-21 11:56:03',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(46,35,1,'2025-03-22 14:30:00','','2025-03-21 11:56:07',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(47,35,1,'2025-03-22 14:30:00','','2025-03-21 11:56:19',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(48,35,1,'2025-03-22 14:30:00','','2025-03-21 11:58:10',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(49,35,5,'2025-03-22 14:30:00','','2025-03-21 12:03:31','2025-03-22 15:59:56','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(50,35,2,'2025-03-23 07:30:00','','2025-03-22 16:04:08','2025-03-22 18:17:40','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(51,35,1,'2025-03-23 07:30:00','','2025-03-22 16:04:22',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(52,35,5,'2025-03-23 07:30:00','','2025-03-22 16:07:18','2025-03-22 16:08:45','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(53,35,5,'2025-03-23 07:30:00','','2025-03-22 17:06:20','2025-03-22 17:06:44','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(54,1,4,'2025-03-23 07:30:00','','2025-03-22 17:40:34','2025-03-22 17:41:49','Tai 123123','Nguyen Van','nvtai24norip@gmail.com','0373517718',_binary ''),(55,35,4,'2025-03-23 07:30:00','','2025-03-22 18:01:43','2025-03-22 18:02:26','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,7 +367,7 @@ CREATE TABLE `reservationdetail` (
   CONSTRAINT `reservationdetail_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`) ON DELETE CASCADE,
   CONSTRAINT `reservationdetail_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE CASCADE,
   CONSTRAINT `reservationdetail_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `reservationdetailstatus` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -264,7 +376,7 @@ CREATE TABLE `reservationdetail` (
 
 LOCK TABLES `reservationdetail` WRITE;
 /*!40000 ALTER TABLE `reservationdetail` DISABLE KEYS */;
-INSERT INTO `reservationdetail` VALUES (14,14,2,1,142.50,'2025-03-05 15:22:27',30,6),(15,15,1,1,100.00,'2025-03-05 15:23:01',NULL,1),(16,15,2,1,150.00,'2025-03-05 15:23:01',NULL,1),(17,15,3,1,40.00,'2025-03-05 15:23:01',NULL,1),(18,15,5,1,70.00,'2025-03-05 15:23:01',NULL,1),(19,16,5,1,70.00,'2025-03-06 02:28:47',NULL,1),(20,17,1,1,100.00,'2025-03-06 09:27:15',NULL,1),(21,18,2,1,142.50,'2025-03-15 23:38:07',NULL,1),(22,19,1,1,100.00,'2025-03-15 23:39:25',NULL,1),(23,20,2,1,142.50,'2025-03-17 10:08:15',NULL,1),(24,21,6,1,90.00,'2025-03-17 10:09:54',NULL,1),(25,22,8,1,80.00,'2025-03-17 10:10:26',NULL,1),(26,23,6,1,90.00,'2025-03-17 10:11:08',NULL,1),(27,23,7,1,120.00,'2025-03-17 10:11:08',NULL,1),(28,23,8,1,80.00,'2025-03-17 10:11:08',NULL,1),(29,23,12,1,150.00,'2025-03-17 10:11:08',NULL,1),(30,24,2,2,150.00,'2025-03-17 10:13:22',NULL,1),(31,24,15,1,130.00,'2025-03-17 10:13:22',NULL,1),(32,24,16,1,110.00,'2025-03-17 10:13:22',NULL,1),(33,24,17,1,120.00,'2025-03-17 10:13:22',NULL,1),(34,24,18,1,130.00,'2025-03-17 10:13:22',NULL,1),(35,25,2,1,142.50,'2025-03-17 10:16:36',4,1),(36,26,1,1,100.00,'2025-03-17 10:20:19',NULL,1),(37,26,2,2,150.00,'2025-03-17 10:20:19',NULL,1),(38,26,3,2,40.00,'2025-03-17 10:20:19',NULL,1),(39,26,4,1,60.00,'2025-03-17 10:20:19',NULL,1),(40,26,5,1,70.00,'2025-03-17 10:20:19',NULL,1),(41,26,6,1,90.00,'2025-03-17 10:20:19',NULL,1),(42,27,2,1,150.00,'2025-03-17 15:58:52',NULL,1),(43,27,3,1,40.00,'2025-03-17 15:58:52',NULL,1),(44,28,2,1,150.00,'2025-03-17 16:00:54',NULL,1),(45,28,3,1,40.00,'2025-03-17 16:00:54',NULL,1),(46,28,4,1,60.00,'2025-03-17 16:00:54',NULL,1),(47,28,5,1,70.00,'2025-03-17 16:00:54',NULL,1),(48,28,6,1,90.00,'2025-03-17 16:00:54',NULL,1),(49,29,1,1,100.00,'2025-03-17 16:10:20',NULL,1),(50,29,2,1,150.00,'2025-03-17 16:10:20',NULL,1),(51,29,3,1,40.00,'2025-03-17 16:10:20',NULL,1),(52,29,4,1,60.00,'2025-03-17 16:10:20',NULL,1),(53,29,5,1,70.00,'2025-03-17 16:10:20',NULL,1),(54,29,6,1,90.00,'2025-03-17 16:10:20',NULL,1),(55,29,7,1,120.00,'2025-03-17 16:10:20',NULL,1),(56,29,8,1,80.00,'2025-03-17 16:10:20',NULL,1),(57,29,9,1,50.00,'2025-03-17 16:10:20',NULL,1),(58,29,10,1,100.00,'2025-03-17 16:10:20',NULL,1),(59,29,12,1,150.00,'2025-03-17 16:10:20',NULL,1),(60,29,13,1,120.00,'2025-03-17 16:10:20',NULL,1),(61,29,14,1,110.00,'2025-03-17 16:10:20',NULL,1),(62,29,15,1,130.00,'2025-03-17 16:10:20',NULL,1),(63,29,16,1,110.00,'2025-03-17 16:10:20',NULL,1),(64,29,17,1,120.00,'2025-03-17 16:10:20',NULL,1),(65,29,18,1,130.00,'2025-03-17 16:10:20',NULL,1),(66,29,19,1,70.00,'2025-03-17 16:10:20',NULL,1),(67,30,1,1,100.00,'2025-03-17 16:18:38',NULL,1),(68,30,2,1,150.00,'2025-03-17 16:18:38',NULL,1),(69,30,3,1,40.00,'2025-03-17 16:18:38',NULL,1),(70,30,4,1,60.00,'2025-03-17 16:18:38',NULL,1),(71,30,5,1,70.00,'2025-03-17 16:18:38',NULL,1),(72,30,6,1,90.00,'2025-03-17 16:18:38',NULL,1),(73,31,2,1,142.50,'2025-03-17 16:47:14',NULL,1),(74,32,1,1,100.00,'2025-03-17 17:42:27',NULL,1),(75,32,2,1,150.00,'2025-03-17 17:42:27',NULL,1),(76,32,3,1,40.00,'2025-03-17 17:42:27',NULL,1),(77,33,2,1,142.50,'2025-03-17 18:17:38',NULL,1),(78,34,2,1,142.50,'2025-03-17 18:18:41',NULL,1),(79,35,2,1,150.00,'2025-03-17 18:21:03',NULL,1),(80,35,3,1,40.00,'2025-03-17 18:21:03',NULL,1),(81,35,4,1,60.00,'2025-03-17 18:21:03',NULL,1),(82,35,5,1,70.00,'2025-03-17 18:21:03',NULL,1),(83,35,6,1,90.00,'2025-03-17 18:21:03',NULL,1),(84,36,1,1,100.00,'2025-03-17 18:21:55',NULL,1),(85,36,2,1,150.00,'2025-03-17 18:21:55',NULL,1),(86,36,3,1,40.00,'2025-03-17 18:21:55',NULL,1),(87,36,5,1,70.00,'2025-03-17 18:21:55',NULL,1),(88,36,6,1,90.00,'2025-03-17 18:21:55',NULL,1),(89,37,2,1,142.50,'2025-03-17 18:24:13',2,1),(90,38,1,1,100.00,'2025-03-17 18:33:14',NULL,1),(91,38,2,1,150.00,'2025-03-17 18:33:14',2,1),(92,38,3,1,40.00,'2025-03-17 18:33:14',4,1),(93,38,5,1,70.00,'2025-03-17 18:33:14',NULL,1),(94,39,2,1,142.50,'2025-03-17 18:34:19',NULL,1),(95,40,3,1,40.00,'2025-03-17 18:34:53',NULL,1);
+INSERT INTO `reservationdetail` VALUES (14,14,2,1,142.50,'2025-03-05 15:22:27',30,6),(15,15,1,1,100.00,'2025-03-05 15:23:01',NULL,1),(16,15,2,1,150.00,'2025-03-05 15:23:01',NULL,1),(17,15,3,1,40.00,'2025-03-05 15:23:01',NULL,1),(18,15,5,1,70.00,'2025-03-05 15:23:01',NULL,1),(19,16,5,1,70.00,'2025-03-06 02:28:47',NULL,1),(20,17,1,1,100.00,'2025-03-06 09:27:15',NULL,1),(21,18,2,1,142.50,'2025-03-15 23:38:07',NULL,1),(22,19,1,1,100.00,'2025-03-15 23:39:25',NULL,1),(23,20,2,1,142.50,'2025-03-17 10:08:15',NULL,1),(24,21,6,1,90.00,'2025-03-17 10:09:54',NULL,1),(25,22,8,1,80.00,'2025-03-17 10:10:26',NULL,1),(26,23,6,1,90.00,'2025-03-17 10:11:08',NULL,1),(27,23,7,1,120.00,'2025-03-17 10:11:08',NULL,1),(28,23,8,1,80.00,'2025-03-17 10:11:08',NULL,1),(29,23,12,1,150.00,'2025-03-17 10:11:08',NULL,1),(30,24,2,2,150.00,'2025-03-17 10:13:22',NULL,1),(31,24,15,1,130.00,'2025-03-17 10:13:22',NULL,1),(32,24,16,1,110.00,'2025-03-17 10:13:22',NULL,1),(33,24,17,1,120.00,'2025-03-17 10:13:22',NULL,1),(34,24,18,1,130.00,'2025-03-17 10:13:22',NULL,1),(35,25,2,1,142.50,'2025-03-17 10:16:36',4,1),(36,26,1,1,100.00,'2025-03-17 10:20:19',NULL,1),(37,26,2,2,150.00,'2025-03-17 10:20:19',NULL,1),(38,26,3,2,40.00,'2025-03-17 10:20:19',NULL,1),(39,26,4,1,60.00,'2025-03-17 10:20:19',NULL,1),(40,26,5,1,70.00,'2025-03-17 10:20:19',NULL,1),(41,26,6,1,90.00,'2025-03-17 10:20:19',NULL,1),(42,27,2,1,150.00,'2025-03-17 15:58:52',NULL,1),(43,27,3,1,40.00,'2025-03-17 15:58:52',NULL,1),(44,28,2,1,150.00,'2025-03-17 16:00:54',NULL,1),(45,28,3,1,40.00,'2025-03-17 16:00:54',NULL,1),(46,28,4,1,60.00,'2025-03-17 16:00:54',NULL,1),(47,28,5,1,70.00,'2025-03-17 16:00:54',NULL,1),(48,28,6,1,90.00,'2025-03-17 16:00:54',NULL,1),(49,29,1,1,100.00,'2025-03-17 16:10:20',NULL,1),(50,29,2,1,150.00,'2025-03-17 16:10:20',NULL,1),(51,29,3,1,40.00,'2025-03-17 16:10:20',NULL,1),(52,29,4,1,60.00,'2025-03-17 16:10:20',NULL,1),(53,29,5,1,70.00,'2025-03-17 16:10:20',NULL,1),(54,29,6,1,90.00,'2025-03-17 16:10:20',NULL,1),(55,29,7,1,120.00,'2025-03-17 16:10:20',NULL,1),(56,29,8,1,80.00,'2025-03-17 16:10:20',NULL,1),(57,29,9,1,50.00,'2025-03-17 16:10:20',NULL,1),(58,29,10,1,100.00,'2025-03-17 16:10:20',NULL,1),(59,29,12,1,150.00,'2025-03-17 16:10:20',NULL,1),(60,29,13,1,120.00,'2025-03-17 16:10:20',NULL,1),(61,29,14,1,110.00,'2025-03-17 16:10:20',NULL,1),(62,29,15,1,130.00,'2025-03-17 16:10:20',NULL,1),(63,29,16,1,110.00,'2025-03-17 16:10:20',NULL,1),(64,29,17,1,120.00,'2025-03-17 16:10:20',NULL,1),(65,29,18,1,130.00,'2025-03-17 16:10:20',NULL,1),(66,29,19,1,70.00,'2025-03-17 16:10:20',NULL,1),(67,30,1,1,100.00,'2025-03-17 16:18:38',NULL,1),(68,30,2,1,150.00,'2025-03-17 16:18:38',NULL,1),(69,30,3,1,40.00,'2025-03-17 16:18:38',NULL,1),(70,30,4,1,60.00,'2025-03-17 16:18:38',NULL,1),(71,30,5,1,70.00,'2025-03-17 16:18:38',NULL,1),(72,30,6,1,90.00,'2025-03-17 16:18:38',NULL,1),(73,31,2,1,142.50,'2025-03-17 16:47:14',NULL,1),(74,32,1,1,100.00,'2025-03-17 17:42:27',NULL,1),(75,32,2,1,150.00,'2025-03-17 17:42:27',NULL,1),(76,32,3,1,40.00,'2025-03-17 17:42:27',NULL,1),(77,33,2,1,142.50,'2025-03-17 18:17:38',NULL,1),(78,34,2,1,142.50,'2025-03-17 18:18:41',NULL,1),(79,35,2,1,150.00,'2025-03-17 18:21:03',NULL,1),(80,35,3,1,40.00,'2025-03-17 18:21:03',NULL,1),(81,35,4,1,60.00,'2025-03-17 18:21:03',NULL,1),(82,35,5,1,70.00,'2025-03-17 18:21:03',NULL,1),(83,35,6,1,90.00,'2025-03-17 18:21:03',NULL,1),(84,36,1,1,100.00,'2025-03-17 18:21:55',NULL,1),(85,36,2,1,150.00,'2025-03-17 18:21:55',NULL,1),(86,36,3,1,40.00,'2025-03-17 18:21:55',NULL,1),(87,36,5,1,70.00,'2025-03-17 18:21:55',NULL,1),(88,36,6,1,90.00,'2025-03-17 18:21:55',NULL,1),(89,37,2,1,142.50,'2025-03-17 18:24:13',2,1),(90,38,1,1,100.00,'2025-03-17 18:33:14',NULL,1),(91,38,2,1,150.00,'2025-03-17 18:33:14',2,1),(92,38,3,1,40.00,'2025-03-17 18:33:14',4,1),(93,38,5,1,70.00,'2025-03-17 18:33:14',NULL,1),(94,39,2,1,142.50,'2025-03-17 18:34:19',NULL,1),(95,40,3,1,40.00,'2025-03-17 18:34:53',NULL,1),(96,41,1,1,100.00,'2025-03-21 09:42:45',NULL,1),(97,42,1,1,100.00,'2025-03-21 10:05:15',NULL,1),(98,43,1,1,100.00,'2025-03-21 10:06:33',NULL,1),(99,44,1,1,100.00,'2025-03-21 10:06:34',NULL,1),(100,45,2,2,150.00,'2025-03-21 11:56:03',NULL,1),(101,45,4,2,60.00,'2025-03-21 11:56:03',NULL,1),(102,45,6,1,90.00,'2025-03-21 11:56:03',NULL,1),(103,45,9,1,50.00,'2025-03-21 11:56:03',NULL,1),(104,45,15,3,130.00,'2025-03-21 11:56:03',NULL,1),(105,46,2,2,150.00,'2025-03-21 11:56:07',NULL,1),(106,46,4,2,60.00,'2025-03-21 11:56:07',NULL,1),(107,46,6,1,90.00,'2025-03-21 11:56:07',NULL,1),(108,46,9,1,50.00,'2025-03-21 11:56:07',NULL,1),(109,46,15,3,130.00,'2025-03-21 11:56:07',NULL,1),(110,47,2,2,150.00,'2025-03-21 11:56:19',NULL,1),(111,47,4,2,60.00,'2025-03-21 11:56:19',NULL,1),(112,47,6,1,90.00,'2025-03-21 11:56:19',NULL,1),(113,47,9,1,50.00,'2025-03-21 11:56:19',NULL,1),(114,47,15,3,130.00,'2025-03-21 11:56:19',NULL,1),(115,48,2,2,150.00,'2025-03-21 11:58:10',NULL,1),(116,48,4,2,60.00,'2025-03-21 11:58:10',NULL,1),(117,48,6,1,90.00,'2025-03-21 11:58:10',NULL,1),(118,48,9,1,50.00,'2025-03-21 11:58:10',NULL,1),(119,48,15,3,130.00,'2025-03-21 11:58:10',NULL,1),(120,49,2,2,150.00,'2025-03-21 12:03:31',NULL,1),(121,49,4,2,60.00,'2025-03-21 12:03:31',NULL,1),(122,49,6,1,90.00,'2025-03-21 12:03:31',NULL,1),(123,49,9,1,50.00,'2025-03-21 12:03:31',NULL,1),(124,49,15,3,130.00,'2025-03-21 12:03:31',NULL,1),(125,50,1,1,100.00,'2025-03-22 16:04:08',60,2),(126,51,1,1,100.00,'2025-03-22 16:04:22',NULL,1),(127,52,2,1,142.50,'2025-03-22 16:07:18',NULL,1),(128,53,2,1,142.50,'2025-03-22 17:06:20',NULL,1),(129,54,2,1,142.50,'2025-03-22 17:40:34',NULL,1),(130,55,2,1,142.50,'2025-03-22 18:01:43',NULL,1);
 /*!40000 ALTER TABLE `reservationdetail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,7 +415,7 @@ CREATE TABLE `reservationstatus` (
   `id` int NOT NULL AUTO_INCREMENT,
   `status_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -312,7 +424,7 @@ CREATE TABLE `reservationstatus` (
 
 LOCK TABLES `reservationstatus` WRITE;
 /*!40000 ALTER TABLE `reservationstatus` DISABLE KEYS */;
-INSERT INTO `reservationstatus` VALUES (1,'Pending'),(2,'Confirmed'),(3,'Completed'),(4,'Cancelled');
+INSERT INTO `reservationstatus` VALUES (1,'Pending'),(2,'Confirmed'),(3,'Completed'),(4,'Cancelled'),(5,'Pending Refund');
 /*!40000 ALTER TABLE `reservationstatus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -519,7 +631,7 @@ CREATE TABLE `user` (
   KEY `IX_User_Username` (`username`),
   KEY `userrole_fk1_idx` (`role_id`),
   CONSTRAINT `userrole_fk1` FOREIGN KEY (`role_id`) REFERENCES `setting` (`setting_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -528,7 +640,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','123','nvtai24norip@gmail.com',0,NULL,NULL,16,1,'2025-01-31 23:46:55','2025-03-19 15:10:21',NULL,NULL),(2,'doctor1','123','doctor1@childrencare.com',0,NULL,NULL,13,1,'2025-01-31 23:46:55','2025-03-08 00:16:22',NULL,NULL),(3,'parent1','123','parent1@childrencare.com',0,NULL,NULL,15,1,'2025-01-31 23:46:55','2025-03-08 00:16:22',NULL,NULL),(4,'staff1','123','staff1@childrencare.com',0,NULL,NULL,13,1,'2025-01-31 23:46:55','2025-03-08 00:16:22',NULL,NULL),(29,'anhdm','Minhanh140904','ameebro99@gmail.com',1,NULL,NULL,14,1,'2025-03-06 09:00:12','2025-03-08 00:16:22','58f15957-fd71-412e-af6d-57999285bedc','2025-03-06 12:05:05'),(30,'dev','123','abc@gmail.com',1,NULL,NULL,16,1,'2025-03-06 09:07:53','2025-03-08 00:16:22',NULL,NULL),(31,'dev2','123','abc1@gmail.com',0,NULL,NULL,16,1,'2025-03-06 09:38:11','2025-03-08 00:16:22',NULL,NULL),(32,'quyen123','Ducquyen123','milo9a5@gmail.com',0,'82ecff6c-3e11-4962-92e3-4cd06639fa5a','2025-03-06 12:17:41',16,1,'2025-03-06 09:17:41','2025-03-08 00:16:22',NULL,NULL),(35,'devip','123','buiblue123@gmail.com',0,NULL,NULL,16,1,'2025-03-15 23:35:07',NULL,NULL,NULL),(36,'long','123','long@gmail.com',0,NULL,NULL,14,1,'2025-03-19 22:05:14','2025-03-19 22:15:53',NULL,NULL);
+INSERT INTO `user` VALUES (1,'admin','123','nvtai24norip@gmail.com',0,NULL,NULL,16,1,'2025-01-31 23:46:55','2025-03-19 15:10:21',NULL,NULL),(2,'doctor1','123','doctor1@childrencare.com',0,NULL,NULL,13,1,'2025-01-31 23:46:55','2025-03-08 00:16:22',NULL,NULL),(3,'parent1','123','parent1@childrencare.com',0,NULL,NULL,15,1,'2025-01-31 23:46:55','2025-03-08 00:16:22',NULL,NULL),(4,'staff1','123','staff1@childrencare.com',0,NULL,NULL,13,1,'2025-01-31 23:46:55','2025-03-08 00:16:22',NULL,NULL),(29,'anhdm','Minhanh140904','ameebro99@gmail.com',1,NULL,NULL,14,1,'2025-03-06 09:00:12','2025-03-08 00:16:22','58f15957-fd71-412e-af6d-57999285bedc','2025-03-06 12:05:05'),(30,'dev','123','abc@gmail.com',1,NULL,NULL,16,1,'2025-03-06 09:07:53','2025-03-08 00:16:22',NULL,NULL),(31,'dev2','123','abc1@gmail.com',0,NULL,NULL,16,1,'2025-03-06 09:38:11','2025-03-08 00:16:22',NULL,NULL),(32,'quyen123','Ducquyen123','milo9a5@gmail.com',0,'82ecff6c-3e11-4962-92e3-4cd06639fa5a','2025-03-06 12:17:41',16,1,'2025-03-06 09:17:41','2025-03-08 00:16:22',NULL,NULL),(35,'devip','123','buiblue123@gmail.com',0,NULL,NULL,16,1,'2025-03-15 23:35:07',NULL,NULL,NULL),(36,'long','123','long@gmail.com',0,NULL,NULL,14,1,'2025-03-19 22:05:14','2025-03-19 22:15:53',NULL,NULL),(37,'staffA','123','abc2@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:45:11',NULL,NULL,NULL),(42,'staffB','123','abc3@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:51:59',NULL,NULL,NULL),(43,'staffC','123','abc4@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:52:08',NULL,NULL,NULL),(53,'staffD','123','abc5@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:54:02',NULL,NULL,NULL),(59,'staffE','123','abc6@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:54:48',NULL,NULL,NULL),(60,'staffF','123','abc7@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:54:59',NULL,NULL,NULL),(61,'staffG','123','abc8@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:59:01',NULL,NULL,NULL),(62,'staffH','123','abc9@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:59:08',NULL,NULL,NULL),(63,'staffI','123','abc10@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:59:14',NULL,NULL,NULL),(64,'staffJ','123','abc11@gmail.com',0,NULL,NULL,13,1,'2025-03-20 07:59:21',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -556,9 +668,17 @@ CREATE TABLE `wishlist` (
 
 LOCK TABLES `wishlist` WRITE;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
-INSERT INTO `wishlist` VALUES (1,1,1),(1,2,8),(1,3,18),(1,4,1),(1,5,1),(30,2,1),(35,2,2),(35,4,2),(35,6,1),(35,9,1),(35,15,3);
+INSERT INTO `wishlist` VALUES (30,2,1);
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'childrencare'
+--
+
+--
+-- Dumping routines for database 'childrencare'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -569,29 +689,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-19 22:38:11
-
-
-DELIMITER //
-
-create TRIGGER update_reservation_status
-AFTER UPDATE ON reservationdetail
-FOR EACH ROW
-BEGIN
-    -- Check if the status of the updated reservationdetail is 6 (completed)
-    IF NEW.status_id = 6 THEN
-        -- Check if all reservationdetails for the same reservation_id have status 6
-        IF NOT EXISTS (
-            SELECT 1
-            FROM reservationdetail
-            WHERE reservation_id = NEW.reservation_id
-            AND status_id != 6
-        ) THEN
-            -- Update the status of reservation to 3 (completed)
-            UPDATE reservation
-            SET status_id = 3
-            WHERE id = NEW.reservation_id;
-        END IF;
-    END IF;
-END //
-
+-- Dump completed on 2025-03-22 18:19:14

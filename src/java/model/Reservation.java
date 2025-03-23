@@ -37,7 +37,7 @@ public class Reservation {
     private LocalDateTime updatedDate;
     private List<ReservationDetail> details;
 
-    private double totalQuantity;
+    private int totalQuantity;
     private double totalPrice;
     private String fullName;
 }

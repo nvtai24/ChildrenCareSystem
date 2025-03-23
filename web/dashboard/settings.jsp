@@ -1,7 +1,6 @@
-<%-- Document : settings Created on : Feb 15, 2025, 1:27:25 PM Author : Nvtai
---%> 
+<%-- Document : settings Created on : Feb 15, 2025, 1:27:25 PM Author : Nvtai--%> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -23,7 +22,6 @@
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        ->
 
         <!-- All PLUGINS CSS ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets2/css/assets.css" />
@@ -74,9 +72,9 @@
                 padding: 5px 10px;
                 margin: 0 5px;
             }
-            
+
             .center-datarow {
-                 vertical-align: middle;
+                vertical-align: middle;
             }
         </style>
     </head>
@@ -161,9 +159,9 @@
                             <tr>
                                 <td scope="row" class="align-middle">${status.index + 1}</td>
                                 <td class="text-nowrap align-middle">${s.settingValue}</td>
-                                <td class="center-datarow align-middle">${s.settingType.name}</td>
+                                <td class="center-datarow align-middle text-center">${s.settingType.name}</td>
                                 <td class="center-datarow align-middle">${s.description}</td>
-                                <td class="center-datarow align-middle">
+                                <td class="center-datarow align-middle text-center">
                                     <c:choose>
                                         <c:when test="${s.status}">
                                             <span class="badge badge-success" style="width: 70px">Active</span>
@@ -173,22 +171,23 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
-                                <td style="display: flex; gap: 20px" class="text-center text-nowrap align-middle">
+
+                                <td style="display: flex; gap: 20px; justify-content: center; align-items: center">
                                     <div class="status-toggle" data-id="${s.id}" data-status="${s.status}">
                                         <c:choose>
                                             <c:when test="${s.status}">
-                                                <div class="btn red mb-2" style="width: 100px">
+                                                <div class="btn red" style="width: 100px">
                                                     <i class="fa fa-refresh" aria-hidden="true"></i> Inactive
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
-                                                <div class="btn green mb-2" style="width: 100px">
+                                                <div class="btn green" style="width: 100px">
                                                     <i class="fa fa-refresh" aria-hidden="true"></i> Active
                                                 </div>
                                             </c:otherwise>
                                         </c:choose>
                                     </div>
-                                    <button type="submit" class="btn green mb-2" style="width: 100px">
+                                    <button type="submit" class="btn green" style="width: 100px">
                                         <a href="setting?id=${s.id}" style="color: white">
                                             <i class="fa fa-pencil" aria-hidden="true"></i> Edit
                                         </a>
@@ -424,8 +423,6 @@
                         },
                     });
                 });
-
-
             });
 
 

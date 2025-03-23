@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PaymentHistory {
     private int rid;
-    private int amount;
+    private long amount;
     private String transactionDateString;
     private String txnRef;
     private String transactionNo;
