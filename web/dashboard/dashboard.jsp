@@ -8,6 +8,15 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
+    <style>
+        .btn {
+            min-width: 80px;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
     <head>
         <!-- META ============================================= -->
         <meta charset="utf-8">
@@ -66,7 +75,7 @@
                         <div class="widget-card widget-bg1">					 
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    Total Profit In 7 Days
+                                    Total Profit
                                 </h4>
                                 <span class="wc-des">
                                     All Customs Value
@@ -81,13 +90,13 @@
                         <div class="widget-card widget-bg2">					 
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    Total Feedbacks In 7 Days
+                                    Total Feedback
                                 </h4>
                                 <span class="wc-des">
                                     Customer Review
                                 </span>
                                 <span class="wc-stats counter">
-                                    120 
+                                    ${totalFeedback} 
                                 </span>		
 
                             </div>				      
@@ -97,7 +106,7 @@
                         <div class="widget-card widget-bg3">					 
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    Total Reservations In 7 Days
+                                    Total Reservations
                                 </h4>
                                 <span class="wc-des">
                                     Reservations Amount 
@@ -113,13 +122,13 @@
                         <div class="widget-card widget-bg4">					 
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    Total Users In 7 Days
+                                    Total Users
                                 </h4>
                                 <span class="wc-des">
                                     Joined User
                                 </span>
                                 <span class="wc-stats counter">
-                                    350 
+                                    ${totalUsers}
                                 </span>		
 
                             </div>				      
@@ -129,7 +138,7 @@
                         <div class="widget-card widget-bg4">					 
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    Total Pending Reservations
+                                    Pending Reservations
                                 </h4>
                                 <span class="wc-des">
                                     Reservations Amount 
@@ -145,7 +154,7 @@
                         <div class="widget-card widget-bg3">					 
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    Total Confirmed Reservations
+                                    Confirmed Reservations
                                 </h4>
                                 <span class="wc-des">
                                     Reservations Amount 
@@ -161,7 +170,7 @@
                         <div class="widget-card widget-bg2">					 
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    Total Completed Reservations
+                                    Completed Reservations
                                 </h4>
                                 <span class="wc-des">
                                     Reservations Amount 
@@ -176,7 +185,7 @@
                         <div class="widget-card widget-bg1">					 
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    Total Cancelled Reservations
+                                    Cancelled Reservations
                                 </h4>
                                 <span class="wc-des">
                                     Reservations Amount 
@@ -199,86 +208,102 @@
                             <div class="wc-title">
                                 <h4>New Users</h4>
                             </div>
-                            <c:forEach var="user" items="${latestUsers}">
-                            <div class="widget-inner">
-                                
-                                    <div class="new-user-list">
-                                        <ul>
-                                            <li>
-                                                <span class="new-users-pic">
-                                                    <img src="${user.avatar}" alt=""/>
-                                                </span>
-                                                <span class="new-users-text">
-                                                    <a href="#" class="new-users-name">${user.username} </a>
-                                                    <span class="new-users-info">${user.email}  </span>
-                                                </span>
-                                                <span class="new-users-btn">
-                                                    
-                                                </span>
-                                            </li>
-                                        </ul>
+                            <c:choose>
+                                <c:when test="${not empty latestUsers}">
+                                    <c:forEach var="user" items="${latestUsers}">
+                                        <div class="widget-inner">
+                                            <div class="new-user-list">
+                                                <ul>
+                                                    <li>
+                                                        <span class="new-users-pic">
+                                                            <img src="${user.avatar}" alt=""/>
+                                                        </span>
+                                                        <span class="new-users-text">
+                                                            <a class="new-users-name">${user.lastname} ${user.firstname} </a>
+                                                            <span class="new-users-info">Username: ${user.username} </span>
+                                                        </span>
+                                                        <span class="new-users-btn">
+                                                            <a class="new-users-name">Email: ${user.email}</a>
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="widget-inner">
+                                        <p style="text-align: center; color: red;">No new users in the last 7 days.</p>
                                     </div>
-                              
-                            </div>
-                              </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                     <div class="col-lg-6 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>Orders</h4>
+                                <h4>Reservations</h4>
                             </div>
-                            <div class="widget-inner">
-                                <div class="orders-list">
-                                    <ul>
-                                        <li>
-                                            <span class="orders-title">
-                                                <a href="#" class="orders-title-name">Anna Strong </a>
-                                                <span class="orders-info">Order #02357 | Date 12/08/2019</span>
-                                            </span>
-                                            <span class="orders-btn">
-                                                <a href="#" class="btn button-sm red">Unpaid</a>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="orders-title">
-                                                <a href="#" class="orders-title-name">Revenue</a>
-                                                <span class="orders-info">Order #02357 | Date 12/08/2019</span>
-                                            </span>
-                                            <span class="orders-btn">
-                                                <a href="#" class="btn button-sm red">Unpaid</a>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="orders-title">
-                                                <a href="#" class="orders-title-name">Anna Strong </a>
-                                                <span class="orders-info">Order #02357 | Date 12/08/2019</span>
-                                            </span>
-                                            <span class="orders-btn">
-                                                <a href="#" class="btn button-sm green">Paid</a>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="orders-title">
-                                                <a href="#" class="orders-title-name">Revenue</a>
-                                                <span class="orders-info">Order #02357 | Date 12/08/2019</span>
-                                            </span>
-                                            <span class="orders-btn">
-                                                <a href="#" class="btn button-sm green">Paid</a>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="orders-title">
-                                                <a href="#" class="orders-title-name">Anna Strong </a>
-                                                <span class="orders-info">Order #02357 | Date 12/08/2019</span>
-                                            </span>
-                                            <span class="orders-btn">
-                                                <a href="#" class="btn button-sm green">Paid</a>
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <c:choose>
+                                <c:when test="${not empty reservations}">
+                                    <c:forEach var="reservation" items="${reservations}">
+                                        <div class="widget-inner">
+                                            <div class="orders-list">
+                                                <ul>
+                                                    <li>
+                                                        <span class="orders-title">
+                                                            <a class="orders-title-name">${reservation.lastName} ${reservation.firstName}</a>
+                                                            <span class="orders-info">
+                                                                Reservation #${reservation.id} | Date Time: ${reservation.reverseDate}
+                                                            </span>
+                                                        </span>
+
+                                                        <c:choose>
+                                                            <c:when test='${reservation.statusId == 1}'> 
+                                                                <c:set var="statusClass" value="orange"/> 
+                                                                <c:set var="statusText" value="Not Yet"/>
+                                                            </c:when>
+                                                            <c:when test='${reservation.statusId == 2}'> 
+                                                                <c:set var="statusClass" value="yellow"/> 
+                                                                <c:set var="statusText" value="Assigned"/>
+                                                            </c:when>
+                                                            <c:when test='${reservation.statusId == 3}'> 
+                                                                <c:set var="statusClass" value="red"/> 
+                                                                <c:set var="statusText" value="Rejected"/>
+                                                            </c:when>
+                                                            <c:when test='${reservation.statusId == 4}'> 
+                                                                <c:set var="statusClass" value="blue"/> 
+                                                                <c:set var="statusText" value="Confirmed"/>
+                                                            </c:when>
+                                                            <c:when test='${reservation.statusId == 5}'> 
+                                                                <c:set var="statusClass" value="purple"/> 
+                                                                <c:set var="statusText" value="Processing"/>
+                                                            </c:when>
+                                                            <c:when test='${reservation.statusId == 6}'> 
+                                                                <c:set var="statusClass" value="green"/> 
+                                                                <c:set var="statusText" value="Completed "/>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:set var="statusClass" value="gray"/> 
+                                                                <c:set var="statusText" value="Unknown"/>
+                                                            </c:otherwise>
+                                                        </c:choose>
+
+                                                        <span class="orders-btn">
+                                                            <a class="btn button-sm ${statusClass}">${statusText}</a>
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="widget-inner">
+                                        <p style="text-align: center; color: red;">No new reservations in the last 7 days.</p>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
 

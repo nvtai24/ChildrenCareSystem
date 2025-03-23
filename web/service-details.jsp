@@ -88,20 +88,24 @@
                                             <del>$${requestScope.s.price}</del>
                                             <h4 class="price">$${requestScope.s.price * (1 - requestScope.s.discount / 100)}</h4>
                                         </div>	
-                                        <div class="course-buy-now text-center">
-                                            <div class="row mb-1">
-                                                <div class="col-6">
-                                                    <button type="button" class="btn btn-success mb-2 w-100" onclick="addToWishlist(${requestScope.s.id})">
-                                                        Add Appointment
-                                                    </button>
-                                                </div>
 
-                                                <div class="col-6">
-                                                    <button type="button" class="btn btn-success mb-2 w-100" onclick="bookNow(${requestScope.s.id})">
-                                                        Book Now
-                                                    </button>
+                                        <div class="course-buy-now text-center">
+
+                                            <c:if test="${sessionScope.account.role.id == 15}">
+                                                <div class="row mb-1">
+                                                    <div class="col-6">
+                                                        <button type="button" class="btn btn-success mb-2 w-100" onclick="addToWishlist(${requestScope.s.id})">
+                                                            Add Appointment
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="col-6">
+                                                        <button type="button" class="btn btn-success mb-2 w-100" onclick="bookNow(${requestScope.s.id})">
+                                                            Book Now
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </c:if>
 
                                             <script>
                                                 function addToWishlist(serviceId) {
@@ -340,7 +344,7 @@
                                                     <img src="${f.reservationDetail.reservation.customer.profile.avatar}" alt="">
                                                 </div>
                                                 <div class="instructor-info">
-                                                    <h6>${f.reservationDetail.reservation.customer.profile.lastName} ${f.reservationDetail.reservation.customer.profile.lastName}</h6>
+                                                    <h6>${f.reservationDetail.reservation.customer.profile.firstName} ${f.reservationDetail.reservation.customer.profile.lastName}</h6>
                                                     <!--<span>Professor</span>-->
 
                                                     <ul class="cours-star">

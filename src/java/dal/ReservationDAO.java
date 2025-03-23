@@ -6,12 +6,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Category;
 import model.Reservation;
 import model.ReservationDetail;
+import model.ReservationDetailStatus;
 import model.ReservationStatus;
 import model.Service;
 
@@ -37,7 +39,8 @@ public class ReservationDAO extends DBContext {
             connection.setAutoCommit(false); // Start transaction
 
             // Insert into reservation table
-            try (PreparedStatement ps1 = connection.prepareStatement(reservationQuery, Statement.RETURN_GENERATED_KEYS)) {
+            try (PreparedStatement ps1 = connection.prepareStatement(reservationQuery,
+                    Statement.RETURN_GENERATED_KEYS)) {
                 ps1.setInt(1, r.getCustomer().getId());
                 ps1.setString(2, r.getFirstName());
                 ps1.setString(3, r.getLastName());
@@ -117,9 +120,11 @@ public class ReservationDAO extends DBContext {
                 + "    r.banking,\n"
                 + "    rd.id AS rdid,\n"
                 + "    rd.service_id,\n"
-                + "    s.name as sname,\n"
+                + "    s.name AS sname,\n"
                 + "    rd.quantity,\n"
-                + "    rd.price\n"
+                + "    rd.price,\n"
+                + "    rds.id AS detail_tatus_id,\n"
+                + "    rds.status AS detail_tatus\n"
                 + "FROM\n"
                 + "    reservation r\n"
                 + "        JOIN\n"
@@ -128,8 +133,11 @@ public class ReservationDAO extends DBContext {
                 + "    reservationstatus rs ON r.status_id = rs.id\n"
                 + "        JOIN\n"
                 + "    service s ON rd.service_id = s.id\n"
-                + "    where r.customer_id = ?"
-                + "  order by r.created_date desc";
+                + "        JOIN\n"
+                + "    reservationdetailstatus rds ON rds.id = rd.status_id\n"
+                + "WHERE\n"
+                + "    r.customer_id = ?\n"
+                + "ORDER BY r.created_date DESC";
 
         try {
             ResultSet rs = executeQuery(sql, uid);
@@ -179,6 +187,12 @@ public class ReservationDAO extends DBContext {
                 int sid = rs.getInt("service_id");
                 String sname = rs.getString("sname");
 
+                int detailStatusId = rs.getInt("detail_tatus_id");
+                String detailStatus = rs.getString("detail_tatus");
+                ReservationDetailStatus rds = new ReservationDetailStatus();
+                rds.setId(detailStatusId);
+                rds.setStatus(detailStatus);
+
                 Service s = new Service().builder()
                         .id(sid)
                         .name(sname)
@@ -189,6 +203,7 @@ public class ReservationDAO extends DBContext {
                         .quantity(quantity)
                         .price(price)
                         .service(s)
+                        .status(rds)
                         .build();
 
                 r.getDetails().add(rd);
@@ -222,9 +237,11 @@ public class ReservationDAO extends DBContext {
                 + "    rd.service_id,\n"
                 + "    s.name AS sname,\n"
                 + "    s.thumbnail,\n"
-                + "    s2.value as category,\n"
+                + "    s2.value AS category,\n"
                 + "    rd.quantity,\n"
-                + "    rd.price\n"
+                + "    rd.price,\n"
+                + "    rds.id as detail_status_id,\n"
+                + "    rds.status AS detail_status\n"
                 + "FROM\n"
                 + "    reservation r\n"
                 + "        JOIN\n"
@@ -233,8 +250,12 @@ public class ReservationDAO extends DBContext {
                 + "    reservationstatus rs ON r.status_id = rs.id\n"
                 + "        JOIN\n"
                 + "    service s ON rd.service_id = s.id\n"
-                + "	join setting s2 on s.category_id = s2.setting_id\n"
-                + "WHERE r.id = ?";
+                + "        JOIN\n"
+                + "    setting s2 ON s.category_id = s2.setting_id\n"
+                + "        JOIN\n"
+                + "    reservationdetailstatus rds ON rd.status_id = rds.id\n"
+                + "WHERE\n"
+                + "    r.id = ?";
 
         try (ResultSet rs = executeQuery(sql, id)) {
             Map<Integer, Reservation> rMap = new HashMap<>();
@@ -281,6 +302,9 @@ public class ReservationDAO extends DBContext {
                 String sname = rs.getString("sname");
                 String thumbnail = rs.getString("thumbnail");
 
+                int detailStatusId = rs.getInt("detail_status_id");
+                String detailStatus = rs.getString("detail_status");
+
                 Category c = new Category()
                         .builder()
                         .name(rs.getString("category"))
@@ -293,11 +317,18 @@ public class ReservationDAO extends DBContext {
                         .category(c)
                         .build();
 
+                ReservationDetailStatus rds = new ReservationDetailStatus().builder()
+                        .id(detailStatusId)
+                        .status(detailStatus)
+                        .build();
+
+                rds.setStatus(detailStatus);
                 ReservationDetail rd = new ReservationDetail().builder()
                         .id(rdid)
                         .quantity(quantity)
                         .price(price)
                         .service(s)
+                        .status(rds)
                         .build();
 
                 rMap.get(rid).getDetails().add(rd);
@@ -548,13 +579,12 @@ public class ReservationDAO extends DBContext {
         return result;
     }
 
-
     public int countReservations1InLast7Days() {
         int totalReservations1 = 0;
         String query = "SELECT COUNT(*) AS total_reservations1 "
                 + "FROM reservation "
                 + "WHERE status_id = 1 "
-                + "AND DATE(reserve_date) >= DATE(NOW()) - INTERVAL 7 DAY";
+                + "AND DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY";
 
         try {
             ResultSet rs = executeQuery(query);
@@ -567,12 +597,13 @@ public class ReservationDAO extends DBContext {
         }
         return totalReservations1;
     }
+
     public int countReservations2InLast7Days() {
         int totalReservations2 = 0;
         String query = "SELECT COUNT(*) AS total_reservations2 "
                 + "FROM reservation "
                 + "WHERE status_id = 2 "
-                + "AND DATE(reserve_date) >= DATE(NOW()) - INTERVAL 7 DAY";
+                + "AND DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY";
 
         try {
             ResultSet rs = executeQuery(query);
@@ -585,12 +616,13 @@ public class ReservationDAO extends DBContext {
         }
         return totalReservations2;
     }
+
     public int countReservations3InLast7Days() {
         int totalReservations3 = 0;
         String query = "SELECT COUNT(*) AS total_reservations3 "
                 + "FROM reservation "
                 + "WHERE status_id = 3 "
-                + "AND DATE(reserve_date) >= DATE(NOW()) - INTERVAL 7 DAY";
+                + "AND DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY";
 
         try {
             ResultSet rs = executeQuery(query);
@@ -603,12 +635,13 @@ public class ReservationDAO extends DBContext {
         }
         return totalReservations3;
     }
+
     public int countReservations4InLast7Days() {
         int totalReservations4 = 0;
         String query = "SELECT COUNT(*) AS total_reservations4 "
                 + "FROM reservation "
                 + "WHERE status_id = 4 "
-                + "AND DATE(reserve_date) >= DATE(NOW()) - INTERVAL 7 DAY";
+                + "AND DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY";
 
         try {
             ResultSet rs = executeQuery(query);
@@ -621,11 +654,12 @@ public class ReservationDAO extends DBContext {
         }
         return totalReservations4;
     }
+
     public int countReservationsInLast7Days() {
         int totalReservations = 0;
         String query = "SELECT COUNT(*) AS total_reservations "
                 + "FROM reservation "
-                + "WHERE DATE(reserve_date) >= DATE(NOW()) - INTERVAL 7 DAY";
+                + "WHERE DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY";
 
         try {
             ResultSet rs = executeQuery(query);
@@ -639,5 +673,199 @@ public class ReservationDAO extends DBContext {
         return totalReservations;
     }
 
+    public List<Reservation> getRecentReservations() {
+        List<Reservation> reservations = new ArrayList<>();
+        String query = "SELECT id, status_id,reserve_date, first_name, last_name "
+                + "FROM reservation "
+                + "WHERE DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY "
+                + "ORDER BY created_date DESC "
+                + "LIMIT 5";
+
+        try {
+            ResultSet rs = executeQuery(query);
+            while (rs.next()) {
+                Reservation reservation = new Reservation();
+                reservation.setId(rs.getInt("id"));
+                reservation.setStatusId(rs.getInt("status_id")); // Lấy status_id dạng int
+                reservation.setReverseDate(rs.getTimestamp("reserve_date").toLocalDateTime());
+                reservation.setFirstName(rs.getString("first_name"));
+                reservation.setLastName(rs.getString("last_name"));
+
+                reservations.add(reservation);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reservations;
+    }
+
+    public void updateReservationContact(Reservation r) {
+        String sql = "UPDATE `childrencare`.`reservation`\n"
+                + "SET\n"
+                + "`reserve_date` = ?,\n"
+                + "`note` = ?,\n"
+                + "`first_name` = ?,\n"
+                + "`last_name` = ?,\n"
+                + "`email` = ?,\n"
+                + "`phone` = ?\n"
+                + "WHERE `id` = ?";
+        try {
+            executeUpdate(sql, Timestamp.valueOf(r.getReverseDate()), r.getNote(), r.getFirstName(), r.getLastName(),
+                    r.getEmail(), r.getPhone(), r.getId());
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ArrayList<Reservation> listReservationsByStaffId(int staffId) {
+        ArrayList<Reservation> result = new ArrayList<>();
+
+        String sql = "SELECT \n"
+                + "    r.id,\n"
+                + "    rs.id AS statusid,\n"
+                + "    rs.status_name,\n"
+                + "    r.reserve_date,\n"
+                + "    r.created_date,\n"
+                + "    r.first_name,\n"
+                + "    r.last_name,\n"
+                + "    r.email,\n"
+                + "    r.phone,\n"
+                + "    r.note,\n"
+                + "    r.banking,\n"
+                + "    rd.id AS rdid,\n"
+                + "    rd.service_id,\n"
+                + "    s.name as sname,\n"
+                + "    rd.quantity,\n"
+                + "    rd.price\n"
+                + "FROM\n"
+                + "    reservation r\n"
+                + "        JOIN\n"
+                + "    reservationdetail rd ON r.id = rd.reservation_id\n"
+                + "        JOIN\n"
+                + "    reservationstatus rs ON r.status_id = rs.id\n"
+                + "        JOIN\n"
+                + "    service s ON rd.service_id = s.id\n"
+                + "WHERE\n"
+                + "    rd.staff_id = ? \n" // Lọc theo staff_id
+                + "ORDER BY r.created_date DESC"; // Lấy các đặt chỗ theo staff_id, sắp xếp theo ngày tạo
+
+        try {
+            // Thực thi câu truy vấn với staffId
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, staffId);
+            ResultSet rs = stmt.executeQuery();
+
+            Map<Integer, Reservation> rMap = new LinkedHashMap<>();
+
+            while (rs.next()) {
+                int rid = rs.getInt("id");
+
+                Reservation r = rMap.get(rid);
+
+                if (r == null) {
+                    String firstName = rs.getString("first_name");
+                    String lastName = rs.getString("last_name");
+                    String email = rs.getString("email");
+                    String phone = rs.getString("phone");
+                    String note = rs.getString("note");
+                    boolean banking = rs.getBoolean("banking");
+                    LocalDateTime createDate = rs.getTimestamp("created_date").toLocalDateTime();
+                    LocalDateTime reserveDate = rs.getTimestamp("reserve_date").toLocalDateTime();
+
+                    int rsid = rs.getInt("statusid");
+                    String status = rs.getString("status_name");
+                    ReservationStatus rstt = new ReservationStatus(rsid, status);
+
+                    r = new Reservation().builder()
+                            .id(rid)
+                            .firstName(firstName)
+                            .lastName(lastName)
+                            .email(email)
+                            .phone(phone)
+                            .note(note)
+                            .banking(banking)
+                            .createdDate(createDate)
+                            .reverseDate(reserveDate)
+                            .status(rstt)
+                            .details(new ArrayList<ReservationDetail>())
+                            .build();
+
+                    rMap.put(rid, r);
+                }
+
+                int rdid = rs.getInt("rdid");
+                int quantity = rs.getInt("quantity");
+                double price = rs.getDouble("price");
+
+                int sid = rs.getInt("service_id");
+                String sname = rs.getString("sname");
+
+                Service s = new Service().builder()
+                        .id(sid)
+                        .name(sname)
+                        .build();
+
+                ReservationDetail rd = new ReservationDetail().builder()
+                        .id(rdid)
+                        .quantity(quantity)
+                        .price(price)
+                        .service(s)
+                        .build();
+
+                r.getDetails().add(rd);
+            }
+
+            result.addAll(rMap.values());
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return result;
+    }
+
+    public boolean changeReservationStatus(int status, int reservation) {
+        DBContext db = new DBContext();
+        String sql = "UPDATE `reservation` SET `status_id` = ? WHERE id = ? ;";
+        try {
+            db.executeUpdate(sql, status, reservation);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            try {
+                db.connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
+    public void cancelReservation(int rid) {
+
+        Reservation r = getReservation(rid);
+
+        int newStatus = -1;
+
+        if (r.isBanking()) {
+            newStatus = 5;
+        } else {
+            newStatus = 4;
+        }
+
+        String sql = "update reservation\n"
+                + "set status_id = ?\n"
+                + "where id = ?";
+
+        try {
+            executeUpdate(sql, newStatus,rid);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }

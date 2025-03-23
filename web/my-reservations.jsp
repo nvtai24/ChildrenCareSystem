@@ -57,7 +57,17 @@
                 text-align: center !important;
                 vertical-align: middle !important;
             }
+            .fade-out {
+                opacity: 1;
+                transition: opacity 1s ease-out;
+            }
+
+            .fade-out.hidden {
+                opacity: 0;
+            }
         </style>
+
+
 
     </head>
     <body id="bg">
@@ -67,6 +77,10 @@
             <!-- Header Top ==== -->
             <jsp:include page="header.jsp"/>
             <!-- header END ==== -->
+
+
+
+
 
             <!-- Content -->
             <div class="page-content bg-white">
@@ -81,6 +95,18 @@
                                     </ul>
                                 </div>
                             </div>
+
+                            <c:if test="${sessionScope.successMessage != null}">
+                                <div id="successMessage" class="alert alert-success">${sessionScope.successMessage}</div>
+                            </c:if>
+
+                            <c:if test="${sessionScope.errorMessage != null}">
+                                <div id="errorMessage" class="alert alert-danger">${sessionScope.errorMessage}</div>
+                            </c:if>
+
+                            <!-- Xóa messages khỏi session sau khi hiển thị -->
+                            <c:remove var="successMessage" scope="session"/>
+                            <c:remove var="errorMessage" scope="session"/>
 
                             <div class="toolbar mt-2">
                                 <form>
@@ -144,7 +170,7 @@
                                             <td class="align-middle">
                                                 <fmt:formatNumber value="${r.totalQuantity}" type="number" pattern="#"/>
                                             </td>
-                                            <td class="align-middle">${r.totalPrice}</td>
+                                            <td class="align-middle">$${r.totalPrice}</td>
                                             <td class="align-middle">
                                                 <c:if test="${r.status.id == 1}">
                                                     <span class="badge badge-secondary">Pending</span>
@@ -161,24 +187,14 @@
                                                 <c:if test="${r.status.id == 4}">
                                                     <span class="badge badge-danger">Cancelled</span>
                                                 </c:if>
-
+                                                <c:if test="${r.status.id == 5}">
+                                                    <span class="badge badge-warning text-white">Refunding</span>
+                                                </c:if>
                                             </td>
                                             <td class="align-middle">
-                                                <a class="btn green mb-2" href="reservation/info?id=${r.id}" style="color: white; width: 100px">
+                                                <a class="btn green" href="reservation/info?id=${r.id}" style="color: white; width: 100px">
                                                     View
                                                 </a>
-
-                                                <c:if  test="${r.status.id == 1}">
-                                                    <div class="btn blue mb-2" style="width: 100px">
-                                                        Edit
-                                                    </div>
-                                                </c:if>
-
-                                                <c:if  test="${r.status.id <= 2}">
-                                                    <div class="btn red mb-2" style="width: 100px">
-                                                        Cancel
-                                                    </div>
-                                                </c:if>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -202,6 +218,23 @@
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                function fadeOutMessage(id) {
+                    let message = document.getElementById(id);
+                    if (message) {
+                        setTimeout(function () {
+                            message.classList.add("hidden"); // Kích hoạt hiệu ứng mờ dần
+                            setTimeout(() => message.style.display = "none", 1000); // Ẩn hoàn toàn sau hiệu ứng
+                        }, 3000);
+                    }
+                }
+
+                // Gọi hàm cho cả hai loại thông báo
+                fadeOutMessage("successMessage");
+                fadeOutMessage("errorMessage");
+            });
+        </script>
 
         <script>
             $(document).ready(function () {

@@ -32,7 +32,7 @@ public class FeedbackDAO extends DBContext {
                 + "join feedback f on rd.id = f.reservationdetail_id\n"
                 + "join user u on r.customer_id = u.id\n"
                 + "join profile p on u.id = p.userid\n"
-                + "where service_id = ?";
+                + "and service_id = ?";
 
         try {
             ResultSet rs = executeQuery(sql, sid);
@@ -155,6 +155,26 @@ public class FeedbackDAO extends DBContext {
 
         return result;
     }
+    
+    public int countFeedbackInLast7Days() {
+        int totalFeedback = 0;
+        String query = "SELECT COUNT(*) AS total_feedback "
+                + "FROM feedback "
+                + "WHERE status = 1 "
+                + "AND DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY";
+
+        try {
+            ResultSet rs = executeQuery(query);
+            if (rs.next()) {
+                totalFeedback = rs.getInt("total_feedback");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalFeedback;
+    }
+    
 
     public List<Feedback> getAllFeedbackWithDetails() {
         List<Feedback> feedbackList = new ArrayList<>();
@@ -344,4 +364,22 @@ public class FeedbackDAO extends DBContext {
 
         return feedbackList;
     }
+    
+    public boolean addFeedbackByUser(Feedback model) {
+         try {
+            String query = "Insert feedback (reservationdetail_id, rating, comment, created_date) VALUES (?, ?, ?, ?)";
+            int result = executeUpdate(query, model.getReservationDetailId(), model.getRating(), model.getComment(), model.getCreatedDate());
+            return result > 0;
+          } catch (SQLException e) {
+            Logger.getLogger(PostDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                Logger.getLogger(PostDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return false;
+    } 
+
 }

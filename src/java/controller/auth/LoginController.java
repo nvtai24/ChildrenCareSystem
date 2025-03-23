@@ -6,6 +6,7 @@ package controller.auth;
 
 import dal.FeatureDAO;
 import dal.ProfileDAO;
+import dal.RoleDAO;
 import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import model.Profile;
+import model.auth.Role;
 import model.auth.User;
 import util.PasswordUtil;
 
@@ -65,11 +67,11 @@ public class LoginController extends HttpServlet {
             return;
         }
         if (user != null) {
-            if (!user.isEmailVerified()) {
-                request.setAttribute("error", "Your account has not been verified. Please check your email for verification.");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-                return;
-            }
+//            if (!user.isEmailVerified()) {
+//                request.setAttribute("error", "Tài khoản của bạn chưa được xác minh. Vui lòng kiểm tra email để xác thực.");
+//                request.getRequestDispatcher("login.jsp").forward(request, response);
+//                return;
+//            }
             ProfileDAO pDB = new ProfileDAO();
 
             Profile p = pDB.getProfileByUserId(user.getId());
@@ -77,21 +79,12 @@ public class LoginController extends HttpServlet {
 
             FeatureDAO fDB = new FeatureDAO();
             ArrayList<String> permissions = fDB.getPermissions(user.getRole().getId());
-
+            
+      
             request.getSession().setAttribute("permissions", permissions);
             request.getSession().setAttribute("account", user);
             request.getSession().setAttribute("password", user.getPassword());
             request.getSession().setAttribute("id", user.getId());
-            if (rememberMe) {
-            Cookie usernameCookie = new Cookie("username", usernameOrEmail);
-            usernameCookie.setMaxAge(60 * 60 * 24 * 7);  
-            response.addCookie(usernameCookie);
-
-            Cookie passwordCookie = new Cookie("password", password);
-            passwordCookie.setMaxAge(60 * 60 * 24 * 7);  
-            response.addCookie(passwordCookie);
-        }
-
             response.sendRedirect("/app");
         } else {
             response.sendRedirect("login");

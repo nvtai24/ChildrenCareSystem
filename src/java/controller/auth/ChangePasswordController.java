@@ -31,11 +31,11 @@ public class ChangePasswordController extends HttpServlet {
         boolean hasError = false;
         String errorMessage = "";
         String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$";
+        String hashedPassword = PasswordUtil.toSHA1(oldPassword);
 
         int userId = (Integer) request.getSession().getAttribute("id");
         UserDAO userDAO = new UserDAO();
         User user = userDAO.getUserById(userId);
-        String hashedPassword = PasswordUtil.toSHA1(oldPassword);
         if (user == null || !user.getPassword().equals(hashedPassword)) {
             hasError = true;
             errorMessage = "Incorrect current password.";

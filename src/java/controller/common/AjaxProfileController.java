@@ -120,7 +120,6 @@ public class AjaxProfileController extends HttpServlet {
 
         session.setAttribute("account", currentUser);
 
-//        response.sendRedirect("/app");
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().write("{\"status\": \"success\", \"message\": \"Profile updated successfully.\", \"avatar\": \"" + avatarPath + "\"}");
     }

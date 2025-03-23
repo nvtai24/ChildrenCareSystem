@@ -5,9 +5,7 @@
 --%>
 
 
-
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -155,14 +153,14 @@
                 <table id="serviceTable" class="table table-striped table-hover" style="width:100%">
                     <thead class="thead-light">
                         <tr>
-                            <th>Service Name</th>
-                            <th>Thumbnail</th>
-                            <th>Category</th>
-                            <th>Price</th>
-                            <th>Discount</th>
-                            <th>Sale Price</th>
-                            <th>Brief Info</th>
-                            <th>Status</th>
+                            <th class="text-center">Service Name</th>
+                            <th class="text-center">Thumbnail</th>
+                            <th class="text-center">Category</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Discount</th>
+                            <th class="text-center">Sale Price</th>
+                            <th class="text-center">Brief Info</th>
+                            <th class="text-center">Status</th>
                             <th class="text-center">Actions</th>
 
                         </tr>
@@ -203,7 +201,7 @@
                                         <input type="hidden" name="id" value="${s.id}">
                                         <input type="hidden" name="action" value="change">
                                         <button type="submit" class="btn ${s.status == 1 ? 'red mb-2' : 'green mb-2'}">
-                                            ${s.status == 1 ? '<i class="fa fa-refresh" aria-hidden="true"></i> Deactivate' : '<i class="fa fa-pencil" aria-hidden="true"></i> Activate'}
+                                            ${s.status == 1 ? '<i class="fa fa-refresh" aria-hidden="true"></i> Deactivate' : '<i class="fa fa-refresh" aria-hidden="true"></i> Activate'}
                                         </button>
                                     </form>
                                     <a href="../services/update?id=${s.id}" class="btn green mb-2"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
@@ -214,6 +212,11 @@
                         </c:forEach>
                     </tbody>
                 </table>
+                <div class="col-lg-12 m-b20">
+                    <div class="pagination-bx rounded-sm gray clearfix">
+                        <!-- Phân trang s? ???c c?p nh?t t? ??ng ? ?ây -->
+                    </div>
+                </div>
             </div>                                       
         </main>
         <div class="ttr-overlay"></div>
@@ -280,36 +283,71 @@
 
                                         $(document).ready(function () {
 
-                                            $('#serviceTable').DataTable({
-                                                "paging": true,
-                                                "lengthMenu": [10],
-                                                "searching": false,
-                                                "ordering": true,
-                                                "info": false,
-                                                "columnDefs": [
-                                                    {"orderable": false, "targets": [1, 7, 8]}
+                                            var table = $('#serviceTable').DataTable({
+                                                paging: true,
+                                                lengthMenu: [10],
+                                                ordering: true,
+                                                searching: true,
+                                                info: false,
+                                                dom: "t",
+                                                columnDefs: [
+                                                    {targets: [1, 7, 8], orderable: false}, // Vô hi?u hóa s?p x?p ? c?t Action
                                                 ],
-                                                "dom": 't<"dt-paging"p>'
+                                                drawCallback: function () {
+                                                    updatePagination(this.api());
+                                                },
                                             });
 
 
-                                            if ($(".selectpicker").length) {
-                                                $(".selectpicker").selectpicker();
-                                            }
+                                            function updatePagination(api) {
+                                                var pageInfo = api.page.info();
+                                                var paginationHTML = '<ul class="pagination">';
 
+                                                // Nút Previous
+                                                if (pageInfo.page > 0) {
+                                                    paginationHTML +=
+                                                            '<li class="previous"><a href="#" data-page="' +
+                                                            (pageInfo.page - 1) +
+                                                            '"><i class="ti-arrow-left"></i> Prev</a></li>';
+                                                } else {
+                                                    paginationHTML +=
+                                                            '<li class="previous disabled"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>';
+                                                }
 
-                                            if ($(".owl-carousel").length) {
-                                                $(".owl-carousel").owlCarousel({
-                                                    loop: true,
-                                                    margin: 10,
-                                                    nav: true,
-                                                    dots: true,
-                                                    autoplay: true,
-                                                    autoplayTimeout: 3000,
-                                                    responsive: {
-                                                        0: {items: 1},
-                                                        600: {items: 2},
-                                                        1000: {items: 3}
+                                                // S? trang
+                                                for (var i = 0; i < pageInfo.pages; i++) {
+                                                    paginationHTML +=
+                                                            '<li class="' +
+                                                            (pageInfo.page === i ? "active" : "") +
+                                                            '"><a href="#" data-page="' +
+                                                            i +
+                                                            '">' +
+                                                            (i + 1) +
+                                                            "</a></li>";
+                                                }
+
+                                                // Nút Next
+                                                if (pageInfo.page < pageInfo.pages - 1) {
+                                                    paginationHTML +=
+                                                            '<li class="next"><a href="#" data-page="' +
+                                                            (pageInfo.page + 1) +
+                                                            '">Next <i class="ti-arrow-right"></i></a></li>';
+                                                } else {
+                                                    paginationHTML +=
+                                                            '<li class="next disabled"><a href="#">Next <i class="ti-arrow-right"></i></a></li>';
+                                                }
+
+                                                paginationHTML += "</ul>";
+
+                                                // C?p nh?t pagination vào giao di?n
+                                                $(".pagination-bx").html(paginationHTML);
+
+                                                // Thêm s? ki?n click cho pagination tùy ch?nh
+                                                $(".pagination a").on("click", function (e) {
+                                                    e.preventDefault();
+                                                    var page = $(this).data("page");
+                                                    if (page !== undefined) {
+                                                        table.page(page).draw("page");
                                                     }
                                                 });
                                             }

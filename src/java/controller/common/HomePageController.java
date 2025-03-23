@@ -81,6 +81,7 @@ public class HomePageController extends HttpServlet {
             }
 
             PostDAO postDAO = new PostDAO();
+            
             List<Post> listPost = postDAO.getAllPosts();
             if (listPost != null && listPost.size() > 0) {
                 request.setAttribute("POSTS", listPost);

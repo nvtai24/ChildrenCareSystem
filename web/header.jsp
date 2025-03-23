@@ -62,11 +62,13 @@
                             <ul class="navbar-nav" style="display: flex; align-items: center; gap: 10px; margin: 0; padding: 0; list-style: none; flex-direction: row-reverse;">
                                 <c:if test="${sessionScope.account != null}" >
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link d-flex align-items-center" href="#" id="userAvatar" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: flex; align-items: center;">
-                                            <img src="${sessionScope.account.profile.avatar != null ? sessionScope.account.profile.avatar : "assets/images/profile/default.jpg"}" alt="User Avatar" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+                                        <a class="nav-link d-flex align-items-center" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: flex; align-items: center;">
+                                            <img id="userAvatar" src="${sessionScope.account.profile.avatar != null ? sessionScope.account.profile.avatar : "assets/images/profile/default.jpg"}" alt="User Avatar" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right shadow" style="min-width: auto" aria-labelledby="userAvatar">
-                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#profileModal">Edit Profile</a>
+                                            <a class="dropdown-item" href="#" data-toggle="modal"
+                                               data-target="#profileModal"
+                                               >Edit Profile</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item text-danger" href="logout">Logout</a>
                                         </div>
@@ -105,6 +107,7 @@
 
             <jsp:include page="profile.jsp" />
         </header>
+
 
     </body>
 </html>

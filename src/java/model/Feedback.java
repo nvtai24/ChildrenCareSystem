@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 public class Feedback {
     private int id;
     private ReservationDetail reservationDetail;
+    private int reservationDetailId;
     private int rating;
     private String comment;
     private boolean status;

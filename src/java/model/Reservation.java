@@ -23,6 +23,7 @@ import model.auth.User;
 public class Reservation {
 
     private int id;
+    private int statusId;
     private User customer;
     private String firstName;
     private String lastName;
@@ -35,9 +36,8 @@ public class Reservation {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private List<ReservationDetail> details;
-    private List<MedicalExamination> examinations;
 
-    private double totalQuantity;
+    private int totalQuantity;
     private double totalPrice;
     private String fullName;
 }

@@ -4,7 +4,7 @@
     Author     : Nvtai
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +22,7 @@
         <base href="${pageContext.request.contextPath}/">        
 
         <!-- MOBILE SPECIFIC ============================================= -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- All PLUGINS CSS ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets2/css/assets.css">
@@ -143,15 +143,15 @@
                 <table id="userTable" class="table table-striped table-hover" style="width:100%">
                     <thead class="thead-light">
                         <tr>
-                            <th>#</th>
-                            <th>Username</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Status</th>
-                            <th>Created Date</th>
-                            <th>Updated Date</th>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Username</th>
+                            <th class="text-center">First Name</th>
+                            <th class="text-center">Last Name</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">Role</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Created Date</th>
+                            <th class="text-center">Updated Date</th>
                             <th class="text-center">Actions</th>
                         </tr>
                     </thead>
@@ -169,8 +169,8 @@
                                         ${u.status ? 'Active' : 'Inactive'}
                                     </span>
                                 </td>
-                                <td>${u.createdDate}</td>
-                                <td>${u.updatedDate}</td>
+                                <td>${u.createdDate.toLocalDate()}</td>
+                                <td>${u.updatedDate.toLocalDate()}</td>
                                 <td class="text-center text-nowrap">
                                     <form action="users" method="POST" onsubmit="confirmChangeStatus(event)" class="d-inline">
                                         <input type="hidden" name="id" value="${u.id}">
@@ -188,6 +188,11 @@
                         </c:forEach>
                     </tbody>
                 </table>
+                <div class="col-lg-12 m-b20">
+                    <div class="pagination-bx rounded-sm gray clearfix">
+                        <!-- Phân trang sẽ được cập nhật tự động ở đây -->
+                    </div>
+                </div>
 
             </div>
         </main>
@@ -238,18 +243,75 @@
                                             return false;
                                         }
                                         $(document).ready(function () {
-                                            $('[data-toggle="tooltip"]').tooltip();
-                                        });
-                                        $('#userTable').DataTable({
-                                            "paging": true,
-                                            "lengthMenu": [10],
-                                            "searching": false,
-                                            "ordering": true,
-                                            "info": false,
-                                            "columnDefs": [
-                                                {"orderable": false, "targets": [6, 9]}
-                                            ],
-                                            "dom": 't<"dt-paging"p>'
+
+                                            var table = $('#userTable').DataTable({
+                                                paging: true,
+                                                lengthMenu: [10],
+                                                ordering: true,
+                                                searching: true,
+                                                info: false,
+                                                dom: "t",
+                                                columnDefs: [
+                                                    {targets: [6, 9], orderable: false}, // Vô hiệu hóa sắp xếp ở cột Action
+                                                ],
+                                                drawCallback: function () {
+                                                    updatePagination(this.api());
+                                                },
+                                            });
+
+
+                                            function updatePagination(api) {
+                                                var pageInfo = api.page.info();
+                                                var paginationHTML = '<ul class="pagination">';
+
+                                                // Nút Previous
+                                                if (pageInfo.page > 0) {
+                                                    paginationHTML +=
+                                                            '<li class="previous"><a href="#" data-page="' +
+                                                            (pageInfo.page - 1) +
+                                                            '"><i class="ti-arrow-left"></i> Prev</a></li>';
+                                                } else {
+                                                    paginationHTML +=
+                                                            '<li class="previous disabled"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>';
+                                                }
+
+                                                // Số trang
+                                                for (var i = 0; i < pageInfo.pages; i++) {
+                                                    paginationHTML +=
+                                                            '<li class="' +
+                                                            (pageInfo.page === i ? "active" : "") +
+                                                            '"><a href="#" data-page="' +
+                                                            i +
+                                                            '">' +
+                                                            (i + 1) +
+                                                            "</a></li>";
+                                                }
+
+                                                // Nút Next
+                                                if (pageInfo.page < pageInfo.pages - 1) {
+                                                    paginationHTML +=
+                                                            '<li class="next"><a href="#" data-page="' +
+                                                            (pageInfo.page + 1) +
+                                                            '">Next <i class="ti-arrow-right"></i></a></li>';
+                                                } else {
+                                                    paginationHTML +=
+                                                            '<li class="next disabled"><a href="#">Next <i class="ti-arrow-right"></i></a></li>';
+                                                }
+
+                                                paginationHTML += "</ul>";
+
+                                                // Cập nhật pagination vào giao diện
+                                                $(".pagination-bx").html(paginationHTML);
+
+                                                // Thêm sự kiện click cho pagination tùy chỉnh
+                                                $(".pagination a").on("click", function (e) {
+                                                    e.preventDefault();
+                                                    var page = $(this).data("page");
+                                                    if (page !== undefined) {
+                                                        table.page(page).draw("page");
+                                                    }
+                                                });
+                                            }
                                         });
 
         </script>
