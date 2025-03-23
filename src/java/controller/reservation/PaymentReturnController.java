@@ -109,11 +109,11 @@ public class PaymentReturnController extends HttpServlet {
 
             session.setAttribute("r", r);
 
-//            request.getRequestDispatcher("../reservation-complete.jsp").forward(request, response);
-            response.getWriter().write("Success!\n " + result.toString());
+            request.getRequestDispatcher("../reservation-complete.jsp").forward(request, response);
+//            response.getWriter().write("Success!\n " + result.toString());
         } else {
-//            request.getRequestDispatcher("../reservation-confirm.jsp").forward(request, response);
-            response.getWriter().write("Failed!\n " + result.toString());
+            request.getRequestDispatcher("../reservation-confirm.jsp").forward(request, response);
+//            response.getWriter().write("Failed!\n " + result.toString());
         }
     }
 

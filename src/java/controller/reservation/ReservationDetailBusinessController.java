@@ -301,14 +301,16 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 + "-----------------------------------------\n\n"
                 + "Services:\n%s\n\n"
                 + "Thank you for using our service!\n"
-                + "Best regards,\nYour Service Team",
+                + "Best regards,\nYour Service Team \n"
+                + "%s",
                 r.getFirstName(), r.getLastName(),
                 action,
-                action.equals("Cancelled") ? "Cancelled" : "Confirmed", formattedDateTime,
+                action, formattedDateTime,
                 reason != null ? "+ Reason: " + reason.trim() + "\n" : "",
                 r.getPhone(), r.getEmail(),
                 r.getId(),
-                serviceContent
+                serviceContent,
+                action.equalsIgnoreCase("Completed") ? "Your opinion is important to us, and we would greatly appreciate it if you could take a moment to provide feedback on your experience." : ""
         );
     }
 
