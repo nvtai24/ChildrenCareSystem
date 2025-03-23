@@ -56,7 +56,7 @@ public class ForgetPasswordController extends HttpServlet {
                 request.getRequestDispatcher("forget-password.jsp").forward(request, response);
             }
         } else {
-            request.setAttribute("errorMessage", "Email not found.");
+            request.setAttribute("errorMessage", "Email not exist in system.");
             request.getRequestDispatcher("forget-password.jsp").forward(request, response);
         }
     }

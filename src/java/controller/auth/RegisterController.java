@@ -31,7 +31,7 @@ import util.PasswordUtil;
  */
 public class RegisterController extends HttpServlet {
 
-    private static final long TOKEN_EXPIRATION_HOURS = 10;
+    private static final long TOKEN_EXPIRATION_HOURS = 2;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

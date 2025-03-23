@@ -43,9 +43,8 @@ public class ResetPasswordController extends HttpServlet {
             return;
         }
         String hashedPassword = PasswordUtil.toSHA1(newPassword);
-
         UserDAO userDAO = new UserDAO();
-        boolean isPasswordUpdated = userDAO.resetPassword(token, newPassword);
+        boolean isPasswordUpdated = userDAO.resetPassword(token, hashedPassword);
 
         if (isPasswordUpdated) {
             request.setAttribute("successMessage", "Password has been reset successfully.");

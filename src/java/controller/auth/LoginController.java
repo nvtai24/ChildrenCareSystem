@@ -65,11 +65,11 @@ public class LoginController extends HttpServlet {
             return;
         }
         if (user != null) {
-            if (!user.isEmailVerified()) {
-                request.setAttribute("error", "Tài khoản của bạn chưa được xác minh. Vui lòng kiểm tra email để xác thực.");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-                return;
-            }
+//            if (!user.isEmailVerified()) {
+//                request.setAttribute("error", "Tài khoản của bạn chưa được xác minh. Vui lòng kiểm tra email để xác thực.");
+//                request.getRequestDispatcher("login.jsp").forward(request, response);
+//                return;
+//            }
             ProfileDAO pDB = new ProfileDAO();
 
             Profile p = pDB.getProfileByUserId(user.getId());
@@ -82,16 +82,6 @@ public class LoginController extends HttpServlet {
             request.getSession().setAttribute("account", user);
             request.getSession().setAttribute("password", user.getPassword());
             request.getSession().setAttribute("id", user.getId());
-            if (rememberMe) {
-            Cookie usernameCookie = new Cookie("username", usernameOrEmail);
-            usernameCookie.setMaxAge(60 * 60 * 24 * 7);  
-            response.addCookie(usernameCookie);
-
-            Cookie passwordCookie = new Cookie("password", password);
-            passwordCookie.setMaxAge(60 * 60 * 24 * 7);  
-            response.addCookie(passwordCookie);
-        }
-
             response.sendRedirect("/app");
         } else {
             response.sendRedirect("login");
