@@ -260,20 +260,28 @@
 
                                                         <c:choose>
                                                             <c:when test='${reservation.statusId == 1}'> 
-                                                                <c:set var="statusClass" value="blue"/> 
-                                                                <c:set var="statusText" value="Pending"/>
+                                                                <c:set var="statusClass" value="orange"/> 
+                                                                <c:set var="statusText" value="Not Yet"/>
                                                             </c:when>
                                                             <c:when test='${reservation.statusId == 2}'> 
                                                                 <c:set var="statusClass" value="yellow"/> 
-                                                                <c:set var="statusText" value="Confirmed"/>
+                                                                <c:set var="statusText" value="Assigned"/>
                                                             </c:when>
                                                             <c:when test='${reservation.statusId == 3}'> 
-                                                                <c:set var="statusClass" value="green"/> 
-                                                                <c:set var="statusText" value="Completed"/>
+                                                                <c:set var="statusClass" value="red"/> 
+                                                                <c:set var="statusText" value="Rejected"/>
                                                             </c:when>
                                                             <c:when test='${reservation.statusId == 4}'> 
-                                                                <c:set var="statusClass" value="red"/> 
-                                                                <c:set var="statusText" value="Cancelled"/>
+                                                                <c:set var="statusClass" value="blue"/> 
+                                                                <c:set var="statusText" value="Confirmed"/>
+                                                            </c:when>
+                                                            <c:when test='${reservation.statusId == 5}'> 
+                                                                <c:set var="statusClass" value="purple"/> 
+                                                                <c:set var="statusText" value="Processing"/>
+                                                            </c:when>
+                                                            <c:when test='${reservation.statusId == 6}'> 
+                                                                <c:set var="statusClass" value="green"/> 
+                                                                <c:set var="statusText" value="Completed "/>
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <c:set var="statusClass" value="gray"/> 

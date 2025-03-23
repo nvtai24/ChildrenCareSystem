@@ -175,10 +175,10 @@
 
                                                         <!--Nút này chỉ hiện thị khi toàn bộ dịch vụ đã thành công-->
                                                         <c:if  test="${r.status.id == 3}">
-                                                            <td class="align-middle font-weight-bold">
-                                                                <button class="btn blue mb-2" style="width: auto">
+                                                             <td class="align-middle font-weight-bold">
+                                                                <a href="customer-feedback?rDetailId=${i.id}&action=feedback" class="btn blue mb-2" style="width: auto">
                                                                     <i class="fa fa-comment" aria-hidden="true"></i> Feedback
-                                                                </button>
+                                                                </a>
                                                             </td>
                                                         </c:if>
                                                     </tr>

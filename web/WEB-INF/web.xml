@@ -204,6 +204,10 @@
         <servlet-name>ReservationCancelController</servlet-name>
         <servlet-class>controller.reservation.ReservationCancelController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerFeedbackController</servlet-name>
+        <servlet-class>controller.common.CustomerFeedbackController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
         <url-pattern>/error-handle</url-pattern>
@@ -455,6 +459,10 @@
     <servlet-mapping>
         <servlet-name>ReservationCancelController</servlet-name>
         <url-pattern>/reservation/cancel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerFeedbackController</servlet-name>
+        <url-pattern>/customer-feedback</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>
