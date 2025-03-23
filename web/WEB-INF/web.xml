@@ -212,6 +212,10 @@
         <servlet-name>BanUserAjaxController</servlet-name>
         <servlet-class>controller.auth.BanUserAjaxController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PaymentRefundController</servlet-name>
+        <servlet-class>controller.reservation.PaymentRefundController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
         <url-pattern>/error-handle</url-pattern>
@@ -471,6 +475,10 @@
     <servlet-mapping>
         <servlet-name>BanUserAjaxController</servlet-name>
         <url-pattern>/ban-ajax</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentRefundController</servlet-name>
+        <url-pattern>/reservation/refund</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>

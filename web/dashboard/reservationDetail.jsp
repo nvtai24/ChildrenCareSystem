@@ -164,7 +164,9 @@
 
                             </c:if>
                             <c:if test="${manager && r.status.id eq 5}">
-                                <button type="submit" class="btn red mb-2" onclick="preRefund('/app/reservation/refund?id=${r.id}')"> 
+
+                                <input type="hidden" id="hiddenId" value="${r.id}">
+                                <button id="refundBtn" class="btn red mb-2" onclick="preRefund(event)"> 
                                     Refund
                                 </button>
                             </c:if>
@@ -346,6 +348,50 @@
 
                                                         return false;
                                                     }
+
+                                                    function preRefund(event)
+                                                    {
+                                                        Swal.fire({
+                                                            title: "Are you sure?",
+                                                            text: "Do you really want to refund for this reservation?",
+                                                            icon: "warning",
+                                                            showCancelButton: true,
+                                                            confirmButtonColor: "#3085d6",
+                                                            cancelButtonColor: "#d33",
+                                                            confirmButtonText: "Yes, change it!",
+                                                            cancelButtonText: "No, cancel!"
+                                                        }).then((result) => {
+                                                            if (result.isConfirmed) {
+                                                                let id = $('#hiddenId').val();
+//                                                                url = '/app/reservation/refund?id=' + id;
+//                                                                window.location.href = url;
+
+                                                                $.ajax({
+                                                                    url: '/app/reservation/refund',
+                                                                    type: 'POST',
+                                                                    data: {id: id},
+                                                                    success: function (response) {
+                                                                        $('#refundBtn').hide();
+
+                                                                        Swal.fire({
+                                                                            title: "Good job!",
+                                                                            text: "Refund successfully!",
+                                                                            icon: "success"
+                                                                        });
+                                                                    },
+                                                                    error: function (jqXHR, textStatus, errorThrown) {
+                                                                        Swal.fire({
+                                                                            icon: "error",
+                                                                            title: "Oops...",
+                                                                            text: "Something went wrong!",
+                                                                            footer: '<a href="#">Why do I have this issue?</a>'
+                                                                        });
+                                                                    }
+                                                                });
+
+                                                            }
+                                                        });
+                                                    }
         </script>
         <script>
             <c:if test="${notification eq 1}">
@@ -442,8 +488,6 @@
                         $('select').selectpicker('refresh');
                     },
                 });
-
-
 
                 function updatePagination(api) {
                     var pageInfo = api.page.info();
