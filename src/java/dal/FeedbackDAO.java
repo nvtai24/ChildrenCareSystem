@@ -367,8 +367,8 @@ public class FeedbackDAO extends DBContext {
     
     public boolean addFeedbackByUser(Feedback model) {
          try {
-            String query = "Insert feedback (reservationdetail_id, rating, comment, status, created_date) VALUES (?, ?, ?, ?, ?)";
-            int result = executeUpdate(query, model.getReservationDetailId(), model.getRating(), model.getComment(), model.isStatus(), model.getCreatedDate());
+            String query = "Insert feedback (reservationdetail_id, rating, comment, created_date) VALUES (?, ?, ?, ?)";
+            int result = executeUpdate(query, model.getReservationDetailId(), model.getRating(), model.getComment(), model.getCreatedDate());
             return result > 0;
           } catch (SQLException e) {
             Logger.getLogger(PostDAO.class.getName()).log(Level.SEVERE, null, e);
