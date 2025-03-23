@@ -98,6 +98,7 @@
                                     <option value="Confirmed">Confirmed</option>
                                     <option value="Completed">Completed</option>
                                     <option value="Cancelled">Cancelled</option>
+                                    <option value="Pending Refund">Pending Refund</option>
                                 </select>
                             </div>
                         </div>
