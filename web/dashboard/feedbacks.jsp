@@ -131,6 +131,21 @@
                 color: #aaa;
                 cursor: not-allowed;
             }
+            .card-courses-user-pic {
+                width: 60px; 
+                height: 60px; 
+                overflow: hidden;
+                border-radius: 50%; 
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .card-courses-user-pic img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover; 
+            }
         </style>
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
