@@ -27,7 +27,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>Admin Dashboard</title>
+        <title>Dashboard</title>
         <base href="${pageContext.request.contextPath}/">        
 
         <!-- MOBILE SPECIFIC ============================================= -->

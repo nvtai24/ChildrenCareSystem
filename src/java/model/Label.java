@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 /**
  *
@@ -18,10 +19,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Label {
-    private int id;
-    private String name;
-    private String description;
-    private boolean status;
-    private List<Post> posts;
+    int id;
+    String name;
+    String description;
+    boolean status;
+    List<Post> posts;
 }

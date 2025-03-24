@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import model.Post;
 import model.Profile;
 import model.Reservation;
@@ -24,25 +25,25 @@ import model.Slider;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class User {
-    private int id;
-    private String username;
-    private String password;
-    private String email;
-    private Role role;
-    private Profile profile;
-    private boolean status;
-    public boolean emailVerified;
-    private Timestamp tokenExpiration;
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
-    private List<Slider> sliders;
-    private List<Post> posts;
-    private List<Reservation> reservations;
-    private String avatar;
-    private String verificationToken;
-    private boolean verified;
-    private String firstname;
-    private String lastname;
+    int id;
+    String username;
+    String password;
+    String email;
+    Role role;
+    Profile profile;
+    boolean status;
+    boolean emailVerified;
+    Timestamp tokenExpiration;
+    LocalDateTime createdDate;
+    LocalDateTime updatedDate;
+    List<Slider> sliders;
+    List<Post> posts;
+    List<Reservation> reservations;
+    String avatar;
+    String verificationToken;
+    boolean verified;
+    String firstname;
+    String lastname;
 }
-

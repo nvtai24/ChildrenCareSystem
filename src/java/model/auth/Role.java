@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 /**
  *
@@ -18,10 +19,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Role {
-    private Integer id;
-    private String roleName;
-    private String description;
-    private Boolean status;
-    private List<Feature> features;
+    Integer id;
+    String roleName;
+    String description;
+    Boolean status;
+    List<Feature> features;
 }
