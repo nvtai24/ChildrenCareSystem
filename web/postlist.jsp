@@ -186,6 +186,39 @@
             width: 25%;
             text-align: center;
         }
+        .pagination-bx {
+                margin-top: 20px;
+            }
+
+            .pagination {
+                display: flex;
+                justify-content: center;
+                list-style: none;
+                padding: 0;
+            }
+
+            .pagination li {
+                margin: 0 5px;
+            }
+
+            .pagination li a {
+                padding: 8px 12px;
+                border: 1px solid #ddd;
+                text-decoration: none;
+                border-radius: 4px;
+                color: #333;
+            }
+
+            .pagination li.active a {
+                background-color: #4c1864;
+                color: white;
+                border-color: #4c1864;
+            }
+
+            .pagination li.disabled a {
+                color: #aaa;
+                cursor: not-allowed;
+            }
     </style>
     <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:10:19 GMT -->
     <head>
