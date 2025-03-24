@@ -24,15 +24,16 @@ import model.auth.User;
  */
 public class FeedbackDAO extends DBContext {
 
-    public List<Feedback> listFeedbacksOfService(int sid) {
+public List<Feedback> listFeedbacksOfService(int sid) {
         List<Feedback> result = new ArrayList<>();
 
-        String sql = "select f.rating, f.comment, p.firstname, p.lastname, p.avatar from reservationdetail rd \n"
+        String sql = "select f.rating, f.comment, p.firstname, p.lastname, p.avatar, f.created_date from reservationdetail rd \n"
                 + "join reservation r on rd.reservation_id = r.id\n"
                 + "join feedback f on rd.id = f.reservationdetail_id\n"
                 + "join user u on r.customer_id = u.id\n"
                 + "join profile p on u.id = p.userid\n"
-                + "and service_id = ?";
+                + "where service_id = ? and f.status = 1 \n"
+                + "order by f.created_date desc";
 
         try {
             ResultSet rs = executeQuery(sql, sid);
@@ -43,10 +44,13 @@ public class FeedbackDAO extends DBContext {
                 String firstName = rs.getString("firstname");
                 String lastName = rs.getString("lastname");
                 String avatar = rs.getString("avatar");
+                LocalDateTime createdDate = rs.getTimestamp("created_date").toLocalDateTime();
+                
 
                 Feedback f = new Feedback();
                 f.setRating(rating);
                 f.setComment(comment);
+                f.setCreatedDate(createdDate);
 
                 ReservationDetail rd = new ReservationDetail();
 
@@ -189,7 +193,8 @@ public class FeedbackDAO extends DBContext {
                     + "JOIN reservation r ON rd.reservation_id = r.id \n"
                     + "JOIN service s ON rd.service_id = s.id \n"
                     + "LEFT JOIN user u ON r.customer_id = u.id \n"
-                    + "LEFT JOIN profile p ON u.id = p.userid;";
+                    + "LEFT JOIN profile p ON u.id = p.userid\n"
+                    + " order by f.created_date";
 
             ResultSet rs = executeQuery(query);
 
