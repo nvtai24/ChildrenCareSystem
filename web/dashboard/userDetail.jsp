@@ -230,7 +230,7 @@
 
                             <div class="form-group">
                                 <label>Role</label>
-                                <select name="role" style="width: 100%">
+                                <select name="role" style="width: 100%" class="form-control">
                                     <c:forEach items="${roles}" var="r">
                                         <option value="${r.id}" ${user.role.id == r.id ? 'selected' : ''}>${r.roleName}</option>                                      
                                     </c:forEach>

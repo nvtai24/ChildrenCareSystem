@@ -41,7 +41,9 @@ public class BookNowReturnController extends HttpServlet {
             r.setBanking(true);
             ReservationDAO rdb = new ReservationDAO();
             int id = rdb.insertReservation(r);
-            
+
+            request.setAttribute("rid", id);
+
             PaymentHistory ph = new PaymentHistory().builder()
                     .rid(id)
                     .amount(Integer.parseInt(amount))
@@ -49,12 +51,12 @@ public class BookNowReturnController extends HttpServlet {
                     .txnRef(txnRef)
                     .transactionNo(transactionNo)
                     .build();
-            
+
             System.out.println(ph.toString());
-            
+
             PaymentHistoryDAO phdb = new PaymentHistoryDAO();
             phdb.insertPayment(ph);
-            
+
             String email = r.getEmail(); // Get user email from Reservation object
             String subject = "Reservation Successful!";
             String serviceContent = r.getDetails().stream()
