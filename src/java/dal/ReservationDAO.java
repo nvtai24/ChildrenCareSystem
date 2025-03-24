@@ -862,7 +862,7 @@ public class ReservationDAO extends DBContext {
                 + "where id = ?";
 
         try {
-            executeUpdate(sql, newStatus,rid);
+            executeUpdate(sql, newStatus, rid);
         } catch (SQLException ex) {
             Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

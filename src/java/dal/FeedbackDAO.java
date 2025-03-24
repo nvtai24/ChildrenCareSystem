@@ -32,8 +32,8 @@ public class FeedbackDAO extends DBContext {
                 + "join feedback f on rd.id = f.reservationdetail_id\n"
                 + "join user u on r.customer_id = u.id\n"
                 + "join profile p on u.id = p.userid\n"
-                + "where service_id = ?\n"
-                + "order by f.created_date";
+                + "where service_id = ? and f.status = 1\n"
+                + "order by f.created_date desc";
 
         try {
             ResultSet rs = executeQuery(sql, sid);

@@ -6,38 +6,40 @@ package model;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import model.auth.User;
 
 /**
- *
  * @author Nvtai
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Reservation {
 
-    private int id;
-    private int statusId;
-    private User customer;
-    private String firstName;
-    private String lastName;
-    private LocalDateTime reverseDate;
-    private String phone;
-    private String email;
-    private String note;
-    private boolean banking;
-    private ReservationStatus status;
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
-    private List<ReservationDetail> details;
+    int id;
+    int statusId;
+    User customer;
+    String firstName;
+    String lastName;
+    LocalDateTime reverseDate;
+    String phone;
+    String email;
+    String note;
+    boolean banking;
+    ReservationStatus status;
+    LocalDateTime createdDate;
+    LocalDateTime updatedDate;
+    List<ReservationDetail> details;
 
-    private int totalQuantity;
-    private double totalPrice;
-    private String fullName;
+    int totalQuantity;
+    double totalPrice;
+    String fullName;
 }

@@ -5,24 +5,23 @@
 package model;
 
 import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 /**
  *
  * @author Nvtai
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 public class Category {
-    private int id;
-    private String name;
-    private String description;
-    private boolean status;
-    private List<Service> services;
+    int id;
+    String name;
+    String description;
+    boolean status;
+    List<Service> services;
 }
-
