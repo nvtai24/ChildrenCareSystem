@@ -250,7 +250,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                     </c:when>
                     <c:when test="${r.status.id == 5}">
                       <span class="badge badge-warning text-white"
-                        >Pending Refund</span
+                        >Refunding</span
                       >
                     </c:when>
                   </c:choose>

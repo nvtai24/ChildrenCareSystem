@@ -365,7 +365,7 @@
                                                 </div>
                                                 <div class="instructor-info">
                                                     <h6>${f.reservationDetail.reservation.customer.profile.firstName} ${f.reservationDetail.reservation.customer.profile.lastName}</h6>
-                                                    <!--<span>Professor</span>-->
+                                                    <span>${f.createdDate.toLocalDate()} ${f.createdDate.toLocalTime()}</span>
                                                     <ul class="cours-star">
                                                         <c:forEach begin="1" end="${f.rating}">
                                                             <li class="active"><i class="fa fa-star"></i></li>
