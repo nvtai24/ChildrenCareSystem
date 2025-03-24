@@ -67,6 +67,7 @@ public class PaymentController extends HttpServlet {
 
             session.setAttribute("r", r);
 
+            request.setAttribute("rid", id);
             request.getRequestDispatcher("../reservation-complete.jsp").forward(request, response);
             return;
         }

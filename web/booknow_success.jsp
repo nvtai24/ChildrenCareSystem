@@ -73,8 +73,8 @@
                                         </p>
 
                                         <div class="mt-5 d-flex justify-content-center">
-                                            <a href="" class="btn btn-success mr-2"><i class="fa fa-home"></i> Home</a>
-                                            <a href="" class="btn btn-primary"><i class="fa fa-calendar-check-o"></i> View Appointment</a>
+                                            <a href="/app" class="btn btn-success mr-2"><i class="fa fa-home"></i> Home</a>
+                                            <a href="/app/reservation/info?id=${requestScope.rid}" class="btn btn-primary"><i class="fa fa-calendar-check-o"></i> View Appointment</a>
                                         </div>
                                     </div>
                                 </div>

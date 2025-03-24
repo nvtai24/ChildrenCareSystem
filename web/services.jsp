@@ -160,7 +160,7 @@
                                                             </p>
 
 
-                                                            <c:if test="${sessionScope.account.role.id == 15}">
+                                                            <c:if test="${ sessionScope.account == null || sessionScope.account.role.id == 15 || sessionScope.account.role.id == 16}">
                                                                 <button type="button" class="btn btn-success w-100 mb-2" onclick="addToWishlist(${s.id})">
                                                                     Add Appointment
                                                                 </button>

@@ -29,28 +29,33 @@
                                 <li><a href="/app">Home</a></li>
                                 <li><a href="services">Services</a></li>
                                 <li><a href="blogs">Blogs</a></li>
-                                <li>
-                                    <a href="javascript:;"
-                                       >Contact us <i class="fa fa-chevron-down"></i
-                                        ></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog-classic-grid.html">Blog Classic</a></li>
-                                        <li>
-                                            <a href="blog-classic-sidebar.html"
-                                               >Blog Classic Sidebar</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="blog-list-sidebar.html">Blog List Sidebar</a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-standard-sidebar.html"
-                                               >Blog Standard Sidebar</a
-                                            >
-                                        </li>
-                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                    </ul>
-                                </li>
+
+                                <c:if test="${sessionScope.account != null && sessionScope.account.role.id == 15}">
+                                    <li><a href="history">History</a></li>
+                                </c:if>
+
+                                <!--                                <li>
+                                                                    <a href="javascript:;"
+                                                                       >Contact us <i class="fa fa-chevron-down"></i
+                                                                        ></a>
+                                                                    <ul class="sub-menu">
+                                                                        <li><a href="blog-classic-grid.html">Blog Classic</a></li>
+                                                                        <li>
+                                                                            <a href="blog-classic-sidebar.html"
+                                                                               >Blog Classic Sidebar</a
+                                                                            >
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="blog-list-sidebar.html">Blog List Sidebar</a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="blog-standard-sidebar.html"
+                                                                               >Blog Standard Sidebar</a
+                                                                            >
+                                                                        </li>
+                                                                        <li><a href="blog-details.html">Blog Details</a></li>
+                                                                    </ul>
+                                                                </li>-->
 
 
                                 <c:if test="${sessionScope.account != null && sessionScope.account.role.id !=15}">

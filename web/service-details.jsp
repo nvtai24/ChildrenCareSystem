@@ -91,7 +91,7 @@
 
                                         <div class="course-buy-now text-center">
 
-                                            <c:if test="${sessionScope.account.role.id == 15}">
+                                            <c:if  test="${sessionScope.account.role.id == 15 || sessionScope.account.role.id == 16}">
                                                 <div class="row mb-1">
                                                     <div class="col-6">
                                                         <button type="button" class="btn btn-success mb-2 w-100" onclick="addToWishlist(${requestScope.s.id})">
