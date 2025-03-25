@@ -4,7 +4,7 @@
     Author     : Nvtai
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -423,7 +423,7 @@
                                     <script>
                                         document.addEventListener('DOMContentLoaded', function () {
                                             // Cấu hình phân trang
-                                            const itemsPerPage = 5;
+                                            const itemsPerPage = 3;
                                             const feedbackItems = document.querySelectorAll('.feedback-item');
                                             const totalItems = feedbackItems.length;
                                             const totalPages = Math.ceil(totalItems / itemsPerPage);
