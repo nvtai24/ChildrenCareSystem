@@ -24,18 +24,25 @@ public class ServiceDAO extends DBContext {
     public List<Service> getAllAvailableServices() {
         List<Service> result = new ArrayList<>();
 
-        String query = "SELECT `service`.`id`,\n"
-                + "    `service`.`category_id`,\n"
-                + "    `service`.`name`,\n"
-                + "    `service`.`description`,\n"
-                + "    `service`.`brief_info`,\n"
-                + "    `service`.`price`,\n"
-                + "    `service`.`discount`,\n"
-                + "    `service`.`thumbnail`,\n"
-                + "    `service`.`created_date`,\n"
-                + "    `service`.`updated_date`\n"
-                + "FROM `childrencare`.`service` where status = 1"
-                + "ORDER BY GREATEST(`service`.`created_date`, COALESCE(`service`.`updated_date`, '1970-01-01')) DESC\n";
+        String query = "SELECT \n"
+                + "    `s`.`id`,\n"
+                + "    `s`.`category_id`,\n"
+                + "    `s`.`name`,\n"
+                + "    `s`.`description`,\n"
+                + "    `s`.`brief_info`,\n"
+                + "    `s`.`price`,\n"
+                + "    `s`.`discount`,\n"
+                + "    `s`.`thumbnail`,\n"
+                + "    `s`.`created_date`,\n"
+                + "    `s`.`updated_date`\n"
+                + "FROM\n"
+                + "    `childrencare`.`service` s\n"
+                + "        JOIN\n"
+                + "    setting s2 ON s.category_id = s2.setting_id\n"
+                + "WHERE\n"
+                + "    s.status = 1 and s2.status = 1\n"
+                + "ORDER BY GREATEST(`s`.`created_date`,\n"
+                + "        COALESCE(`s`.`updated_date`, '1970-01-01')) DESC";
 
         try {
             ResultSet rs = executeQuery(query);
@@ -82,19 +89,27 @@ public class ServiceDAO extends DBContext {
     public List<Service> getAllAvailableServicesByInfo(String info) {
         List<Service> result = new ArrayList<>();
 
-        String query = "SELECT `service`.`id`,\n"
-                + "    `service`.`category_id`,\n"
-                + "    `service`.`name`,\n"
-                + "    `service`.`description`,\n"
-                + "    `service`.`brief_info`,\n"
-                + "    `service`.`price`,\n"
-                + "    `service`.`discount`,\n"
-                + "    `service`.`thumbnail`,\n"
-                + "    `service`.`created_date`,\n"
-                + "    `service`.`updated_date`\n"
-                + "FROM `childrencare`.`service` where status = 1 and (name like ? or description like ? or brief_info like ?)"
-                + "ORDER BY GREATEST(`service`.`created_date`, COALESCE(`service`.`updated_date`, '1970-01-01')) DESC\n";
-
+        String query = "SELECT \n"
+                + "    `s`.`id`,\n"
+                + "    `s`.`category_id`,\n"
+                + "    `s`.`name`,\n"
+                + "    `s`.`description`,\n"
+                + "    `s`.`brief_info`,\n"
+                + "    `s`.`price`,\n"
+                + "    `s`.`discount`,\n"
+                + "    `s`.`thumbnail`,\n"
+                + "    `s`.`created_date`,\n"
+                + "    `s`.`updated_date`\n"
+                + "FROM\n"
+                + "    `childrencare`.`service` s\n"
+                + "join \n"
+                + "	setting s2 on s.category_id = s2.setting_id\n"
+                + "WHERE\n"
+                + "    s.status = 1\n"
+                + "        AND (s.name LIKE ? OR s.description LIKE ?\n"
+                + "        OR s.brief_info LIKE ?) and s2.status = 1\n"
+                + "ORDER BY GREATEST(`s`.`created_date`,\n"
+                + "        COALESCE(`s`.`updated_date`, '1970-01-01')) DESC";
         try {
 
             String searchParam = "%" + info + "%";
@@ -143,19 +158,26 @@ public class ServiceDAO extends DBContext {
     public List<Service> getAllAvailableServicesByCategoryId(int cid) {
         List<Service> result = new ArrayList<>();
 
-        String query = "SELECT `service`.`id`,\n"
-                + "    `service`.`category_id`,\n"
-                + "    `service`.`name`,\n"
-                + "    `service`.`description`,\n"
-                + "    `service`.`brief_info`,\n"
-                + "    `service`.`price`,\n"
-                + "    `service`.`discount`,\n"
-                + "    `service`.`thumbnail`,\n"
-                + "    `service`.`created_date`,\n"
-                + "    `service`.`updated_date`\n"
-                + "FROM `childrencare`.`service` \n"
-                + "WHERE status = 1 AND category_id = ? \n"
-                + "ORDER BY GREATEST(`service`.`created_date`, COALESCE(`service`.`updated_date`, '1970-01-01')) DESC";
+        String query = "SELECT \n"
+                + "    `s`.`id`,\n"
+                + "    `s`.`category_id`,\n"
+                + "    `s`.`name`,\n"
+                + "    `s`.`description`,\n"
+                + "    `s`.`brief_info`,\n"
+                + "    `s`.`price`,\n"
+                + "    `s`.`discount`,\n"
+                + "    `s`.`thumbnail`,\n"
+                + "    `s`.`created_date`,\n"
+                + "    `s`.`updated_date`\n"
+                + "FROM\n"
+                + "    `childrencare`.`service` s\n"
+                + "        JOIN\n"
+                + "    setting s2 ON s.category_id = s2.setting_id\n"
+                + "WHERE\n"
+                + "    status = 1 AND category_id = ?\n"
+                + "        AND s2.status = 1\n"
+                + "ORDER BY GREATEST(`s`.`created_date`,\n"
+                + "        COALESCE(`s`.`updated_date`, '1970-01-01')) DESC";
 
         try {
 
@@ -202,21 +224,27 @@ public class ServiceDAO extends DBContext {
     public List<Service> getThreeRecentServices() {
         List<Service> result = new ArrayList<>();
 
-        String query = "SELECT `service`.`id`,\n"
-                + "       `service`.`category_id`,\n"
-                + "       `service`.`name`,\n"
-                + "       `service`.`description`,\n"
-                + "       `service`.`brief_info`,\n"
-                + "       `service`.`price`,\n"
-                + "       `service`.`discount`,\n"
-                + "       `service`.`thumbnail`,\n"
-                + "       `service`.`status`,\n"
-                + "       `service`.`created_date`,\n"
-                + "       `service`.`updated_date`\n"
-                + "FROM `childrencare`.`service`\n"
-                + "WHERE status = 1\n"
-                + "ORDER BY GREATEST(`service`.`created_date`, COALESCE(`service`.`updated_date`, '1970-01-01')) DESC\n"
-                + "LIMIT 3;";
+        String query = "SELECT \n"
+                + "    `s`.`id`,\n"
+                + "    `s`.`category_id`,\n"
+                + "    `s`.`name`,\n"
+                + "    `s`.`description`,\n"
+                + "    `s`.`brief_info`,\n"
+                + "    `s`.`price`,\n"
+                + "    `s`.`discount`,\n"
+                + "    `s`.`thumbnail`,\n"
+                + "    `s`.`status`,\n"
+                + "    `s`.`created_date`,\n"
+                + "    `s`.`updated_date`\n"
+                + "FROM\n"
+                + "    `childrencare`.`service` s\n"
+                + "        JOIN\n"
+                + "    setting s2 ON s.category_id = s2.setting_id\n"
+                + "WHERE\n"
+                + "    s.status = 1 AND s2.status = 1\n"
+                + "ORDER BY GREATEST(`s`.`created_date`,\n"
+                + "        COALESCE(`s`.`updated_date`, '1970-01-01')) DESC\n"
+                + "LIMIT 3";
 
         try {
 
@@ -315,9 +343,26 @@ public class ServiceDAO extends DBContext {
 
     public List<Service> getAllAvailableServicesWithPagination(int page, int pageSize) {
         List<Service> result = new ArrayList<>();
-        String query = "SELECT id, category_id, name, description, brief_info, price, discount, thumbnail, status, created_date, updated_date "
-                + "FROM childrencare.service WHERE status = 1 "
-                + "ORDER BY GREATEST(`service`.`created_date`, COALESCE(`service`.`updated_date`, '1970-01-01')) DESC\n"
+        String query = "SELECT \n"
+                + "    s.id,\n"
+                + "    s.category_id,\n"
+                + "    s.name,\n"
+                + "    s.description,\n"
+                + "    s.brief_info,\n"
+                + "    s.price,\n"
+                + "    s.discount,\n"
+                + "    s.thumbnail,\n"
+                + "    s.status,\n"
+                + "    s.created_date,\n"
+                + "    s.updated_date\n"
+                + "FROM\n"
+                + "    childrencare.service s\n"
+                + "        JOIN\n"
+                + "    setting s2 ON s.category_id = s2.setting_id\n"
+                + "WHERE\n"
+                + "    s.status = 1 and s2.status = 1\n"
+                + "ORDER BY GREATEST(`s`.`created_date`,\n"
+                + "        COALESCE(`s`.`updated_date`, '1970-01-01')) DESC\n"
                 + "LIMIT ? OFFSET ?";
 
         try {
@@ -363,7 +408,14 @@ public class ServiceDAO extends DBContext {
     public int countAllAvailableServices() {
         int result = 0;
 
-        String query = "SELECT COUNT(*) AS total FROM childrencare.service WHERE status = 1";
+        String query = "SELECT \n"
+                + "    COUNT(*) AS total\n"
+                + "FROM\n"
+                + "    childrencare.service s\n"
+                + "        JOIN\n"
+                + "    setting s2 ON s.category_id = s2.setting_id\n"
+                + "WHERE\n"
+                + "    s.status = 1 AND s2.status = 1";
         try {
             ResultSet rs = executeQuery(query);
 

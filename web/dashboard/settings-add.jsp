@@ -124,7 +124,5 @@
         <script src="${pageContext.request.contextPath}/assets2/js/functions.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/vendors/chart/chart.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
-        <script src='${pageContext.request.contextPath}/assets2/vendors/switcher/switcher.js'></script>
-
     </body>
 </html>

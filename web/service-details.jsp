@@ -4,7 +4,7 @@
     Author     : Nvtai
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,6 +45,57 @@
         <!-- STYLESHEETS ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
+
+        <style>
+            .instructor-author {
+                width: 100px; /* Bạn có thể thay đổi kích thước này */
+                height: 100px; /* Đảm bảo chiều cao và chiều rộng bằng nhau để tạo khối tròn */
+                overflow: hidden;
+                border-radius: 50%; /* Tạo khối tròn */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .instructor-author img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover; /* Đảm bảo ảnh chiếm đầy khối tròn mà không bị méo */
+            }
+            .pagination-bx {
+                margin-top: 20px;
+            }
+
+            .pagination {
+                display: flex;
+                justify-content: center;
+                list-style: none;
+                padding: 0;
+            }
+
+            .pagination li {
+                margin: 0 5px;
+            }
+
+            .pagination li a {
+                padding: 8px 12px;
+                border: 1px solid #ddd;
+                text-decoration: none;
+                border-radius: 4px;
+                color: #333;
+            }
+
+            .pagination li.active a {
+                background-color: #4c1864;
+                color: white;
+                border-color: #4c1864;
+            }
+
+            .pagination li.disabled a {
+                color: #aaa;
+                cursor: not-allowed;
+            }
+        </style>
 
     </head>
     <body id="bg">
@@ -88,20 +139,24 @@
                                             <del>$${requestScope.s.price}</del>
                                             <h4 class="price">$${requestScope.s.price * (1 - requestScope.s.discount / 100)}</h4>
                                         </div>	
-                                        <div class="course-buy-now text-center">
-                                            <div class="row mb-1">
-                                                <div class="col-6">
-                                                    <button type="button" class="btn btn-success mb-2 w-100" onclick="addToWishlist(${requestScope.s.id})">
-                                                        Add Appointment
-                                                    </button>
-                                                </div>
 
-                                                <div class="col-6">
-                                                    <button type="button" class="btn btn-success mb-2 w-100" onclick="bookNow(${requestScope.s.id})">
-                                                        Book Now
-                                                    </button>
+                                        <div class="course-buy-now text-center">
+
+                                            <c:if  test="${sessionScope.account.role.id == 15 || sessionScope.account.role.id == 16}">
+                                                <div class="row mb-1">
+                                                    <div class="col-6">
+                                                        <button type="button" class="btn btn-success mb-2 w-100" onclick="addToWishlist(${requestScope.s.id})">
+                                                            Add Appointment
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="col-6">
+                                                        <button type="button" class="btn btn-success mb-2 w-100" onclick="bookNow(${requestScope.s.id})">
+                                                            Book Now
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </c:if>
 
                                             <script>
                                                 function addToWishlist(serviceId) {
@@ -333,22 +388,21 @@
                                     </div>
 
 
+                                    <!-- HTML ban đầu giữ nguyên, chỉ thêm container để chứa nút phân trang -->
                                     <div class="" id="instructor">
                                         <c:forEach items="${requestScope.feedbacks}" var="f">
-                                            <div class="instructor-bx">
+                                            <div class="instructor-bx feedback-item">
                                                 <div class="instructor-author">
                                                     <img src="${f.reservationDetail.reservation.customer.profile.avatar}" alt="">
                                                 </div>
                                                 <div class="instructor-info">
-                                                    <h6>${f.reservationDetail.reservation.customer.profile.lastName} ${f.reservationDetail.reservation.customer.profile.lastName}</h6>
-                                                    <!--<span>Professor</span>-->
-
+                                                    <h6>${f.reservationDetail.reservation.customer.profile.firstName} ${f.reservationDetail.reservation.customer.profile.lastName}</h6>
+                                                    <span>${f.createdDate.toLocalDate()} ${f.createdDate.toLocalTime()}</span>
                                                     <ul class="cours-star">
                                                         <c:forEach begin="1" end="${f.rating}">
                                                             <li class="active"><i class="fa fa-star"></i></li>
                                                             </c:forEach>
-
-                                                        <c:forEach begin="1" end="${5 - f.rating}">
+                                                            <c:forEach begin="1" end="${5 - f.rating}">
                                                             <li><i class="fa fa-star"></i></li>
                                                             </c:forEach>
                                                     </ul>
@@ -356,7 +410,120 @@
                                                 </div>
                                             </div>
                                         </c:forEach>
+
+                                        <!-- Container cho phân trang -->
+                                        <div id="pagination-container" class="pagination-bx rounded-sm gray clearfix mt-3">
+                                            <ul class="pagination" id="pagination-controls">
+                                                <!-- Nút phân trang sẽ được tạo bằng JavaScript -->
+                                            </ul>
+                                        </div>
                                     </div>
+
+                                    <!-- JavaScript cho phân trang -->
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            // Cấu hình phân trang
+                                            const itemsPerPage = 3;
+                                            const feedbackItems = document.querySelectorAll('.feedback-item');
+                                            const totalItems = feedbackItems.length;
+                                            const totalPages = Math.ceil(totalItems / itemsPerPage);
+                                            let currentPage = 1;
+
+                                            // Hàm hiển thị các items dựa trên trang hiện tại
+                                            function displayItems(page) {
+                                                // Ẩn tất cả items
+                                                feedbackItems.forEach(item => {
+                                                    item.style.display = 'none';
+                                                });
+
+                                                // Tính toán items sẽ hiển thị trên trang hiện tại
+                                                const startIndex = (page - 1) * itemsPerPage;
+                                                const endIndex = Math.min(startIndex + itemsPerPage - 1, totalItems - 1);
+
+                                                // Hiển thị items của trang hiện tại
+                                                for (let i = startIndex; i <= endIndex; i++) {
+                                                    if (feedbackItems[i]) {
+                                                        feedbackItems[i].style.display = 'flex';
+                                                    }
+                                                }
+
+                                                // Cập nhật UI phân trang
+                                                updatePagination();
+                                            }
+
+                                            // Hàm tạo và cập nhật UI phân trang
+                                            function updatePagination() {
+                                                const paginationControls = document.getElementById('pagination-controls');
+                                                paginationControls.innerHTML = '';
+
+                                                // Chỉ hiển thị phân trang nếu có nhiều hơn 1 trang
+                                                if (totalPages <= 1) {
+                                                    document.getElementById('pagination-container').style.display = 'none';
+                                                    return;
+                                                } else {
+                                                    document.getElementById('pagination-container').style.display = 'block';
+                                                }
+
+                                                // Nút Previous
+                                                const prevButton = document.createElement('li');
+                                                prevButton.className = currentPage === 1 ? 'previous disabled' : 'previous';
+                                                prevButton.innerHTML = `<a href="javascript:void(0);"><i class="ti-arrow-left"></i> Prev</a>`;
+                                                if (currentPage > 1) {
+                                                    prevButton.addEventListener('click', function () {
+                                                        currentPage--;
+                                                        displayItems(currentPage);
+                                                    });
+                                                }
+                                                paginationControls.appendChild(prevButton);
+
+                                                // Nút số trang
+//                                                for (let i = 1; i <= totalPages; i++) {
+//                                                    const pageButton = document.createElement('li');
+//                                                    pageButton.className = i === currentPage ? 'active' : '';
+//                                                    pageButton.innerHTML = `<a href="javascript:void(0);">${i}</a>`;
+//                                                    pageButton.addEventListener('click', function () {
+//                                                        currentPage = i;
+//                                                        displayItems(currentPage);
+//                                                    });
+//                                                    paginationControls.appendChild(pageButton);
+//                                                }
+
+
+                                                // Nút số trang
+                                                for (let i = 1; i <= totalPages; i++) {
+                                                    const pageButton = document.createElement('li');
+                                                    pageButton.className = i === currentPage ? 'active' : '';
+
+                                                    // Tạo thẻ a riêng biệt
+                                                    const aTag = document.createElement('a');
+                                                    aTag.href = "javascript:void(0);";
+                                                    aTag.textContent = i; // Sử dụng textContent thay vì innerHTML
+
+                                                    pageButton.appendChild(aTag);
+                                                    pageButton.addEventListener('click', function () {
+                                                        currentPage = i;
+                                                        displayItems(currentPage);
+                                                    });
+                                                    paginationControls.appendChild(pageButton);
+                                                }
+
+                                                // Nút Next
+                                                const nextButton = document.createElement('li');
+                                                nextButton.className = currentPage === totalPages ? 'next disabled' : 'next';
+                                                nextButton.innerHTML = `<a href="javascript:void(0);">Next <i class="ti-arrow-right"></i></a>`;
+                                                if (currentPage < totalPages) {
+                                                    nextButton.addEventListener('click', function () {
+                                                        currentPage++;
+                                                        displayItems(currentPage);
+                                                    });
+                                                }
+                                                paginationControls.appendChild(nextButton);
+                                            }
+
+                                            // Khởi tạo phân trang khi trang được tải
+                                            displayItems(currentPage);
+                                        });
+                                    </script>
 
                                 </div>
 

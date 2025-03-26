@@ -20,6 +20,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import util.PasswordUtil;
 
 /**
  *
@@ -87,7 +88,8 @@ public class CustomerCreateController extends HttpServlet {
 
         User newUser = new User();
         newUser.setUsername(username);
-        newUser.setPassword(password);
+        String hashedPassword = PasswordUtil.toSHA1(password);
+        newUser.setPassword(hashedPassword);
         newUser.setEmail(email);
         newUser.setVerificationToken(token);
         newUser.setTokenExpiration(new Timestamp(expirationTime));
@@ -95,7 +97,7 @@ public class CustomerCreateController extends HttpServlet {
         boolean isRegistered = userDAO.register(newUser, 15);
         if (isRegistered) {
 
-            User user = userDAO.get(username, password);
+            User user = userDAO.get(username, hashedPassword);
 
             // Tạo profile cho user nếu đã tạo user thành công 
             Profile profile = new Profile();

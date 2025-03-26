@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import model.auth.User;
 
 /**
@@ -19,14 +20,15 @@ import model.auth.User;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class ReservationDetail {
-    private int id;
-    private Feedback feedback;
-    private Reservation reservation;
-    private Service service;
-    private User staff;
-    private int quantity;
-    private double price;
-    private double total;
-    private ReservationDetailStatus status;
+    int id;
+    Feedback feedback;
+    Reservation reservation;
+    Service service;
+    User staff;
+    int quantity;
+    double price;
+    double total;
+    ReservationDetailStatus status;
 }

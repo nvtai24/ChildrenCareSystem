@@ -30,6 +30,39 @@
             html {
                 position:inherit;
             }
+            .pagination-bx {
+                margin-top: 20px;
+            }
+
+            .pagination {
+                display: flex;
+                justify-content: center;
+                list-style: none;
+                padding: 0;
+            }
+
+            .pagination li {
+                margin: 0 5px;
+            }
+
+            .pagination li a {
+                padding: 8px 12px;
+                border: 1px solid #ddd;
+                text-decoration: none;
+                border-radius: 4px;
+                color: #333;
+            }
+
+            .pagination li.active a {
+                background-color: #4c1864;
+                color: white;
+                border-color: #4c1864;
+            }
+
+            .pagination li.disabled a {
+                color: #aaa;
+                cursor: not-allowed;
+            }
         </style>
 
 
@@ -159,13 +192,17 @@
                                                                 <strong class="text-danger">$${s.price * (1 - s.discount / 100)}</strong>
                                                             </p>
 
-                                                            <button type="button" class="btn btn-success w-100 mb-2" onclick="addToWishlist(${s.id})">
-                                                                Add Appointment
-                                                            </button>
 
-                                                            <button type="button" class="btn btn-success w-100" onclick="bookNow(${s.id})">
-                                                                Book Now
-                                                            </button>
+                                                            <c:if test="${ sessionScope.account == null || sessionScope.account.role.id == 15 || sessionScope.account.role.id == 16}">
+                                                                <button type="button" class="btn btn-success w-100 mb-2" onclick="addToWishlist(${s.id})">
+                                                                    Add Appointment
+                                                                </button>
+
+                                                                <button type="button" class="btn btn-success w-100" onclick="bookNow(${s.id})">
+                                                                    Book Now
+                                                                </button>
+                                                            </c:if>
+
 
                                                             <script>
                                                                 function addToWishlist(serviceId) {

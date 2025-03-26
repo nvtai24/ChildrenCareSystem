@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 /**
  *
@@ -19,19 +20,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Service {
-    private int id;
-    private Category category;
-    private String name;
-    private String description;
-    private String briefInfo;
-    private double price;
-    private double discount;
-    private String thumbnail;
-    private double status;
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
-    private List<ReservationDetail> reservationDetails;
+    int id;
+    Category category;
+    String name;
+    String description;
+    String briefInfo;
+    double price;
+    double discount;
+    String thumbnail;
+    double status;
+    LocalDateTime createdDate;
+    LocalDateTime updatedDate;
+    List<ReservationDetail> reservationDetails;
     
     
 }

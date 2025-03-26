@@ -9,7 +9,7 @@
         <url-pattern>/reservation/detail</url-pattern>
         <url-pattern>/reservation/contact</url-pattern>
         <url-pattern>/reservation/completion</url-pattern>
-        <url-pattern>/my-reservation</url-pattern>
+        <url-pattern>/history</url-pattern>
         <url-pattern>/reservation/info</url-pattern>
         <url-pattern>/posts</url-pattern>
         <url-pattern>/post</url-pattern>
@@ -38,6 +38,12 @@
         <url-pattern>/services/add</url-pattern>
         <url-pattern>/services/update</url-pattern>
         <url-pattern>/settings/add</url-pattern>
+        <url-pattern>/customer-feedback</url-pattern>
+        <url-pattern>/reservation/payment</url-pattern>
+        <url-pattern>/reservation/refund</url-pattern>
+        <url-pattern>/reservation/return</url-pattern>
+        <url-pattern>/ban-ajax</url-pattern>
+        <url-pattern>/reset-ajax</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
     <servlet>

@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import model.auth.User;
 
 /**
@@ -20,16 +21,16 @@ import model.auth.User;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Profile {
-    private User user;
-    private String firstName;
-    private String lastName;
-    private boolean gender;
-    private Date dob;
-    private String address;
-    private String phone;
-    private String avatar;
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
+    User user;
+    String firstName;
+    String lastName;
+    boolean gender;
+    Date dob;
+    String address;
+    String phone;
+    String avatar;
+    LocalDateTime createdDate;
+    LocalDateTime updatedDate;
 }
-

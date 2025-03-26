@@ -27,7 +27,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>Admin Dashboard</title>
+        <title>Dashboard</title>
         <base href="${pageContext.request.contextPath}/">        
 
         <!-- MOBILE SPECIFIC ============================================= -->
@@ -64,10 +64,6 @@
             <div class="container-fluid">
                 <div class="db-breadcrumb">
                     <h4 class="breadcrumb-title">Dashboard</h4>
-                    <ul class="db-breadcrumb-list">
-                        <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
-                        <li>Dashboard</li>
-                    </ul>
                 </div>	
                 <!-- Card -->
                 <div class="row">

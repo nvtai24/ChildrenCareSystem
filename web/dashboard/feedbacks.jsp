@@ -131,6 +131,21 @@
                 color: #aaa;
                 cursor: not-allowed;
             }
+            .card-courses-user-pic {
+                width: 60px; 
+                height: 60px; 
+                overflow: hidden;
+                border-radius: 50%; 
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .card-courses-user-pic img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover; 
+            }
         </style>
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
@@ -146,10 +161,6 @@
             <div class="container-fluid">
                 <div class="db-breadcrumb">
                     <h4 class="breadcrumb-title">Feedback</h4>
-                    <ul class="db-breadcrumb-list">
-                        <li><a href="/app"><i class="fa fa-home"></i>Home</a></li>
-                        <li>Feedback</li>
-                    </ul>
                 </div>
 
                 <!-- Add filter section -->
@@ -220,9 +231,6 @@
                     <!-- Your Profile Views Chart -->
                     <div class="col-lg-12 m-b30">
                         <div class="widget-box">
-                            <div class="wc-title">
-                                <h4>Feedback</h4>
-                            </div>
                             <div class="widget-inner">
                                 <table id="feedbackTable" class="display" style="width:100%">
                                     <thead style="display: none;">
@@ -365,7 +373,6 @@
         <script src="${pageContext.request.contextPath}/assets2/js/functions.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/vendors/chart/chart.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
-        <script src='${pageContext.request.contextPath}/assets2/vendors/switcher/switcher.js'></script>
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

@@ -43,7 +43,7 @@
                                 <h5 class="footer-title">Sign Up For A Newsletter</h5>
                                 <p class="text-capitalize m-b20">Weekly Breaking news analysis and cutting edge advices on job searching.</p>
                                 <div class="subscribe-form m-b20">
-                                    <form class="subscription-form" action="http://educhamp.themetrades.com/demo/assets/script/mailchamp.php" method="post">
+                                    <form class="subscription-form" action="#" method="post">
                                         <div class="ajax-message"></div>
                                         <div class="input-group">
                                             <input name="email" required="required"  class="form-control" placeholder="Your Email Address" type="email">
@@ -61,10 +61,10 @@
                                     <div class="widget footer_widget">
                                         <h5 class="footer-title">Company</h5>
                                         <ul>
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="about-1.html">About</a></li>
-                                            <li><a href="faq-1.html">FAQs</a></li>
-                                            <li><a href="contact-1.html">Contact</a></li>
+                                            <li><a href="#">Home</a></li>
+                                            <li><a href="#">About</a></li>
+                                            <li><a href="#">FAQs</a></li>
+                                            <li><a href="#">Contact</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -72,10 +72,10 @@
                                     <div class="widget footer_widget">
                                         <h5 class="footer-title">Get In Touch</h5>
                                         <ul>
-                                            <li><a href="http://educhamp.themetrades.com/admin/index.html">Dashboard</a></li>
-                                            <li><a href="blog-classic-grid.html">Blog</a></li>
-                                            <li><a href="portfolio.html">Portfolio</a></li>
-                                            <li><a href="event.html">Event</a></li>
+                                            <li><a href="#">Dashboard</a></li>
+                                            <li><a href="#">Blog</a></li>
+                                            <li><a href="#">Portfolio</a></li>
+                                            <li><a href="#">Event</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -83,10 +83,10 @@
                                     <div class="widget footer_widget">
                                         <h5 class="footer-title">Services</h5>
                                         <ul>
-                                            <li><a href="courses.html">Services</a></li>
-                                            <li><a href="courses-details.html">Details</a></li>
-                                            <li><a href="membership.html">Membership</a></li>
-                                            <li><a href="profile.html">Profile</a></li>
+                                            <li><a href="#">Services</a></li>
+                                            <li><a href="#">Details</a></li>
+                                            <li><a href="#">Membership</a></li>
+                                            <li><a href="#">Profile</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -113,7 +113,7 @@
             <div class="footer-bottom">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 text-center"> <a target="_blank" href="https://www.templateshub.net">Templates Hub</a></div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 text-center"> <a target="_blank" href="#">Templates Hub</a></div>
                     </div>
                 </div>
             </div>
