@@ -1,12 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
 -- Host: localhost    Database: childrencare
 -- ------------------------------------------------------
-<<<<<<< HEAD:childrencare.sql
 -- Server version	8.0.41
-=======
--- Server version	8.0.13
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,17 +23,10 @@ DROP TABLE IF EXISTS `feature`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `feature` (
-<<<<<<< HEAD:childrencare.sql
   `id` int NOT NULL AUTO_INCREMENT,
   `feature_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `url` varchar(200) NOT NULL,
   `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-=======
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `feature_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `url` varchar(200) NOT NULL,
-  `description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -61,15 +50,9 @@ DROP TABLE IF EXISTS `feedback`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `feedback` (
-<<<<<<< HEAD:childrencare.sql
   `reservationdetail_id` int NOT NULL,
   `rating` int NOT NULL,
   `comment` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-=======
-  `reservationdetail_id` int(11) NOT NULL,
-  `rating` int(11) NOT NULL,
-  `comment` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
   `status` bit(1) NOT NULL DEFAULT b'1',
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -84,17 +67,11 @@ CREATE TABLE `feedback` (
 
 LOCK TABLES `feedback` WRITE;
 /*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
-<<<<<<< HEAD:childrencare.sql
 INSERT INTO `feedback` VALUES (14,5,'Great service, very satisfied with the care provided',_binary '\0','2025-03-20 09:38:07','2025-03-23 22:22:39'),(15,4,'Good experience overall, would recommend',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(16,5,'Excellent staff, very attentive to needs',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(17,3,'Satisfactory service, some areas need improvement',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(18,4,'Professional and caring staff',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(19,5,'Highly recommended for quality childcare',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(20,4,'Good facilities and activities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(21,3,'Average experience, could be better',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(22,5,'Fantastic care and attention to detail',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(23,4,'Very good service, child enjoyed their time',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(24,5,'Excellent communication from staff',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(25,3,'Decent service but room for improvement',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(26,4,'Good quality care, child felt comfortable',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(27,5,'Outstanding service, exceeded expectations',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(28,4,'Reliable and trustworthy service',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(29,3,'Adequate care provided, but limited activities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(30,5,'Exceptional care and attention',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(31,4,'Very satisfied with the service',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(32,5,'Amazing staff, very friendly and helpful',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(33,3,'Service was okay, staff could be more attentive',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(34,4,'Good environment for children',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(35,5,'Wonderful experience, will use again',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(36,4,'Very good service and facilities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(37,3,'Average service, nothing special',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(38,5,'Superb care, child loved it',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(39,4,'Good quality care and activities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(40,5,'Excellent service, highly recommended',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(41,3,'Satisfactory but could improve communication',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(42,4,'Good care provided, child was happy',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(43,5,'Fantastic service from start to finish',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(44,4,'Very professional and caring staff',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(45,3,'Decent service but understaffed at times',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(46,5,'Outstanding care and facilities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(47,4,'Good experience, would use again',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(48,5,'Exceptional service, very satisfied',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(49,3,'Average experience, some improvements needed',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(50,4,'Good quality care provided',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(51,5,'Excellent service and staff',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(52,4,'Very good experience overall',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(53,3,'Satisfactory service provided',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(54,5,'Wonderful care, child was very happy',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(55,4,'Good staff and facilities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(56,5,'Excellent care and attention to detail',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(57,3,'Average service, could be more engaging',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(58,4,'Good quality childcare service',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(59,5,'Fantastic experience, will definitely return',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(60,4,'Very satisfied with the care provided',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(61,1,'Very poor service, would not recommend',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(62,1,'Disappointing experience, staff was inattentive',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(63,1,'Inadequate facilities and supervision',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(64,1,'Poor communication and service quality',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(65,1,'Unsatisfactory experience, many issues',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(66,1,'Very unhappy with the service provided',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(67,1,'Extremely disappointed, will not return',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(68,2,'Below average service, needs significant improvement',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(69,2,'Not satisfied with the quality of care',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(70,2,'Poor facilities but staff tried their best',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(71,2,'Subpar experience, many areas need attention',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(72,2,'Disappointed with the level of service',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(73,2,'Below expectations, would not recommend',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(74,2,'Mediocre service and facilities',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(129,3,'wrgh',_binary '','2025-03-26 23:08:43',NULL),(157,2,'eth',_binary '','2025-03-26 23:36:02',NULL);
-=======
-INSERT INTO `feedback` VALUES (14,5,'Great service, very satisfied with the care provided',_binary '\0','2025-03-20 09:38:07','2025-03-23 22:22:39'),(15,4,'Good experience overall, would recommend',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(16,5,'Excellent staff, very attentive to needs',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(17,3,'Satisfactory service, some areas need improvement',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(18,4,'Professional and caring staff',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(19,5,'Highly recommended for quality childcare',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(20,4,'Good facilities and activities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(21,3,'Average experience, could be better',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(22,5,'Fantastic care and attention to detail',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(23,4,'Very good service, child enjoyed their time',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(24,5,'Excellent communication from staff',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(25,3,'Decent service but room for improvement',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(26,4,'Good quality care, child felt comfortable',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(27,5,'Outstanding service, exceeded expectations',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(28,4,'Reliable and trustworthy service',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(29,3,'Adequate care provided, but limited activities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(30,5,'Exceptional care and attention',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(31,4,'Very satisfied with the service',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(32,5,'Amazing staff, very friendly and helpful',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(33,3,'Service was okay, staff could be more attentive',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(34,4,'Good environment for children',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(35,5,'Wonderful experience, will use again',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(36,4,'Very good service and facilities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(37,3,'Average service, nothing special',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(38,5,'Superb care, child loved it',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(39,4,'Good quality care and activities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(40,5,'Excellent service, highly recommended',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(41,3,'Satisfactory but could improve communication',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(42,4,'Good care provided, child was happy',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(43,5,'Fantastic service from start to finish',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(44,4,'Very professional and caring staff',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(45,3,'Decent service but understaffed at times',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(46,5,'Outstanding care and facilities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(47,4,'Good experience, would use again',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(48,5,'Exceptional service, very satisfied',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(49,3,'Average experience, some improvements needed',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(50,4,'Good quality care provided',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(51,5,'Excellent service and staff',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(52,4,'Very good experience overall',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(53,3,'Satisfactory service provided',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(54,5,'Wonderful care, child was very happy',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(55,4,'Good staff and facilities',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(56,5,'Excellent care and attention to detail',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(57,3,'Average service, could be more engaging',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(58,4,'Good quality childcare service',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(59,5,'Fantastic experience, will definitely return',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(60,4,'Very satisfied with the care provided',_binary '','2025-03-20 09:38:07','2025-03-20 09:38:07'),(61,1,'Very poor service, would not recommend',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(62,1,'Disappointing experience, staff was inattentive',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(63,1,'Inadequate facilities and supervision',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(64,1,'Poor communication and service quality',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(65,1,'Unsatisfactory experience, many issues',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(66,1,'Very unhappy with the service provided',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(67,1,'Extremely disappointed, will not return',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(68,2,'Below average service, needs significant improvement',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(69,2,'Not satisfied with the quality of care',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(70,2,'Poor facilities but staff tried their best',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(71,2,'Subpar experience, many areas need attention',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(72,2,'Disappointed with the level of service',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(73,2,'Below expectations, would not recommend',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41'),(74,2,'Mediocre service and facilities',_binary '','2025-03-20 09:38:41','2025-03-20 09:38:41');
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
-<<<<<<< HEAD:childrencare.sql
-=======
 -- Table structure for table `labelpost`
 --
 
@@ -102,8 +79,8 @@ DROP TABLE IF EXISTS `labelpost`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `labelpost` (
-  `label_id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL,
+  `label_id` int NOT NULL,
+  `post_id` int NOT NULL,
   PRIMARY KEY (`label_id`,`post_id`),
   KEY `post_id` (`post_id`),
   CONSTRAINT `labelpost_ibfk_1` FOREIGN KEY (`label_id`) REFERENCES `setting` (`setting_id`),
@@ -122,7 +99,6 @@ INSERT INTO `labelpost` VALUES (9,1),(10,2),(11,3),(9,16),(10,17),(11,18),(9,19)
 UNLOCK TABLES;
 
 --
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
 -- Table structure for table `paymenthistory`
 --
 
@@ -130,13 +106,8 @@ DROP TABLE IF EXISTS `paymenthistory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `paymenthistory` (
-<<<<<<< HEAD:childrencare.sql
   `reservation_id` int NOT NULL,
   `amount` bigint NOT NULL,
-=======
-  `reservation_id` int(11) NOT NULL,
-  `amount` bigint(20) NOT NULL,
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
   `transactiondate` varchar(100) NOT NULL,
   `txnref` varchar(100) NOT NULL,
   `transactiono` varchar(100) NOT NULL,
@@ -163,15 +134,9 @@ DROP TABLE IF EXISTS `post`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `post` (
-<<<<<<< HEAD:childrencare.sql
   `id` int NOT NULL AUTO_INCREMENT,
   `author_id` int NOT NULL,
   `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-=======
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `author_id` int(11) NOT NULL,
-  `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
   `content` text NOT NULL,
   `thumbnail` varchar(200) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
@@ -202,12 +167,12 @@ DROP TABLE IF EXISTS `profile`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `profile` (
-  `userid` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int NOT NULL AUTO_INCREMENT,
   `firstname` varchar(255) DEFAULT NULL,
   `lastname` varchar(100) DEFAULT NULL,
   `gender` tinyint(1) DEFAULT NULL,
   `dob` date DEFAULT NULL,
-  `address` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `address` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `avatar` varchar(200) DEFAULT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -235,15 +200,11 @@ DROP TABLE IF EXISTS `reservation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservation` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(11) NOT NULL,
-  `status_id` int(11) NOT NULL DEFAULT '1',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `customer_id` int NOT NULL,
+  `status_id` int NOT NULL DEFAULT '1',
   `reserve_date` datetime NOT NULL,
-<<<<<<< HEAD:childrencare.sql
   `note` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-=======
-  `note` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `first_name` varchar(100) NOT NULL,
@@ -257,11 +218,7 @@ CREATE TABLE `reservation` (
   KEY `IX_Reservation_Date` (`reserve_date`),
   CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `reservationstatus` (`id`) ON DELETE CASCADE
-<<<<<<< HEAD:childrencare.sql
 ) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-=======
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -270,11 +227,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-<<<<<<< HEAD:childrencare.sql
 INSERT INTO `reservation` VALUES (14,1,3,'2025-03-22 07:30:00','','2025-03-05 15:22:27','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(15,1,3,'2025-03-29 07:30:00','','2025-03-05 15:23:01','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(16,1,3,'2025-03-15 07:30:00','','2025-03-06 02:28:47','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(17,3,3,'2025-03-13 07:30:00','','2025-03-06 09:27:15','2025-03-23 21:15:01','Quyen','Nguyen Duc','parent1@childrencare.com','0373517718',_binary '\0'),(18,35,3,'2025-03-16 14:30:00','','2025-03-15 23:38:07','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(19,35,3,'2025-03-28 14:30:00','','2025-03-15 23:39:25','2025-03-23 21:15:01','Tai 1','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(20,35,3,'2025-03-18 00:08:00','','2025-03-17 10:08:15','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(21,35,3,'2025-03-18 07:30:00','','2025-03-17 10:09:54','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(22,35,3,'2025-03-18 07:30:00','','2025-03-17 10:10:26','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(23,35,3,'2025-03-18 08:30:00','','2025-03-17 10:11:08','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(24,35,3,'2025-03-18 07:30:00','','2025-03-17 10:13:22','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(25,35,3,'2025-03-18 07:30:00','','2025-03-17 10:16:36','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(26,35,3,'2025-03-18 07:30:00','','2025-03-17 10:20:19','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(27,35,3,'2025-03-18 14:30:00','','2025-03-17 15:58:52','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(28,35,3,'2025-03-18 14:30:00','','2025-03-17 16:00:54','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(29,35,3,'2025-03-18 14:30:00','','2025-03-17 16:10:20','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(30,35,3,'2025-03-18 14:30:00','','2025-03-17 16:18:38','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(31,35,3,'2025-03-18 07:30:00','','2025-03-17 16:47:14','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(32,35,3,'2025-03-18 14:30:00','','2025-03-17 17:42:27','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(33,35,3,'2025-03-18 07:30:00','','2025-03-17 18:17:38','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(34,35,3,'2025-03-18 07:30:00','','2025-03-17 18:18:41','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(35,35,3,'2025-03-18 14:30:00','','2025-03-17 18:21:03','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(36,35,3,'2025-03-18 14:30:00','','2025-03-17 18:21:55','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(37,35,3,'2025-03-18 07:30:00','','2025-03-17 18:24:13','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(38,35,3,'2025-03-18 14:30:00','','2025-03-17 18:33:14','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(39,35,3,'2025-03-18 07:30:00','','2025-03-17 18:34:19','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(40,35,3,'2025-03-18 07:30:00','','2025-03-17 18:34:53','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(45,35,3,'2025-03-22 14:30:00','','2025-03-21 11:56:03','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(46,35,3,'2025-03-22 14:30:00','','2025-03-21 11:56:07','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(47,35,3,'2025-03-22 14:30:00','','2025-03-21 11:56:19','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(48,35,3,'2025-03-22 14:30:00','','2025-03-21 11:58:10','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(49,35,3,'2025-03-22 14:30:00','','2025-03-21 12:03:31','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(50,35,3,'2025-03-23 07:30:00','','2025-03-22 16:04:08','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(51,35,3,'2025-03-23 07:30:00','','2025-03-22 16:04:22','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(52,35,3,'2025-03-23 07:30:00','','2025-03-22 16:07:18','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(53,35,3,'2025-03-23 07:30:00','','2025-03-22 17:06:20','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(54,1,3,'2025-03-23 07:30:00','','2025-03-22 17:40:34','2025-03-23 21:15:01','Tai 123123','Nguyen Van','nvtai24norip@gmail.com','0373517718',_binary ''),(55,35,3,'2025-03-23 07:30:00','','2025-03-22 18:01:43','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(56,35,1,'2025-03-24 07:30:00','abc','2025-03-23 22:27:41',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(57,35,5,'2025-03-24 09:30:00','','2025-03-23 22:28:50','2025-03-24 09:54:44','Ahihi','Nguyen Thi','buiblue123@gmail.com','0373517718',_binary ''),(58,35,4,'2025-03-24 07:30:00','','2025-03-23 22:30:56','2025-03-23 22:33:16','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(59,35,5,'2025-03-24 07:30:00','','2025-03-23 22:36:57','2025-03-23 22:37:15','Nguyen Van ','A','buiblue123@gmail.com','0373517718',_binary ''),(60,35,1,'2025-03-25 07:30:00','','2025-03-24 04:27:54',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(61,35,1,'2025-03-25 07:30:00','','2025-03-24 04:28:35',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(62,35,1,'2025-03-25 07:30:00','','2025-03-24 04:29:57',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(63,35,1,'2025-03-25 14:30:00','','2025-03-24 04:36:00',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(64,35,1,'2025-03-25 14:30:00','','2025-03-24 04:36:10',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(65,3,1,'2025-03-25 14:30:00','','2025-03-24 04:37:47',NULL,'Quyen','Nguyen Duc','parent1@childrencare.com','0373517718',_binary '\0'),(66,65,1,'2025-03-27 14:30:00','','2025-03-26 21:58:44',NULL,'Anhngu','Nguyen','milo9a5@gmail.com','0352587107',_binary ''),(69,3,3,'2025-03-27 07:30:00','','2025-03-26 23:33:00','2025-03-26 23:35:39','1','Nguyen Duc','parent1@childrencare.com','0868299285',_binary '\0');
-=======
-INSERT INTO `reservation` VALUES (14,1,3,'2025-03-22 07:30:00','','2025-03-05 15:22:27','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(15,1,3,'2025-03-29 07:30:00','','2025-03-05 15:23:01','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(16,1,3,'2025-03-15 07:30:00','','2025-03-06 02:28:47','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(17,3,3,'2025-03-13 07:30:00','','2025-03-06 09:27:15','2025-03-23 21:15:01','Quyen','Nguyen Duc','parent1@childrencare.com','0373517718',_binary '\0'),(18,35,3,'2025-03-16 14:30:00','','2025-03-15 23:38:07','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(19,35,3,'2025-03-28 14:30:00','','2025-03-15 23:39:25','2025-03-23 21:15:01','Tai 1','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(20,35,3,'2025-03-18 00:08:00','','2025-03-17 10:08:15','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(21,35,3,'2025-03-18 07:30:00','','2025-03-17 10:09:54','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(22,35,3,'2025-03-18 07:30:00','','2025-03-17 10:10:26','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(23,35,3,'2025-03-18 08:30:00','','2025-03-17 10:11:08','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(24,35,3,'2025-03-18 07:30:00','','2025-03-17 10:13:22','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(25,35,3,'2025-03-18 07:30:00','','2025-03-17 10:16:36','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(26,35,3,'2025-03-18 07:30:00','','2025-03-17 10:20:19','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(27,35,3,'2025-03-18 14:30:00','','2025-03-17 15:58:52','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(28,35,3,'2025-03-18 14:30:00','','2025-03-17 16:00:54','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(29,35,3,'2025-03-18 14:30:00','','2025-03-17 16:10:20','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(30,35,3,'2025-03-18 14:30:00','','2025-03-17 16:18:38','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(31,35,3,'2025-03-18 07:30:00','','2025-03-17 16:47:14','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(32,35,3,'2025-03-18 14:30:00','','2025-03-17 17:42:27','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(33,35,3,'2025-03-18 07:30:00','','2025-03-17 18:17:38','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(34,35,3,'2025-03-18 07:30:00','','2025-03-17 18:18:41','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(35,35,3,'2025-03-18 14:30:00','','2025-03-17 18:21:03','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(36,35,3,'2025-03-18 14:30:00','','2025-03-17 18:21:55','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(37,35,3,'2025-03-18 07:30:00','','2025-03-17 18:24:13','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(38,35,3,'2025-03-18 14:30:00','','2025-03-17 18:33:14','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(39,35,3,'2025-03-18 07:30:00','','2025-03-17 18:34:19','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(40,35,3,'2025-03-18 07:30:00','','2025-03-17 18:34:53','2025-03-23 21:15:01','Tai','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(45,35,3,'2025-03-22 14:30:00','','2025-03-21 11:56:03','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(46,35,3,'2025-03-22 14:30:00','','2025-03-21 11:56:07','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(47,35,3,'2025-03-22 14:30:00','','2025-03-21 11:56:19','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(48,35,3,'2025-03-22 14:30:00','','2025-03-21 11:58:10','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(49,35,3,'2025-03-22 14:30:00','','2025-03-21 12:03:31','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(50,35,3,'2025-03-23 07:30:00','','2025-03-22 16:04:08','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(51,35,3,'2025-03-23 07:30:00','','2025-03-22 16:04:22','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(52,35,3,'2025-03-23 07:30:00','','2025-03-22 16:07:18','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(53,35,3,'2025-03-23 07:30:00','','2025-03-22 17:06:20','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(54,1,3,'2025-03-23 07:30:00','','2025-03-22 17:40:34','2025-03-23 21:15:01','Tai 123123','Nguyen Van','nvtai24norip@gmail.com','0373517718',_binary ''),(55,35,3,'2025-03-23 07:30:00','','2025-03-22 18:01:43','2025-03-23 21:15:01','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(56,35,1,'2025-03-24 07:30:00','abc','2025-03-23 22:27:41',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(57,35,5,'2025-03-24 09:30:00','','2025-03-23 22:28:50','2025-03-24 09:54:44','Ahihi','Nguyen Thi','buiblue123@gmail.com','0373517718',_binary ''),(58,35,4,'2025-03-24 07:30:00','','2025-03-23 22:30:56','2025-03-23 22:33:16','Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary ''),(59,35,5,'2025-03-24 07:30:00','','2025-03-23 22:36:57','2025-03-23 22:37:15','Nguyen Van ','A','buiblue123@gmail.com','0373517718',_binary ''),(60,35,1,'2025-03-25 07:30:00','','2025-03-24 04:27:54',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(61,35,1,'2025-03-25 07:30:00','','2025-03-24 04:28:35',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(62,35,1,'2025-03-25 07:30:00','','2025-03-24 04:29:57',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(63,35,1,'2025-03-25 14:30:00','','2025-03-24 04:36:00',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(64,35,1,'2025-03-25 14:30:00','','2025-03-24 04:36:10',NULL,'Tai 123123','Nguyen Van','buiblue123@gmail.com','0373517718',_binary '\0'),(65,3,1,'2025-03-25 14:30:00','','2025-03-24 04:37:47',NULL,'Quyen','Nguyen Duc','parent1@childrencare.com','0373517718',_binary '\0'),(66,65,1,'2025-03-27 14:30:00','','2025-03-26 21:58:44',NULL,'Anhngu','Nguyen','milo9a5@gmail.com','0352587107',_binary '');
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -286,7 +239,6 @@ DROP TABLE IF EXISTS `reservationdetail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservationdetail` (
-<<<<<<< HEAD:childrencare.sql
   `id` int NOT NULL AUTO_INCREMENT,
   `reservation_id` int NOT NULL,
   `service_id` int NOT NULL,
@@ -295,26 +247,12 @@ CREATE TABLE `reservationdetail` (
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `staff_id` int DEFAULT NULL,
   `status_id` int NOT NULL DEFAULT '1',
-=======
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `reservation_id` int(11) NOT NULL,
-  `service_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL DEFAULT '1',
-  `price` decimal(10,2) NOT NULL,
-  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `staff_id` int(11) DEFAULT NULL,
-  `status_id` int(11) NOT NULL DEFAULT '1',
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
   PRIMARY KEY (`id`),
   KEY `reservation_id` (`reservation_id`),
   KEY `service_id` (`service_id`),
   KEY `fk_staff_id` (`staff_id`),
   KEY `reservationdetail_ibfk_3_idx` (`status_id`)
-<<<<<<< HEAD:childrencare.sql
 ) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-=======
-) ENGINE=InnoDB AUTO_INCREMENT=155 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -323,11 +261,7 @@ CREATE TABLE `reservationdetail` (
 
 LOCK TABLES `reservationdetail` WRITE;
 /*!40000 ALTER TABLE `reservationdetail` DISABLE KEYS */;
-<<<<<<< HEAD:childrencare.sql
 INSERT INTO `reservationdetail` VALUES (14,14,2,1,142.50,'2025-03-05 15:22:27',30,6),(15,15,1,1,100.00,'2025-03-05 15:23:01',NULL,1),(16,15,2,1,150.00,'2025-03-05 15:23:01',NULL,1),(17,15,3,1,40.00,'2025-03-05 15:23:01',NULL,1),(18,15,5,1,70.00,'2025-03-05 15:23:01',NULL,1),(19,16,5,1,70.00,'2025-03-06 02:28:47',NULL,1),(20,17,1,1,100.00,'2025-03-06 09:27:15',NULL,1),(21,18,2,1,142.50,'2025-03-15 23:38:07',NULL,1),(22,19,1,1,100.00,'2025-03-15 23:39:25',NULL,1),(23,20,2,1,142.50,'2025-03-17 10:08:15',NULL,1),(24,21,6,1,90.00,'2025-03-17 10:09:54',NULL,1),(25,22,8,1,80.00,'2025-03-17 10:10:26',NULL,1),(26,23,6,1,90.00,'2025-03-17 10:11:08',NULL,1),(27,23,7,1,120.00,'2025-03-17 10:11:08',NULL,1),(28,23,8,1,80.00,'2025-03-17 10:11:08',NULL,1),(29,23,12,1,150.00,'2025-03-17 10:11:08',NULL,1),(30,24,2,2,150.00,'2025-03-17 10:13:22',NULL,1),(31,24,15,1,130.00,'2025-03-17 10:13:22',NULL,1),(32,24,16,1,110.00,'2025-03-17 10:13:22',NULL,1),(33,24,17,1,120.00,'2025-03-17 10:13:22',NULL,1),(34,24,18,1,130.00,'2025-03-17 10:13:22',NULL,1),(35,25,2,1,142.50,'2025-03-17 10:16:36',4,1),(36,26,1,1,100.00,'2025-03-17 10:20:19',NULL,1),(37,26,2,2,150.00,'2025-03-17 10:20:19',NULL,1),(38,26,3,2,40.00,'2025-03-17 10:20:19',NULL,1),(39,26,4,1,60.00,'2025-03-17 10:20:19',NULL,1),(40,26,5,1,70.00,'2025-03-17 10:20:19',NULL,1),(41,26,6,1,90.00,'2025-03-17 10:20:19',NULL,1),(42,27,2,1,150.00,'2025-03-17 15:58:52',NULL,1),(43,27,3,1,40.00,'2025-03-17 15:58:52',NULL,1),(44,28,2,1,150.00,'2025-03-17 16:00:54',NULL,1),(45,28,3,1,40.00,'2025-03-17 16:00:54',NULL,1),(46,28,4,1,60.00,'2025-03-17 16:00:54',NULL,1),(47,28,5,1,70.00,'2025-03-17 16:00:54',NULL,1),(48,28,6,1,90.00,'2025-03-17 16:00:54',NULL,1),(49,29,1,1,100.00,'2025-03-17 16:10:20',NULL,1),(50,29,2,1,150.00,'2025-03-17 16:10:20',NULL,1),(51,29,3,1,40.00,'2025-03-17 16:10:20',NULL,1),(52,29,4,1,60.00,'2025-03-17 16:10:20',NULL,1),(53,29,5,1,70.00,'2025-03-17 16:10:20',NULL,1),(54,29,6,1,90.00,'2025-03-17 16:10:20',NULL,1),(55,29,7,1,120.00,'2025-03-17 16:10:20',NULL,1),(56,29,8,1,80.00,'2025-03-17 16:10:20',NULL,1),(57,29,9,1,50.00,'2025-03-17 16:10:20',NULL,1),(58,29,10,1,100.00,'2025-03-17 16:10:20',NULL,1),(59,29,12,1,150.00,'2025-03-17 16:10:20',NULL,1),(60,29,13,1,120.00,'2025-03-17 16:10:20',NULL,1),(61,29,14,1,110.00,'2025-03-17 16:10:20',NULL,1),(62,29,15,1,130.00,'2025-03-17 16:10:20',NULL,1),(63,29,16,1,110.00,'2025-03-17 16:10:20',NULL,1),(64,29,17,1,120.00,'2025-03-17 16:10:20',NULL,1),(65,29,18,1,130.00,'2025-03-17 16:10:20',NULL,1),(66,29,19,1,70.00,'2025-03-17 16:10:20',NULL,1),(67,30,1,1,100.00,'2025-03-17 16:18:38',NULL,1),(68,30,2,1,150.00,'2025-03-17 16:18:38',NULL,1),(69,30,3,1,40.00,'2025-03-17 16:18:38',NULL,1),(70,30,4,1,60.00,'2025-03-17 16:18:38',NULL,1),(71,30,5,1,70.00,'2025-03-17 16:18:38',NULL,1),(72,30,6,1,90.00,'2025-03-17 16:18:38',NULL,1),(73,31,2,1,142.50,'2025-03-17 16:47:14',NULL,1),(74,32,1,1,100.00,'2025-03-17 17:42:27',NULL,1),(75,32,2,1,150.00,'2025-03-17 17:42:27',NULL,1),(76,32,3,1,40.00,'2025-03-17 17:42:27',NULL,1),(77,33,2,1,142.50,'2025-03-17 18:17:38',NULL,1),(78,34,2,1,142.50,'2025-03-17 18:18:41',NULL,1),(79,35,2,1,150.00,'2025-03-17 18:21:03',NULL,1),(80,35,3,1,40.00,'2025-03-17 18:21:03',NULL,1),(81,35,4,1,60.00,'2025-03-17 18:21:03',NULL,1),(82,35,5,1,70.00,'2025-03-17 18:21:03',NULL,1),(83,35,6,1,90.00,'2025-03-17 18:21:03',NULL,1),(84,36,1,1,100.00,'2025-03-17 18:21:55',NULL,1),(85,36,2,1,150.00,'2025-03-17 18:21:55',NULL,1),(86,36,3,1,40.00,'2025-03-17 18:21:55',NULL,1),(87,36,5,1,70.00,'2025-03-17 18:21:55',NULL,1),(88,36,6,1,90.00,'2025-03-17 18:21:55',NULL,1),(89,37,2,1,142.50,'2025-03-17 18:24:13',2,1),(90,38,1,1,100.00,'2025-03-17 18:33:14',NULL,1),(91,38,2,1,150.00,'2025-03-17 18:33:14',2,1),(92,38,3,1,40.00,'2025-03-17 18:33:14',4,1),(93,38,5,1,70.00,'2025-03-17 18:33:14',NULL,1),(94,39,2,1,142.50,'2025-03-17 18:34:19',NULL,1),(95,40,3,1,40.00,'2025-03-17 18:34:53',NULL,1),(96,41,1,1,100.00,'2025-03-21 09:42:45',NULL,1),(97,42,1,1,100.00,'2025-03-21 10:05:15',NULL,1),(98,43,1,1,100.00,'2025-03-21 10:06:33',NULL,1),(99,44,1,1,100.00,'2025-03-21 10:06:34',NULL,1),(100,45,2,2,150.00,'2025-03-21 11:56:03',NULL,1),(101,45,4,2,60.00,'2025-03-21 11:56:03',NULL,1),(102,45,6,1,90.00,'2025-03-21 11:56:03',NULL,1),(103,45,9,1,50.00,'2025-03-21 11:56:03',NULL,1),(104,45,15,3,130.00,'2025-03-21 11:56:03',NULL,1),(105,46,2,2,150.00,'2025-03-21 11:56:07',NULL,1),(106,46,4,2,60.00,'2025-03-21 11:56:07',NULL,1),(107,46,6,1,90.00,'2025-03-21 11:56:07',NULL,1),(108,46,9,1,50.00,'2025-03-21 11:56:07',NULL,1),(109,46,15,3,130.00,'2025-03-21 11:56:07',NULL,1),(110,47,2,2,150.00,'2025-03-21 11:56:19',NULL,1),(111,47,4,2,60.00,'2025-03-21 11:56:19',NULL,1),(112,47,6,1,90.00,'2025-03-21 11:56:19',NULL,1),(113,47,9,1,50.00,'2025-03-21 11:56:19',NULL,1),(114,47,15,3,130.00,'2025-03-21 11:56:19',NULL,1),(115,48,2,2,150.00,'2025-03-21 11:58:10',NULL,1),(116,48,4,2,60.00,'2025-03-21 11:58:10',NULL,1),(117,48,6,1,90.00,'2025-03-21 11:58:10',NULL,1),(118,48,9,1,50.00,'2025-03-21 11:58:10',NULL,1),(119,48,15,3,130.00,'2025-03-21 11:58:10',NULL,1),(120,49,2,2,150.00,'2025-03-21 12:03:31',NULL,1),(121,49,4,2,60.00,'2025-03-21 12:03:31',NULL,1),(122,49,6,1,90.00,'2025-03-21 12:03:31',NULL,1),(123,49,9,1,50.00,'2025-03-21 12:03:31',NULL,1),(124,49,15,3,130.00,'2025-03-21 12:03:31',NULL,1),(125,50,1,1,100.00,'2025-03-22 16:04:08',60,2),(126,51,1,1,100.00,'2025-03-22 16:04:22',NULL,1),(127,52,2,1,142.50,'2025-03-22 16:07:18',NULL,1),(128,53,2,1,142.50,'2025-03-22 17:06:20',NULL,1),(129,54,2,1,142.50,'2025-03-22 17:40:34',NULL,1),(130,55,2,1,142.50,'2025-03-22 18:01:43',NULL,1),(131,56,2,1,142.50,'2025-03-23 22:27:41',NULL,1),(132,57,1,1,100.00,'2025-03-23 22:28:50',NULL,1),(133,57,2,1,150.00,'2025-03-23 22:28:50',NULL,1),(134,57,3,1,40.00,'2025-03-23 22:28:50',NULL,1),(135,57,4,1,60.00,'2025-03-23 22:28:50',NULL,1),(136,58,2,1,142.50,'2025-03-23 22:30:56',NULL,1),(137,59,3,1,40.00,'2025-03-23 22:36:57',NULL,1),(138,60,1,1,100.00,'2025-03-24 04:27:54',NULL,1),(139,61,2,1,142.50,'2025-03-24 04:28:35',NULL,1),(140,62,2,1,142.50,'2025-03-24 04:29:57',NULL,1),(141,63,2,1,150.00,'2025-03-24 04:36:00',NULL,1),(142,63,4,1,60.00,'2025-03-24 04:36:00',NULL,1),(143,63,5,2,70.00,'2025-03-24 04:36:00',NULL,1),(144,63,6,2,90.00,'2025-03-24 04:36:00',NULL,1),(145,64,2,1,150.00,'2025-03-24 04:36:10',NULL,1),(146,64,4,1,60.00,'2025-03-24 04:36:10',NULL,1),(147,64,5,2,70.00,'2025-03-24 04:36:10',NULL,1),(148,64,6,2,90.00,'2025-03-24 04:36:10',NULL,1),(149,65,1,2,100.00,'2025-03-24 04:37:47',NULL,1),(150,65,2,2,150.00,'2025-03-24 04:37:47',NULL,1),(151,65,3,3,40.00,'2025-03-24 04:37:47',NULL,1),(152,65,5,1,70.00,'2025-03-24 04:37:47',NULL,1),(153,66,1,4,100.00,'2025-03-26 21:58:44',NULL,1),(154,66,2,1,150.00,'2025-03-26 21:58:44',NULL,1),(155,67,6,1,90.00,'2025-03-26 23:21:19',2,6),(156,68,6,1,90.00,'2025-03-26 23:23:59',2,5),(157,69,6,1,90.00,'2025-03-26 23:33:00',2,6);
-=======
-INSERT INTO `reservationdetail` VALUES (14,14,2,1,142.50,'2025-03-05 15:22:27',30,6),(15,15,1,1,100.00,'2025-03-05 15:23:01',NULL,1),(16,15,2,1,150.00,'2025-03-05 15:23:01',NULL,1),(17,15,3,1,40.00,'2025-03-05 15:23:01',NULL,1),(18,15,5,1,70.00,'2025-03-05 15:23:01',NULL,1),(19,16,5,1,70.00,'2025-03-06 02:28:47',NULL,1),(20,17,1,1,100.00,'2025-03-06 09:27:15',NULL,1),(21,18,2,1,142.50,'2025-03-15 23:38:07',NULL,1),(22,19,1,1,100.00,'2025-03-15 23:39:25',NULL,1),(23,20,2,1,142.50,'2025-03-17 10:08:15',NULL,1),(24,21,6,1,90.00,'2025-03-17 10:09:54',NULL,1),(25,22,8,1,80.00,'2025-03-17 10:10:26',NULL,1),(26,23,6,1,90.00,'2025-03-17 10:11:08',NULL,1),(27,23,7,1,120.00,'2025-03-17 10:11:08',NULL,1),(28,23,8,1,80.00,'2025-03-17 10:11:08',NULL,1),(29,23,12,1,150.00,'2025-03-17 10:11:08',NULL,1),(30,24,2,2,150.00,'2025-03-17 10:13:22',NULL,1),(31,24,15,1,130.00,'2025-03-17 10:13:22',NULL,1),(32,24,16,1,110.00,'2025-03-17 10:13:22',NULL,1),(33,24,17,1,120.00,'2025-03-17 10:13:22',NULL,1),(34,24,18,1,130.00,'2025-03-17 10:13:22',NULL,1),(35,25,2,1,142.50,'2025-03-17 10:16:36',4,1),(36,26,1,1,100.00,'2025-03-17 10:20:19',NULL,1),(37,26,2,2,150.00,'2025-03-17 10:20:19',NULL,1),(38,26,3,2,40.00,'2025-03-17 10:20:19',NULL,1),(39,26,4,1,60.00,'2025-03-17 10:20:19',NULL,1),(40,26,5,1,70.00,'2025-03-17 10:20:19',NULL,1),(41,26,6,1,90.00,'2025-03-17 10:20:19',NULL,1),(42,27,2,1,150.00,'2025-03-17 15:58:52',NULL,1),(43,27,3,1,40.00,'2025-03-17 15:58:52',NULL,1),(44,28,2,1,150.00,'2025-03-17 16:00:54',NULL,1),(45,28,3,1,40.00,'2025-03-17 16:00:54',NULL,1),(46,28,4,1,60.00,'2025-03-17 16:00:54',NULL,1),(47,28,5,1,70.00,'2025-03-17 16:00:54',NULL,1),(48,28,6,1,90.00,'2025-03-17 16:00:54',NULL,1),(49,29,1,1,100.00,'2025-03-17 16:10:20',NULL,1),(50,29,2,1,150.00,'2025-03-17 16:10:20',NULL,1),(51,29,3,1,40.00,'2025-03-17 16:10:20',NULL,1),(52,29,4,1,60.00,'2025-03-17 16:10:20',NULL,1),(53,29,5,1,70.00,'2025-03-17 16:10:20',NULL,1),(54,29,6,1,90.00,'2025-03-17 16:10:20',NULL,1),(55,29,7,1,120.00,'2025-03-17 16:10:20',NULL,1),(56,29,8,1,80.00,'2025-03-17 16:10:20',NULL,1),(57,29,9,1,50.00,'2025-03-17 16:10:20',NULL,1),(58,29,10,1,100.00,'2025-03-17 16:10:20',NULL,1),(59,29,12,1,150.00,'2025-03-17 16:10:20',NULL,1),(60,29,13,1,120.00,'2025-03-17 16:10:20',NULL,1),(61,29,14,1,110.00,'2025-03-17 16:10:20',NULL,1),(62,29,15,1,130.00,'2025-03-17 16:10:20',NULL,1),(63,29,16,1,110.00,'2025-03-17 16:10:20',NULL,1),(64,29,17,1,120.00,'2025-03-17 16:10:20',NULL,1),(65,29,18,1,130.00,'2025-03-17 16:10:20',NULL,1),(66,29,19,1,70.00,'2025-03-17 16:10:20',NULL,1),(67,30,1,1,100.00,'2025-03-17 16:18:38',NULL,1),(68,30,2,1,150.00,'2025-03-17 16:18:38',NULL,1),(69,30,3,1,40.00,'2025-03-17 16:18:38',NULL,1),(70,30,4,1,60.00,'2025-03-17 16:18:38',NULL,1),(71,30,5,1,70.00,'2025-03-17 16:18:38',NULL,1),(72,30,6,1,90.00,'2025-03-17 16:18:38',NULL,1),(73,31,2,1,142.50,'2025-03-17 16:47:14',NULL,1),(74,32,1,1,100.00,'2025-03-17 17:42:27',NULL,1),(75,32,2,1,150.00,'2025-03-17 17:42:27',NULL,1),(76,32,3,1,40.00,'2025-03-17 17:42:27',NULL,1),(77,33,2,1,142.50,'2025-03-17 18:17:38',NULL,1),(78,34,2,1,142.50,'2025-03-17 18:18:41',NULL,1),(79,35,2,1,150.00,'2025-03-17 18:21:03',NULL,1),(80,35,3,1,40.00,'2025-03-17 18:21:03',NULL,1),(81,35,4,1,60.00,'2025-03-17 18:21:03',NULL,1),(82,35,5,1,70.00,'2025-03-17 18:21:03',NULL,1),(83,35,6,1,90.00,'2025-03-17 18:21:03',NULL,1),(84,36,1,1,100.00,'2025-03-17 18:21:55',NULL,1),(85,36,2,1,150.00,'2025-03-17 18:21:55',NULL,1),(86,36,3,1,40.00,'2025-03-17 18:21:55',NULL,1),(87,36,5,1,70.00,'2025-03-17 18:21:55',NULL,1),(88,36,6,1,90.00,'2025-03-17 18:21:55',NULL,1),(89,37,2,1,142.50,'2025-03-17 18:24:13',2,1),(90,38,1,1,100.00,'2025-03-17 18:33:14',NULL,1),(91,38,2,1,150.00,'2025-03-17 18:33:14',2,1),(92,38,3,1,40.00,'2025-03-17 18:33:14',4,1),(93,38,5,1,70.00,'2025-03-17 18:33:14',NULL,1),(94,39,2,1,142.50,'2025-03-17 18:34:19',NULL,1),(95,40,3,1,40.00,'2025-03-17 18:34:53',NULL,1),(96,41,1,1,100.00,'2025-03-21 09:42:45',NULL,1),(97,42,1,1,100.00,'2025-03-21 10:05:15',NULL,1),(98,43,1,1,100.00,'2025-03-21 10:06:33',NULL,1),(99,44,1,1,100.00,'2025-03-21 10:06:34',NULL,1),(100,45,2,2,150.00,'2025-03-21 11:56:03',NULL,1),(101,45,4,2,60.00,'2025-03-21 11:56:03',NULL,1),(102,45,6,1,90.00,'2025-03-21 11:56:03',NULL,1),(103,45,9,1,50.00,'2025-03-21 11:56:03',NULL,1),(104,45,15,3,130.00,'2025-03-21 11:56:03',NULL,1),(105,46,2,2,150.00,'2025-03-21 11:56:07',NULL,1),(106,46,4,2,60.00,'2025-03-21 11:56:07',NULL,1),(107,46,6,1,90.00,'2025-03-21 11:56:07',NULL,1),(108,46,9,1,50.00,'2025-03-21 11:56:07',NULL,1),(109,46,15,3,130.00,'2025-03-21 11:56:07',NULL,1),(110,47,2,2,150.00,'2025-03-21 11:56:19',NULL,1),(111,47,4,2,60.00,'2025-03-21 11:56:19',NULL,1),(112,47,6,1,90.00,'2025-03-21 11:56:19',NULL,1),(113,47,9,1,50.00,'2025-03-21 11:56:19',NULL,1),(114,47,15,3,130.00,'2025-03-21 11:56:19',NULL,1),(115,48,2,2,150.00,'2025-03-21 11:58:10',NULL,1),(116,48,4,2,60.00,'2025-03-21 11:58:10',NULL,1),(117,48,6,1,90.00,'2025-03-21 11:58:10',NULL,1),(118,48,9,1,50.00,'2025-03-21 11:58:10',NULL,1),(119,48,15,3,130.00,'2025-03-21 11:58:10',NULL,1),(120,49,2,2,150.00,'2025-03-21 12:03:31',NULL,1),(121,49,4,2,60.00,'2025-03-21 12:03:31',NULL,1),(122,49,6,1,90.00,'2025-03-21 12:03:31',NULL,1),(123,49,9,1,50.00,'2025-03-21 12:03:31',NULL,1),(124,49,15,3,130.00,'2025-03-21 12:03:31',NULL,1),(125,50,1,1,100.00,'2025-03-22 16:04:08',60,2),(126,51,1,1,100.00,'2025-03-22 16:04:22',NULL,1),(127,52,2,1,142.50,'2025-03-22 16:07:18',NULL,1),(128,53,2,1,142.50,'2025-03-22 17:06:20',NULL,1),(129,54,2,1,142.50,'2025-03-22 17:40:34',NULL,1),(130,55,2,1,142.50,'2025-03-22 18:01:43',NULL,1),(131,56,2,1,142.50,'2025-03-23 22:27:41',NULL,1),(132,57,1,1,100.00,'2025-03-23 22:28:50',NULL,1),(133,57,2,1,150.00,'2025-03-23 22:28:50',NULL,1),(134,57,3,1,40.00,'2025-03-23 22:28:50',NULL,1),(135,57,4,1,60.00,'2025-03-23 22:28:50',NULL,1),(136,58,2,1,142.50,'2025-03-23 22:30:56',NULL,1),(137,59,3,1,40.00,'2025-03-23 22:36:57',NULL,1),(138,60,1,1,100.00,'2025-03-24 04:27:54',NULL,1),(139,61,2,1,142.50,'2025-03-24 04:28:35',NULL,1),(140,62,2,1,142.50,'2025-03-24 04:29:57',NULL,1),(141,63,2,1,150.00,'2025-03-24 04:36:00',NULL,1),(142,63,4,1,60.00,'2025-03-24 04:36:00',NULL,1),(143,63,5,2,70.00,'2025-03-24 04:36:00',NULL,1),(144,63,6,2,90.00,'2025-03-24 04:36:00',NULL,1),(145,64,2,1,150.00,'2025-03-24 04:36:10',NULL,1),(146,64,4,1,60.00,'2025-03-24 04:36:10',NULL,1),(147,64,5,2,70.00,'2025-03-24 04:36:10',NULL,1),(148,64,6,2,90.00,'2025-03-24 04:36:10',NULL,1),(149,65,1,2,100.00,'2025-03-24 04:37:47',NULL,1),(150,65,2,2,150.00,'2025-03-24 04:37:47',NULL,1),(151,65,3,3,40.00,'2025-03-24 04:37:47',NULL,1),(152,65,5,1,70.00,'2025-03-24 04:37:47',NULL,1),(153,66,1,4,100.00,'2025-03-26 21:58:44',NULL,1),(154,66,2,1,150.00,'2025-03-26 21:58:44',NULL,1);
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
 /*!40000 ALTER TABLE `reservationdetail` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -370,11 +304,7 @@ DROP TABLE IF EXISTS `reservationdetailstatus`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservationdetailstatus` (
-<<<<<<< HEAD:childrencare.sql
   `id` int NOT NULL,
-=======
-  `id` int(11) NOT NULL,
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
   `status` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `status_UNIQUE` (`status`)
@@ -399,11 +329,7 @@ DROP TABLE IF EXISTS `reservationstatus`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservationstatus` (
-<<<<<<< HEAD:childrencare.sql
   `id` int NOT NULL AUTO_INCREMENT,
-=======
-  `id` int(11) NOT NULL AUTO_INCREMENT,
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
   `status_name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `status_name_UNIQUE` (`status_name`)
@@ -428,13 +354,8 @@ DROP TABLE IF EXISTS `rolefeature`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rolefeature` (
-<<<<<<< HEAD:childrencare.sql
   `role_id` int NOT NULL,
   `feature_id` int NOT NULL,
-=======
-  `role_id` int(11) NOT NULL,
-  `feature_id` int(11) NOT NULL,
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`role_id`,`feature_id`),
   KEY `feature_id` (`feature_id`),
@@ -462,11 +383,11 @@ DROP TABLE IF EXISTS `service`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `service` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `description` text,
   `brief_info` text,
-  `category_id` int(11) NOT NULL,
+  `category_id` int NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `discount` decimal(5,2) DEFAULT NULL,
   `thumbnail` varchar(200) DEFAULT NULL,
@@ -497,13 +418,8 @@ DROP TABLE IF EXISTS `setting`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `setting` (
-<<<<<<< HEAD:childrencare.sql
   `setting_id` int NOT NULL AUTO_INCREMENT,
   `type_id` int NOT NULL,
-=======
-  `setting_id` int(11) NOT NULL AUTO_INCREMENT,
-  `type_id` int(11) NOT NULL,
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
   `value` varchar(200) NOT NULL,
   `description` varchar(200) DEFAULT NULL,
   `status` bit(1) NOT NULL DEFAULT b'1',
@@ -531,11 +447,7 @@ DROP TABLE IF EXISTS `settingtype`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `settingtype` (
-<<<<<<< HEAD:childrencare.sql
   `id` int NOT NULL AUTO_INCREMENT,
-=======
-  `id` int(11) NOT NULL AUTO_INCREMENT,
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
   `name` varchar(200) NOT NULL,
   `settingtypecol` varchar(45) DEFAULT NULL,
   `settingtypecol1` varchar(45) DEFAULT NULL,
@@ -562,19 +474,11 @@ DROP TABLE IF EXISTS `slider`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `slider` (
-<<<<<<< HEAD:childrencare.sql
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL,
   `image_url` varchar(200) NOT NULL,
   `back_link` varchar(200) DEFAULT NULL,
   `author_id` int NOT NULL,
-=======
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(200) NOT NULL,
-  `image_url` varchar(200) NOT NULL,
-  `back_link` varchar(200) DEFAULT NULL,
-  `author_id` int(11) NOT NULL,
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -590,11 +494,7 @@ CREATE TABLE `slider` (
 
 LOCK TABLES `slider` WRITE;
 /*!40000 ALTER TABLE `slider` DISABLE KEYS */;
-<<<<<<< HEAD:childrencare.sql
 INSERT INTO `slider` VALUES (1,'Welcome to Children Cares','assets/images/slider/slider1.jpg','/blog?id=1',1,1,'2025-01-31 23:46:55','2025-03-26 23:20:22'),(2,'Healthy Kids, Happy Parents','assets/images/slider/slider2.jpg','/blog?id=2',1,1,'2025-01-31 23:46:55','2025-03-26 22:59:42'),(3,'Book an Appointment Today','assets/images/slider/slider3.jpg','/blog?id=3',1,1,'2025-01-31 23:46:55','2025-03-26 22:59:42'),(4,'Fun Activities for Kids','assets/images/slider/slider4.jpg','/blog?id=4',1,1,'2025-02-08 23:38:14','2025-03-26 22:59:42'),(5,'Expert Childcare Services','assets/images/slider/slider5.jpg','/blog?id=29',1,1,'2025-02-08 23:38:14','2025-03-26 22:59:42'),(6,'Your Child’s Health Matters','assets/images/slider/slider6.jpg','/blog?id=32',1,0,'2025-02-08 23:38:14','2025-03-26 22:59:42'),(7,'Educational Programs','assets/images/slider/slider7.jpg','/blog?id=35',1,1,'2025-02-08 23:38:14','2025-03-26 22:59:42'),(8,'Nutritional Guidance','assets/images/slider/slider8.jpg','/blog?id=36',1,1,'2025-02-08 23:38:14','2025-03-26 22:59:42'),(9,'Safe and Secure Environment','assets/images/slider/slider9.jpg','/blog?id=37',1,1,'2025-02-08 23:38:14','2025-03-26 22:59:42'),(10,'Engaging Playtime','assets/images/slider/slider10.jpg','/blog?id=42',1,1,'2025-02-08 23:38:14','2025-03-26 22:59:42'),(11,'Caring and Supportive Staff','assets/images/slider/slider11.jpg','/blog?id=42',1,1,'2025-02-08 23:38:14','2025-03-26 23:08:11'),(12,'Parental Involvement','assets/images/slider/slider12.jpg','/blog?id=53',1,1,'2025-02-08 23:38:14','2025-03-26 22:59:42'),(13,'Book a Consultation','assets/images/slider/slider13.jpg','/blog?id=59',1,1,'2025-02-08 23:38:14','2025-03-26 22:59:42');
-=======
-INSERT INTO `slider` VALUES (1,'Welcome to Children Care','assets/images/slider/slider1.jpg','/app',1,1,'2025-01-31 23:46:55','2025-03-26 22:07:55'),(2,'Healthy Kids, Happy Parents','assets/images/slider/slider2.jpg','/services',1,1,'2025-01-31 23:46:55','2025-02-15 17:00:58'),(3,'Book an Appointment Today','assets/images/slider/slider3.jpg','/appointment',1,1,'2025-01-31 23:46:55','2025-02-15 17:00:59'),(4,'Fun Activities for Kids','assets/images/slider/slider4.jpg','/activities',1,1,'2025-02-08 23:38:14','2025-02-15 17:01:00'),(5,'Expert Childcare Services','assets/images/slider/slider5.jpg','/services',1,1,'2025-02-08 23:38:14','2025-02-15 17:00:56'),(6,'Your Child’s Health Matters','assets/images/slider/slider6.jpg','/health',1,0,'2025-02-08 23:38:14','2025-02-11 21:25:42'),(7,'Educational Programs','assets/images/slider/slider7.jpg','/education',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(8,'Nutritional Guidance','assets/images/slider/slider8.jpg','/nutrition',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(9,'Safe and Secure Environment','assets/images/slider/slider9.jpg','/safety',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(10,'Engaging Playtime','assets/images/slider/slider10.jpg','/play',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(11,'Caring and Supportive Staff','assets/images/slider/slider11.jpg','/team',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(12,'Parental Involvement','assets/images/slider/slider12.jpg','/parents',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(13,'Book a Consultation','assets/images/slider/slider13.jpg','/consultation',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35');
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
 /*!40000 ALTER TABLE `slider` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -606,18 +506,14 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `email_verified` tinyint(1) DEFAULT '0',
   `verification_token` varchar(255) DEFAULT NULL,
   `token_expiration` datetime DEFAULT NULL,
-<<<<<<< HEAD:childrencare.sql
   `role_id` int NOT NULL DEFAULT '15',
-=======
-  `role_id` int(11) NOT NULL DEFAULT '15',
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -651,15 +547,9 @@ DROP TABLE IF EXISTS `wishlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `wishlist` (
-<<<<<<< HEAD:childrencare.sql
   `user_id` int NOT NULL,
   `service_id` int NOT NULL,
   `quantity` int NOT NULL,
-=======
-  `user_id` int(11) NOT NULL,
-  `service_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
   PRIMARY KEY (`user_id`,`service_id`),
   KEY `service_id` (`service_id`),
   CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
@@ -673,13 +563,17 @@ CREATE TABLE `wishlist` (
 
 LOCK TABLES `wishlist` WRITE;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
-<<<<<<< HEAD:childrencare.sql
 INSERT INTO `wishlist` VALUES (1,2,1),(29,2,2);
-=======
-INSERT INTO `wishlist` VALUES (29,2,2);
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'childrencare'
+--
+
+--
+-- Dumping routines for database 'childrencare'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -690,8 +584,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-<<<<<<< HEAD:childrencare.sql
--- Dump completed on 2025-03-26 23:41:54
-=======
--- Dump completed on 2025-03-26 22:29:52
->>>>>>> 825332b386593d0e304ebf2b12cb359d100d01cc:scrip.sql
+-- Dump completed on 2025-03-27  1:29:51
