@@ -186,6 +186,15 @@
             width: 25%;
             text-align: center;
         }
+
+        .fade-out {
+            opacity: 1;
+            transition: opacity 1s ease-out;
+        }
+
+        .fade-out.hidden {
+            opacity: 0;
+        }
     </style>
     <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:10:19 GMT -->
     <head>
@@ -261,7 +270,7 @@
                             <div class="wc-title">
                                 <h4>Post List</h4>
                                 <c:if test="${sessionScope.MESSAGE != null}">
-                                    <div class="alert alert-success">${sessionScope.MESSAGE}</div>
+                                    <div id="MESSAGE" class="alert alert-success">${sessionScope.MESSAGE}</div>
                                 </c:if>
                                 <!-- Xóa message khỏi session sau khi hiển thị -->
                                 <c:remove var="MESSAGE" scope="session"/>
@@ -323,7 +332,6 @@
                                                     </c:otherwise>
                                                 </c:choose>
                                             </td>
-
                                             <td>${post.createdDate}</td>
                                             <td>
                                                 <c:if test="${post.updatedDate != null}">
@@ -419,40 +427,57 @@
         <script src="assets/js/admin.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
         <script>
-                                                            function confirmDelete(postId) {
-                                                                Swal.fire({
-                                                                    title: "Are you sure?",
-                                                                    text: "You won't be able to revert this!",
-                                                                    icon: "warning",
-                                                                    showCancelButton: true,
-                                                                    confirmButtonColor: "#d33",
-                                                                    cancelButtonColor: "#3085d6",
-                                                                    confirmButtonText: "Yes, delete it!"
-                                                                }).then((result) => {
-                                                                    if (result.isConfirmed) {
-                                                                        $.ajax({
-                                                                            url: "posts/delete",
-                                                                            type: "POST",
-                                                                            data: {id: postId},
-                                                                            success: function (response) {
-                                                                                Swal.fire({
-                                                                                    title: "Deleted!",
-                                                                                    text: "Your post has been deleted.",
-                                                                                    icon: "success",
-                                                                                    timer: 1000,
-                                                                                    showConfirmButton: false
-                                                                                }).then(() => {
-                                                                                    window.location.href = "/app/posts"; // Load lại trang /post
-                                                                                });
-                                                                            },
-                                                                            error: function (xhr, status, error) {
-                                                                                Swal.fire("Error!", "Something went wrong.", "error");
-                                                                            }
-                                                                        });
+                                                            document.addEventListener("DOMContentLoaded", function () {
+                                                                function fadeOutMessage(id) {
+                                                                    let message = document.getElementById(id);
+                                                                    if (message) {
+                                                                        setTimeout(function () {
+                                                                            message.classList.add("hidden"); // Kích hoạt hiệu ứng mờ dần
+                                                                            setTimeout(() => message.style.display = "none", 1000); // Ẩn hoàn toàn sau hiệu ứng
+                                                                        }, 3000);
                                                                     }
-                                                                });
-                                                            }
+                                                                }
+
+                                                                // Gọi hàm cho cả hai loại thông báo
+                                                                fadeOutMessage("MESSAGE");
+                                                            });
+        </script>        
+        <script>
+            function confirmDelete(postId) {
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "posts/delete",
+                            type: "POST",
+                            data: {id: postId},
+                            success: function (response) {
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your post has been deleted.",
+                                    icon: "success",
+                                    timer: 1000,
+                                    showConfirmButton: false
+                                }).then(() => {
+                                    window.location.href = "/app/posts"; // Load lại trang /post
+                                });
+                            },
+                            error: function (xhr, status, error) {
+                                Swal.fire("Error!", "Something went wrong.", "error");
+                            }
+                        });
+                    }
+                });
+            }
         </script>
     </body>
 
