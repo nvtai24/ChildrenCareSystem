@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import model.auth.User;
 
 /**
@@ -22,19 +23,19 @@ import model.auth.User;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Post {
-
-    private int id;
-    private User author;
-    private String title;
-    private String content;
-    private String thumbnail;
-    private String username;
-    private String briefInfo;
-    private boolean status;
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
-    private List<Label> labels;
-    private LocalDate createdDateOnly; // Chỉ ngày
-    private LocalTime createdTimeOnly;
+    int id;
+    User author;
+    String title;
+    String content;
+    String thumbnail;
+    String username;
+    String briefInfo;
+    boolean status;
+    LocalDateTime createdDate;
+    LocalDateTime updatedDate;
+    List<Label> labels;
+    LocalDate createdDateOnly; // Chỉ ngày
+    LocalTime createdTimeOnly;
 }

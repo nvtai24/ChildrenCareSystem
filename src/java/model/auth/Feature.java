@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 /**
  *
@@ -18,11 +19,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Feature {
-    private Integer id;
-    private String featureName;
-    private String url;
-    private String description;
-    private Boolean status;
-    private List<Role> roles;
+    Integer id;
+    String featureName;
+    String url;
+    String description;
+    Boolean status;
+    List<Role> roles;
 }

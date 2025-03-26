@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 /**
  *
@@ -17,10 +18,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Setting {
-    private int id;
-    private SettingType settingType;
-    private String settingValue;
-    private String description;
-    private boolean status;
+    int id;
+    SettingType settingType;
+    String settingValue;
+    String description;
+    boolean status;
 }

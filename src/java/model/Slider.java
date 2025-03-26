@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import model.auth.User;
 
 /**
@@ -19,14 +20,14 @@ import model.auth.User;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Slider {
-    private int id;
-    private String title;
-    private String imageUrl;
-    private String backLink;
-    private User author;
-    private boolean status;
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
+    int id;
+    String title;
+    String imageUrl;
+    String backLink;
+    User author;
+    boolean status;
+    LocalDateTime createdDate;
+    LocalDateTime updatedDate;
 }
-

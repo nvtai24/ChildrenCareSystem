@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 /**
  *
@@ -18,10 +19,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class PaymentHistory {
-    private int rid;
-    private long amount;
-    private String transactionDateString;
-    private String txnRef;
-    private String transactionNo;
+    int rid;
+    long amount;
+    String transactionDateString;
+    String txnRef;
+    String transactionNo;
 }
