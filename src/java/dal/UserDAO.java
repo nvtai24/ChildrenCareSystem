@@ -50,6 +50,13 @@ public class UserDAO extends DBContext {
                 user.setEmailVerified(emailVerified);
                 user.setStatus(status);
 
+                RoleDAO rdb = new RoleDAO();
+                boolean checkRole = rdb.checkStaffRole(roleId);
+
+                if (!checkRole) {
+                    roleId = 15;
+                }
+
                 Role r = new Role();
                 r.setId(roleId);
                 user.setRole(r);

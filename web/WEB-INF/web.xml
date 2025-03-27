@@ -24,7 +24,7 @@
         <url-pattern>/reservations</url-pattern>
         <url-pattern>/reservation</url-pattern>
         <url-pattern>/medical</url-pattern>
-        <url-pattern>/admin</url-pattern>
+        <url-pattern>/dashboard</url-pattern>
         <url-pattern>/users</url-pattern>
         <url-pattern>/users/update</url-pattern>
         <url-pattern>/settings</url-pattern>
