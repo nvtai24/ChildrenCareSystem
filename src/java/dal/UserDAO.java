@@ -51,7 +51,7 @@ public class UserDAO extends DBContext {
                 user.setStatus(status);
 
                 RoleDAO rdb = new RoleDAO();
-                boolean checkRole = rdb.checkStaffRole(roleId);
+                boolean checkRole = rdb.checkStatusRole(roleId);
 
                 if (!checkRole) {
                     roleId = 15;
