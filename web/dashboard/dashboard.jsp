@@ -64,10 +64,6 @@
             <div class="container-fluid">
                 <div class="db-breadcrumb">
                     <h4 class="breadcrumb-title">Dashboard</h4>
-                    <ul class="db-breadcrumb-list">
-                        <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
-                        <li>Dashboard</li>
-                    </ul>
                 </div>	
                 <!-- Card -->
                 <div class="row">
@@ -75,7 +71,7 @@
                         <div class="widget-card widget-bg1">					 
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    Total Profit
+                                    Total Revenue
                                 </h4>
                                 <span class="wc-des">
                                     All Customs Value
@@ -118,7 +114,7 @@
                             </div>				      
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
+                    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12" >
                         <div class="widget-card widget-bg4">					 
                             <div class="wc-item">
                                 <h4 class="wc-title">
@@ -134,11 +130,13 @@
                             </div>				      
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12" style="max-width: 238px;">
                         <div class="widget-card widget-bg4">					 
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    Pending Reservations
+                                    Pending 
                                 </h4>
                                 <span class="wc-des">
                                     Reservations Amount 
@@ -150,11 +148,11 @@
                             </div>				      
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
+                    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12" style="max-width: 238px;">
                         <div class="widget-card widget-bg3">					 
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    Confirmed Reservations
+                                    Confirmed 
                                 </h4>
                                 <span class="wc-des">
                                     Reservations Amount 
@@ -166,11 +164,11 @@
                             </div>				      
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
+                    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12" style="max-width: 238px;">
                         <div class="widget-card widget-bg2">					 
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    Completed Reservations
+                                    Completed 
                                 </h4>
                                 <span class="wc-des">
                                     Reservations Amount 
@@ -181,17 +179,32 @@
                             </div>				      
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
+                    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12" style="max-width: 238px;">
                         <div class="widget-card widget-bg1">					 
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    Cancelled Reservations
+                                    Cancelled 
                                 </h4>
                                 <span class="wc-des">
                                     Reservations Amount 
                                 </span>
                                 <span class="wc-stats counter">
                                     ${totalReservations4} 
+                                </span>		
+                            </div>				      
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12" style="max-width: 238px;">
+                        <div class="widget-card widget-bg1">					 
+                            <div class="wc-item">
+                                <h4 class="wc-title">
+                                    Refunding 
+                                </h4>
+                                <span class="wc-des">
+                                    Reservations Amount 
+                                </span>
+                                <span class="wc-stats counter">
+                                    ${totalReservations5} 
                                 </span>		
                             </div>				      
                         </div>
@@ -260,29 +273,25 @@
 
                                                         <c:choose>
                                                             <c:when test='${reservation.statusId == 1}'> 
-                                                                <c:set var="statusClass" value="orange"/> 
-                                                                <c:set var="statusText" value="Not Yet"/>
+                                                                <c:set var="statusClass" value="blue"/> 
+                                                                <c:set var="statusText" value="Pending"/>
                                                             </c:when>
                                                             <c:when test='${reservation.statusId == 2}'> 
                                                                 <c:set var="statusClass" value="yellow"/> 
-                                                                <c:set var="statusText" value="Assigned"/>
+                                                                <c:set var="statusText" value="Confirm"/>
                                                             </c:when>
                                                             <c:when test='${reservation.statusId == 3}'> 
-                                                                <c:set var="statusClass" value="red"/> 
-                                                                <c:set var="statusText" value="Rejected"/>
+                                                                <c:set var="statusClass" value="green"/> 
+                                                                <c:set var="statusText" value="Completed"/>
                                                             </c:when>
                                                             <c:when test='${reservation.statusId == 4}'> 
-                                                                <c:set var="statusClass" value="blue"/> 
-                                                                <c:set var="statusText" value="Confirmed"/>
+                                                                <c:set var="statusClass" value="red"/> 
+                                                                <c:set var="statusText" value="Cancelled"/>
                                                             </c:when>
                                                             <c:when test='${reservation.statusId == 5}'> 
                                                                 <c:set var="statusClass" value="purple"/> 
-                                                                <c:set var="statusText" value="Processing"/>
-                                                            </c:when>
-                                                            <c:when test='${reservation.statusId == 6}'> 
-                                                                <c:set var="statusClass" value="green"/> 
-                                                                <c:set var="statusText" value="Completed "/>
-                                                            </c:when>
+                                                                <c:set var="statusText" value="Refunding"/>
+                                                            </c:when>                                                           
                                                             <c:otherwise>
                                                                 <c:set var="statusClass" value="gray"/> 
                                                                 <c:set var="statusText" value="Unknown"/>

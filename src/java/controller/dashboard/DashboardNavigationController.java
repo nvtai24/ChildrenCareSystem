@@ -56,11 +56,13 @@ public class DashboardNavigationController extends HttpServlet {
             int totalReservations2 = reservationDAO.countReservations2InLast7Days();
             int totalReservations3 = reservationDAO.countReservations3InLast7Days();
             int totalReservations4 = reservationDAO.countReservations4InLast7Days();
+            int totalReservations5 = reservationDAO.countReservations5InLast7Days();
             request.setAttribute("totalReservations", totalReservations);
             request.setAttribute("totalReservations1", totalReservations1);
             request.setAttribute("totalReservations2", totalReservations2);
             request.setAttribute("totalReservations3", totalReservations3);
             request.setAttribute("totalReservations4", totalReservations4);
+            request.setAttribute("totalReservations5", totalReservations5);
             request.setAttribute("reservations", reservations);
             request.setAttribute("latestUsers", latestUsers);
             request.setAttribute("totalRevenue", totalRevenue);

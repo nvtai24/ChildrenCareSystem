@@ -24,7 +24,7 @@ import model.auth.User;
  */
 public class FeedbackDAO extends DBContext {
 
-    public List<Feedback> listFeedbacksOfService(int sid) {
+public List<Feedback> listFeedbacksOfService(int sid) {
         List<Feedback> result = new ArrayList<>();
 
         String sql = "select f.rating, f.comment, p.firstname, p.lastname, p.avatar, f.created_date from reservationdetail rd \n"
@@ -193,7 +193,8 @@ public class FeedbackDAO extends DBContext {
                     + "JOIN reservation r ON rd.reservation_id = r.id \n"
                     + "JOIN service s ON rd.service_id = s.id \n"
                     + "LEFT JOIN user u ON r.customer_id = u.id \n"
-                    + "LEFT JOIN profile p ON u.id = p.userid;";
+                    + "LEFT JOIN profile p ON u.id = p.userid\n"
+                    + " order by f.created_date";
 
             ResultSet rs = executeQuery(query);
 
