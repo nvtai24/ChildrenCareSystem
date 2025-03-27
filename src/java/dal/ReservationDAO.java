@@ -654,6 +654,25 @@ public class ReservationDAO extends DBContext {
         }
         return totalReservations4;
     }
+    
+    public int countReservations5InLast7Days() {
+        int totalReservations4 = 0;
+        String query = "SELECT COUNT(*) AS total_reservations4 "
+                + "FROM reservation "
+                + "WHERE status_id = 5 "
+                + "AND DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY";
+
+        try {
+            ResultSet rs = executeQuery(query);
+            if (rs.next()) {
+                totalReservations4 = rs.getInt("total_reservations4");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalReservations4;
+    }
 
     public int countReservationsInLast7Days() {
         int totalReservations = 0;
@@ -679,7 +698,7 @@ public class ReservationDAO extends DBContext {
                 + "FROM reservation "
                 + "WHERE DATE(created_date) >= DATE(NOW()) - INTERVAL 7 DAY "
                 + "ORDER BY created_date DESC "
-                + "LIMIT 5";
+                + "LIMIT 10";
 
         try {
             ResultSet rs = executeQuery(query);

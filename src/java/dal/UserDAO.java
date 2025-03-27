@@ -51,7 +51,7 @@ public class UserDAO extends DBContext {
                 user.setStatus(status);
 
                 RoleDAO rdb = new RoleDAO();
-                boolean checkRole = rdb.checkStaffRole(roleId);
+                boolean checkRole = rdb.checkStatusRole(roleId);
 
                 if (!checkRole) {
                     roleId = 15;
@@ -856,7 +856,7 @@ public class UserDAO extends DBContext {
                 + "AND u.role_id IN (13, 14, 15) \n"
                 + "AND DATE(u.created_date) >= DATE(NOW()) - INTERVAL 7 DAY\n"
                 + "ORDER BY u.created_date DESC \n"
-                + "LIMIT 5;";
+                + "LIMIT 10;";
 
         try {
             ResultSet rs = executeQuery(query);

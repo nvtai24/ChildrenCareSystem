@@ -76,8 +76,6 @@ public class CustomerFeedbackController extends HttpServlet {
                 var reservationLink = RESERVATION_URL.concat(reservationId);
             }
             switch (action) {
-                case "" -> {
-                }
                 case "feedback" -> {
                     request.setAttribute("rDetailId", reservationId);
                     request.getRequestDispatcher("customer-feedback.jsp").forward(request, response);
@@ -123,7 +121,7 @@ public class CustomerFeedbackController extends HttpServlet {
                 session.setAttribute("errorMessage",  "You have already provided feedback for this reservation! You cannot submit more.");
                 response.sendRedirect(request.getContextPath() + "/history");
             }
-            // neu feedback that bai. tra message
+            
 
         } catch (Exception e) {
             System.out.println(e);
