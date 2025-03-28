@@ -4,6 +4,7 @@
  */
 package controller.blog;
 
+import dal.CommentDAO;
 import dal.PostDAO;
 import dal.ServiceDAO;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import model.Comment;
 import model.Post;
 import model.Service;
 
@@ -62,6 +64,8 @@ public class BlogDetailController extends HttpServlet {
             throws ServletException, IOException {
         try {
             int postId = Integer.parseInt(request.getParameter("id"));
+            CommentDAO commentDAO = new CommentDAO();
+            List<Comment> comments = commentDAO.listCommentsOfPost(postId);
             PostDAO postDAO = new PostDAO();
             Post post = postDAO.getPostById(postId);
             List<Post> top3post = postDAO.getTop3Post();
@@ -69,6 +73,7 @@ public class BlogDetailController extends HttpServlet {
             
 
             if (post != null) {
+                request.setAttribute("comments", comments);
                 request.setAttribute("POST", post);
                 request.setAttribute("LISTPOSTS", top3post);
             }
