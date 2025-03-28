@@ -9,6 +9,7 @@
         <nav class="ttr-sidebar-navi">
 
             <ul>
+
                 <li>
                     <c:if test="${sessionScope.permissions.contains('/dashboard')}">
                         <a href="/app/dashboard" class="ttr-material-button">
