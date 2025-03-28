@@ -5,24 +5,19 @@
 package controller.blog;
 
 import dal.CommentDAO;
-import dal.PostDAO;
-import dal.ServiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import model.Comment;
-import model.Post;
-import model.Service;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author ADMIN
  */
-public class BlogDetailController extends HttpServlet {
+public class CommentPostController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +36,10 @@ public class BlogDetailController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BlogDetailController</title>");            
+            out.println("<title>Servlet CommentPostController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet BlogDetailController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CommentPostController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,25 +57,7 @@ public class BlogDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            int postId = Integer.parseInt(request.getParameter("id"));
-            CommentDAO commentDAO = new CommentDAO();
-            List<Comment> comments = commentDAO.listCommentsOfPost(postId);
-            PostDAO postDAO = new PostDAO();
-            Post post = postDAO.getPostById(postId);
-            List<Post> top3post = postDAO.getTop3Post();
-
-            
-
-            if (post != null) {
-                request.setAttribute("comments", comments);
-                request.setAttribute("POST", post);
-                request.setAttribute("LISTPOSTS", top3post);
-            }
-            request.getRequestDispatcher("blogdetails.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -94,7 +71,23 @@ public class BlogDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        int currentUserId = 0;
+        if (session != null && session.getAttribute("id") != null) {
+            currentUserId = (int) session.getAttribute("id"); // Redirect về trang login nếu chưa đăng nhập
+
+        } else {
+            response.sendRedirect(request.getContextPath() + "/login"); // Redirect về trang login nếu chưa đăng nhập
+            return;
+        }
+        
+        int postId = Integer.parseInt(request.getParameter("postId"));
+        String comment = request.getParameter("comment");
+        
+        CommentDAO commentDAO = new CommentDAO();
+        boolean result = commentDAO.addCommentByUser(postId, currentUserId, comment);
+        response.sendRedirect(request.getContextPath() + "/blog?id=" + postId);
+
     }
 
     /**
