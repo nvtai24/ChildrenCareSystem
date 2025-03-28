@@ -37,7 +37,7 @@
                                     <!-- Avatar -->
                                     <div class="col-md-4 text-center">
                                         <div class="user-profile-thumb" style="width: 150px; height: 150px;">
-                                            <img src="${sessionScope.account.profile.avatar}" id="avatarImage" alt="User Avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+                                            <img src="${sessionScope.account.profile.avatar != null ? sessionScope.account.profile.avatar :"assets/images/profile/default.jpg"}" id="avatarImage" alt="User Avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
                                         </div>
                                         <!-- Chỉnh sửa nút Choose File -->
                                         <div class="custom-file">
@@ -114,7 +114,7 @@
                     </div>
                 </div>
             </div>
-                                            
+
             <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
                 <div class="modal-dialog" style="max-width: 500px;">
                     <div class="modal-content" style="padding: 20px; border-radius: 10px; font-family: 'Arial', sans-serif; font-size: 14px; color: #333;">
@@ -226,8 +226,8 @@
                             // Nếu không có ảnh mới, có thể giữ lại ảnh cũ hoặc làm gì đó khác
                             console.log("No new avatar image selected.");
                         }
-                        
-                         $("#profileModal").modal("hide");
+
+                        $("#profileModal").modal("hide");
 
                         Swal.fire({
                             icon: "success",

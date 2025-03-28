@@ -393,7 +393,7 @@
                                         <c:forEach items="${requestScope.feedbacks}" var="f">
                                             <div class="instructor-bx feedback-item">
                                                 <div class="instructor-author">
-                                                    <img src="${f.reservationDetail.reservation.customer.profile.avatar}" alt="">
+                                                    <img src="${f.reservationDetail.reservation.customer.profile.avatar != null ? f.reservationDetail.reservation.customer.profile.avatar : "assets/images/profile/default.jpg"}" alt="">
                                                 </div>
                                                 <div class="instructor-info">
                                                     <h6>${f.reservationDetail.reservation.customer.profile.firstName} ${f.reservationDetail.reservation.customer.profile.lastName}</h6>
