@@ -126,6 +126,46 @@
                                                     <a>Joomla</a> 
                                                 </div>
                                             </div>
+                                            <div class="clear" id="comment-list">
+                                                <div class="comments-area" id="comments">
+                                                    <h2 class="comments-title">Comments</h2>
+                                                    <div class="clearfix m-b20">
+                                                        <!-- comment list END -->
+                                                        <ol class="comment-list">
+                                                            <c:forEach var="c" items="${comments}">
+                                                                <li class="comment">
+                                                                    <div class="comment-body">
+                                                                        <div class="comment-author vcard"> <img  class="avatar photo" src="${c.avatar}" alt=""> <cite class="fn">${c.lastName} ${c.firstName}</cite> <span class="says">says:</span> </div>
+                                                                        <div class="comment-meta"> <a>${c.createdDate}</a> </div>
+                                                                        <p>${c.comment} </p>
+
+                                                                    </div>
+
+                                                                    <!-- list END -->
+                                                                </li>
+                                                            </c:forEach>
+
+                                                        </ol>
+                                                        <!-- comment list END -->
+                                                        <!-- Form -->
+                                                        <div class="comment-respond" id="respond">
+                                                            <form class="comment-form" id="commentform" method="post" action="post/comment">
+                                                                <input type="hidden" name="postId" value="${POST.id}"> 
+
+                                                                <p class="comment-form-comment">
+                                                                    <label for="comment">Comment</label>
+                                                                    <textarea rows="8" name="comment" id="comment" placeholder="Type anything..."></textarea>
+                                                                </p>
+
+                                                                <p class="form-submit">
+                                                                    <input type="submit" value="Submit Comment" class="submit" id="submit" name="submit">
+                                                                </p>
+                                                            </form>
+                                                        </div>
+                                                        <!-- Form -->
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
                                             <h6>SHARE </h6>
                                             <ul class="list-inline contact-social-bx">
@@ -199,7 +239,7 @@
                                             </div>
                                         </div>
                                     </aside>
-                                </div>
+                                </div>                               
                                 <!-- Side bar END -->
                             </div>
                         </div>
