@@ -114,6 +114,7 @@
                                         <div class="input-group"> 
                                             <label for="firstname">First Name</label>
                                             <input type="text" name="firstname" class="form-control" required id="firstname">
+                                            <small id="firstnameError" style="color:red;"></small><br>
                                         </div>
                                     </div>
                                 </div>
@@ -124,6 +125,7 @@
                                         <div class="input-group"> 
                                             <label for="lastname">Last Name</label>
                                             <input type="text" name="lastname" class="form-control" required id="lastname">
+                                            <small id="lastnameError" style="color:red;"></small><br>
                                         </div>
                                     </div>
                                 </div>
@@ -158,6 +160,7 @@
                                         <div class="input-group"> 
                                             <label for="phone">Phone Number</label>
                                             <input type="text" name="phone" class="form-control" required id="phone">
+                                            <small id="phoneError" style="color:red;"></small><br>
                                         </div>
                                     </div>
                                 </div>
@@ -273,5 +276,56 @@
                 }
             });
         });
+        $("#firstname").on("input", function () {
+                var firstname = $(this).val().trim();
+                var nameRegex = /^[A-Za-z\s]{2,50}$/;
+                if (!nameRegex.test(firstname)) {
+                    $("#firstnameError").text("First name must be 2-50 characters and contain only letters.");
+                } else {
+                    $("#firstnameError").text("");
+                }
+            });
+
+            // Last Name Validation
+            $("#lastname").on("input", function () {
+                var lastname = $(this).val().trim();
+                var nameRegex = /^[A-Za-z\s]{2,50}$/;
+                if (!nameRegex.test(lastname)) {
+                    $("#lastnameError").text("Last name must be 2-50 characters and contain only letters.");
+                } else {
+                    $("#lastnameError").text("");
+                }
+            });
+
+            // Phone Validation
+            $("#phone").on("input", function () {
+                var phone = $(this).val().trim();
+                var phoneRegex = /^(0[0-9]{9,10})$/;
+                if (!phoneRegex.test(phone)) {
+                    $("#phoneError").text("Phone must start with 0 and be 10-11 digits long.");
+                } else {
+                    $("#phoneError").text("");
+                }
+            });
+
+            // Date of Birth Validation
+            $("#dob").on("change", function () {
+                var dob = new Date($(this).val());
+                var today = new Date();
+                var minAge = new Date();
+                minAge.setFullYear(today.getFullYear() - 5);
+                var maxAge = new Date();
+                maxAge.setFullYear(today.getFullYear() - 120);
+
+                if (dob > today) {
+                    $("#dobError").text("Date of birth cannot be in the future.");
+                } else if (dob > minAge) {
+                    $("#dobError").text("You must be at least 5 years old.");
+                } else if (dob < maxAge) {
+                    $("#dobError").text("Date of birth is not valid.");
+                } else {
+                    $("#dobError").text("");
+                }
+            });
     </script>
 </html>
