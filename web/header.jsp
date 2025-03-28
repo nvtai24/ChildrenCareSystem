@@ -34,34 +34,20 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                   <li><a href="history">History</a></li>
                 </c:if>
 
-                <!--                                <li>
-                                                                    <a href="javascript:;"
-                                                                       >Contact us <i class="fa fa-chevron-down"></i
-                                                                        ></a>
-                                                                    <ul class="sub-menu">
-                                                                        <li><a href="blog-classic-grid.html">Blog Classic</a></li>
-                                                                        <li>
-                                                                            <a href="blog-classic-sidebar.html"
-                                                                               >Blog Classic Sidebar</a
-                                                                            >
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="blog-list-sidebar.html">Blog List Sidebar</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="blog-standard-sidebar.html"
-                                                                               >Blog Standard Sidebar</a
-                                                                            >
-                                                                        </li>
-                                                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                                                    </ul>
-                                                                </li>-->
 
                 <c:if
-                  test="${sessionScope.account != null && sessionScope.account.role.id !=15}"
+                  test="${sessionScope.account.role.id == 14 || sessionScope.account.role.id == 12 || sessionScope.account.role.id == 16}"
                 >
-                  <li><a href="dashboard">Dashboard</a></li>
+                  <li><a href="/app/dashboard">Dashboard</a></li>
                 </c:if>
+                  
+                  <c:if
+                  test="${sessionScope.account.role.id ==13}"
+                >
+                  <li><a href="/app/reservations">Dashboard</a></li>
+                </c:if>
+                  
+                  
               </ul>
 
               <ul
