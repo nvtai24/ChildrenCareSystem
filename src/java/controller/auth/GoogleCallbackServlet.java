@@ -82,7 +82,7 @@ public class GoogleCallbackServlet extends HttpServlet {
         if (user == null) {
             String defaultPassword = "123456";
             String hashedPassword = PasswordUtil.toSHA1(defaultPassword);
-            userDAO.createUser(email, name, hashedPassword);
+            userDAO.createUser(email, email, hashedPassword);
             user = userDAO.getUserByEmail(email);
         }
 
