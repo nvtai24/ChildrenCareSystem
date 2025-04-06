@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
--- Host: localhost    Database: childrencare
+-- Host: 127.0.0.1    Database: childrencare
 -- ------------------------------------------------------
--- Server version	8.0.13
+-- Server version	8.0.40
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,10 +23,10 @@ DROP TABLE IF EXISTS `comment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comment` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `post_id` int(11) NOT NULL,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `post_id` int NOT NULL,
   `comment` text NOT NULL,
-  `author_id` int(11) NOT NULL,
+  `author_id` int NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
@@ -34,7 +34,7 @@ CREATE TABLE `comment` (
   KEY `author_id` (`author_id`),
   CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE,
   CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,6 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,1,'ửghwrhwrh',1,'2025-03-28 13:39:35'),(2,26,'wrg',1,'2025-03-28 14:35:31'),(3,26,'wrg',1,'2025-03-28 14:37:03'),(4,26,'qegfqegf',1,'2025-03-28 14:37:27'),(5,26,'e46u35het6j',1,'2025-03-28 14:37:32'),(6,26,'ertheth',1,'2025-03-28 14:38:05'),(7,26,'wrwh',2,'2025-03-28 14:42:30');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,10 +54,10 @@ DROP TABLE IF EXISTS `feature`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `feature` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `feature_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `feature_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `url` varchar(200) NOT NULL,
-  `description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `description` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `url_UNIQUE` (`url`)
@@ -83,9 +82,9 @@ DROP TABLE IF EXISTS `feedback`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `feedback` (
-  `reservationdetail_id` int(11) NOT NULL,
-  `rating` int(11) NOT NULL,
-  `comment` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `reservationdetail_id` int NOT NULL,
+  `rating` int NOT NULL,
+  `comment` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `status` bit(1) NOT NULL DEFAULT b'1',
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -111,8 +110,8 @@ DROP TABLE IF EXISTS `labelpost`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `labelpost` (
-  `label_id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL,
+  `label_id` int NOT NULL,
+  `post_id` int NOT NULL,
   PRIMARY KEY (`label_id`,`post_id`),
   KEY `post_id` (`post_id`),
   CONSTRAINT `labelpost_ibfk_1` FOREIGN KEY (`label_id`) REFERENCES `setting` (`setting_id`),
@@ -138,8 +137,8 @@ DROP TABLE IF EXISTS `paymenthistory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `paymenthistory` (
-  `reservation_id` int(11) NOT NULL,
-  `amount` bigint(20) NOT NULL,
+  `reservation_id` int NOT NULL,
+  `amount` bigint NOT NULL,
   `transactiondate` varchar(100) NOT NULL,
   `txnref` varchar(100) DEFAULT NULL,
   `transactiono` varchar(100) DEFAULT NULL,
@@ -156,6 +155,7 @@ CREATE TABLE `paymenthistory` (
 
 LOCK TABLES `paymenthistory` WRITE;
 /*!40000 ALTER TABLE `paymenthistory` DISABLE KEYS */;
+INSERT INTO `paymenthistory` VALUES (61,235000000,'20250329215828','88381825103288005339500','14878835'),(63,799000000,'20250329223534','95705717105566195699400','14878911'),(65,493500000,'20250329223655','28699256105651326427400','14878913'),(67,705000000,'20250329223832','98638550105748490528300','14878917'),(70,799000000,'20250329224006','67769792105843494554400','14878922'),(73,1175000000,'20250330080520','09199766139746344854900','14879419'),(74,334875000,'20250330081302','29445423140171635386400','14879426');
 /*!40000 ALTER TABLE `paymenthistory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,9 +167,9 @@ DROP TABLE IF EXISTS `post`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `post` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `author_id` int(11) NOT NULL,
-  `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `author_id` int NOT NULL,
+  `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `content` text,
   `thumbnail` varchar(200) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
@@ -179,7 +179,7 @@ CREATE TABLE `post` (
   PRIMARY KEY (`id`),
   KEY `author_id` (`author_id`),
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,7 +188,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,1,'Importance of Regular Checkups','<p>Regular health checkups are essential for monitoring the growth and development of children.</p>\r\n\r\n<p><a href=\"https://letsenhance.io/\"><img alt=\"\" src=\"https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/6e61b/MainAfter.avif\" style=\"height:113px; width:200px\" /></a></p>\r\n\r\n<p>adnvaudviladv</p>\r\n\r\n<p>&nbsp;</p>\r\n','assets/images/blog/blog1.jpg',1,'2025-01-31 23:46:56','2025-03-19 22:00:01','Regular health checkups are essential for monitoring the growth and development of children.'),(2,2,'Vaccination Schedule for Children','Ensure your child is up-to-date with their vaccinations to protect them from diseases.','assets/images/blog/blog2.jpg',1,'2025-01-31 23:46:56','2025-03-19 22:00:01','Ensure your child is up-to-date with their vaccinations to protect them from diseases.'),(3,3,'Nutrition Tips for Kids','A balanced diet is crucial for the healthy development of children.','assets/images/blog/blog3.jpg',1,'2025-01-31 23:46:56','2025-03-19 22:00:01','A balanced diet is crucial for the healthy development of children.'),(16,1,'Common Childhood Illnesses','Understanding and preventing common childhood illnesses helps keep your child healthy.','assets/images/blog/blog16.jpg',1,'2025-02-01 09:12:45','2025-03-19 22:00:01','Understanding and preventing common childhood illnesses helps keep your child healthy.'),(17,1,'How to Build Strong Immunity','Learn about the best ways to boost your child’s immune system.','assets/images/blog/blog17.jpg',1,'2025-02-01 09:15:20','2025-03-19 22:00:01','Learn about the best ways to boost your child’s immune system.'),(18,1,'First Aid for Children','Essential first aid tips for dealing with common injuries in children.','assets/images/blog/blog18.jpg',1,'2025-02-01 09:20:10','2025-03-19 22:00:01','Essential first aid tips for dealing with common injuries in children.'),(19,1,'Sleep Routines for Kids','Establishing healthy sleep routines is vital for your child’s development.','assets/images/blog/blog19.jpg',1,'2025-02-01 09:22:35','2025-03-19 22:00:01','Establishing healthy sleep routines is vital for your child’s development.'),(20,1,'Dental Care for Children','Starting dental care early can prevent future dental problems.','assets/images/blog/blog20.jpg',1,'2025-02-01 09:25:00','2025-03-19 22:00:01','Starting dental care early can prevent future dental problems.'),(21,1,'Mental Health in Children','Supporting your child’s mental health is as important as their physical health.','assets/images/blog/blog21.jpg',1,'2025-02-01 09:30:15','2025-03-19 22:00:01','Supporting your child’s mental health is as important as their physical health.'),(22,1,'Exercise for Kids','Regular physical activity is key for your child’s growth and well-being.','assets/images/blog/blog22.jpg',1,'2025-02-01 09:35:10','2025-03-19 22:00:01','Regular physical activity is key for your child’s growth and well-being.'),(23,1,'Skin Care for Children','Learn the importance of gentle skin care for young children.','assets/images/blog/blog23.jpg',1,'2025-02-01 09:40:25','2025-03-19 22:00:01','Learn the importance of gentle skin care for young children.'),(24,1,'Sun Protection for Kids','Protect your child from harmful UV rays with the right sun protection.','assets/images/blog/blog24.jpg',1,'2025-02-01 09:45:35','2025-03-19 22:00:01','Protect your child from harmful UV rays with the right sun protection.'),(25,1,'edu','<p>yrhtegr</p>\r\n','assets/images/blog/pic2.jpg',1,'2025-03-19 22:16:52',NULL,'jtyhrge');
+INSERT INTO `post` VALUES (1,72,'       ','<p>Regular health checkups are essential for monitoring the growth and development of children.</p>\r\n\r\n<p><a href=\"https://letsenhance.io/\"><img alt=\"\" src=\"https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/6e61b/MainAfter.avif\" style=\"height:113px; width:200px\" /></a></p>\r\n\r\n<p>adnvaudviladv</p>\r\n\r\n<p>&nbsp;</p>\r\n','assets/images/blog/se-metadata.json',1,'2025-01-31 23:46:56','2025-03-30 08:17:54','Regular health checkups are essential for monitoring the growth and development of children.'),(2,72,'Vaccination Schedule for Children','Ensure your child is up-to-date with their vaccinations to protect them from diseases.','assets/images/blog/blog2.jpg',1,'2025-01-31 23:46:56','2025-03-30 00:34:52','Ensure your child is up-to-date with their vaccinations to protect them from diseases.'),(3,72,'Nutrition Tips for Kids','A balanced diet is crucial for the healthy development of children.','assets/images/blog/blog3.jpg',1,'2025-01-31 23:46:56','2025-03-30 00:34:52','A balanced diet is crucial for the healthy development of children.'),(16,72,'Common Childhood Illnesses','Understanding and preventing common childhood illnesses helps keep your child healthy.','assets/images/blog/blog16.jpg',1,'2025-02-01 09:12:45','2025-03-30 00:34:52','Understanding and preventing common childhood illnesses helps keep your child healthy.'),(17,72,'How to Build Strong Immunity','Learn about the best ways to boost your child’s immune system.','assets/images/blog/blog17.jpg',1,'2025-02-01 09:15:20','2025-03-30 00:34:52','Learn about the best ways to boost your child’s immune system.'),(18,72,'First Aid for Children','Essential first aid tips for dealing with common injuries in children.','assets/images/blog/blog18.jpg',1,'2025-02-01 09:20:10','2025-03-30 00:34:52','Essential first aid tips for dealing with common injuries in children.'),(19,72,'Sleep Routines for Kids','Establishing healthy sleep routines is vital for your child’s development.','assets/images/blog/blog19.jpg',1,'2025-02-01 09:22:35','2025-03-30 00:34:52','Establishing healthy sleep routines is vital for your child’s development.'),(20,72,'Dental Care for Children','Starting dental care early can prevent future dental problems.','assets/images/blog/blog20.jpg',1,'2025-02-01 09:25:00','2025-03-30 00:34:52','Starting dental care early can prevent future dental problems.'),(21,72,'Mental Health in Children','Supporting your child’s mental health is as important as their physical health.','assets/images/blog/blog21.jpg',1,'2025-02-01 09:30:15','2025-03-30 00:34:52','Supporting your child’s mental health is as important as their physical health.'),(22,72,'Exercise for Kids','Regular physical activity is key for your child’s growth and well-being.','assets/images/blog/blog22.jpg',1,'2025-02-01 09:35:10','2025-03-30 00:34:52','Regular physical activity is key for your child’s growth and well-being.'),(23,72,'Skin Care for Children','Learn the importance of gentle skin care for young children.','assets/images/blog/blog23.jpg',1,'2025-02-01 09:40:25','2025-03-30 00:34:52','Learn the importance of gentle skin care for young children.'),(24,72,'Sun Protection for Kids','Protect your child from harmful UV rays with the right sun protection.','assets/images/blog/blog24.jpg',1,'2025-02-01 09:45:35','2025-03-30 00:34:52','Protect your child from harmful UV rays with the right sun protection.'),(27,72,'wrgh','<p>wrh</p>\r\n','assets/images/blog/logo-light.png',1,'2025-03-30 00:00:30',NULL,'wrgh');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,12 +200,12 @@ DROP TABLE IF EXISTS `profile`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `profile` (
-  `userid` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int NOT NULL AUTO_INCREMENT,
   `firstname` varchar(255) NOT NULL,
   `lastname` varchar(100) NOT NULL,
   `gender` tinyint(1) NOT NULL,
   `dob` date NOT NULL,
-  `address` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `address` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `phone` varchar(20) NOT NULL,
   `avatar` varchar(200) DEFAULT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -221,7 +221,7 @@ CREATE TABLE `profile` (
 
 LOCK TABLES `profile` WRITE;
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
-INSERT INTO `profile` VALUES (1,'Tai ','Nguyen Van',1,'2004-11-10','Nghi Loc, Nghe An','037628123','assets/images/profile/profile_1.jpg','2025-01-31 23:46:55','2025-03-26 22:21:44'),(2,'Anh','Do Minh',1,'1975-05-15','456 Health Lane kkk','124356789','assets/images/profile/profile_2.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(3,'Quyen','Nguyen Duc',0,'1985-08-20','789 Parent Road','345-678-9012','assets/images/profile/profile_3.jpg','2025-01-31 23:46:55','2025-02-20 08:05:47'),(4,'Long','Nguyen Hoang',1,'1990-03-10','101 Staff Avenue','0958493854','assets/images/profile/profile_4.jpg','2025-01-31 23:46:55','2025-03-26 21:45:03'),(29,'Virrus','Tien Hoang',1,'2025-03-06','Ha Noi','0950495843','assets/images/profile/default.jpg','2025-03-06 09:00:12','2025-03-26 22:20:08'),(32,'John ','Michael',1,'2025-03-11','Ben tre','0968948593','assets/images/profile/default.jpg','2025-03-06 02:17:41','2025-03-26 22:20:08'),(35,'Tai','Nguyen Van',1,'2004-11-20','Nghi Loc, Nghe An ','0373517718','assets/images/profile/profile_35.jpg','2025-03-15 23:36:25','2025-03-26 22:20:18'),(36,'Long','Nguyen Hoang',1,'2003-08-22','Hanoi','0123456789','assets/images/profile/profile_35.jpg','2025-03-19 22:06:11',NULL),(65,'Quyen','Nguyen',1,'2025-03-27','ha Noi','0352587107',NULL,'2025-03-26 21:55:06',NULL),(66,'Do Minh ','Anh',1,'2004-09-14','Thach That - Ha Noi','0389822669',NULL,'2025-03-28 22:53:15',NULL),(67,'Do Minh','Chi',0,'2004-09-12','Phu O - Thach That','0981663009',NULL,'2025-03-28 22:59:12',NULL),(68,'Nguyen Duc','Quyen',1,'2003-06-04','My Dinh - Ha Noi','0123456788',NULL,'2025-03-28 23:04:12',NULL),(69,'Nguyen Van','Tai',1,'2000-09-19','Nghi Loc - Nghe An','0123456789',NULL,'2025-03-28 23:05:33',NULL),(70,'Nguyen Hoang','Long',1,'2003-02-14','Thanh Son - Phu Tho','0987654321',NULL,'2025-03-28 23:06:41',NULL),(71,'Tran Duc','Anh',1,'2004-06-09','Thanh Son - Phu Tho','0373517718',NULL,'2025-03-28 23:15:20',NULL),(72,'Nguyen Lam','Hoang',1,'2004-12-31','Bac Giang','0964354306',NULL,'2025-03-28 23:19:33',NULL),(73,'Nguyen Duc','Manh',1,'2001-06-05','Yen Bai','0362406325',NULL,'2025-03-28 23:21:59',NULL),(74,'Vu Thi','Bich',0,'2004-01-01','Huu Bang - Ha Noi','0384408427',NULL,'2025-03-28 23:26:11',NULL),(75,'Nguyen Tuan','Anh',1,'2004-06-09','Huu Bang - Ha Noi','0981439283',NULL,'2025-03-28 23:28:12',NULL);
+INSERT INTO `profile` VALUES (66,'Do Minh ','Anh',1,'2004-09-14','Thach That - Ha Noi','0389822669',NULL,'2025-03-28 22:53:15',NULL),(67,'Do Minh','Chi',0,'2004-09-12','Phu O - Thach That','0981663009',NULL,'2025-03-28 22:59:12',NULL),(68,'Nguyen Duc','Quyen',1,'2003-06-04','My Dinh - Ha Noi','0123456788',NULL,'2025-03-28 23:04:12',NULL),(69,'Nguyen Van','Tai',1,'2000-09-19','Nghi Loc - Nghe An','0123456789',NULL,'2025-03-28 23:05:33',NULL),(70,'Nguyen Hoang','Long',1,'2003-02-14','Thanh Son - Phu Tho','0987654321',NULL,'2025-03-28 23:06:41',NULL),(71,'Tran Duc','Anh',1,'2004-06-09','Thanh Son - Phu Tho','0373517718',NULL,'2025-03-28 23:15:20',NULL),(72,'Nguyen Lam','Hoang',1,'2004-12-31','Bac Giang','0964354306',NULL,'2025-03-28 23:19:33',NULL),(73,'Nguyen Duc','Manh',1,'2001-06-05','Yen Bai','0362406325',NULL,'2025-03-28 23:21:59',NULL),(74,'Vu Thi','Bich',0,'2004-01-01','Huu Bang - Ha Noi','0384408427',NULL,'2025-03-28 23:26:11',NULL),(75,'Nguyen Tuan','Anh',1,'2004-06-09','Huu Bang - Ha Noi','0981439283',NULL,'2025-03-28 23:28:12',NULL);
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,11 +233,11 @@ DROP TABLE IF EXISTS `reservation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservation` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(11) NOT NULL,
-  `status_id` int(11) NOT NULL DEFAULT '1',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `customer_id` int NOT NULL,
+  `status_id` int NOT NULL DEFAULT '1',
   `reserve_date` datetime NOT NULL,
-  `note` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `note` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `first_name` varchar(100) NOT NULL,
@@ -251,7 +251,7 @@ CREATE TABLE `reservation` (
   KEY `IX_Reservation_Date` (`reserve_date`),
   CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `reservationstatus` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,6 +260,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
+INSERT INTO `reservation` VALUES (60,74,1,'2025-03-30 07:30:00','','2025-03-29 01:32:02',NULL,'Vu Thi','Bich','ameebro99@gmail.com','0384408427',_binary '\0'),(61,74,1,'2025-03-30 07:30:00','','2025-03-29 21:58:33',NULL,'Vu Thi','Bich','ameebro99@gmail.com','0384408427',_binary ''),(62,74,1,'2025-03-30 14:30:00','','2025-03-29 22:34:39',NULL,'Vu Thi','Bich','ameebro99@gmail.com','0384408427',_binary '\0'),(63,74,1,'2025-03-30 14:30:00','','2025-03-29 22:35:35',NULL,'Vu Thi','Bich','ameebro99@gmail.com','0384408427',_binary ''),(64,74,4,'2025-03-30 14:30:00','','2025-03-29 22:36:10','2025-03-29 22:45:14','Vu Thi','Bich','ameebro99@gmail.com','0384408427',_binary '\0'),(65,74,5,'2025-03-30 14:30:00','','2025-03-29 22:37:00','2025-03-29 22:44:58','Vu Thi','Bich','ameebro99@gmail.com','0384408427',_binary ''),(66,74,1,'2025-03-30 12:39:00','','2025-03-29 22:37:17','2025-03-29 22:44:53','Vu Thi','Bich','ameebro99@gmail.com','0384408427',_binary '\0'),(67,75,1,'2025-03-30 14:30:00','','2025-03-29 22:38:37',NULL,'Vu Thi','Bich','ameebro99@gmail.com','0384408427',_binary ''),(68,75,1,'2025-03-30 14:30:00','','2025-03-29 22:39:00',NULL,'Vu Thi','Bich','ameebro99@gmail.com','0384408427',_binary '\0'),(69,75,2,'2025-03-30 17:30:00','','2025-03-29 22:39:17','2025-03-30 00:09:28','Vu Thi','Bich','ameebro99@gmail.com','0384408427',_binary '\0'),(70,75,5,'2025-03-30 14:30:00','','2025-03-29 22:40:09','2025-03-29 22:46:18','Vu Thi','Bich','ameebro99@gmail.com','0384408427',_binary ''),(71,75,3,'2025-03-30 14:30:00','','2025-03-29 22:40:54','2025-03-30 00:13:06','Vu Thi','Bich','ameebro99@gmail.com','0384408427',_binary '\0'),(72,75,4,'2025-03-30 14:30:00','','2025-03-29 22:41:08','2025-03-29 22:45:55','Vu Thi','Bich','ameebro99@gmail.com','0384408427',_binary '\0'),(73,74,2,'2025-03-31 14:30:00','','2025-03-30 08:05:24','2025-03-30 08:08:35','Vu Thi','Bich','ameebro99@gmail.com','0384408427',_binary ''),(74,74,5,'2025-03-31 07:30:00','','2025-03-30 08:13:03','2025-03-30 08:13:23','Vu Thi','Bich','ameebro99@gmail.com','0384408427',_binary '');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,20 +272,24 @@ DROP TABLE IF EXISTS `reservationdetail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservationdetail` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `reservation_id` int(11) NOT NULL,
-  `service_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL DEFAULT '1',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `reservation_id` int NOT NULL,
+  `service_id` int NOT NULL,
+  `quantity` int NOT NULL DEFAULT '1',
   `price` decimal(10,2) NOT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `staff_id` int(11) DEFAULT NULL,
-  `status_id` int(11) NOT NULL DEFAULT '1',
+  `staff_id` int DEFAULT NULL,
+  `status_id` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `reservation_id` (`reservation_id`),
   KEY `service_id` (`service_id`),
   KEY `fk_staff_id` (`staff_id`),
-  KEY `reservationdetail_ibfk_3_idx` (`status_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=138 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `reservationdetail_ibfk_3_idx` (`status_id`),
+  CONSTRAINT `fk_reservation_id` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`),
+  CONSTRAINT `fk_reservationdetailstatus_id` FOREIGN KEY (`status_id`) REFERENCES `reservationdetailstatus` (`id`),
+  CONSTRAINT `fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`),
+  CONSTRAINT `fk_staff_id` FOREIGN KEY (`staff_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,6 +298,7 @@ CREATE TABLE `reservationdetail` (
 
 LOCK TABLES `reservationdetail` WRITE;
 /*!40000 ALTER TABLE `reservationdetail` DISABLE KEYS */;
+INSERT INTO `reservationdetail` VALUES (138,60,1,1,100.00,'2025-03-29 01:32:02',NULL,1),(139,61,1,1,100.00,'2025-03-29 21:58:33',NULL,1),(140,62,1,3,100.00,'2025-03-29 22:34:39',NULL,1),(141,63,2,2,150.00,'2025-03-29 22:35:35',NULL,1),(142,63,3,1,40.00,'2025-03-29 22:35:35',NULL,1),(143,64,4,3,60.00,'2025-03-29 22:36:10',NULL,1),(144,65,5,3,70.00,'2025-03-29 22:37:00',NULL,1),(145,66,6,4,90.00,'2025-03-29 22:37:17',NULL,1),(146,67,1,3,100.00,'2025-03-29 22:38:37',NULL,1),(147,68,2,3,150.00,'2025-03-29 22:39:00',NULL,1),(148,69,3,3,40.00,'2025-03-29 22:39:17',67,2),(149,69,4,2,60.00,'2025-03-29 22:39:17',66,2),(150,70,5,1,70.00,'2025-03-29 22:40:09',NULL,1),(151,70,6,3,90.00,'2025-03-29 22:40:09',NULL,1),(152,71,7,4,120.00,'2025-03-29 22:40:54',66,6),(153,72,8,1,80.00,'2025-03-29 22:41:08',NULL,1),(154,72,9,1,50.00,'2025-03-29 22:41:08',NULL,1),(155,73,1,2,100.00,'2025-03-30 08:05:24',66,2),(156,73,2,2,150.00,'2025-03-30 08:05:24',70,2),(157,74,2,1,142.50,'2025-03-30 08:13:03',NULL,1);
 /*!40000 ALTER TABLE `reservationdetail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -304,7 +310,7 @@ DROP TABLE IF EXISTS `reservationdetailstatus`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservationdetailstatus` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `status` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -328,8 +334,8 @@ DROP TABLE IF EXISTS `reservationstatus`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservationstatus` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -352,8 +358,8 @@ DROP TABLE IF EXISTS `rolefeature`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rolefeature` (
-  `role_id` int(11) NOT NULL,
-  `feature_id` int(11) NOT NULL,
+  `role_id` int NOT NULL,
+  `feature_id` int NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`role_id`,`feature_id`),
   KEY `feature_id` (`feature_id`),
@@ -369,7 +375,7 @@ CREATE TABLE `rolefeature` (
 
 LOCK TABLES `rolefeature` WRITE;
 /*!40000 ALTER TABLE `rolefeature` DISABLE KEYS */;
-INSERT INTO `rolefeature` VALUES (12,20,1),(12,21,1),(12,22,1),(12,23,1),(12,24,1),(12,28,1),(12,29,1),(12,33,1),(12,37,1),(12,38,1),(13,17,1),(13,18,1),(14,7,1),(14,8,1),(14,9,1),(14,10,1),(14,11,1),(14,13,1),(14,14,1),(14,15,1),(14,16,1),(14,17,1),(14,18,1),(14,26,1),(14,30,1),(14,32,1),(14,36,1),(15,2,1),(15,3,1),(15,4,1),(15,5,1),(15,34,1),(15,35,1),(15,39,1),(16,2,1),(16,3,1),(16,4,1),(16,5,1),(16,6,1),(16,7,1),(16,8,1),(16,9,1),(16,10,1),(16,11,1),(16,13,1),(16,14,1),(16,15,1),(16,16,1),(16,17,1),(16,18,1),(16,20,1),(16,21,1),(16,22,1),(16,23,1),(16,24,1),(16,26,1),(16,28,1),(16,29,1),(16,30,1),(16,32,1),(16,33,1),(16,34,1),(16,35,1),(16,36,1),(16,37,1),(16,38,1),(16,39,1);
+INSERT INTO `rolefeature` VALUES (12,20,1),(12,21,1),(12,22,1),(12,23,1),(12,24,1),(12,28,1),(12,29,1),(12,33,1),(12,37,1),(12,38,1),(13,17,1),(13,18,1),(14,7,1),(14,8,1),(14,9,1),(14,10,1),(14,11,1),(14,13,1),(14,14,1),(14,15,1),(14,16,1),(14,17,1),(14,18,1),(14,20,1),(14,26,1),(14,30,1),(14,32,1),(14,36,1),(15,2,1),(15,3,1),(15,4,1),(15,5,1),(15,6,1),(15,34,1),(15,35,1),(15,39,1);
 /*!40000 ALTER TABLE `rolefeature` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -381,11 +387,11 @@ DROP TABLE IF EXISTS `service`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `service` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `description` text,
   `brief_info` text,
-  `category_id` int(11) NOT NULL,
+  `category_id` int NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `discount` decimal(5,2) DEFAULT NULL,
   `thumbnail` varchar(200) DEFAULT NULL,
@@ -395,7 +401,7 @@ CREATE TABLE `service` (
   PRIMARY KEY (`id`),
   KEY `_idx` (`category_id`),
   CONSTRAINT `` FOREIGN KEY (`category_id`) REFERENCES `setting` (`setting_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -416,8 +422,8 @@ DROP TABLE IF EXISTS `setting`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `setting` (
-  `setting_id` int(11) NOT NULL AUTO_INCREMENT,
-  `type_id` int(11) NOT NULL,
+  `setting_id` int NOT NULL AUTO_INCREMENT,
+  `type_id` int NOT NULL,
   `value` varchar(200) NOT NULL,
   `description` varchar(200) DEFAULT NULL,
   `status` bit(1) NOT NULL DEFAULT b'1',
@@ -433,7 +439,7 @@ CREATE TABLE `setting` (
 
 LOCK TABLES `setting` WRITE;
 /*!40000 ALTER TABLE `setting` DISABLE KEYS */;
-INSERT INTO `setting` VALUES (2,1,'General Checkup','Regular health checkups for 1children to monitor growth.',_binary ''),(3,1,'Vaccination','Vaccination services to protect children from various diseases.',_binary ''),(4,1,'Nutrition','Nutritional advice and dietary plans for children.',_binary ''),(5,1,'Dental Care','Dental health services for children, including checkups and treatments.',_binary ''),(6,1,'Emergency Care','Emergency medical services for children.',_binary ''),(7,1,'Physical Therapy','Physical therapy services to support children with movement issues.',_binary ''),(8,1,'Mental Health','Mental health support and counseling for children.',_binary ''),(9,2,'Health Tips','Posts related to health tips for children.',_binary ''),(10,2,'Vaccination','Posts related to vaccination information.',_binary ''),(11,2,'Nutrition','Posts related to child nutrition.',_binary ''),(12,3,'Admin','Adminstrator with permissions for config',_binary ''),(13,3,'Staff','Medical professional providing health services',_binary ''),(14,3,'Manager','Manage and assign staff in the operations',_binary ''),(15,3,'Customer','User who using the services.',_binary ''),(16,3,'Dev','Role for developer',_binary '');
+INSERT INTO `setting` VALUES (2,1,'General Checkup','Regular health checkups for 1children to monitor growth.',_binary ''),(3,1,'Vaccination','Vaccination services to protect children from various diseases.',_binary ''),(4,1,'Nutrition','Nutritional advice and dietary plans for children.',_binary ''),(5,1,'Dental Care','Dental health services for children, including checkups and treatments.',_binary ''),(6,1,'Emergency Care','Emergency medical services for children.',_binary ''),(7,1,'Physical Therapy','Physical therapy services to support children with movement issues.',_binary ''),(8,1,'Mental Health','Mental health support and counseling for children.',_binary ''),(9,2,'Health Tips','Posts related to health tips for children.',_binary ''),(10,2,'Vaccination','Posts related to vaccination information.',_binary ''),(11,2,'Nutrition','Posts related to child nutrition.',_binary ''),(12,3,'Admin','Adminstrator with permissions for config',_binary ''),(13,3,'Staff','Medical professional providing health services',_binary ''),(14,3,'Manager','Manage and assign staff in the operations',_binary ''),(15,3,'Customer','User who using the services.',_binary '');
 /*!40000 ALTER TABLE `setting` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -445,7 +451,7 @@ DROP TABLE IF EXISTS `settingtype`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `settingtype` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -469,11 +475,11 @@ DROP TABLE IF EXISTS `slider`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `slider` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `image_url` varchar(200) NOT NULL,
   `back_link` varchar(200) DEFAULT NULL,
-  `author_id` int(11) NOT NULL,
+  `author_id` int NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -489,7 +495,7 @@ CREATE TABLE `slider` (
 
 LOCK TABLES `slider` WRITE;
 /*!40000 ALTER TABLE `slider` DISABLE KEYS */;
-INSERT INTO `slider` VALUES (1,'Welcome to Children Care','assets/images/slider/slider1.jpg','/app',1,1,'2025-01-31 23:46:55','2025-02-15 17:00:57'),(2,'Healthy Kids, Happy Parents','assets/images/slider/slider2.jpg','/services',1,1,'2025-01-31 23:46:55','2025-02-15 17:00:58'),(3,'Book an Appointment Today','assets/images/slider/slider3.jpg','/appointment',1,1,'2025-01-31 23:46:55','2025-02-15 17:00:59'),(4,'Fun Activities for Kids','assets/images/slider/slider4.jpg','/activities',1,1,'2025-02-08 23:38:14','2025-02-15 17:01:00'),(5,'Expert Childcare Services','assets/images/slider/slider5.jpg','/services',1,1,'2025-02-08 23:38:14','2025-02-15 17:00:56'),(6,'Your Child’s Health Matters','assets/images/slider/slider6.jpg','/health',1,0,'2025-02-08 23:38:14','2025-02-11 21:25:42'),(7,'Educational Programs','assets/images/slider/slider7.jpg','/education',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(8,'Nutritional Guidance','assets/images/slider/slider8.jpg','/nutrition',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(9,'Safe and Secure Environment','assets/images/slider/slider9.jpg','/safety',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(10,'Engaging Playtime','assets/images/slider/slider10.jpg','/play',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(11,'Caring and Supportive Staff','assets/images/slider/slider11.jpg','/team',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(12,'Parental Involvement','assets/images/slider/slider12.jpg','/parents',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35'),(13,'Book a Consultation','assets/images/slider/slider13.jpg','/consultation',1,1,'2025-02-08 23:38:14','2025-02-08 23:52:35');
+INSERT INTO `slider` VALUES (1,'Welcome to Children Care','assets/images/slider/slider1.jpg','/blog?id=1',72,1,'2025-01-31 23:46:55','2025-03-30 00:39:44'),(2,'Healthy Kids, Happy Parents','assets/images/slider/slider2.jpg','/blog?id=2',72,1,'2025-01-31 23:46:55','2025-03-30 00:39:44'),(3,'Book an Appointment Today','assets/images/slider/slider3.jpg','/blog?id=3',72,1,'2025-01-31 23:46:55','2025-03-30 00:39:44'),(4,'Fun Activities for Kids','assets/images/slider/slider4.jpg','/blog?id=16',72,1,'2025-02-08 23:38:14','2025-03-30 00:39:44'),(5,'Expert Childcare Services','assets/images/slider/slider5.jpg','/blog?id=17',72,1,'2025-02-08 23:38:14','2025-03-30 00:39:44'),(6,'Your Child’s Health Matters','assets/images/slider/slider6.jpg','/blog?id=18',72,0,'2025-02-08 23:38:14','2025-03-30 00:39:44'),(7,'Educational Programs','assets/images/slider/slider7.jpg','/blog?id=19',72,1,'2025-02-08 23:38:14','2025-03-30 00:39:44'),(8,'Nutritional Guidance','assets/images/slider/slider8.jpg','/blog?id=20',72,1,'2025-02-08 23:38:14','2025-03-30 00:39:44'),(9,'Safe and Secure Environment','assets/images/slider/slider9.jpg','/blog?id=21',72,1,'2025-02-08 23:38:14','2025-03-30 00:39:44'),(10,'Engaging Playtime','assets/images/slider/slider10.jpg','/blog?id=22',72,1,'2025-02-08 23:38:14','2025-03-30 00:39:44'),(11,'Caring and Supportive Staff','assets/images/slider/slider11.jpg','/blog?id=23',72,1,'2025-02-08 23:38:14','2025-03-30 00:39:44'),(12,'Parental Involvement','assets/images/slider/slider12.jpg','/blog?id=24',72,1,'2025-02-08 23:38:14','2025-03-30 00:39:44'),(13,'Book a Consultation','assets/images/slider/slider13.jpg','/blog?id=25',72,1,'2025-02-08 23:38:14','2025-03-30 00:39:44');
 /*!40000 ALTER TABLE `slider` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -501,14 +507,14 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `email_verified` tinyint(1) DEFAULT '0',
   `verification_token` varchar(255) DEFAULT NULL,
   `token_expiration` datetime DEFAULT NULL,
-  `role_id` int(11) NOT NULL DEFAULT '15',
+  `role_id` int NOT NULL DEFAULT '15',
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -521,7 +527,7 @@ CREATE TABLE `user` (
   KEY `IX_User_Username` (`username`),
   KEY `userrole_fk1_idx` (`role_id`),
   CONSTRAINT `userrole_fk1` FOREIGN KEY (`role_id`) REFERENCES `setting` (`setting_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -530,7 +536,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin1','123','nvtai24norip@gmail.com',1,NULL,NULL,16,1,'2025-01-31 23:46:55','2025-03-28 22:53:53',NULL,NULL),(2,'staff2','123','doctor1@childrencare.com',1,NULL,NULL,13,1,'2025-01-31 23:46:55','2025-03-28 22:53:53',NULL,NULL),(3,'customer1','123','parent1@childrencare.com',1,NULL,NULL,15,1,'2025-01-31 23:46:55','2025-03-28 22:53:53',NULL,NULL),(4,'staff1','123','staff1@childrencare.com',1,NULL,NULL,13,1,'2025-01-31 23:46:55','2025-03-28 22:53:53',NULL,NULL),(29,'anhdm','123','ameebro@gmail.com',1,NULL,NULL,14,1,'2025-03-06 09:00:12','2025-03-28 23:23:42',NULL,NULL),(32,'quyen123','Ducquyen123','milo9a@gmail.com',1,NULL,NULL,16,1,'2025-03-06 09:17:41','2025-03-28 23:17:07',NULL,NULL),(35,'devip','123','buiblue12@gmail.com',1,NULL,NULL,16,1,'2025-03-15 23:35:07','2025-03-28 23:13:04',NULL,NULL),(36,'long','123','long@gmail.com',1,NULL,NULL,14,1,'2025-03-19 22:05:14','2025-03-28 22:53:53',NULL,NULL),(65,'Anhngu','u3sh8d7G+0dnoMmSylCVIy57/f0=','milo9a523@gmail.com',1,NULL,NULL,15,1,'2025-03-26 21:55:06','2025-03-28 22:55:33',NULL,NULL),(66,'staffA','p4WJw3jDgrGaeH59dEFuRLuzwXY=','dominhchi235@gmail.com',1,NULL,NULL,13,1,'2025-03-28 22:53:15','2025-03-28 22:55:33',NULL,NULL),(67,'staffB','p4WJw3jDgrGaeH59dEFuRLuzwXY=','anhdmhe181481@fpt.edu.vn',1,NULL,NULL,13,1,'2025-03-28 22:59:12','2025-03-28 23:08:45',NULL,NULL),(68,'staffC','p4WJw3jDgrGaeH59dEFuRLuzwXY=','staff1@gmail.com',1,NULL,NULL,13,1,'2025-03-28 23:04:12','2025-03-28 23:08:57',NULL,NULL),(69,'staffD','p4WJw3jDgrGaeH59dEFuRLuzwXY=','staff2@gmail.com',1,NULL,NULL,13,1,'2025-03-28 23:05:33','2025-03-28 23:08:57',NULL,NULL),(70,'staffE','p4WJw3jDgrGaeH59dEFuRLuzwXY=','staff3@gmail.com',1,NULL,NULL,13,1,'2025-03-28 23:06:41','2025-03-28 23:08:57',NULL,NULL),(71,'adminA','p4WJw3jDgrGaeH59dEFuRLuzwXY=','buiblue123@gmail.com',1,NULL,NULL,16,1,'2025-03-28 23:15:20','2025-03-28 23:16:17',NULL,NULL),(72,'managerA','p4WJw3jDgrGaeH59dEFuRLuzwXY=','milo9a5@gmail.com',1,NULL,NULL,14,1,'2025-03-28 23:19:33','2025-03-28 23:20:30',NULL,NULL),(73,'managerB','p4WJw3jDgrGaeH59dEFuRLuzwXY=','quyenndhe181686@fpt.edu.vn',1,NULL,NULL,14,1,'2025-03-28 23:21:59','2025-03-28 23:22:31',NULL,NULL),(74,'customerA','p4WJw3jDgrGaeH59dEFuRLuzwXY=','ameebro99@gmail.com',1,NULL,NULL,15,1,'2025-03-28 23:26:11','2025-03-28 23:26:42',NULL,NULL),(75,'customerB','p4WJw3jDgrGaeH59dEFuRLuzwXY=','tainvhe187366@fpt.edu.vn',1,NULL,NULL,15,1,'2025-03-28 23:28:12','2025-03-28 23:28:41',NULL,NULL);
+INSERT INTO `user` VALUES (66,'staffA','p4WJw3jDgrGaeH59dEFuRLuzwXY=','dominhchi235@gmail.com',1,NULL,NULL,13,1,'2025-03-28 22:53:15','2025-03-28 22:55:33',NULL,NULL),(67,'staffB','p4WJw3jDgrGaeH59dEFuRLuzwXY=','anhdmhe181481@fpt.edu.vn',1,NULL,NULL,13,1,'2025-03-28 22:59:12','2025-03-28 23:08:45',NULL,NULL),(68,'staffC','p4WJw3jDgrGaeH59dEFuRLuzwXY=','staff1@gmail.com',1,NULL,NULL,13,1,'2025-03-28 23:04:12','2025-03-28 23:08:57',NULL,NULL),(69,'staffD','p4WJw3jDgrGaeH59dEFuRLuzwXY=','staff2@gmail.com',1,NULL,NULL,13,1,'2025-03-28 23:05:33','2025-03-28 23:08:57',NULL,NULL),(70,'staffE','p4WJw3jDgrGaeH59dEFuRLuzwXY=','staff3@gmail.com',1,NULL,NULL,13,1,'2025-03-28 23:06:41','2025-03-28 23:08:57',NULL,NULL),(71,'adminA','p4WJw3jDgrGaeH59dEFuRLuzwXY=','buiblue123@gmail.com',1,NULL,NULL,12,1,'2025-03-28 23:15:20','2025-03-29 21:41:38',NULL,NULL),(72,'managerA','p4WJw3jDgrGaeH59dEFuRLuzwXY=','milo9a5@gmail.com',1,NULL,NULL,14,1,'2025-03-28 23:19:33','2025-03-28 23:20:30',NULL,NULL),(73,'managerB','p4WJw3jDgrGaeH59dEFuRLuzwXY=','quyenndhe181686@fpt.edu.vn',1,NULL,NULL,14,1,'2025-03-28 23:21:59','2025-03-28 23:22:31',NULL,NULL),(74,'customerA','p4WJw3jDgrGaeH59dEFuRLuzwXY=','ameebro99@gmail.com',1,NULL,NULL,15,1,'2025-03-28 23:26:11','2025-03-30 00:17:22',NULL,NULL),(75,'customerB','p4WJw3jDgrGaeH59dEFuRLuzwXY=','tainvhe187366@fpt.edu.vn',1,NULL,NULL,15,1,'2025-03-28 23:28:12','2025-03-28 23:28:41',NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -542,9 +548,9 @@ DROP TABLE IF EXISTS `wishlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `wishlist` (
-  `user_id` int(11) NOT NULL,
-  `service_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
+  `user_id` int NOT NULL,
+  `service_id` int NOT NULL,
+  `quantity` int NOT NULL,
   PRIMARY KEY (`user_id`,`service_id`),
   KEY `service_id` (`service_id`),
   CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
@@ -570,4 +576,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-29  0:49:38
+-- Dump completed on 2025-04-06 12:52:22
