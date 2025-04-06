@@ -102,8 +102,10 @@ public class ServiceCreateController extends HttpServlet {
         }
 
         // Tạo URL để lưu vào database
+        if (fileName.isEmpty()) {
+            fileName = "default-thumbnail.jpg";
+        }
         String fileURL = "assets/images/services/" + fileName;
-
         // Khởi tạo đối tượng Service
         Service s = new Service();
 

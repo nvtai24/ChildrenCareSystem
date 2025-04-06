@@ -135,7 +135,7 @@
                                                             <c:forEach var="c" items="${comments}">
                                                                 <li class="comment">
                                                                     <div class="comment-body">
-                                                                        <div class="comment-author vcard"> <img  class="avatar photo" src="${c.avatar}" alt=""> <cite class="fn">${c.lastName} ${c.firstName}</cite> <span class="says">says:</span> </div>
+                                                                        <div class="comment-author vcard"> <img  class="avatar photo" src="${c.avatar != null ? c.avatar : "assets/images/profile/default.jpg"}" alt=""> <cite class="fn">${c.lastName} ${c.firstName}</cite> <span class="says">says:</span> </div>
                                                                         <div class="comment-meta"> <a>${c.createdDate}</a> </div>
                                                                         <p>${c.comment} </p>
 

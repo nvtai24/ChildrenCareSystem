@@ -39,7 +39,6 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String usernameOrEmail = request.getParameter("dzName");
         String password = request.getParameter("dzPassword");
-        boolean rememberMe = request.getParameter("customControlAutosizing") != null;
         UserDAO udb = new UserDAO();
         String hashedPassword = PasswordUtil.toSHA1(password);
         User user = udb.get(usernameOrEmail, hashedPassword);

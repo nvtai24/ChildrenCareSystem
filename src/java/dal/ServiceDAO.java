@@ -314,7 +314,6 @@ public class ServiceDAO extends DBContext {
                 double discount = rs.getDouble("discount");
                 String thumbnail = rs.getString("thumbnail");
                 LocalDateTime created = rs.getTimestamp("created_date").toLocalDateTime();
-                LocalDateTime updated = rs.getTimestamp("updated_date").toLocalDateTime();
 
                 int cid = rs.getInt("category_id");
 
@@ -327,7 +326,6 @@ public class ServiceDAO extends DBContext {
                 s.setDiscount(discount);
                 s.setThumbnail(thumbnail);
                 s.setCreatedDate(created);
-                s.setUpdatedDate(updated);
 
                 CategoryDAO cDB = new CategoryDAO();
                 Category c = cDB.getCategoryById(cid);
