@@ -20,9 +20,11 @@ import model.Profile;
 import model.auth.Role;
 import model.auth.User;
 
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 10, // 10MB
-        maxRequestSize = 1024 * 1024 * 50)   // 50MB
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 2, // 2MB (threshold for buffering)
+        maxFileSize = 1024 * 1024 * 50, // 50MB (maximum file size for a single file)
+        maxRequestSize = 1024 * 1024 * 200 // 200MB (maximum size of the entire request)
+)
 public class UserUpdateController extends HttpServlet {
 
     @Override
@@ -31,19 +33,23 @@ public class UserUpdateController extends HttpServlet {
         UserDAO uDB = new UserDAO();
         RoleDAO rDB = new RoleDAO();
 
-        int userId = Integer.parseInt(request.getParameter("id"));
-        User user = uDB.get(userId);
+        try {
+            int userId = Integer.parseInt(request.getParameter("id"));
+            User user = uDB.get(userId);
 
-        request.setAttribute("user", user);
-        request.setAttribute("roles", rDB.listAllAvailableRole());
+            request.setAttribute("user", user);
+            request.setAttribute("roles", rDB.listAllAvailableRole());
 
-        request.getRequestDispatcher("../dashboard/userDetail.jsp").forward(request, response);
+            request.getRequestDispatcher("../dashboard/userDetail.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.getRequestDispatcher("../dashboard/userDetail.jsp").forward(request, response);
+        }
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
             int userId = Integer.parseInt(request.getParameter("id"));
             String firstName = request.getParameter("firstname").trim();
@@ -123,6 +129,9 @@ public class UserUpdateController extends HttpServlet {
         }
 
         String fileName = getFileName(filePart);
+        if (!isValidImageExtension(fileName)) {
+            throw new ServletException("Invalid file type! Only image files are allowed.");
+        }
         String uploadPath = request.getServletContext().getRealPath("/assets/images/profile").replace("/build", "");
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
@@ -162,5 +171,27 @@ public class UserUpdateController extends HttpServlet {
             return null;
         }
         return input.replaceAll("\\s+", "");
+    }
+
+    private boolean isValidImageExtension(String fileName) {
+        // Các đuôi file hợp lệ
+        String[] validExtensions = {"jpg", "jpeg", "png", "gif"};
+        String fileExtension = getFileExtension(fileName);
+
+        // Kiểm tra xem file có đuôi hợp lệ không
+        for (String ext : validExtensions) {
+            if (fileExtension.equalsIgnoreCase(ext)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String getFileExtension(String fileName) {
+        int dotIndex = fileName.lastIndexOf(".");
+        if (dotIndex > 0) {
+            return fileName.substring(dotIndex + 1);
+        }
+        return "";
     }
 }

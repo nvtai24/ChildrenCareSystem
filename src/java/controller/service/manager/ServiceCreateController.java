@@ -23,9 +23,11 @@ import model.Service;
  *
  * @author Admin
  */
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 10, // 10MB
-        maxRequestSize = 1024 * 1024 * 50)   // 50MB
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 2, // 2MB (threshold for buffering)
+        maxFileSize = 1024 * 1024 * 50, // 50MB (maximum file size for a single file)
+        maxRequestSize = 1024 * 1024 * 200 // 200MB (maximum size of the entire request)
+)
 public class ServiceCreateController extends HttpServlet {
 
     @Override
@@ -65,7 +67,17 @@ public class ServiceCreateController extends HttpServlet {
 
         // Xử lý upload file ảnh
         Part filePart = request.getPart("thumbnail"); // Lấy file ảnh từ request
-        String fileName = getFileName(filePart); // Lấy tên file
+        String fileName = null;
+        try {
+            fileName = getFileName(filePart); // Lấy tên file
+            if (!isValidImageExtension(fileName)) {
+                throw new ServletException("Invalid file type! Only image files are allowed.");
+            }
+        } catch (Exception e) {
+            request.setAttribute("notification", "false");
+            request.setAttribute("listCategory", list);
+            request.getRequestDispatcher("../dashboard/manager/serviceCreate.jsp").forward(request, response);
+        }
 
         // Lấy đường dẫn thư mục lưu ảnh
         String uploadPath = request.getServletContext().getRealPath("/assets/images/services");
@@ -94,12 +106,7 @@ public class ServiceCreateController extends HttpServlet {
 
         // Lưu file vào server
         String filePath = uploadPath + File.separator + fileName;
-        try {
-            filePart.write(filePath);
-            System.out.println(" anh da luu tai: " + filePath);
-        } catch (IOException e) {
-            System.out.println(" Loi khi tai anh: " + e.getMessage());
-        }
+        filePart.write(filePath);
 
         // Tạo URL để lưu vào database
         if (fileName.isEmpty()) {
@@ -149,7 +156,9 @@ public class ServiceCreateController extends HttpServlet {
             s.setCategory(c);
 
             // Lưu vào database
-            db.createService(s);
+            if (!db.createService(s)) {
+                throw new IllegalArgumentException();
+            }
 
             // Redirect về danh sách dịch vụ
             request.setAttribute("notification", "successfull");
@@ -176,5 +185,27 @@ public class ServiceCreateController extends HttpServlet {
             }
         }
         return null; // Trả về null nếu không tìm thấy tên file
+    }
+
+    private boolean isValidImageExtension(String fileName) {
+        // Các đuôi file hợp lệ
+        String[] validExtensions = {"jpg", "jpeg", "png", "gif"};
+        String fileExtension = getFileExtension(fileName);
+
+        // Kiểm tra xem file có đuôi hợp lệ không
+        for (String ext : validExtensions) {
+            if (fileExtension.equalsIgnoreCase(ext)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String getFileExtension(String fileName) {
+        int dotIndex = fileName.lastIndexOf(".");
+        if (dotIndex > 0) {
+            return fileName.substring(dotIndex + 1);
+        }
+        return "";
     }
 }

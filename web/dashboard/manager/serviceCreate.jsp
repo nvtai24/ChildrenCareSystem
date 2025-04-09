@@ -59,32 +59,10 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/style.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/color/color-1.css">
-        <style>
-            .service-image-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: #f8f9fa;
-                padding: 15px;
-                border-radius: 8px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                text-align: center;
-                margin-top: 15px;
-                max-width: 250px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .service-image-container img {
-                width: 100%;
-                height: auto;
-                border-radius: 10px;
-                border: 2px solid #ddd;
-                transition: transform 0.3s ease-in-out;
-            }
-
-            .service-image-container img:hover {
-                transform: scale(1.05);
+        <style>           
+            #imagePreview{
+                width: 200px;
+                height: 150px;
             }
         </style>
 
@@ -185,7 +163,7 @@
                                         <!-- Thumbnail Upload -->
                                         <div class="col-md-6">
                                             <label class="col-form-label">Thumbnail URL</label>
-                                            <div class="service-image-container">
+                                            <div class="service-image">
                                                 <img id="imagePreview" src="${pageContext.request.contextPath}\assets\images\services\default-thumbnail.jpg" alt="Service Image">
                                             </div>
                                             <label for="thumbnail" class="btn btn-light mt-2">Choose Thumbnail</label>
@@ -276,20 +254,40 @@
 
 // Validate service name
             function validateServiceName(value) {
-                if (value === "") {
+                if (!value || value.trim() === "") {
                     return "Service name cannot be empty.";
                 }
+
+                const trimmed = value.trim();
+
+                if (trimmed.length > 100) {
+                    return "Service name cannot be longer than 100 characters.";
+                }
+
                 return true;
             }
 
 // Validate service price
+            // Validate service price
             function validateServicePrice(value) {
                 if (value === "") {
                     return "Price cannot be empty.";
                 }
-                if (isNaN(value) || parseFloat(value) <= 0) {
+
+                const price = parseFloat(value);
+
+                if (isNaN(price) || price <= 0) {
                     return "Price must be a positive number.";
                 }
+
+                if (!/^\d+(\.\d{1,2})?$/.test(value)) {
+                    return "Price must have at most 2 decimal places.";
+                }
+
+                if (price >= 9999999.99) {
+                    return "Price cannot be greater than 9,999,999.99$";
+                }
+
                 return true;
             }
 
@@ -301,6 +299,11 @@
                 if (isNaN(value) || parseFloat(value) < 0 || parseFloat(value) > 100) {
                     return "Discount must be between 0 and 100.";
                 }
+
+                if (!/^\d+(\.\d{1,2})?$/.test(value)) {
+                    return "Discount must have at most 2 decimal places.";
+                }
+
                 return true;
             }
 

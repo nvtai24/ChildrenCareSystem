@@ -17,7 +17,7 @@ import util.Vnpay;
 
 public class PaymentController extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String payment = request.getParameter("payment");
         HttpSession session = request.getSession();
         Reservation r = (Reservation) session.getAttribute("r");

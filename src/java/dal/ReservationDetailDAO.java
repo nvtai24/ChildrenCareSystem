@@ -178,7 +178,7 @@ public class ReservationDetailDAO extends DBContext {
         ResultSet rs = null;
         ArrayList<ReservationDetail> list = new ArrayList<>();
         try {
-            rs = db.executeQuery(sql, reservationId,staffId);
+            rs = db.executeQuery(sql, reservationId, staffId);
 
             while (rs.next()) {
                 ReservationDetail rd = new ReservationDetail();
@@ -223,6 +223,22 @@ public class ReservationDetailDAO extends DBContext {
             }
         }
         return list;
+    }
+
+    public String getServiceNameByReservationDetailID(int id) {
+        DBContext db = new DBContext();
+        String sql = "select s.name from reservationdetail rd join service s on rd.service_id = s.id where rd.id = ? ";
+
+        try {
+            ResultSet rs = executeQuery(sql, id);
+            if (rs.next()) {
+                return rs.getString("name");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservationDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+
+        return null;
     }
 
 }

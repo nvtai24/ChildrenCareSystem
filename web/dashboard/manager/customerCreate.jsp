@@ -245,172 +245,147 @@
                     });
             </script>
         </c:if>
+
         <script>
-            $(document).ready(function () {
-                function validateForm() {
-                    var isValid = true;
+            function validateField(fieldId, errorId, validationFunction) {
+                const field = document.getElementById(fieldId);
+                const errorElement = document.getElementById(errorId);
+                const value = field.value.trim();
+                const result = validationFunction(value);
+                if (result !== true) {
+                    errorElement.textContent = result;
+                    return false;
+                } else {
+                    errorElement.textContent = "";
+                    return true;
+                }
+            }
 
-                    // Validate Username with AJAX
-                    var username = $("#username").val().trim();
-                    var usernameRegex = /^[A-Za-z0-9]{5,30}$/;
-                    if (!usernameRegex.test(username)) {
-                        $("#usernameError").text("Username must be 5-30 characters and cannot contain spaces.");
-                        isValid = false;
-                    } else {
-                        $("#usernameError").text("");
-                        $.ajax({
-                            url: "../customer/add",
-                            type: "GET",
-                            data: {action: "checkUsername", username: username},
-                            async: false,
-                            success: function (response) {
-                                if (response === "exists") {
-                                    $("#usernameError").text("Username already exists.");
-                                    isValid = false;
-                                } else {
-                                    $("#usernameError").text("");
-                                }
-                            }
-                        });
-                    }
+            function validateUsername(value) {
+                if (!/^[A-Za-z0-9]{5,30}$/.test(value))
+                    return "Username must be 5-30 characters without spaces.";
+                return true;
+            }
 
-                    // Validate Email with AJAX
-                    var email = $("#email").val().trim();
-                    var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-                    if (!emailRegex.test(email)) {
-                        $("#emailError").text("Invalid email format.");
-                        isValid = false;
-                    } else {
-                        $("#emailError").text("");
-                        $.ajax({
-                            url: "../customer/add",
-                            type: "GET",
-                            data: {action: "checkEmail", email: email},
-                            async: false,
-                            success: function (response) {
-                                if (response === "exists") {
-                                    $("#emailError").text("Email already exists.");
-                                    isValid = false;
-                                } else {
-                                    $("#emailError").text("");
-                                }
-                            }
-                        });
-                    }
+            function validateEmail(value) {
+                if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(value))
+                    return "Invalid email format.";
+                return true;
+            }
 
-                    // Validate Password
-                    var password = $("#password").val();
-                    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+{}:;<>,.?\/~\\\-]{8,15}$/;
-                    if (!passwordRegex.test(password)) {
-                        $("#passwordError").text("Password must be 8-15 characters with at least one uppercase letter, one lowercase letter, and one number.");
-                        isValid = false;
-                    } else {
-                        $("#passwordError").text("");
-                    }
+            function validatePassword(value) {
+                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$/;
+                if (!passwordRegex.test(value))
+                    return "Password must be 8-15 chars with uppercase, lowercase & number.";
+                return true;
+            }
 
-                    // Validate Confirm Password
-                    var confirmPassword = $("#confirmPassword").val();
-                    if (password !== confirmPassword) {
-                        $("#confirmPasswordError").text("Passwords do not match!");
-                        isValid = false;
-                    } else {
-                        $("#confirmPasswordError").text("");
-                    }
+            function validateConfirmPassword(value) {
+                const password = $("#password").val();
+                if (value !== password)
+                    return "Passwords do not match.";
+                return true;
+            }
 
-                    // Validate First Name & Last Name (Only Letters)
-                    var nameRegex = /^[A-Za-z\s]+$/;
-                    var firstName = $("#firstName").val().trim();
-                    if (firstName === "") {
-                        $("#firstNameError").text("First name cannot be empty.");
-                        isValid = false;
-                    } else if (!nameRegex.test(firstName)) {
-                        $("#firstNameError").text("First name can only contain letters.");
-                        isValid = false;
-                    } else {
-                        $("#firstNameError").text("");
-                    }
+            function validateName(value) {
+                if (value === "")
+                    return "This field cannot be empty.";
+                if (!/^[A-Za-z\s]+$/.test(value))
+                    return "Only letters are allowed.";
+                return true;
+            }
 
-                    var lastName = $("#lastName").val().trim();
-                    if (lastName === "") {
-                        $("#lastNameError").text("Last name cannot be empty.");
-                        isValid = false;
-                    } else if (!nameRegex.test(lastName)) {
-                        $("#lastNameError").text("Last name can only contain letters.");
-                        isValid = false;
-                    } else {
-                        $("#lastNameError").text("");
-                    }
+            function validateDob(value) {
+                if (value === "")
+                    return "Date of birth cannot be empty.";
+                const today = new Date().toISOString().split("T")[0];
+                if (value > today)
+                    return "Date of birth cannot be in the future.";
+                return true;
+            }
 
-                    // Validate Date of Birth
-                    var dob = $("#dob").val().trim();
-                    if (dob === "") {
-                        $("#dobError").text("Date of birth cannot be empty.");
-                        isValid = false;
-                    } else {
-                        $("#dobError").text("");
-                    }
+            function validateAddress(value) {
+                if (value === "")
+                    return "Address cannot be empty.";
+                return true;
+            }
 
-                    // Validate Address
-                    var address = $("#address").val().trim();
-                    if (address === "") {
-                        $("#addressError").text("Address cannot be empty.");
-                        isValid = false;
-                    } else {
-                        $("#addressError").text("");
-                    }
+            function validatePhone(value) {
+                const phoneRegex = /^(?!-)(?!.*--)[0-9-]{7,15}(?<!-)$/;
+                if (!phoneRegex.test(value))
+                    return "Phone must be 7-15 digits, allow '-' (not start/end or consecutive).";
+                return true;
+            }
 
-                    // Validate Phone Number (7-15 digits, can include "-")
-                    var phone = $("#phone").val().trim();
-                    var phoneRegex = /^(?!-)(?!.*--)[0-9-]{7,15}(?<!-)$/;
-                    if (!phoneRegex.test(phone)) {
-                        $("#phoneError").text("Phone number must be 7-15 digits and can contain '-' (not consecutive).");
-                        isValid = false;
-                    } else {
-                        $("#phoneError").text("");
-                    }
-                    
-                    // Validate Date of Birth (Must be in the past)
-                    var dob = $("#dob").val().trim();
-                    if (dob === "") {
-                        $("#dobError").text("Date of birth cannot be empty.");
-                        isValid = false;
-                    } else {
-                        var today = new Date().toISOString().split("T")[0]; // 
-                        if (dob > today) {
-                            $("#dobError").text("Date of birth cannot be in the future.");
-                            isValid = false;
-                        } else {
-                            $("#dobError").text("");
-                        }
-                    }
-                    
-                    return isValid;
+            async function checkUsernameUnique(username) {
+                return await $.ajax({
+                    url: "../customer/add",
+                    type: "GET",
+                    data: {action: "checkUsername", username: username}
+                }).then(res => res !== "exists");
+            }
+
+            async function checkEmailUnique(email) {
+                return await $.ajax({
+                    url: "../customer/add",
+                    type: "GET",
+                    data: {action: "checkEmail", email: email}
+                }).then(res => res !== "exists");
+            }
+
+            async function validateForm() {
+                let isValid = true;
+                const username = $("#username").val().trim();
+                const email = $("#email").val().trim();
+                isValid = validateField('username', 'usernameError', validateUsername) && isValid;
+                if (isValid && !(await checkUsernameUnique(username))) {
+                    $("#usernameError").text("Username already exists.");
+                    isValid = false;
                 }
 
+                isValid = validateField('email', 'emailError', validateEmail) && isValid;
+                if (isValid && !(await checkEmailUnique(email))) {
+                    $("#emailError").text("Email already exists.");
+                    isValid = false;
+                }
 
+                isValid = validateField('password', 'passwordError', validatePassword) && isValid;
+                isValid = validateField('confirmPassword', 'confirmPasswordError', validateConfirmPassword) && isValid;
+                isValid = validateField('firstName', 'firstNameError', validateName) && isValid;
+                isValid = validateField('lastName', 'lastNameError', validateName) && isValid;
+                isValid = validateField('dob', 'dobError', validateDob) && isValid;
+                isValid = validateField('address', 'addressError', validateAddress) && isValid;
+                isValid = validateField('phone', 'phoneError', validatePhone) && isValid;
+                return isValid;
+            }
 
+            $(document).ready(function () {
+                $("#username").on("input", () => validateField("username", "usernameError", validateUsername));
+                $("#email").on("input", () => validateField("email", "emailError", validateEmail));
+                $("#password").on("input", () => validateField("password", "passwordError", validatePassword));
+                $("#confirmPassword").on("input", () => validateField("confirmPassword", "confirmPasswordError", validateConfirmPassword));
+                $("#firstName").on("input", () => validateField("firstName", "firstNameError", validateName));
+                $("#lastName").on("input", () => validateField("lastName", "lastNameError", validateName));
+                $("#dob").on("change", () => validateField("dob", "dobError", validateDob));
+                $("#address").on("input", () => validateField("address", "addressError", validateAddress));
+                $("#phone").on("input", () => validateField("phone", "phoneError", validatePhone));
 
+                // Remove the onsubmit attribute from your form element in HTML
+                $("form.contact-bx").removeAttr("onsubmit");
 
-                $("#username, #email, #password, #confirmPassword, #firstName, #lastName, #dob, #address, #phone").on("input", function () {
-                    var fieldId = this.id;
-                    var value = $(this).val().trim();
+                // Then handle the submit event properly
+                $("form.contact-bx").on("submit", async function (e) {
+                    // Always prevent default first
+                    e.preventDefault();
 
-                    if (fieldId === "firstName" || fieldId === "lastName") {
-                        var nameRegex = /^[A-Za-z\s]+$/;
-                        if (!nameRegex.test(value)) {
-                            $("#" + fieldId + "Error").text("This field can only contain letters.");
-                        } else {
-                            $("#" + fieldId + "Error").text("");
-                        }
-                    } else if (value !== "") {
-                        $("#" + fieldId + "Error").text("");
-                    }
-                });
+                    // Run validation and wait for it to complete
+                    const isValid = await validateForm();
 
-                // Prevent form submission if validation fails
-                $("form").on("submit", function (e) {
-                    if (!validateForm()) {
-                        e.preventDefault();
+                    if (isValid) {
+                        // If validation passed, submit the form
+                        this.submit();
+                    } else {
+                        // Show error message
                         Swal.fire({
                             title: 'Oops...',
                             text: 'Please check form again!',
@@ -420,8 +395,8 @@
                     }
                 });
             });
-
-
         </script>
+
+
     </body>
 </html>

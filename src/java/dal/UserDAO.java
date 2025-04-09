@@ -494,7 +494,7 @@ public class UserDAO extends DBContext {
         return list;
     }
 
-    public void UpdateStatusByUser(int id, int status) {
+    public boolean UpdateStatusByUser(int id, int status) {
         DBContext db = new DBContext();
         String sql = "Update user set status = ? where id = ? ";
         int changeStatus = (status == 1 ? 0 : 1);
@@ -503,6 +503,7 @@ public class UserDAO extends DBContext {
             db.executeUpdate(sql, changeStatus, id);
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         } finally {
             try {
                 db.connection.close();
@@ -510,6 +511,8 @@ public class UserDAO extends DBContext {
                 Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+        return true;
     }
 
     public void toggleStatus(String email) {
@@ -577,13 +580,7 @@ public class UserDAO extends DBContext {
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        } 
         return user;
     }
 
@@ -969,4 +966,20 @@ public class UserDAO extends DBContext {
         return availableStaff;
     }
 
+    public ArrayList<String> getEmailManagerRole() {
+        DBContext db = new DBContext();
+        ArrayList<String> listMail = new ArrayList<>();
+        String sql = "select u.email from user u join setting s on u.role_id = s.setting_id where s.value = 'Manager' and u.status = 1;";
+
+        try {
+            ResultSet rs = executeQuery(sql);
+
+            while (rs.next()) {
+                listMail.add(rs.getString("email"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listMail;
+    }
 }

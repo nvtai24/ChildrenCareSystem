@@ -143,7 +143,7 @@
                                             <h4 class="text-dark font-weight-bold">Payment</h4>
                                         </div>
                                         <div class="card-body">
-                                            <form action="/app/reservation/payment" id="submitForm" method="get">
+                                            <form action="/app/reservation/payment" id="submitForm" method="POST">
                                                 <div class="form-check mb-3">
                                                     <input
                                                         class="form-check-input"

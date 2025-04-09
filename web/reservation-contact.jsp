@@ -78,7 +78,7 @@
                                             <h4 class="text-dark font-weight-bold">Reservation Form</h4>
                                             <p class="text-muted">We will get in touch with you shortly</p>
 
-                                            <form method="get" action="/app/reservation/confirm">
+                                            <form method="POST" action="/app/reservation/confirm">
                                                 <!-- Name Fields -->
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">

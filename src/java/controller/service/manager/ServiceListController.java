@@ -79,15 +79,26 @@ public class ServiceListController extends HttpServlet {
                 throws ServletException, IOException {
             // get Id 
             HttpSession session = request.getSession(); // Không tạo mới nếu chưa có session
+            ServiceManagerDAO db = new ServiceManagerDAO();
+            CategoryDAO dbCategory = new CategoryDAO();
+
             if (session != null) {
                 session.removeAttribute("sessionStatus");
                 session.removeAttribute("sessionCategoryId");
             }
             String raw_id = request.getParameter("id");
             int id = Integer.parseInt(raw_id);
-            ServiceManagerDAO db = new ServiceManagerDAO();
-            db.updateStatusById(id);
-            response.sendRedirect("../services/manager");
+            if (db.updateStatusById(id)) {
+                request.setAttribute("notification", "successfull");
+            } else {
+                request.setAttribute("notification", "error");
+            }
+
+            ArrayList<Service> list = db.list();
+            List<Category> listCategory = dbCategory.getAllAvailabelCategories();
+            request.setAttribute("listCategory", listCategory);
+            request.setAttribute("list", list);
+            request.getRequestDispatcher("../dashboard/manager/serviceList.jsp").forward(request, response);
         }
 
     }
@@ -154,6 +165,7 @@ public class ServiceListController extends HttpServlet {
                 session.removeAttribute("sessionCaterogyId");
             }
             String nameService = request.getParameter("nameService").trim();
+            nameService = trimSpaces(nameService);
             if (nameService == null) {
                 response.sendRedirect("services-manager");
             }
@@ -219,5 +231,13 @@ public class ServiceListController extends HttpServlet {
             request.getRequestDispatcher("../dashboard/manager/serviceList.jsp").forward(request, response);
         }
 
+    }
+
+    // Dùng để validate khoảng trắng cách chữ trong string không cách nhau
+    private static String trimSpaces(String input) {
+        if (input == null) {
+            return null;
+        }
+        return input.trim().replaceAll("\\s+", " ");
     }
 }

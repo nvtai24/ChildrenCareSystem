@@ -57,7 +57,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
         //get parameter from form
         String reservationId = request.getParameter("reservation_id");
 
-        Reservation reservation = reservation = rDAO.getReservation(Integer.parseInt(reservationId));
+        Reservation reservation =  rDAO.getReservation(Integer.parseInt(reservationId));
         ArrayList<ReservationDetail> rdList = rdDAO.getListReservationDetail(reservation.getId());
         ArrayList<User> staffList;
         String serviceContent = reservation.getDetails().stream()
@@ -161,7 +161,16 @@ public class ReservationDetailBusinessController extends HttpServlet {
             case "rejectD" -> {
                 int reservation_detail_id = Integer.parseInt(request.getParameter("reservation_detail_id"));
                 if (rdDAO.changeStatusReservationDetail(3, reservation_detail_id)) {
+                    String message3 = generateReservationRejectMessage(
+                            uDAO.get(userId).getProfile().getLastName() + " " + uDAO.get(userId).getProfile().getFirstName(),
+                             formattedDateTime, reservation,
+                             rdDAO.getServiceNameByReservationDetailID(reservation_detail_id));
                     notification = 1;
+
+                    for (String email : uDAO.getEmailManagerRole()) {
+                        EmailUtil.sendReserveNotification(email, "Reject reservation detail", message3);
+                    }
+
                 } else {
                     notification = 3;
                 }
@@ -260,30 +269,34 @@ public class ReservationDetailBusinessController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        RoleDAO roleDAO = new RoleDAO();
-        int userId = (int) session.getAttribute("id");
-        UserDAO uDAO = new UserDAO();
-        ReservationDAO rDAO = new ReservationDAO();
-        ReservationDetailDAO rdDAO = new ReservationDetailDAO();
-        int id = Integer.parseInt(req.getParameter("id"));
-        boolean isStaff = roleDAO.checkStaffRole(userId);
-        Reservation reservation = rDAO.getReservation(id);
+        try {
+            HttpSession session = req.getSession();
+            RoleDAO roleDAO = new RoleDAO();
+            int userId = (int) session.getAttribute("id");
+            UserDAO uDAO = new UserDAO();
+            ReservationDAO rDAO = new ReservationDAO();
+            ReservationDetailDAO rdDAO = new ReservationDetailDAO();
+            int id = Integer.parseInt(req.getParameter("id"));
+            boolean isStaff = roleDAO.checkStaffRole(userId);
+            Reservation reservation = rDAO.getReservation(id);
 
-        ArrayList<ReservationDetail> rdList;
-        if (isStaff) {
-            rdList = rdDAO.getListReservationDetail(id, userId);
-        } else {
-            rdList = rdDAO.getListReservationDetail(id);
+            ArrayList<ReservationDetail> rdList;
+            if (isStaff) {
+                rdList = rdDAO.getListReservationDetail(id, userId);
+            } else {
+                rdList = rdDAO.getListReservationDetail(id);
+            }
+
+            ArrayList<User> staffList = uDAO.getAvailableStaff(reservation.getReverseDate(), id);
+
+            req.setAttribute("r", reservation);
+            req.setAttribute("rdList", rdList);
+            req.setAttribute("staffs", staffList);
+            req.setAttribute("manager", !isStaff);
+            req.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(req, resp);
         }
-
-        ArrayList<User> staffList = uDAO.getAvailableStaff(reservation.getReverseDate(), id);
-
-        req.setAttribute("r", reservation);
-        req.setAttribute("rdList", rdList);
-        req.setAttribute("staffs", staffList);
-        req.setAttribute("manager", !isStaff);
-        req.getRequestDispatcher("dashboard/reservationDetail.jsp").forward(req, resp);
     }
     // Phương thức tạo thông báo cho email
 
@@ -311,6 +324,23 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 r.getId(),
                 serviceContent,
                 action.equalsIgnoreCase("Completed") ? "Your opinion is important to us, and we would greatly appreciate it if you could take a moment to provide feedback on your experience." : ""
+        );
+    }
+
+    private String generateReservationRejectMessage(String nameStaff, String formattedDateTime, Reservation reservation, String nameService) {
+        return String.format(
+                "Dear Manager ,\n\n"
+                + "Your reservation detail you assigned has been rejected by staff  %s.\n\n"
+                + "-----------------------------------------\n"
+                + "+ Rejected time: %s \n"
+                + "+ Reservation ID: %d\n"
+                + "+ Reservation detail service name: %s\n"
+                + "-----------------------------------------\n\n"
+                + "Thank you for using our service!\n",
+                nameStaff,
+                formattedDateTime,
+                reservation.getId(),
+                nameService
         );
     }
 

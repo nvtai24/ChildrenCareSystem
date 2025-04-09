@@ -272,82 +272,83 @@
             </script>
         </c:if>
         <script>
-            $(document).ready(function () {
-                function validateForm() {
-                    var isValid = true;
+            function validateField(fieldId, errorId, validationFunction) {
+                const field = document.getElementById(fieldId);
+                const errorElement = document.getElementById(errorId);
+                const value = field.value.trim();
 
-                    // Validate First Name
-                    var firstName = $("#firstName").val().trim();
-                    if (firstName === "") {
-                        $("#firstNameError").text("First name cannot be empty.");
-                        isValid = false;
-                    } else {
-                        $("#firstNameError").text("");
-                    }
+                const validationResult = validationFunction(value);
 
-                    // Validate Last Name
-                    var lastName = $("#lastName").val().trim();
-                    if (lastName === "") {
-                        $("#lastNameError").text("Last name cannot be empty.");
-                        isValid = false;
-                    } else {
-                        $("#lastNameError").text("");
-                    }
-
-                    // Validate Date of Birth (must be before today)
-                    var dob = $("#dob").val();
-
-                    if (dob === "") {
-                        $("#dobError").text("Date of birth cannot be empty");
-                        isValid = false;
-                    } else {
-                        $("#dobError").text("");
-                    }
-
-                    // Validate Address
-                    var address = $("#address").val().trim();
-                    if (address === "") {
-                        $("#addressError").text("Address cannot be empty.");
-                        isValid = false;
-                    } else {
-                        $("#addressError").text("");
-                    }
-
-                    // Validate Phone Number (7-15 digits, can include "-")
-                    var phone = $("#phone").val().trim();
-                    var phoneRegex = /^(?!-)(?!.*--)[0-9-]{7,15}(?<!-)$/;
-                    if (!phoneRegex.test(phone)) {
-                        $("#phoneError").text("Phone number must be 7-15 digits and can contain '-' (not consecutive).");
-                        isValid = false;
-                    } else {
-                        $("#phoneError").text("");
-                    }
-
-                    // Validate Date of Birth (Must be in the past)
-                    var dob = $("#dob").val().trim();
-                    if (dob === "") {
-                        $("#dobError").text("Date of birth cannot be empty.");
-                        isValid = false;
-                    } else {
-                        var today = new Date().toISOString().split("T")[0]; // 
-                        if (dob > today) {
-                            $("#dobError").text("Date of birth cannot be in the future.");
-                            isValid = false;
-                        } else {
-                            $("#dobError").text("");
-                        }
-                    }
-
-                    return isValid;
+                if (validationResult !== true) {
+                    errorElement.textContent = validationResult;
+                    return false;
+                } else {
+                    errorElement.textContent = "";
+                    return true;
                 }
+            }
 
-                // Validate on input change
-                $("#firstName, #lastName, #dob, #address, #phone").on("input change", function () {
-                    validateForm();
-                });
+            function validateFirstName(value) {
+                if (value === "")
+                    return "First name cannot be empty.";
+                if (value.length > 70)
+                    return "First name must be less than 70 characters.";
+                return true;
+            }
 
-                // Prevent form submission if validation fails
-                $("form").on("submit", function (e) {
+            function validateLastName(value) {
+                if (value === "")
+                    return "Last name cannot be empty.";
+                if (value.length > 70)
+                    return "Last name must be less than 70 characters.";
+                return true;
+            }
+
+            function validateDob(value) {
+                if (value === "")
+                    return "Date of birth cannot be empty.";
+                const today = new Date().toISOString().split("T")[0];
+                if (value > today)
+                    return "Date of birth cannot be in the future.";
+                return true;
+            }
+
+            function validateAddress(value) {
+                if (value === "")
+                    return "Address cannot be empty.";
+                return true;
+            }
+
+            function validatePhone(value) {
+                const regex = /^(?!-)(?!.*--)[0-9-]{7,15}(?<!-)$/;
+                if (!regex.test(value)) {
+                    return "Phone number must be 7?15 digits and can include '-' (not at start/end or consecutive).";
+                }
+                return true;
+            }
+
+            function validateForm() {
+                let isValid = true;
+
+                isValid = validateField('firstName', 'firstNameError', validateFirstName) && isValid;
+                isValid = validateField('lastName', 'lastNameError', validateLastName) && isValid;
+                isValid = validateField('dob', 'dobError', validateDob) && isValid;
+                isValid = validateField('address', 'addressError', validateAddress) && isValid;
+                isValid = validateField('phone', 'phoneError', validatePhone) && isValid;
+
+                return isValid;
+            }
+
+            $(document).ready(function () {
+                // Validate on input/change
+                $('#firstName').on('input', () => validateField('firstName', 'firstNameError', validateFirstName));
+                $('#lastName').on('input', () => validateField('lastName', 'lastNameError', validateLastName));
+                $('#dob').on('change', () => validateField('dob', 'dobError', validateDob));
+                $('#address').on('input', () => validateField('address', 'addressError', validateAddress));
+                $('#phone').on('input', () => validateField('phone', 'phoneError', validatePhone));
+
+                // Final check on submit
+                $('form').on('submit', function (e) {
                     if (!validateForm()) {
                         e.preventDefault();
                         Swal.fire({
@@ -361,11 +362,11 @@
             });
 
             function previewAvatar(event) {
-                var input = event.target;
+                const input = event.target;
                 if (input.files && input.files[0]) {
-                    var reader = new FileReader();
+                    const reader = new FileReader();
                     reader.onload = function (e) {
-                        $("#avatarPreview").attr("src", e.target.result);
+                        $('#avatarPreview').attr('src', e.target.result);
                     };
                     reader.readAsDataURL(input.files[0]);
                 }

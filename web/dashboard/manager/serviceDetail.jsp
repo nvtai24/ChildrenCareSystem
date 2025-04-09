@@ -61,34 +61,7 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/color/color-1.css">
 
-        <style>
-            .service-image-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: #f8f9fa;
-                padding: 15px;
-                border-radius: 8px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                text-align: center;
-                margin-top: 15px;
-                max-width: 250px;
-                margin-left: auto;
-                margin-right: auto;
-            }
 
-            .service-image-container img {
-                width: 100%;
-                height: auto;
-                border-radius: 10px;
-                border: 2px solid #ddd;
-                transition: transform 0.3s ease-in-out;
-            }
-
-            .service-image-container img:hover {
-                transform: scale(1.05);
-            }
-        </style>
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
@@ -202,7 +175,7 @@
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <label class="col-form-label">Thumbnail URL</label>
-                                                                <div class="service-image-container">
+                                                                <div class="service-image">
                                                                     <c:choose>
                                                                         <c:when test="${empty s.thumbnail}">
                                                                             <img id="imagePreview" 
@@ -219,6 +192,7 @@
                                                                         </c:otherwise>
                                                                     </c:choose>
                                                                 </div>
+                                                                
                                                                 <label for="thumbnail" class="btn btn-light mt-2">Choose Thumbnail</label>
                                                                 <input type="file" name="thumbnail" accept="image/*" id="thumbnail" onchange="previewImage(event)" style="display: none;">
                                                                 <input type="hidden" name="oldThumbnail" value="${s.thumbnail}">
@@ -311,20 +285,38 @@
 
 // Validate service name
             function validateServiceName(value) {
-                if (value === "") {
+                if (!value || value.trim() === "") {
                     return "Service name cannot be empty.";
                 }
+
+                const trimmed = value.trim();
+
+                if (trimmed.length > 100) {
+                    return "Service name cannot be longer than 100 characters.";
+                }
+
                 return true;
             }
-
 // Validate service price
             function validateServicePrice(value) {
                 if (value === "") {
                     return "Price cannot be empty.";
                 }
-                if (isNaN(value) || parseFloat(value) <= 0) {
+
+                const price = parseFloat(value);
+
+                if (isNaN(price) || price <= 0) {
                     return "Price must be a positive number.";
                 }
+
+                if (!/^\d+(\.\d{1,2})?$/.test(value)) {
+                    return "Price must have at most 2 decimal places.";
+                }
+
+                if (price >= 9999999.99) {
+                    return "Price cannot be greater than 9,999,999.99$";
+                }
+
                 return true;
             }
 
@@ -336,6 +328,11 @@
                 if (isNaN(value) || parseFloat(value) < 0 || parseFloat(value) > 100) {
                     return "Discount must be between 0 and 100.";
                 }
+
+                if (!/^\d+(\.\d{1,2})?$/.test(value)) {
+                    return "Discount must have at most 2 decimal places.";
+                }
+
                 return true;
             }
 
@@ -349,7 +346,7 @@
 
 // Validate description
             function validateDescription(value) {
-                if (value === "" || value === "<p></p>") {
+                if (!value || value.trim() === "") {
                     return "Service description cannot be empty.";
                 }
                 return true;
@@ -389,7 +386,7 @@
                 });
             }
 
-// Validate the entire form
+            // Validate the entire form
             function validateForm() {
                 let isValid = true;
 
