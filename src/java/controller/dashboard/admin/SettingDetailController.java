@@ -26,10 +26,13 @@ public class SettingDetailController extends HttpServlet {
         SettingDAO settingDAO = new SettingDAO();
 
         if (id != null) {
-            // Lấy chi tiết Setting theo ID
-            Setting setting = settingDAO.getSettingById(Integer.parseInt(id));
+        try {
+            int settingId = Integer.parseInt(id);
+            Setting setting = settingDAO.getSettingById(settingId);
             request.setAttribute("setting", setting);
+        } catch (NumberFormatException e) {
         }
+    }
         request.getRequestDispatcher("dashboard/setting.jsp").forward(request, response);
     }
 
@@ -40,6 +43,17 @@ public class SettingDetailController extends HttpServlet {
         String value = request.getParameter("value");
         String description = request.getParameter("description");
         boolean status = "0".equals(request.getParameter("status"));
+        
+        if (value != null) value = value.trim();
+        if (description != null) description = description.trim();
+        
+        boolean hasError = false;
+        
+        if (value.length() > 100) {
+            request.setAttribute("errorMessage", "Value must not exceed 100 characters");
+            hasError = true;
+        }
+        
         SettingDAO settingDAO = new SettingDAO();
         settingDAO.updateSetting(new Setting(Integer.parseInt(id), null, value, description, status));
 
