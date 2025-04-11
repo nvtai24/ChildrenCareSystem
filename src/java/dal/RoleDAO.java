@@ -32,7 +32,7 @@ public class RoleDAO extends DBContext {
                 + "FROM\n"
                 + "    `childrencare`.`setting`\n"
                 + "WHERE\n"
-                + "    type_id = 3 && status = 1";
+                + "    type_id = 3 && status = 1 && value!= 'Dev'";
 
         try {
             ResultSet rs = executeQuery(query);

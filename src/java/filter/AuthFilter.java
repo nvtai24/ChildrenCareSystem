@@ -51,6 +51,7 @@ public class AuthFilter implements Filter {
                 request.setAttribute("noti2", noti2);
 
                 request.getRequestDispatcher("error.jsp").forward(request, response);
+                return;
             }
         }
         chain.doFilter(req, res);

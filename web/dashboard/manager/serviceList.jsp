@@ -386,7 +386,22 @@
                                             }
                                         });
         </script>
-
+        
+        <c:if test="${not empty notification}">
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    Swal.fire({
+                        title: "<c:out value='${notification eq "successfull" ? "Success!" : "Oops..."}' />",
+                        text: "<c:out value='${notification eq "successfull" ? "Service has been updated successfully." : "Service cannot updated please try again!"}' />",
+                        icon: "<c:out value='${notification eq "successfull" ? "success" : "error"}' />",
+                        confirmButtonText: "OK",
+                        didOpen: () => {
+                            document.querySelector(".swal2-select")?.remove();
+                        }
+                    });
+                });
+            </script>
+        </c:if>
     </body>
 
     <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->

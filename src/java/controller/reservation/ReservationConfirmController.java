@@ -27,29 +27,19 @@ import model.auth.User;
  */
 public class ReservationConfirmController extends HttpServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
+        HttpSession session = req.getSession();
         User current = (User) session.getAttribute("account");
 
-        String firstName = request.getParameter("firstname");
-        String lastName = request.getParameter("lastname");
-        String dateStr = request.getParameter("date");
-        String timeStr = request.getParameter("time");
-        String phone = request.getParameter("phone");
-        String email = request.getParameter("email");
-        String note = request.getParameter("note");
+        String firstName = req.getParameter("firstname");
+        String lastName = req.getParameter("lastname");
+        String dateStr = req.getParameter("date");
+        String timeStr = req.getParameter("time");
+        String phone = req.getParameter("phone");
+        String email = req.getParameter("email");
+        String note = req.getParameter("note");
 
         LocalDate date = LocalDate.parse(dateStr);
         LocalTime time = LocalTime.parse(timeStr);
@@ -83,7 +73,7 @@ public class ReservationConfirmController extends HttpServlet {
 
         session.setAttribute("r", r);
         session.setAttribute("amount", amount);
-        request.getRequestDispatcher("../reservation-confirm.jsp").forward(request, response);
+        req.getRequestDispatcher("../reservation-confirm.jsp").forward(req, resp);
     }
 
 }

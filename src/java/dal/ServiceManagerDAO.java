@@ -361,7 +361,7 @@ public class ServiceManagerDAO extends DBContext {
         return list;
     }
 
-    public void updateStatusById(int id) {
+    public boolean updateStatusById(int id) {
         DBContext db = new DBContext();
         String sql_select = "select * from service where id = ?;";
         String sql_update = "UPDATE Service SET status = ? WHERE id = ?";
@@ -385,21 +385,21 @@ public class ServiceManagerDAO extends DBContext {
 
         } catch (SQLException ex) {
             Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         } finally {
             try {
 
                 if (rs != null) {
                     rs.close();
                 }
-
             } catch (SQLException ex) {
                 Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        return true;
     }
 
-    public void createService(Service service) {
+    public boolean createService(Service service) {
         DBContext db = new DBContext();
         String sql = "INSERT INTO service (name, category_id, description, brief_info, price, discount, thumbnail, status) "
                 + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -408,6 +408,7 @@ public class ServiceManagerDAO extends DBContext {
             db.executeUpdate(sql, service.getName(), service.getCategory().getId(), service.getDescription(), service.getBriefInfo(), service.getPrice(), service.getDiscount(), service.getThumbnail(), service.getStatus());
         } catch (SQLException ex) {
             Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         } finally {
             try {
                 db.connection.close();
@@ -415,7 +416,7 @@ public class ServiceManagerDAO extends DBContext {
                 Logger.getLogger(ServiceManagerDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        return true;
     }
 
     public void updateService(Service s) {

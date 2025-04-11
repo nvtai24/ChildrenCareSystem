@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="container">
-                    <form action="setting" method="post">
+                    <form action="setting" method="post" id="settingForm" onsubmit="return validateForm()">
                         <input type="hidden" name="id" value="${setting.id}" />
 
                         <div class="form-group">
@@ -93,7 +93,8 @@
                         </div>
                         <div class="form-group">
                             <label>Value</label>
-                            <input type="text" class="form-control" name="value" value="${setting.settingValue}" required>
+                            <input type="text" class="form-control" name="value" id="valueField" value="${setting.settingValue}" required>
+                            <div class="error-message" id="valueError" style="color: red"></div>
                         </div>
 
                         <div class="form-group">
@@ -127,4 +128,26 @@
         <script src="${pageContext.request.contextPath}/assets2/vendors/chart/chart.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
     </body>
+    <script>
+            function validateForm() {
+                let isValid = true;
+                const valueField = document.getElementById('valueField');
+                const valueError = document.getElementById('valueError');
+                
+                valueError.textContent = '';
+                
+                valueField.value = valueField.value.trim();
+                
+                if (valueField.value.length > 100) {
+                    valueError.textContent = 'Value must not exceed 100 characters';
+                    isValid = false;
+                }
+                
+                if (valueField.value === '') {
+                    valueError.textContent = 'Value cannot be empty';
+                    isValid = false;
+                }
+                return isValid;
+            }
+        </script>
 </html>

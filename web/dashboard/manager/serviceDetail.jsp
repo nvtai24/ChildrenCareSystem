@@ -61,34 +61,7 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/color/color-1.css">
 
-        <style>
-            .service-image-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: #f8f9fa;
-                padding: 15px;
-                border-radius: 8px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                text-align: center;
-                margin-top: 15px;
-                max-width: 250px;
-                margin-left: auto;
-                margin-right: auto;
-            }
 
-            .service-image-container img {
-                width: 100%;
-                height: auto;
-                border-radius: 10px;
-                border: 2px solid #ddd;
-                transition: transform 0.3s ease-in-out;
-            }
-
-            .service-image-container img:hover {
-                transform: scale(1.05);
-            }
-        </style>
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
@@ -202,7 +175,7 @@
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <label class="col-form-label">Thumbnail URL</label>
-                                                                <div class="service-image-container">
+                                                                <div class="service-image">
                                                                     <c:choose>
                                                                         <c:when test="${empty s.thumbnail}">
                                                                             <img id="imagePreview" 
@@ -219,6 +192,7 @@
                                                                         </c:otherwise>
                                                                     </c:choose>
                                                                 </div>
+                                                                
                                                                 <label for="thumbnail" class="btn btn-light mt-2">Choose Thumbnail</label>
                                                                 <input type="file" name="thumbnail" accept="image/*" id="thumbnail" onchange="previewImage(event)" style="display: none;">
                                                                 <input type="hidden" name="oldThumbnail" value="${s.thumbnail}">
@@ -287,86 +261,108 @@
             </script>
         </c:if>
         <script>
+// CKEditor setup
             CKEDITOR.replace('serviceDescription', {
                 versionCheck: false
             });
-            $(document).ready(function () {
-                function validateForm() {
-                    var isValid = true;
 
-                    // Validate Price
-                    var price = $("#servicePrice").val().trim();
-                    if (price === "" || isNaN(price) || parseFloat(price) <= 0) {
-                        $("#priceError").text("Price must be a positive number.");
-                        isValid = false;
-                    } else {
-                        $("#priceError").text("");
-                    }
+// Function to validate each field
+            function validateField(fieldId, errorId, validationFunction) {
+                const field = document.getElementById(fieldId);
+                const errorElement = document.getElementById(errorId);
+                const value = fieldId === 'serviceDescription' ? CKEDITOR.instances.serviceDescription.getData() : field.value.trim();
 
-                    // Validate Discount (0-100%)
-                    var discount = $("#serviceDiscount").val().trim();
-                    if (discount === "" || isNaN(discount) || parseFloat(discount) < 0 || parseFloat(discount) > 100) {
-                        $("#discountError").text("Discount must be between 0 and 100.");
-                        isValid = false;
-                    } else {
-                        $("#discountError").text("");
-                    }
+                const validationResult = validationFunction(value);
 
-                    // Validate Brief Info
-                    var briefInfo = $("#briefInfo").val().trim();
-                    if (briefInfo === "") {
-                        $("#briefInfoError").text("Brief information cannot be empty.");
-                        isValid = false;
-                    } else {
-                        $("#briefInfoError").text("");
-                    }
+                if (validationResult !== true) {
+                    errorElement.textContent = validationResult;
+                    return false;
+                } else {
+                    errorElement.textContent = "";
+                    return true;
+                }
+            }
 
-                    // Validate Description
-                    var description = $("#serviceDescription").val().trim();
-                    if (description === "") {
-                        $("#descriptionError").text("Service description cannot be empty.");
-                        isValid = false;
-                    } else {
-                        $("#descriptionError").text("");
-                    }
-
-                    return isValid;
+// Validate service name
+            function validateServiceName(value) {
+                if (!value || value.trim() === "") {
+                    return "Service name cannot be empty.";
                 }
 
-                // Validate on input change
-                $("#serviceName, #servicePrice, #serviceDiscount, #briefInfo, #serviceDescription").on("input change", function () {
-                    validateForm();
-                });
+                const trimmed = value.trim();
 
-                // Prevent form submission if validation fails
-                $("form").on("submit", function (e) {
-                    if (!validateForm()) {
-                        e.preventDefault();
-                        Swal.fire({
-                            title: 'Oops...',
-                            text: 'Please check form again!',
-                            icon: 'error',
-                            confirmButtonText: 'Try Again'
-                        });
-                    }
-                });
-            });
+                if (trimmed.length > 100) {
+                    return "Service name cannot be longer than 100 characters.";
+                }
 
-            //check service name
-            $(document).ready(function () {
-                var originalServiceName = $("#serviceName").val().trim();
+                return true;
+            }
+// Validate service price
+            function validateServicePrice(value) {
+                if (value === "") {
+                    return "Price cannot be empty.";
+                }
 
-                $("#serviceName").on("input", function () {
-                    var serviceName = $(this).val().trim();
+                const price = parseFloat(value);
 
+                if (isNaN(price) || price <= 0) {
+                    return "Price must be a positive number.";
+                }
+
+                if (!/^\d+(\.\d{1,2})?$/.test(value)) {
+                    return "Price must have at most 2 decimal places.";
+                }
+
+                if (price >= 9999999.99) {
+                    return "Price cannot be greater than 9,999,999.99$";
+                }
+
+                return true;
+            }
+
+// Validate service discount
+            function validateServiceDiscount(value) {
+                if (value === "") {
+                    return "Discount cannot be empty.";
+                }
+                if (isNaN(value) || parseFloat(value) < 0 || parseFloat(value) > 100) {
+                    return "Discount must be between 0 and 100.";
+                }
+
+                if (!/^\d+(\.\d{1,2})?$/.test(value)) {
+                    return "Discount must have at most 2 decimal places.";
+                }
+
+                return true;
+            }
+
+// Validate brief info
+            function validateBriefInfo(value) {
+                if (value === "") {
+                    return "Brief information cannot be empty.";
+                }
+                return true;
+            }
+
+// Validate description
+            function validateDescription(value) {
+                if (!value || value.trim() === "") {
+                    return "Service description cannot be empty.";
+                }
+                return true;
+            }
+
+// Check for service name uniqueness
+            function checkServiceNameUniqueness(serviceName, originalName) {
+                return new Promise((resolve) => {
                     if (serviceName === "") {
-                        $("#nameError").text("Service name cannot be empty.");
+                        resolve(false);
                         return;
                     }
 
-
-                    if (serviceName === originalServiceName) {
-                        $("#nameError").text("");
+                    // If name hasn't changed, it's valid
+                    if (serviceName === originalName) {
+                        resolve(true);
                         return;
                     }
 
@@ -377,14 +373,94 @@
                         success: function (response) {
                             if (response === "exists") {
                                 $("#nameError").text("Service name already exists.");
+                                resolve(false);
                             } else {
                                 $("#nameError").text("");
+                                resolve(true);
                             }
+                        },
+                        error: function () {
+                            resolve(true); // Assume valid on error to prevent blocking submission
                         }
                     });
                 });
+            }
+
+            // Validate the entire form
+            function validateForm() {
+                let isValid = true;
+
+                // Validate each field
+                isValid = validateField('serviceName', 'nameError', validateServiceName) && isValid;
+                isValid = validateField('servicePrice', 'priceError', validateServicePrice) && isValid;
+                isValid = validateField('serviceDiscount', 'discountError', validateServiceDiscount) && isValid;
+                isValid = validateField('briefInfo', 'briefInfoError', validateBriefInfo) && isValid;
+                isValid = validateField('serviceDescription', 'descriptionError', validateDescription) && isValid;
+
+                return isValid;
+            }
+
+// Set up event listeners when the document is ready
+            $(document).ready(function () {
+                // Store the original service name for comparison
+                const originalServiceName = $("#serviceName").val().trim();
+
+                // Validate service name on input
+                $("#serviceName").on("input", function () {
+                    validateField('serviceName', 'nameError', validateServiceName);
+
+                    // Check name uniqueness after a short delay
+                    clearTimeout(this.timeoutId);
+                    this.timeoutId = setTimeout(() => {
+                        checkServiceNameUniqueness($(this).val().trim(), originalServiceName);
+                    }, 500);
+                });
+
+                // Validate price on input
+                $("#servicePrice").on("input", function () {
+                    validateField('servicePrice', 'priceError', validateServicePrice);
+                });
+
+                // Validate discount on input
+                $("#serviceDiscount").on("input", function () {
+                    validateField('serviceDiscount', 'discountError', validateServiceDiscount);
+                });
+
+                // Validate brief info on input
+                $("#briefInfo").on("input", function () {
+                    validateField('briefInfo', 'briefInfoError', validateBriefInfo);
+                });
+
+                // Validate description when CKEditor content changes
+                CKEDITOR.instances.serviceDescription.on('change', function () {
+                    validateField('serviceDescription', 'descriptionError', validateDescription);
+                });
+
+                // Handle form submission
+                $("#serviceForm").on("submit", async function (e) {
+                    e.preventDefault(); // Prevent default submission
+
+                    // Full validation before submission
+                    const isValid = validateForm();
+
+                    // Check for name uniqueness if name has changed
+                    const currentName = $("#serviceName").val().trim();
+                    const nameUnique = await checkServiceNameUniqueness(currentName, originalServiceName);
+
+                    if (isValid && nameUnique) {
+                        this.submit(); // Submit the form if validation passes
+                    } else {
+                        Swal.fire({
+                            title: 'Validation Error',
+                            text: 'Please check the form and correct all errors.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
             });
 
+// Function to preview the uploaded image
             function previewImage(event) {
                 var input = event.target;
                 if (input.files && input.files[0]) {

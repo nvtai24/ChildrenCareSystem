@@ -281,7 +281,7 @@
                                 <div class="col-lg-9 col-md-8 col-sm-12">
                                     <div class="courses-post">
                                         <div class="ttr-post-media media-effect">
-                                            <a href="#"><img src="${requestScope.s.thumbnail}" alt="${requestScope.s.name}"></a>
+                                            <a href="#"><img src="${requestScope.s.thumbnail != null ? requestScope.s.thumbnail : "assets/images/service/default-thumbnail.jpg" }" alt="${requestScope.s.name}"></a>
                                         </div>
                                         <div class="ttr-post-info">
                                             <div class="ttr-post-title ">
@@ -393,7 +393,7 @@
                                         <c:forEach items="${requestScope.feedbacks}" var="f">
                                             <div class="instructor-bx feedback-item">
                                                 <div class="instructor-author">
-                                                    <img src="${f.reservationDetail.reservation.customer.profile.avatar}" alt="">
+                                                    <img src="${f.reservationDetail.reservation.customer.profile.avatar != null ? f.reservationDetail.reservation.customer.profile.avatar : "assets/images/profile/default.jpg"}" alt="">
                                                 </div>
                                                 <div class="instructor-info">
                                                     <h6>${f.reservationDetail.reservation.customer.profile.firstName} ${f.reservationDetail.reservation.customer.profile.lastName}</h6>

@@ -55,6 +55,7 @@ public class CustomerListController extends HttpServlet {
             }
             case "search" -> {
                 String title = request.getParameter("search").trim();
+                title = trimSpaces(title);
                 showCustomerByTitle(request, response, title);
             }
             default -> {
@@ -88,7 +89,11 @@ public class CustomerListController extends HttpServlet {
     private void changeStatusCustomer(HttpServletRequest request, HttpServletResponse response, int idUser, int status)
             throws ServletException, IOException {
         UserDAO uDB = new UserDAO();
-        uDB.UpdateStatusByUser(idUser, status);
+        if (uDB.UpdateStatusByUser(idUser, status)) {
+            request.setAttribute("notification", "successfull");
+        } else {
+            request.setAttribute("notification", "error");
+        }
 
         ArrayList<User> customers = uDB.getCustomerList();
         request.setAttribute("customers", customers);
@@ -104,6 +109,14 @@ public class CustomerListController extends HttpServlet {
         request.setAttribute("customers", customers);
         session.setAttribute("title", title);
         request.getRequestDispatcher("dashboard/manager/customerList.jsp").forward(request, response);
+    }
+
+    // Dùng để validate khoảng trắng cách chữ trong string không cách nhau
+    private static String trimSpaces(String input) {
+        if (input == null) {
+            return null;
+        }
+        return input.trim().replaceAll("\\s+", " ");
     }
 
 }

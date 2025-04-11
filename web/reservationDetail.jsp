@@ -102,7 +102,7 @@
                                         <div class="col-md-1 font-weight-bold">Action</div>
                                     </div>
 
-                                    <form action="/app/reservation/contact" method="get">
+                                    <form action="/app/reservation/contact" method="POST">
                                         <c:forEach items="${requestScope.items}" var="i">
                                             <div class="row align-items-center border-bottom pb-3 item-row">
                                                 <div class="col-md-1 text-center">

@@ -39,10 +39,9 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String usernameOrEmail = request.getParameter("dzName");
         String password = request.getParameter("dzPassword");
-        boolean rememberMe = request.getParameter("customControlAutosizing") != null; 
         UserDAO udb = new UserDAO();
         String hashedPassword = PasswordUtil.toSHA1(password);
-        User user = udb.get(usernameOrEmail, password);
+        User user = udb.get(usernameOrEmail, hashedPassword);
         boolean hasError = false;
         if (usernameOrEmail == null || usernameOrEmail.trim().isEmpty()) {
             request.setAttribute("errorUsername", "Please enter your username.");
@@ -67,11 +66,12 @@ public class LoginController extends HttpServlet {
             return;
         }
         if (user != null) {
-//            if (!user.isEmailVerified()) {
-//                request.setAttribute("error", "Tài khoản của bạn chưa được xác minh. Vui lòng kiểm tra email để xác thực.");
-//                request.getRequestDispatcher("login.jsp").forward(request, response);
-//                return;
-//            }
+            if (!user.isEmailVerified()) {
+                request.setAttribute("error", "Your email has not veried. Please check email!");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+                return;
+            }
+
             ProfileDAO pDB = new ProfileDAO();
 
             Profile p = pDB.getProfileByUserId(user.getId());
@@ -79,8 +79,7 @@ public class LoginController extends HttpServlet {
 
             FeatureDAO fDB = new FeatureDAO();
             ArrayList<String> permissions = fDB.getPermissions(user.getRole().getId());
-            
-      
+
             request.getSession().setAttribute("permissions", permissions);
             request.getSession().setAttribute("account", user);
             request.getSession().setAttribute("password", user.getPassword());

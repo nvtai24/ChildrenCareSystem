@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -88,53 +89,53 @@
                                 <c:if test="${not empty errorMessage}">
                                     <p style="color:red;">${errorMessage}</p>
                                 </c:if>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- External JavaScripts -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
-    <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-    <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-    <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
-    <script src="assets/vendors/counter/waypoints-min.js"></script>
-    <script src="assets/vendors/counter/counterup.min.js"></script>
-    <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
-    <script src="assets/vendors/masonry/masonry.js"></script>
-    <script src="assets/vendors/masonry/filter.js"></script>
-    <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
-    <script src="assets/js/functions.js"></script>
-    <script src="assets/js/contact.js"></script>
-    <script>
-        $(document).ready(function () {
-            // Validate password format
-            $("#password").on("input", function () {
-                var password = $(this).val();
-                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,15}$/;
-                if (!passwordRegex.test(password)) {
-                    $("#passwordError").text("Password must be 8-15 characters with at least one uppercase letter, one lowercase letter, and one number.");
-                } else {
-                    $("#passwordError").text("");
-                }
-            });
+        <!-- External JavaScripts -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="assets/vendors/counter/waypoints-min.js"></script>
+        <script src="assets/vendors/counter/counterup.min.js"></script>
+        <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="assets/vendors/masonry/masonry.js"></script>
+        <script src="assets/vendors/masonry/filter.js"></script>
+        <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src="assets/js/functions.js"></script>
+        <script src="assets/js/contact.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Validate password format
+                $("#password").on("input", function () {
+                    var password = $(this).val();
+                    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,15}$/;
+                    if (!passwordRegex.test(password)) {
+                        $("#passwordError").text("Password must be 8-15 characters with at least one uppercase letter, one lowercase letter, and one number.");
+                    } else {
+                        $("#passwordError").text("");
+                    }
+                });
 
-            // Confirm password match
-            $("#confirmPassword").on("input", function () {
-                var password = $("#password").val();
-                var confirmPassword = $(this).val();
-                if (password !== confirmPassword) {
-                    $("#confirmPasswordError").text("Passwords do not match!");
-                } else {
-                    $("#confirmPasswordError").text("");
-                }
+                // Confirm password match
+                $("#confirmPassword").on("input", function () {
+                    var password = $("#password").val();
+                    var confirmPassword = $(this).val();
+                    if (password !== confirmPassword) {
+                        $("#confirmPasswordError").text("Passwords do not match!");
+                    } else {
+                        $("#confirmPasswordError").text("");
+                    }
+                });
             });
-        });
-    </script>
-</body>
+        </script>
+    </body>
 
 </html>

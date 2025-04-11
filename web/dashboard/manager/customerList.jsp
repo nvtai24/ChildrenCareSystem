@@ -236,96 +236,111 @@
         <script src='assets2/vendors/calendar/fullcalendar.js'></script>
         <!-- DataTables  -->
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-        <script>
-                                        function confirmChangeStatus(event) {
-                                            event.preventDefault();
-
+        <c:if test="${not empty notification}">
+            <script>
+                                        document.addEventListener("DOMContentLoaded", function () {
                                             Swal.fire({
-                                                title: "Are you sure?",
-                                                text: "Do you really want to change the status?",
-                                                icon: "warning",
-                                                showCancelButton: true,
-                                                confirmButtonColor: "#3085d6",
-                                                cancelButtonColor: "#d33",
-                                                confirmButtonText: "Yes, change it!",
-                                                cancelButtonText: "No, cancel!"
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    event.target.closest("form").submit();
+                                                title: "<c:out value='${notification eq "successfull" ? "Success!" : "Oops..."}' />",
+                                                text: "<c:out value='${notification eq "successfull" ? "Customer has been updated successfully." : "Customer cannot updated please try again!"}' />",
+                                                icon: "<c:out value='${notification eq "successfull" ? "success" : "error"}' />",
+                                                confirmButtonText: "OK",
+                                                didOpen: () => {
+                                                    document.querySelector(".swal2-select")?.remove();
                                                 }
                                             });
-                                        }
-                                        $(document).ready(function () {
-
-                                            var table = $('#userTable').DataTable({
-                                                paging: true,
-                                                lengthMenu: [10],
-                                                ordering: true,
-                                                searching: true,
-                                                info: false,
-                                                dom: "t",
-                                                columnDefs: [
-                                                    {targets: [7, 8], orderable: false}, // Vô hiệu hóa sắp xếp ở cột Action
-                                                ],
-                                                drawCallback: function () {
-                                                    updatePagination(this.api());
-                                                },
-                                            });
-
-
-                                            function updatePagination(api) {
-                                                var pageInfo = api.page.info();
-                                                var paginationHTML = '<ul class="pagination">';
-
-                                                // Nút Previous
-                                                if (pageInfo.page > 0) {
-                                                    paginationHTML +=
-                                                            '<li class="previous"><a href="#" data-page="' +
-                                                            (pageInfo.page - 1) +
-                                                            '"><i class="ti-arrow-left"></i> Prev</a></li>';
-                                                } else {
-                                                    paginationHTML +=
-                                                            '<li class="previous disabled"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>';
-                                                }
-
-                                                // Số trang
-                                                for (var i = 0; i < pageInfo.pages; i++) {
-                                                    paginationHTML +=
-                                                            '<li class="' +
-                                                            (pageInfo.page === i ? "active" : "") +
-                                                            '"><a href="#" data-page="' +
-                                                            i +
-                                                            '">' +
-                                                            (i + 1) +
-                                                            "</a></li>";
-                                                }
-
-                                                // Nút Next
-                                                if (pageInfo.page < pageInfo.pages - 1) {
-                                                    paginationHTML +=
-                                                            '<li class="next"><a href="#" data-page="' +
-                                                            (pageInfo.page + 1) +
-                                                            '">Next <i class="ti-arrow-right"></i></a></li>';
-                                                } else {
-                                                    paginationHTML +=
-                                                            '<li class="next disabled"><a href="#">Next <i class="ti-arrow-right"></i></a></li>';
-                                                }
-
-                                                paginationHTML += "</ul>";
-
-                                                // Cập nhật pagination vào giao diện
-                                                $(".pagination-bx").html(paginationHTML);
-
-                                                // Thêm sự kiện click cho pagination tùy chỉnh
-                                                $(".pagination a").on("click", function (e) {
-                                                    e.preventDefault();
-                                                    var page = $(this).data("page");
-                                                    if (page !== undefined) {
-                                                        table.page(page).draw("page");
-                                                    }
-                                                });
-                                            }
                                         });
+            </script>
+        </c:if>
+        <script>
+            function confirmChangeStatus(event) {
+                event.preventDefault();
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "Do you really want to change the status?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, change it!",
+                    cancelButtonText: "No, cancel!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        event.target.closest("form").submit();
+                    }
+                });
+            }
+            $(document).ready(function () {
+
+                var table = $('#userTable').DataTable({
+                    paging: true,
+                    lengthMenu: [10],
+                    ordering: true,
+                    searching: true,
+                    info: false,
+                    dom: "t",
+                    columnDefs: [
+                        {targets: [7, 8], orderable: false}, // Vô hiệu hóa sắp xếp ở cột Action
+                    ],
+                    drawCallback: function () {
+                        updatePagination(this.api());
+                    },
+                });
+
+
+                function updatePagination(api) {
+                    var pageInfo = api.page.info();
+                    var paginationHTML = '<ul class="pagination">';
+
+                    // Nút Previous
+                    if (pageInfo.page > 0) {
+                        paginationHTML +=
+                                '<li class="previous"><a href="#" data-page="' +
+                                (pageInfo.page - 1) +
+                                '"><i class="ti-arrow-left"></i> Prev</a></li>';
+                    } else {
+                        paginationHTML +=
+                                '<li class="previous disabled"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>';
+                    }
+
+                    // Số trang
+                    for (var i = 0; i < pageInfo.pages; i++) {
+                        paginationHTML +=
+                                '<li class="' +
+                                (pageInfo.page === i ? "active" : "") +
+                                '"><a href="#" data-page="' +
+                                i +
+                                '">' +
+                                (i + 1) +
+                                "</a></li>";
+                    }
+
+                    // Nút Next
+                    if (pageInfo.page < pageInfo.pages - 1) {
+                        paginationHTML +=
+                                '<li class="next"><a href="#" data-page="' +
+                                (pageInfo.page + 1) +
+                                '">Next <i class="ti-arrow-right"></i></a></li>';
+                    } else {
+                        paginationHTML +=
+                                '<li class="next disabled"><a href="#">Next <i class="ti-arrow-right"></i></a></li>';
+                    }
+
+                    paginationHTML += "</ul>";
+
+                    // Cập nhật pagination vào giao diện
+                    $(".pagination-bx").html(paginationHTML);
+
+                    // Thêm sự kiện click cho pagination tùy chỉnh
+                    $(".pagination a").on("click", function (e) {
+                        e.preventDefault();
+                        var page = $(this).data("page");
+                        if (page !== undefined) {
+                            table.page(page).draw("page");
+                        }
+                    });
+                }
+            });
 
         </script>
     </body>

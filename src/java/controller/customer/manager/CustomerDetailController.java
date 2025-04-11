@@ -27,9 +27,11 @@ import model.auth.User;
  *
  * @author milo9
  */
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 10, // 10MB
-        maxRequestSize = 1024 * 1024 * 50)   // 50MB
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 2, // 2MB (threshold for buffering)
+        maxFileSize = 1024 * 1024 * 50, // 50MB (maximum file size for a single file)
+        maxRequestSize = 1024 * 1024 * 200 // 200MB (maximum size of the entire request)
+)
 public class CustomerDetailController extends HttpServlet {
 
     @Override
@@ -38,13 +40,17 @@ public class CustomerDetailController extends HttpServlet {
         UserDAO uDB = new UserDAO();
         RoleDAO rDB = new RoleDAO();
 
-        int userId = Integer.parseInt(request.getParameter("id"));
-        User user = uDB.get(userId);
+        try {
+            int userId = Integer.parseInt(request.getParameter("id"));
+            User user = uDB.get(userId);
 
-        request.setAttribute("user", user);
-        request.setAttribute("roles", rDB.listAllAvailableRole());
+            request.setAttribute("user", user);
+            request.setAttribute("roles", rDB.listAllAvailableRole());
 
-        request.getRequestDispatcher("dashboard/manager/customerDetail.jsp").forward(request, response);
+            request.getRequestDispatcher("dashboard/manager/customerDetail.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.getRequestDispatcher("dashboard/manager/customerDetail.jsp").forward(request, response);
+        }
     }
 
     @Override
@@ -79,12 +85,12 @@ public class CustomerDetailController extends HttpServlet {
                 Profile profile = Profile.builder()
                         .user(User.builder().id(userId).build())
                         .firstName(firstName != null ? firstName : "Unknown")
-                        .lastName(lastName != null ? lastName : "Unknown")// Nếu null, đặt tên mặc định
+                        .lastName(lastName != null ? lastName : "Unknown")
                         .gender(gender)
-                        .dob(dateOfBirth != null ? dateOfBirth : Date.valueOf("2000-01-01")) // Nếu null, đặt ngày sinh mặc định
-                        .address(address != null ? address : "Not Available") // Nếu null, đặt địa chỉ mặc định
-                        .phone(phone != null ? phone : "0000000000") // Nếu null, đặt số điện thoại mặc định
-                        .avatar(avatarPath != null ? avatarPath : "assets/images/profile/default.jpg") // Nếu null, đặt ảnh mặc định
+                        .dob(dateOfBirth != null ? dateOfBirth : Date.valueOf("2000-01-01"))
+                        .address(address != null ? address : "Not Available")
+                        .phone(phone != null ? phone : "0000000000")
+                        .avatar(avatarPath != null ? avatarPath : "assets/images/profile/default.jpg")
                         .createdDate(LocalDateTime.now())
                         .build();
 
@@ -129,6 +135,9 @@ public class CustomerDetailController extends HttpServlet {
         }
 
         String fileName = getFileName(filePart);
+        if (!isValidImageExtension(fileName)) {
+            throw new ServletException("Invalid file type! Only image files are allowed.");
+        }
         String uploadPath = request.getServletContext().getRealPath("/assets/images/profile").replace("/build", "");
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
@@ -168,5 +177,27 @@ public class CustomerDetailController extends HttpServlet {
             return null;
         }
         return input.replaceAll("\\s+", "");
+    }
+
+    private boolean isValidImageExtension(String fileName) {
+        // Các đuôi file hợp lệ
+        String[] validExtensions = {"jpg", "jpeg", "png", "gif"};
+        String fileExtension = getFileExtension(fileName);
+
+        // Kiểm tra xem file có đuôi hợp lệ không
+        for (String ext : validExtensions) {
+            if (fileExtension.equalsIgnoreCase(ext)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String getFileExtension(String fileName) {
+        int dotIndex = fileName.lastIndexOf(".");
+        if (dotIndex > 0) {
+            return fileName.substring(dotIndex + 1);
+        }
+        return "";
     }
 }

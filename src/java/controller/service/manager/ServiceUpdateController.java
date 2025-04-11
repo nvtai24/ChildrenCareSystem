@@ -15,9 +15,11 @@ import java.util.List;
 import model.Category;
 import model.Service;
 
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 10, // 10MB
-        maxRequestSize = 1024 * 1024 * 50)   // 50MB
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 2, // 2MB (threshold for buffering)
+        maxFileSize = 1024 * 1024 * 50, // 50MB (maximum file size for a single file)
+        maxRequestSize = 1024 * 1024 * 200 // 200MB (maximum size of the entire request)
+)
 public class ServiceUpdateController extends HttpServlet {
 
     @Override
@@ -26,14 +28,17 @@ public class ServiceUpdateController extends HttpServlet {
 
         ServiceManagerDAO db = new ServiceManagerDAO();
         CategoryDAO dbCategory = new CategoryDAO();
+        try {
+            int serviceId = Integer.parseInt(request.getParameter("id"));
+            Service service = db.getServiceByID(serviceId);
+            List<Category> listCategory = dbCategory.getAllAvailabelCategories();
 
-        int serviceId = Integer.parseInt(request.getParameter("id"));
-        Service service = db.getServiceByID(serviceId);
-        List<Category> listCategory = dbCategory.getAllAvailabelCategories();
-
-        request.setAttribute("s", service);
-        request.setAttribute("listCategory", listCategory);
-        request.getRequestDispatcher("../dashboard/manager/serviceDetail.jsp").forward(request, response);
+            request.setAttribute("s", service);
+            request.setAttribute("listCategory", listCategory);
+            request.getRequestDispatcher("../dashboard/manager/serviceDetail.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.getRequestDispatcher("../dashboard/manager/serviceDetail.jsp").forward(request, response);
+        }
     }
 
     @Override
@@ -51,7 +56,7 @@ public class ServiceUpdateController extends HttpServlet {
         }
         try {
             Service service = extractServiceFromRequest(request);
-            
+
             db.updateService(service);
 
             int serviceId = Integer.parseInt(request.getParameter("id"));
@@ -62,7 +67,7 @@ public class ServiceUpdateController extends HttpServlet {
             request.setAttribute("notification", "successfull");
             request.setAttribute("s", serviceRecover);
             request.setAttribute("listCategory", listCategory);
-            
+
             request.getRequestDispatcher("../dashboard/manager/serviceDetail.jsp").forward(request, response);
         } catch (Exception e) {
 
@@ -74,7 +79,6 @@ public class ServiceUpdateController extends HttpServlet {
             request.setAttribute("s", service);
             request.setAttribute("listCategory", listCategory);
             request.setAttribute("notification", "false");
-
             request.getRequestDispatcher("../dashboard/manager/serviceDetail.jsp").forward(request, response);
         }
     }
@@ -116,6 +120,9 @@ public class ServiceUpdateController extends HttpServlet {
         }
 
         String fileName = getFileName(filePart);
+        if (!isValidImageExtension(fileName)) {
+            throw new ServletException("Invalid file type! Only image files are allowed.");
+        }
         String uploadPath = request.getServletContext().getRealPath("/assets/images/services").replace("/build", "");
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
@@ -144,5 +151,27 @@ public class ServiceUpdateController extends HttpServlet {
             return null;
         }
         return input.trim().replaceAll("\\s+", " ");
+    }
+
+    private boolean isValidImageExtension(String fileName) {
+        // Các đuôi file hợp lệ
+        String[] validExtensions = {"jpg", "jpeg", "png", "gif"};
+        String fileExtension = getFileExtension(fileName);
+
+        // Kiểm tra xem file có đuôi hợp lệ không
+        for (String ext : validExtensions) {
+            if (fileExtension.equalsIgnoreCase(ext)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String getFileExtension(String fileName) {
+        int dotIndex = fileName.lastIndexOf(".");
+        if (dotIndex > 0) {
+            return fileName.substring(dotIndex + 1);
+        }
+        return "";
     }
 }

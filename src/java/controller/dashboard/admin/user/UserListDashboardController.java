@@ -107,7 +107,11 @@ public class UserListDashboardController extends HttpServlet {
             }
 
             // Update the status in the database
-            userDB.UpdateStatusByUser(id, status);
+            if (userDB.UpdateStatusByUser(id, status)) {
+                req.setAttribute("notification", "successfull");
+            } else {
+                req.setAttribute("notification", "error");
+            }
 
             // Fetch updated data
             ArrayList<User> users = userDB.listAllUsersExcept(userId);
@@ -221,6 +225,7 @@ public class UserListDashboardController extends HttpServlet {
                 session.removeAttribute("sessionRoleId");
             }
             String titleSearch = req.getParameter("search").trim();
+            titleSearch = trimSpaces(titleSearch);
 
             ArrayList<Role> roles = dbRole.listAllAvailableRole();
             ArrayList<User> users = dbUser.getUserBySearch(titleSearch, userId);
@@ -231,5 +236,13 @@ public class UserListDashboardController extends HttpServlet {
             req.getRequestDispatcher("dashboard/users.jsp").forward(req, resp);
         }
 
+    }
+
+    // Dùng để validate khoảng trắng cách chữ trong string không cách nhau
+    private static String trimSpaces(String input) {
+        if (input == null) {
+            return null;
+        }
+        return input.trim().replaceAll("\\s+", " ");
     }
 }

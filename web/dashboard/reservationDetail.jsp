@@ -237,7 +237,7 @@
                                                         <!-- Lặp qua danh sách nhân viên và tạo các option -->
                                                         <c:forEach items="${staffs}" var="st">
                                                             <option value="${st.id}">
-                                                                ${st.profile.lastName} ${st.profile.firstName}
+                                                               ${st.id} - ${st.profile.lastName} ${st.profile.firstName} 
                                                             </option>
                                                         </c:forEach>
                                                     </select>
