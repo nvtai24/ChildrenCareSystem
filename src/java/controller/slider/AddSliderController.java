@@ -19,8 +19,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import model.Slider;
 
-
-
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
@@ -29,10 +27,9 @@ import model.Slider;
 public class AddSliderController extends HttpServlet {
 
     private static final String UPLOAD_DIR = "web\\assets\\images\\slider";
-    
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
 
     }
 
@@ -40,23 +37,42 @@ public class AddSliderController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String title = request.getParameter("title");
-        String backLink = request.getParameter("backLink");
-        
+        String title = request.getParameter("title") != null ? request.getParameter("title").trim() : "";
+        String backLink = request.getParameter("backLink") != null ? request.getParameter("backLink").trim() : "";
+
+        boolean hasError = false;
+
+        if (title.isEmpty()) {
+            request.setAttribute("titleError", "Title must not be empty.");
+            hasError = true;
+        }
+
+        if (backLink.isEmpty()) {
+            request.setAttribute("backLinkError", "Back link must not be empty.");
+            hasError = true;
+        }
+
+        if (hasError) {
+            request.setAttribute("titleValue", title);      // để điền lại giá trị người dùng đã nhập
+            request.setAttribute("backLinkValue", backLink);
+            request.getRequestDispatcher("/addslider.jsp").forward(request, response);
+            return;
+        }
+
         HttpSession session = request.getSession();
         int currentUserId = 0;
         if (session != null && session.getAttribute("id") != null) {
-            currentUserId = (int) session.getAttribute("id"); 
+            currentUserId = (int) session.getAttribute("id");
 
         } else {
-            response.sendRedirect(request.getContextPath() + "/login"); 
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
         Part filePart = request.getPart("image");
         if (filePart == null || filePart.getSize() == 0) {
             request.setAttribute("MESSAGE", "Bạn chưa chọn ảnh!");
-            
+
             return;
         }
 
@@ -100,7 +116,6 @@ public class AddSliderController extends HttpServlet {
         SliderDAO sliderDAO = new SliderDAO();
         boolean result = sliderDAO.AddNewSlider(title, "assets/images/slider/" + fileName, backLink, currentUserId);
 
-        
         if (result) {
             session.setAttribute("MESSAGE", "Add slider successfully!");
         } else {

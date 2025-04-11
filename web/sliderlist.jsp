@@ -186,7 +186,7 @@
             width: 25%;
             text-align: center;
         }
-        
+
         .fade-out {
             opacity: 1;
             transition: opacity 1s ease-out;
@@ -194,329 +194,329 @@
 
         .fade-out.hidden {
             opacity: 0;
-            
-        .pagination-bx {
-            margin-top: 20px;
-        }
 
-        .pagination {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            padding: 0;
-        }
+            .pagination-bx {
+                margin-top: 20px;
+            }
 
-        .pagination li {
-            margin: 0 5px;
-        }
+            .pagination {
+                display: flex;
+                justify-content: center;
+                list-style: none;
+                padding: 0;
+            }
 
-        .pagination li a {
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            text-decoration: none;
-            border-radius: 4px;
-            color: #333;
-        }
+            .pagination li {
+                margin: 0 5px;
+            }
 
-        .pagination li.active a {
-            background-color: #4c1864;
-            color: white;
-            border-color: #4c1864;
-        }
+            .pagination li a {
+                padding: 8px 12px;
+                border: 1px solid #ddd;
+                text-decoration: none;
+                border-radius: 4px;
+                color: #333;
+            }
 
-        .pagination li.disabled a {
-            color: #aaa;
-            cursor: not-allowed;
+            .pagination li.active a {
+                background-color: #4c1864;
+                color: white;
+                border-color: #4c1864;
+            }
 
-        }
-    </style>
-    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:10:19 GMT -->
-    <head>
+            .pagination li.disabled a {
+                color: #aaa;
+                cursor: not-allowed;
 
-        <!-- META ============================================= -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="keywords" content="" />
-        <meta name="author" content="" />
-        <meta name="robots" content="" />
+            }
+        </style>
+        <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:10:19 GMT -->
+        <head>
 
-        <!-- DESCRIPTION -->
-        <meta name="description" content="EduChamp : Education HTML Template" />
+            <!-- META ============================================= -->
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="keywords" content="" />
+            <meta name="author" content="" />
+            <meta name="robots" content="" />
 
-        <!-- OG -->
-        <meta property="og:title" content="EduChamp : Education HTML Template" />
-        <meta property="og:description" content="EduChamp : Education HTML Template" />
-        <meta property="og:image" content="" />
-        <meta name="format-detection" content="telephone=no">
+            <!-- DESCRIPTION -->
+            <meta name="description" content="EduChamp : Education HTML Template" />
 
-        <!-- FAVICONS ICON ============================================= -->
-        <link rel="icon" href="../error-404.html" type="image/x-icon" />
-        <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png" />
+            <!-- OG -->
+            <meta property="og:title" content="EduChamp : Education HTML Template" />
+            <meta property="og:description" content="EduChamp : Education HTML Template" />
+            <meta property="og:image" content="" />
+            <meta name="format-detection" content="telephone=no">
 
-        <!-- PAGE TITLE HERE ============================================= -->
-        <title>ChildrenCare </title>
+            <!-- FAVICONS ICON ============================================= -->
+            <link rel="icon" href="../error-404.html" type="image/x-icon" />
+            <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png" />
 
-        <!-- MOBILE SPECIFIC ============================================= -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+            <!-- PAGE TITLE HERE ============================================= -->
+            <title>ChildrenCare </title>
 
-        <!--[if lt IE 9]>
-        <script src="assets/js/html5shiv.min.js"></script>
-        <script src="assets/js/respond.min.js"></script>
-        <![endif]-->
+            <!-- MOBILE SPECIFIC ============================================= -->
+            <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- All PLUGINS CSS ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/assets.css">
-        <link rel="stylesheet" type="text/css" href="assets2/vendors/calendar/fullcalendar.css">
+            <!--[if lt IE 9]>
+            <script src="assets/js/html5shiv.min.js"></script>
+            <script src="assets/js/respond.min.js"></script>
+            <![endif]-->
 
-        <!-- TYPOGRAPHY ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/typography.css">
+            <!-- All PLUGINS CSS ============================================= -->
+            <link rel="stylesheet" type="text/css" href="assets2/css/assets.css">
+            <link rel="stylesheet" type="text/css" href="assets2/vendors/calendar/fullcalendar.css">
 
-        <!-- SHORTCODES ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/shortcodes/shortcodes.css">
+            <!-- TYPOGRAPHY ============================================= -->
+            <link rel="stylesheet" type="text/css" href="assets2/css/typography.css">
 
-        <!-- STYLESHEETS ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/style.css">
-        <link rel="stylesheet" type="text/css" href="assets2/css/dashboard.css">
-        <link class="skin" rel="stylesheet" type="text/css" href="assets2/css/color/color-1.css">
+            <!-- SHORTCODES ============================================= -->
+            <link rel="stylesheet" type="text/css" href="assets2/css/shortcodes/shortcodes.css">
 
-    </head>
-    <body class="ttr-opened-sidebar ttr-pinned-sidebar">
+            <!-- STYLESHEETS ============================================= -->
+            <link rel="stylesheet" type="text/css" href="assets2/css/style.css">
+            <link rel="stylesheet" type="text/css" href="assets2/css/dashboard.css">
+            <link class="skin" rel="stylesheet" type="text/css" href="assets2/css/color/color-1.css">
 
-        <!-- header start -->
-        <jsp:include page="dashboard/header.jsp"/>
-        <!-- header end -->
-        <!-- Left sidebar menu start -->
-        <jsp:include page="dashboard/left-sidebar.jsp"/>
-        <!-- Left sidebar menu end -->
+        </head>
+        <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
-        <!--Main container start -->
-        <main class="ttr-wrapper">
-            <div class="container-fluid">
-                <div class="db-breadcrumb">
+            <!-- header start -->
+            <jsp:include page="dashboard/header.jsp"/>
+            <!-- header end -->
+            <!-- Left sidebar menu start -->
+            <jsp:include page="dashboard/left-sidebar.jsp"/>
+            <!-- Left sidebar menu end -->
 
-                    <h4 class="breadcrumb-title">Slider List</h4>
+            <!--Main container start -->
+            <main class="ttr-wrapper">
+                <div class="container-fluid">
+                    <div class="db-breadcrumb">
 
-                </div>	
-                <div class="row">
-                    <!-- Your Profile Views Chart -->
-                    <div class="col-lg-12 m-b30">
-                        <div class="widget-box">
-                            <div class="wc-title">
-                                <c:if test="${sessionScope.MESSAGE != null}">
-                                    <div id="MESSAGE" class="alert alert-success">${sessionScope.MESSAGE}</div>
-                                </c:if>
-                                <!-- Xóa message khỏi session sau khi hiển thị -->
-                                <c:remove var="MESSAGE" scope="session"/>
-                            </div>
-                            <!-- Container chứa cả 2 form -->
-                            <div class="filter-search-container">
+                        <h4 class="breadcrumb-title">Slider List</h4>
 
-                                <!-- Form tìm kiếm -->
-                                <form method="get" action="sliders" class="form-search">
-                                    <input type="text" id="search" name="search" value="${param.search}" placeholder="Type anything...">
-                                    <button class="fa fa-search" type="submit"></button>
-                                </form>
+                    </div>	
+                    <div class="row">
+                        <!-- Your Profile Views Chart -->
+                        <div class="col-lg-12 m-b30">
+                            <div class="widget-box">
+                                <div class="wc-title">
+                                    <c:if test="${sessionScope.MESSAGE != null}">
+                                        <div id="MESSAGE" class="alert alert-success">${sessionScope.MESSAGE}</div>
+                                    </c:if>
+                                    <!-- Xóa message khỏi session sau khi hiển thị -->
+                                    <c:remove var="MESSAGE" scope="session"/>
+                                </div>
+                                <!-- Container chứa cả 2 form -->
+                                <div class="filter-search-container">
 
-                                <!-- Form lọc trạng thái -->
-                                <form method="get" action="sliders" class="form-filter">
-                                    <select name="status" id="status">
-                                        <option value="" ${empty param.status ? "selected" : ""}>All</option>
-                                        <option value="true" ${param.status == "true" ? "selected" : ""}>Active</option>
-                                        <option value="false" ${param.status == "false" ? "selected" : ""}>Inactive</option>
-                                    </select>
-                                    <button class="fa fa-filter" type="submit"></button>
-                                </form>
-                                <form class="form-add">
-                                    <button type="button" onclick="window.location.href = 'addslider.jsp';">
-                                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                        Add New Slider
-                                    </button>    
-                                </form>
+                                    <!-- Form tìm kiếm -->
+                                    <form method="get" action="sliders" class="form-search">
+                                        <input type="text" id="search" name="search" value="${param.search}" placeholder="Type anything...">
+                                        <button class="fa fa-search" type="submit"></button>
+                                    </form>
 
-                            </div>
+                                    <!-- Form lọc trạng thái -->
+                                    <form method="get" action="sliders" class="form-filter">
+                                        <select name="status" id="status">
+                                            <option value="" ${empty param.status ? "selected" : ""}>All</option>
+                                            <option value="true" ${param.status == "true" ? "selected" : ""}>Active</option>
+                                            <option value="false" ${param.status == "false" ? "selected" : ""}>Inactive</option>
+                                        </select>
+                                        <button class="fa fa-filter" type="submit"></button>
+                                    </form>
+                                    <form class="form-add">
+                                        <button type="button" onclick="window.location.href = 'addslider.jsp';">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                            Add New Slider
+                                        </button>    
+                                    </form>
 
-                            <br><br>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Title</th>
-                                        <th>BackLink</th>
-                                        <th>Status</th>
-                                        <th>Created Date</th>
-                                        <th>Updated Date</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="slider" items="${SLIDERS}" varStatus="status">
+                                </div>
+
+                                <br><br>
+                                <table>
+                                    <thead>
                                         <tr>
-                                            <td>${status.index + 1}</td>
-                                            <td>${slider.title}</td>
-                                            <td>${slider.backLink}</td>
-                                            <td>
-                                                <c:choose>
-                                                    <c:when test="${slider.status}">
-                                                        <span style="color: green;">Active</span>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <span style="color: red;">Inactive</span>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </td>
-                                            <td>${slider.createdDate}</td>
-                                            <td>
-                                                <c:if test="${slider.updatedDate != null}">
-                                                    ${slider.updatedDate}
-                                                </c:if>
-                                            </td>
-                                            <td>
-                                                <div class="button-group">
-                                                    <!-- Nút Enable/Disable -->
-                                                    <form method="post" action="sliders">
-                                                        <input type="hidden" name="id" value="${slider.id}">
-                                                        <input type="hidden" name="status" value="${slider.status ? 0 : 1}">
-                                                        <button type="submit" 
-                                                                class="btn ${slider.status ? 'disable' : 'enable'}">
-                                                            <i class="fa fa-refresh" aria-hidden="true"></i>
-                                                            ${slider.status ? 'Hide' : 'Show'}
-                                                        </button>
-                                                    </form>
-                                                    <div id="slider-${slider.id}" class="slider-item">
-
-                                                        <form style="display:inline;">
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>BackLink</th>
+                                            <th>Status</th>
+                                            <th>Created Date</th>
+                                            <th>Updated Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach var="slider" items="${SLIDERS}" varStatus="status">
+                                            <tr>
+                                                <td>${status.index + 1}</td>
+                                                <td>${slider.title}</td>
+                                                <td>${slider.backLink}</td>
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${slider.status}">
+                                                            <span style="color: green;">Active</span>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <span style="color: red;">Inactive</span>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                                <td>${slider.createdDate}</td>
+                                                <td>
+                                                    <c:if test="${slider.updatedDate != null}">
+                                                        ${slider.updatedDate}
+                                                    </c:if>
+                                                </td>
+                                                <td>
+                                                    <div class="button-group">
+                                                        <!-- Nút Enable/Disable -->
+                                                        <form method="post" action="sliders">
                                                             <input type="hidden" name="id" value="${slider.id}">
-                                                            <button type="button" class="btn delete" onclick="confirmDelete('${slider.id}')">
-                                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                                                Delete
+                                                            <input type="hidden" name="status" value="${slider.status ? 0 : 1}">
+                                                            <button type="submit" 
+                                                                    class="btn ${slider.status ? 'disable' : 'enable'}">
+                                                                <i class="fa fa-refresh" aria-hidden="true"></i>
+                                                                ${slider.status ? 'Hide' : 'Show'}
+                                                            </button>
+                                                        </form>
+                                                        <div id="slider-${slider.id}" class="slider-item">
+
+                                                            <form style="display:inline;">
+                                                                <input type="hidden" name="id" value="${slider.id}">
+                                                                <button type="button" class="btn delete" onclick="confirmDelete('${slider.id}')">
+                                                                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                        <form method="post" action="sliders-update" style="display:inline;">
+                                                            <input type="hidden" name="id" value="${slider.id}">
+                                                            <button type="submit" class="btn update" style="display:inline;">
+                                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                                View Detail
                                                             </button>
                                                         </form>
                                                     </div>
-                                                    <form method="get" action="sliders-update" style="display:inline;">
-                                                        <input  type="hidden" name="id" value="${slider.id}">
-                                                        <button type="submit" class="btn update" style="display:inline;">
-                                                            <i class="fa fa-pencil" aria-hidden="true" ></i>
-                                                            View Detail
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-
-                            <div class="col-lg-12 m-b20">
-                                <div class="pagination-bx rounded-sm gray clearfix">
-                                    <ul class="pagination">
-                                        <c:if test="${CURRENT_PAGE > 1}">
-                                            <li class="previous">
-                                                <a href="sliders?page=${CURRENT_PAGE - 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
-                                                    <i class="ti-arrow-left"></i> Prev
-                                                </a>
-                                            </li>
-                                        </c:if>
-
-                                        <c:forEach begin="1" end="${TOTAL_PAGES}" var="i">
-                                            <li class="${i == CURRENT_PAGE ? 'active' : ''}">
-                                                <a href="sliders?page=${i}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
-                                                    ${i}
-                                                </a>
-                                            </li>
+                                                </td>
+                                            </tr>
                                         </c:forEach>
+                                    </tbody>
+                                </table>
 
-                                        <c:if test="${CURRENT_PAGE < TOTAL_PAGES}">
-                                            <li class="next">
-                                                <a href="sliders?page=${CURRENT_PAGE + 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
-                                                    <i class="ti-arrow-right"></i> Next
-                                                </a>
-                                            </li>
-                                        </c:if>
-                                    </ul>
+                                <div class="col-lg-12 m-b20">
+                                    <div class="pagination-bx rounded-sm gray clearfix">
+                                        <ul class="pagination">
+                                            <c:if test="${CURRENT_PAGE > 1}">
+                                                <li class="previous">
+                                                    <a href="sliders?page=${CURRENT_PAGE - 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
+                                                        <i class="ti-arrow-left"></i> Prev
+                                                    </a>
+                                                </li>
+                                            </c:if>
+
+                                            <c:forEach begin="1" end="${TOTAL_PAGES}" var="i">
+                                                <li class="${i == CURRENT_PAGE ? 'active' : ''}">
+                                                    <a href="sliders?page=${i}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
+                                                        ${i}
+                                                    </a>
+                                                </li>
+                                            </c:forEach>
+
+                                            <c:if test="${CURRENT_PAGE < TOTAL_PAGES}">
+                                                <li class="next">
+                                                    <a href="sliders?page=${CURRENT_PAGE + 1}&pageSize=${PAGE_SIZE}&search=${param.search}&status=${param.status}">
+                                                        <i class="ti-arrow-right"></i> Next
+                                                    </a>
+                                                </li>
+                                            </c:if>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Your Profile Views Chart END-->
                     </div>
-                    <!-- Your Profile Views Chart END-->
                 </div>
-            </div>
-        </main>
-        <div class="ttr-overlay"></div>
+            </main>
+            <div class="ttr-overlay"></div>
 
-        <!-- External JavaScripts -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
-        <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-        <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-        <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
-        <script src="assets/vendors/counter/waypoints-min.js"></script>
-        <script src="assets/vendors/counter/counterup.min.js"></script>
-        <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
-        <script src="assets/vendors/masonry/masonry.js"></script>
-        <script src="assets/vendors/masonry/filter.js"></script>
-        <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
-        <script src='assets/vendors/scroll/scrollbar.min.js'></script>
-        <script src="assets/js/functions.js"></script>
-        <script src="assets/vendors/chart/chart.min.js"></script>
-        <script src="assets/js/admin.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-                                                                document.addEventListener("DOMContentLoaded", function () {
-                                                                    function fadeOutMessage(id) {
-                                                                        let message = document.getElementById(id);
-                                                                        if (message) {
-                                                                            setTimeout(function () {
-                                                                                message.classList.add("hidden"); // Kích hoạt hiệu ứng mờ dần
-                                                                                setTimeout(() => message.style.display = "none", 1000); // Ẩn hoàn toàn sau hiệu ứng
-                                                                            }, 3000);
+            <!-- External JavaScripts -->
+            <script src="assets/js/jquery.min.js"></script>
+            <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
+            <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+            <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+            <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+            <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
+            <script src="assets/vendors/counter/waypoints-min.js"></script>
+            <script src="assets/vendors/counter/counterup.min.js"></script>
+            <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
+            <script src="assets/vendors/masonry/masonry.js"></script>
+            <script src="assets/vendors/masonry/filter.js"></script>
+            <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
+            <script src='assets/vendors/scroll/scrollbar.min.js'></script>
+            <script src="assets/js/functions.js"></script>
+            <script src="assets/vendors/chart/chart.min.js"></script>
+            <script src="assets/js/admin.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                                        function fadeOutMessage(id) {
+                                                                            let message = document.getElementById(id);
+                                                                            if (message) {
+                                                                                setTimeout(function () {
+                                                                                    message.classList.add("hidden"); // Kích hoạt hiệu ứng mờ dần
+                                                                                    setTimeout(() => message.style.display = "none", 1000); // Ẩn hoàn toàn sau hiệu ứng
+                                                                                }, 3000);
+                                                                            }
                                                                         }
-                                                                    }
 
-                                                                    // Gọi hàm cho cả hai loại thông báo
-                                                                    fadeOutMessage("MESSAGE");
-                                                                });
-        </script>     
-        <script>
-            function confirmDelete(sliderId) {
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                    cancelButtonColor: "#3085d6",
-                    confirmButtonText: "Yes, delete it!"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "DeleteSlider", // Đổi thành API phù hợp
-                            type: "POST",
-                            data: {id: sliderId},
-                            success: function (response) {
+                                                                        // Gọi hàm cho cả hai loại thông báo
+                                                                        fadeOutMessage("MESSAGE");
+                                                                    });
+            </script>     
+            <script>
+                function confirmDelete(sliderId) {
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                        confirmButtonText: "Yes, delete it!"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: "DeleteSlider", // Đổi thành API phù hợp
+                                type: "POST",
+                                data: {id: sliderId},
+                                success: function (response) {
 
-                                Swal.fire({
-                                    title: "Deleted!",
-                                    text: "Your slider has been deleted.",
-                                    icon: "success",
-                                    timer: 1000,
-                                    showConfirmButton: false
-                                })
-                                        .then(() => {
-                                            window.location.href = "/app/sliders"; // Load lại trang /post
-                                        });
-                                ;
-                            },
-                            error: function (xhr, status, error) {
-                                Swal.fire("Error!", "Something went wrong.", "error");
-                            }
-                        });
-                    }
-                });
-            }
-        </script>
-    </body>
+                                    Swal.fire({
+                                        title: "Deleted!",
+                                        text: "Your slider has been deleted.",
+                                        icon: "success",
+                                        timer: 1000,
+                                        showConfirmButton: false
+                                    })
+                                            .then(() => {
+                                                window.location.href = "/app/sliders"; // Load lại trang /post
+                                            });
+                                    ;
+                                },
+                                error: function (xhr, status, error) {
+                                    Swal.fire("Error!", "Something went wrong.", "error");
+                                }
+                            });
+                        }
+                    });
+                }
+            </script>
+        </body>
 
-    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
-</html>
+        <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
+    </html>

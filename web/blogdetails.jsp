@@ -195,10 +195,15 @@
 
                                                 <c:forEach var="post" items="${LISTPOSTS}">
                                                     <div class="widget-post clearfix">
-                                                        <div class="ttr-post-media"> <a href="blog?id=${post.id}"><img src="${post.thumbnail}" width="200" height="143" alt=""></a> </div>
+                                                        <div class="ttr-post-media"> <a><img src="${post.thumbnail}" width="200" height="143" alt=""></a> </div>
                                                         <div class="ttr-post-info">
                                                             <div class="ttr-post-header">
-                                                                <h6 class="post-title"><a href="blog?id=${post.id}">${post.title}</a></h6>
+                                                                <form action="blog" method="post" style="display: inline;">
+                                                                    <input type="hidden" name="id" value="${post.id}">
+                                                                    <button type="submit" style="background: none; border: none; padding: 0;">
+                                                                        ${post.title}
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                             <ul class="media-post">
                                                                 <li><a><i class="fa fa-calendar"></i>${post.createdDate}</a></li>

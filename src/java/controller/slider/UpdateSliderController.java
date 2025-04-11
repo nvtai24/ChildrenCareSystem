@@ -16,9 +16,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import model.Slider;
-
-
 
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 2, // 2MB
@@ -32,46 +34,63 @@ public class UpdateSliderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            int sliderId = Integer.parseInt(request.getParameter("id"));
-            SliderDAO sliderDAO = new SliderDAO();
-            Slider slider = sliderDAO.GetSliderById(sliderId);
-            if (slider != null) {
-                request.setAttribute("SLIDER", slider);
-            }
-            request.getRequestDispatcher("updateslider.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String action = request.getParameter("action");
         try {
-            // Lấy ID slider từ request
+
+            if (request.getParameter("title") == null) {
+                int sliderId = Integer.parseInt(request.getParameter("id"));
+                SliderDAO sliderDAO = new SliderDAO();
+                Slider slider = sliderDAO.GetSliderById(sliderId);
+                if (slider != null) {
+                    request.setAttribute("SLIDER", slider);
+                }
+                request.getRequestDispatcher("updateslider.jsp").forward(request, response);
+                return;
+            }
+
             int sliderId = Integer.parseInt(request.getParameter("id"));
-            String title = request.getParameter("title");
-            String backlink = request.getParameter("backlink");
+            String title = request.getParameter("title") != null ? request.getParameter("title").trim() : "";
+            String backlink = request.getParameter("backlink") != null ? request.getParameter("backlink").trim() : "";
 
-            // Lấy phần thông tin ảnh (nếu có)
-            Part filePart = request.getPart("image"); // Lấy file ảnh từ form
+            Map<String, String> fieldErrors = new HashMap<>();
+            if (title.isEmpty()) {
+                fieldErrors.put("title", "Title must not be empty.");
+            }
+            if (backlink.isEmpty()) {
+                fieldErrors.put("backlink", "Back link must not be empty.");
+            }
 
-            // Khai báo DAO
+            if (!fieldErrors.isEmpty()) {
+                SliderDAO sliderDAO = new SliderDAO();
+                Slider slider = sliderDAO.GetSliderById(sliderId);
+
+                request.setAttribute("SLIDER", slider);
+                request.setAttribute("fieldErrors", fieldErrors);
+                request.setAttribute("title", title);
+                request.setAttribute("backlink", backlink);
+
+                request.getRequestDispatcher("updateslider.jsp").forward(request, response);
+                return;
+            }
+
+            Part filePart = request.getPart("image");
             SliderDAO sliderDAO = new SliderDAO();
             Slider existingSlider = sliderDAO.GetSliderById(sliderId);
 
             String fileName = null;
-            boolean isUpdatingImage = (filePart != null && filePart.getSize() > 0); // Kiểm tra nếu có file ảnh mới
+            boolean isUpdatingImage = (filePart != null && filePart.getSize() > 0);
 
-            // Nếu có ảnh mới được chọn, xử lý lưu ảnh mới
             if (isUpdatingImage) {
-                // Lấy tên file mới
                 fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                String sanitizedFileName = fileName.replaceAll("\\s+", "_"); // Đảm bảo tên file không có khoảng trắng
+                String sanitizedFileName = fileName.replaceAll("\\s+", "_");
 
-                // Đường dẫn thư mục lưu ảnh
                 String appPath = getServletContext().getRealPath("/");
                 String rootPath = new File(appPath).getParentFile().getParent();
 
@@ -81,7 +100,6 @@ public class UpdateSliderController extends HttpServlet {
                 File webFolder = new File(webUploadDir);
                 File buildFolder = new File(buildUploadDir);
 
-                // Tạo thư mục nếu chưa có
                 if (!webFolder.exists()) {
                     webFolder.mkdirs();
                 }
@@ -89,51 +107,36 @@ public class UpdateSliderController extends HttpServlet {
                     buildFolder.mkdirs();
                 }
 
-                // Kiểm tra xem ảnh đã tồn tại trong folder hay chưa
                 File existingFile = new File(webFolder, sanitizedFileName);
                 if (!existingFile.exists()) {
-                    // Nếu ảnh mới chưa tồn tại, lưu nó vào thư mục
                     File webImageFile = new File(webFolder, sanitizedFileName);
                     File buildImageFile = new File(buildFolder, sanitizedFileName);
 
                     filePart.write(webImageFile.getAbsolutePath());
-                    Files.copy(webImageFile.toPath(), buildImageFile.toPath()); // Sao chép file vào thư mục build
-
-                    System.out.println("File saved to: " + webImageFile.getAbsolutePath());
-                    System.out.println("File also copied to: " + buildImageFile.getAbsolutePath());
-                } else {
-                    System.out.println("File already exists in folder: " + sanitizedFileName);
+                    Files.copy(webImageFile.toPath(), buildImageFile.toPath());
                 }
 
-                // Cập nhật fileName để lưu vào database
                 fileName = "assets/images/slider/" + sanitizedFileName;
             } else {
-                // Nếu không có ảnh mới, sử dụng ảnh cũ mà không thay đổi đường dẫn "assets/images/slider/"
-                fileName = existingSlider.getImageUrl();  // Giữ nguyên ảnh cũ
+                fileName = existingSlider.getImageUrl();
             }
 
-            // Cập nhật thông tin vào đối tượng Slider
             Slider slider = new Slider();
-            slider.setTitle(title);
             slider.setId(sliderId);
+            slider.setTitle(title);
             slider.setBackLink(backlink);
-            slider.setImageUrl(fileName); // Lưu đường dẫn ảnh vào database
+            slider.setImageUrl(fileName);
 
-            // Cập nhật Slider trong database
             boolean result = sliderDAO.updateSlider(slider);
 
             HttpSession session = request.getSession();
-            if (result) {
-                session.setAttribute("MESSAGE", "Update slider successfully!");
-            } else {
-                session.setAttribute("MESSAGE", "Update slider failed");
-            }
+            session.setAttribute("MESSAGE", result ? "Update slider successfully!" : "Update slider failed");
 
-            // Chuyển hướng về trang slider sau khi cập nhật
             response.sendRedirect("sliders");
+
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi cập nhật slider.");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi xử lý slider.");
         }
     }
 

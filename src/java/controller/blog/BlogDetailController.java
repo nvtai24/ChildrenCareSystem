@@ -13,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Comment;
 import model.Post;
@@ -41,7 +42,7 @@ public class BlogDetailController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BlogDetailController</title>");            
+            out.println("<title>Servlet BlogDetailController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet BlogDetailController at " + request.getContextPath() + "</h1>");
@@ -63,14 +64,20 @@ public class BlogDetailController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            int postId = Integer.parseInt(request.getParameter("id"));
+            HttpSession session = request.getSession();
+            Integer postId = (Integer) session.getAttribute("postId");
+
+            if (postId == null) {
+                response.sendRedirect("bloglist.jsp"); // hoặc hiển thị 404
+                return;
+            }
+
             CommentDAO commentDAO = new CommentDAO();
             List<Comment> comments = commentDAO.listCommentsOfPost(postId);
+
             PostDAO postDAO = new PostDAO();
             Post post = postDAO.getPostById(postId);
             List<Post> top3post = postDAO.getTop3Post();
-
-            
 
             if (post != null) {
                 request.setAttribute("comments", comments);
@@ -94,7 +101,14 @@ public class BlogDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            int postId = Integer.parseInt(request.getParameter("id"));
+            HttpSession session = request.getSession();
+            session.setAttribute("postId", postId);
+            response.sendRedirect("blog"); // chuyển sang doGet
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
