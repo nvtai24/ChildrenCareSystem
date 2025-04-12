@@ -966,7 +966,7 @@ public class UserDAO extends DBContext {
         return availableStaff;
     }
 
-    public ArrayList<String> getEmailManagerRole() {
+    public ArrayList<String> getEmailManagerRoleAvailible() {
         DBContext db = new DBContext();
         ArrayList<String> listMail = new ArrayList<>();
         String sql = "select u.email from user u join setting s on u.role_id = s.setting_id where s.value = 'Manager' and u.status = 1;";

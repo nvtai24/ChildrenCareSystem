@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import java.util.ArrayList;
 import java.util.List;
 import model.Category;
 import model.Service;
@@ -71,15 +72,13 @@ public class ServiceUpdateController extends HttpServlet {
             request.getRequestDispatcher("../dashboard/manager/serviceDetail.jsp").forward(request, response);
         } catch (Exception e) {
 
-            int id = Integer.parseInt(request.getParameter("id"));
-
-            Service service = db.getServiceByID(id);
+            ArrayList<Service> list = db.list();
             List<Category> listCategory = dbCategory.getAllAvailabelCategories();
 
-            request.setAttribute("s", service);
+            request.setAttribute("list", db.list());
             request.setAttribute("listCategory", listCategory);
             request.setAttribute("notification", "false");
-            request.getRequestDispatcher("../dashboard/manager/serviceDetail.jsp").forward(request, response);
+            request.getRequestDispatcher("../dashboard/manager/serviceList.jsp").forward(request, response);
         }
     }
 

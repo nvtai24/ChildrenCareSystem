@@ -176,7 +176,7 @@
                                 <button onclick="resetPasswordAjax()" type="button" class="btn btn-success green" style="width: 50%">Reset password</button>
 
                                 <c:if test="${user.status == true}">
-                                    <button  onclick="banUserAjax()" id="banButton" type="button" class="btn btn-danger red" style="width: 50%">Ban</button>
+                                    <button  onclick="banUserAjax()" id="banButton" type="button" class="btn btn-danger red" style="width: 50%; ${user.role.roleName eq 'Admin' ? 'display: none;' : ''}">Ban</button>
                                 </c:if>
 
                                 <c:if test="${user.status == false}">

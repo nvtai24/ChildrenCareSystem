@@ -110,18 +110,13 @@ public class CustomerDetailController extends HttpServlet {
             request.getRequestDispatcher("dashboard/manager/customerDetail.jsp").forward(request, response);
         } catch (Exception e) {
             Logger.getLogger(CustomerDetailController.class.getName()).log(Level.SEVERE, null, e);
-
+            
             // Xử lý lỗi và giữ lại dữ liệu form
-            int userId = Integer.parseInt(request.getParameter("id"));
             UserDAO uDB = new UserDAO();
-            RoleDAO rDB = new RoleDAO();
 
-            User user = uDB.get(userId);
-            request.setAttribute("user", user);
-            request.setAttribute("roles", rDB.listAllAvailableRole());
-            request.setAttribute("notification", "false");
-
-            request.getRequestDispatcher("/dashboard/manager/customerDetail.jsp").forward(request, response);
+            request.setAttribute("customers", uDB.getCustomerList());
+            request.setAttribute("notification", "error");
+            request.getRequestDispatcher("/dashboard/manager/customerList.jsp").forward(request, response);
         }
     }
 

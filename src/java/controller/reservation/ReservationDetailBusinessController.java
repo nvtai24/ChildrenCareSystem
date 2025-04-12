@@ -57,7 +57,7 @@ public class ReservationDetailBusinessController extends HttpServlet {
         //get parameter from form
         String reservationId = request.getParameter("reservation_id");
 
-        Reservation reservation =  rDAO.getReservation(Integer.parseInt(reservationId));
+        Reservation reservation = rDAO.getReservation(Integer.parseInt(reservationId));
         ArrayList<ReservationDetail> rdList = rdDAO.getListReservationDetail(reservation.getId());
         ArrayList<User> staffList;
         String serviceContent = reservation.getDetails().stream()
@@ -163,11 +163,11 @@ public class ReservationDetailBusinessController extends HttpServlet {
                 if (rdDAO.changeStatusReservationDetail(3, reservation_detail_id)) {
                     String message3 = generateReservationRejectMessage(
                             uDAO.get(userId).getProfile().getLastName() + " " + uDAO.get(userId).getProfile().getFirstName(),
-                             formattedDateTime, reservation,
-                             rdDAO.getServiceNameByReservationDetailID(reservation_detail_id));
+                            formattedDateTime, reservation,
+                            rdDAO.getServiceNameByReservationDetailID(reservation_detail_id));
                     notification = 1;
-
-                    for (String email : uDAO.getEmailManagerRole()) {
+                    ArrayList<String> listEmailManager = uDAO.getEmailManagerRoleAvailible();
+                    for (String email : listEmailManager) {
                         EmailUtil.sendReserveNotification(email, "Reject reservation detail", message3);
                     }
 

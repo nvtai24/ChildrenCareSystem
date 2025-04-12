@@ -209,7 +209,7 @@
                                         <input type="hidden" name="id" value="${u.id}">
                                         <input type="hidden" name="status" value="${u.status}">
                                         <input type="hidden" name="action" value="change">
-                                        <button type="submit" class="btn ${u.status ? 'red' : 'green'} mb-2">
+                                        <button type="submit" class="btn ${u.status ? 'red' : 'green'} mb-2" ${u.role.roleName eq 'Admin'?'style="display: none"':''} >
                                             <i class="fa fa-refresh" aria-hidden="true"></i> ${u.status ? 'Deactivate' : 'Activate'}
                                         </button>
                                     </form>

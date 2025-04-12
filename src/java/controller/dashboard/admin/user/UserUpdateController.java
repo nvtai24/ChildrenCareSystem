@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -105,17 +106,17 @@ public class UserUpdateController extends HttpServlet {
         } catch (Exception e) {
             Logger.getLogger(UserUpdateController.class.getName()).log(Level.SEVERE, null, e);
 
+            HttpSession session = request.getSession();
+            int userId = (int)session.getAttribute("id");
             // Xử lý lỗi và giữ lại dữ liệu form
-            int userId = Integer.parseInt(request.getParameter("id"));
             UserDAO uDB = new UserDAO();
             RoleDAO rDB = new RoleDAO();
 
-            User user = uDB.get(userId);
-            request.setAttribute("user", user);
+            request.setAttribute("users", uDB.listAllUsersExcept(userId));
             request.setAttribute("roles", rDB.listAllAvailableRole());
             request.setAttribute("notification", "false");
             
-            request.getRequestDispatcher("../dashboard/userDetail.jsp").forward(request, response);
+            request.getRequestDispatcher("../dashboard/users.jsp").forward(request, response);
         }
     }
 

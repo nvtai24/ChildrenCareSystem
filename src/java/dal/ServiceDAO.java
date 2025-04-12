@@ -174,7 +174,7 @@ public class ServiceDAO extends DBContext {
                 + "        JOIN\n"
                 + "    setting s2 ON s.category_id = s2.setting_id\n"
                 + "WHERE\n"
-                + "    status = 1 AND category_id = ?\n"
+                + "    s.status = 1 AND s.category_id = ? AND s2.status = 1\n"
                 + "        AND s2.status = 1\n"
                 + "ORDER BY GREATEST(`s`.`created_date`,\n"
                 + "        COALESCE(`s`.`updated_date`, '1970-01-01')) DESC";

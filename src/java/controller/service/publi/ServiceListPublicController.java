@@ -62,7 +62,7 @@ public class ServiceListPublicController extends HttpServlet {
         int totalPages;
 
         if (info != null && !info.isBlank()) {
-            services = sDB.getAllAvailableServicesByInfo(info);
+            services = sDB.getAllAvailableServicesByInfo(info.trim());
             totalServices = services.size(); 
             request.setAttribute("info", info);
         } else if (raw_cid != null) {
