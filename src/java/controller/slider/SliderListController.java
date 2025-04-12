@@ -28,7 +28,7 @@ public class SliderListController extends HttpServlet {
             }
 
             // Lấy từ khóa tìm kiếm từ request (nếu không có thì mặc định là chuỗi rỗng)
-            String search = request.getParameter("search") != null ? request.getParameter("search") : "";
+            String search = request.getParameter("search") != null ? request.getParameter("search").trim().replaceAll("\\s+", " ") : "";
 
             // Lấy trạng thái filter từ request (nếu không có thì null -> hiển thị tất cả)
             String statusParam = request.getParameter("status");

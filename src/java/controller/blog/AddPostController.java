@@ -17,6 +17,8 @@ import jakarta.servlet.http.Part;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import model.auth.User;
 
 /**
@@ -70,7 +72,7 @@ public class AddPostController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
@@ -87,6 +89,32 @@ public class AddPostController extends HttpServlet {
         String title = request.getParameter("title");
         String content = request.getParameter("content");
         String brief_info = request.getParameter("brief_info");
+
+        Map<String, String> fieldErrors = new HashMap<>();
+
+        if (title == null || title.trim().isEmpty()) {
+            fieldErrors.put("title", "Title must not be empty.");
+        }
+        if (brief_info == null || brief_info.trim().isEmpty()) {
+            fieldErrors.put("brief_info", "Brief info must not be empty.");
+        }
+        String contentForCheck = content != null
+                ? content.replaceAll("<[^>]*>", "") // nếu có HTML thì loại tag
+                        .replaceAll("\\s+", "") // loại khoảng trắng, tab, newline
+                        .replaceAll("&nbsp;", "") // loại &nbsp;
+                : "";
+        if (contentForCheck.isEmpty()) {
+            fieldErrors.put("content", "Content must not be empty.");
+        }
+
+        if (!fieldErrors.isEmpty()) {
+            request.setAttribute("fieldErrors", fieldErrors);
+            request.setAttribute("title", title);
+            request.setAttribute("brief_info", brief_info);
+            request.setAttribute("content", content);
+            request.getRequestDispatcher("/post-add.jsp").forward(request, response);
+            return;
+        }
 
         HttpSession session = request.getSession();
         int currentUserId = 0;

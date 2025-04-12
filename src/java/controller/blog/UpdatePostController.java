@@ -16,6 +16,8 @@ import jakarta.servlet.http.Part;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import model.Post;
 import model.auth.User;
 
@@ -35,17 +37,7 @@ public class UpdatePostController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            int postId = Integer.parseInt(request.getParameter("id"));
-            PostDAO postDAO = new PostDAO();
-            Post post = postDAO.GetPostById(postId);
-            if (post != null) {
-                request.setAttribute("POST", post);
-            }
-            request.getRequestDispatcher("post-update.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 
     /**
@@ -59,38 +51,68 @@ public class UpdatePostController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getParameter("action");
+
         try {
-            // Lấy ID slider từ request
+
+            if (request.getParameter("title") == null) {
+                int postId = Integer.parseInt(request.getParameter("id"));
+                PostDAO postDAO = new PostDAO();
+                Post post = postDAO.GetPostById(postId);
+                if (post != null) {
+                    request.setAttribute("POST", post);
+                }
+                request.getRequestDispatcher("post-update.jsp").forward(request, response);
+                return;
+            }
+
             int postId = Integer.parseInt(request.getParameter("id"));
             String title = request.getParameter("title");
             String content = request.getParameter("content");
-            String brief_info = request.getParameter("brief_info");
-            
-            HttpSession session = request.getSession();
-            int currentUserId = 0;
-            if (session != null && session.getAttribute("id") != null) {
-                currentUserId = (int) session.getAttribute("id"); 
-            } else {
-                response.sendRedirect(request.getContextPath() + "/login"); // Redirect về trang login nếu chưa đăng nhập
+            String briefInfo = request.getParameter("brief_info");
+
+            Map<String, String> fieldErrors = new HashMap<>();
+
+            if (title == null || title.trim().isEmpty()) {
+                fieldErrors.put("title", "Title must not be empty.");
+            }
+            if (briefInfo == null || briefInfo.trim().isEmpty()) {
+                fieldErrors.put("brief_info", "Brief info must not be empty.");
+            }
+            String contentForCheck = content != null
+                    ? content.replaceAll("<[^>]*>", "") // nếu có HTML thì loại tag
+                            .replaceAll("\\s+", "") // loại khoảng trắng, tab, newline
+                            .replaceAll("&nbsp;", "") // loại &nbsp;
+                    : "";
+            if (contentForCheck.isEmpty()) {
+                fieldErrors.put("content", "Content must not be empty.");
+            }
+
+            if (!fieldErrors.isEmpty()) {
+                PostDAO postDAO = new PostDAO();
+                Post post = postDAO.GetPostById(postId);
+
+                request.setAttribute("POST", post);
+                request.setAttribute("fieldErrors", fieldErrors);
+                request.setAttribute("title", title);
+                request.setAttribute("briefInfo", briefInfo);
+                request.setAttribute("content", content);
+                request.getRequestDispatcher("/post-update.jsp").forward(request, response);
                 return;
             }
-            // Lấy phần thông tin ảnh (nếu có)
-            Part filePart = request.getPart("thumbnail"); // Lấy file ảnh từ form
 
-            // Khai báo DAO
+            Part filePart = request.getPart("thumbnail");
+
             PostDAO postDAO = new PostDAO();
             Post existingPost = postDAO.GetPostById(postId);
 
             String fileName = null;
-            boolean isUpdatingImage = (filePart != null && filePart.getSize() > 0); // Kiểm tra nếu có file ảnh mới
+            boolean isUpdatingImage = (filePart != null && filePart.getSize() > 0);
 
-            // Nếu có ảnh mới được chọn, xử lý lưu ảnh mới
             if (isUpdatingImage) {
-                // Lấy tên file mới
                 fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                String sanitizedFileName = fileName.replaceAll("\\s+", "_"); // Đảm bảo tên file không có khoảng trắng
+                String sanitizedFileName = fileName.replaceAll("\\s+", "_");
 
-                // Đường dẫn thư mục lưu ảnh
                 String appPath = getServletContext().getRealPath("/");
                 String rootPath = new File(appPath).getParentFile().getParent();
 
@@ -100,7 +122,6 @@ public class UpdatePostController extends HttpServlet {
                 File webFolder = new File(webUploadDir);
                 File buildFolder = new File(buildUploadDir);
 
-                // Tạo thư mục nếu chưa có
                 if (!webFolder.exists()) {
                     webFolder.mkdirs();
                 }
@@ -108,52 +129,38 @@ public class UpdatePostController extends HttpServlet {
                     buildFolder.mkdirs();
                 }
 
-                // Kiểm tra xem ảnh đã tồn tại trong folder hay chưa
                 File existingFile = new File(webFolder, sanitizedFileName);
                 if (!existingFile.exists()) {
-                    // Nếu ảnh mới chưa tồn tại, lưu nó vào thư mục
                     File webImageFile = new File(webFolder, sanitizedFileName);
                     File buildImageFile = new File(buildFolder, sanitizedFileName);
 
                     filePart.write(webImageFile.getAbsolutePath());
-                    Files.copy(webImageFile.toPath(), buildImageFile.toPath()); // Sao chép file vào thư mục build
-
-                    System.out.println("File saved to: " + webImageFile.getAbsolutePath());
-                    System.out.println("File also copied to: " + buildImageFile.getAbsolutePath());
-                } else {
-                    System.out.println("File already exists in folder: " + sanitizedFileName);
+                    Files.copy(webImageFile.toPath(), buildImageFile.toPath());
                 }
 
-                // Cập nhật fileName để lưu vào database
                 fileName = "assets/images/blog/" + sanitizedFileName;
             } else {
-                // Nếu không có ảnh mới, sử dụng ảnh cũ mà không thay đổi đường dẫn "assets/images/slider/"
-                fileName = existingPost.getThumbnail();  // Giữ nguyên ảnh cũ
+
+                fileName = existingPost.getThumbnail();
             }
 
-            
             Post post = new Post();
-            post.setTitle(title);
             post.setId(postId);
+            post.setTitle(title);
             post.setContent(content);
-            post.setBriefInfo(brief_info);
-            post.setThumbnail(fileName); // Lưu đường dẫn ảnh vào database
+            post.setBriefInfo(briefInfo);
+            post.setThumbnail(fileName);
 
-            
-            
             boolean result = postDAO.updatePost(post);
 
-            if (result) {
-                session.setAttribute("MESSAGE", "Update post successfully!");
-            } else {
-                session.setAttribute("MESSAGE", "Update post failed");
-            }
+            HttpSession session = request.getSession();
+            session.setAttribute("MESSAGE", result ? "Update post successfully!" : "Update post failed");
 
-            
-            response.sendRedirect(request.getContextPath() + "/posts");
+            response.sendRedirect("posts");
+
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi cập nhật post.");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi xử lý bài viết.");
         }
     }
 

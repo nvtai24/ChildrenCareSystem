@@ -44,19 +44,19 @@
         <![endif]-->
 
         <!-- All PLUGINS CSS ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/assets.css">
-        <link rel="stylesheet" type="text/css" href="assets2/vendors/calendar/fullcalendar.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/assets.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/vendors/calendar/fullcalendar.css">
 
         <!-- TYPOGRAPHY ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/typography.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/typography.css">
 
         <!-- SHORTCODES ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/shortcodes/shortcodes.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/shortcodes/shortcodes.css">
 
         <!-- STYLESHEETS ============================================= -->
-        <link rel="stylesheet" type="text/css" href="assets2/css/style.css">
-        <link rel="stylesheet" type="text/css" href="assets2/css/dashboard.css">
-        <link class="skin" rel="stylesheet" type="text/css" href="assets2/css/color/color-1.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/style.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/dashboard.css">
+        <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets2/css/color/color-1.css">
         <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 
     </head>
@@ -92,26 +92,35 @@
 
                                     <div class="form-group col-12">
                                         <h3>1. Title</h3>
+                                        <c:if test="${not empty fieldErrors.title}">
+                                            <small style="color:red;">${fieldErrors.title}</small>
+                                        </c:if>
                                         <div>
-                                            <input name="title" class="form-control" type="text" placeholder="Type anything..." required>
+                                            <input name="title" class="form-control" type="text" placeholder="Type anything..." >
                                         </div>
                                     </div>
                                     <div class="form-group col-12">
                                         <h3>2. Brief Infomation</h3>
+                                        <c:if test="${not empty fieldErrors.brief_info}">
+                                            <small style="color:red;">${fieldErrors.brief_info}</small>
+                                        </c:if>
                                         <div>
-                                            <input name="brief_info" class="form-control" type="text" placeholder="Type anything..." required>
+                                            <input name="brief_info" class="form-control" type="text" placeholder="Type anything..." >
                                         </div>
                                     </div>
                                     <div class="form-group col-12">
                                         <h3>3. Content</h3>
+                                        <c:if test="${not empty fieldErrors.content}">
+                                            <small style="color:red;">${fieldErrors.content}</small>
+                                        </c:if>
                                         <div>
-                                            <textarea id="content" name="content" class="form-control" rows="5" required></textarea>
+                                            <textarea id="content" name="content" class="form-control" rows="5" ></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group col-6">
                                         <h3>4. Thumbnail</h3>
                                         <div>
-                                            <input class="form-control" type="file" name="thumbnail" accept="image/*" required>
+                                            <input class="form-control" type="file" name="thumbnail" accept="image/*" onchange="validateImageFile(this)" required>
                                         </div>
                                     </div>
 
@@ -143,22 +152,23 @@
         <div class="ttr-overlay"></div>
 
         <!-- External JavaScripts -->
-        <script src="assets2/js/jquery.min.js"></script>
-        <script src="assets2/vendors/bootstrap/js/popper.min.js"></script>
-        <script src="assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-        <script src="assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-        <script src="assets2/vendors/magnific-popup/magnific-popup.js"></script>
-        <script src="assets2/vendors/counter/waypoints-min.js"></script>
-        <script src="assets2/vendors/counter/counterup.min.js"></script>
-        <script src="assets2/vendors/imagesloaded/imagesloaded.js"></script>
-        <script src="assets2/vendors/masonry/masonry.js"></script>
-        <script src="assets2/vendors/masonry/filter.js"></script>
-        <script src="assets2/vendors/owl-carousel/owl.carousel.js"></script>
-        <script src='assets2/vendors/scroll/scrollbar.min.js'></script>
-        <script src="assets2/js/functions.js"></script>
-        <script src="assets2/vendors/chart/chart.min.js"></script>
-        <script src="assets2/js/admin.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/counter/waypoints-min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/counter/counterup.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/masonry/masonry.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/masonry/filter.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src='${pageContext.request.contextPath}/assets2/vendors/scroll/scrollbar.min.js'></script>
+        <script src="${pageContext.request.contextPath}/assets2/js/functions.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/vendors/chart/chart.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             CKEDITOR.replace('content', {
                 versionCheck: false,
@@ -178,6 +188,27 @@
                     e.preventDefault();
                     $(this).parent().parent().parent().parent().remove();
                 });
+            }
+        </script>
+        <script>
+            function validateImageFile(input) {
+                const file = input.files[0];
+
+                if (!file)
+                    return;
+
+                const fileType = file.type;
+
+                if (!fileType.startsWith("image/")) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid file type!",
+                        text: "Only image files are allowed.",
+                        confirmButtonText: "OK"
+                    });
+
+                    input.value = ""; // Clear the file input
+                }
             }
         </script>
     </body>

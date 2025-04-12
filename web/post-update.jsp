@@ -93,23 +93,40 @@
                                         <!--                                        <div>-->
                                         <div class="form-group col-12">
                                             <h3>1. Title</h3>
+                                            <c:if test="${not empty fieldErrors.title}">
+                                                <small style="color: red;">${fieldErrors.title}</small>
+                                            </c:if>
                                             <div>
-                                                <input name="title" class="form-control" type="text" value="${POST.title}" required>
+                                                <input name="title" class="form-control" type="text" value="${not empty param.title ? param.title : POST.title}" >
                                             </div>
                                         </div>
                                         <div class="form-group col-12">
                                             <h3>2. Brief Information</h3>
+                                            <c:if test="${not empty fieldErrors.briefInfo}">
+                                                <small style="color: red;">${fieldErrors.briefInfo}</small>
+                                            </c:if>
                                             <div>
-                                                <input name="brief_info" class="form-control" type="text" value="${POST.briefInfo}" required>
+                                                <input name="brief_info" class="form-control" type="text" value="${not empty param.briefInfo ? param.briefInfo : POST.briefInfo}" >
                                             </div>
                                         </div>
                                         <div class="form-group col-12">
                                             <h3>3. Content</h3>
+                                            <c:if test="${not empty fieldErrors.content}">
+                                                <small style="color: red;">${fieldErrors.content}</small>
+                                            </c:if>
                                             <div>
-                                                <textarea id="content" name="content" class="form-control" rows="5" required>${POST.content}</textarea>
+                                                <textarea id="content" name="content" class="form-control" rows="5" required>
+                                                    <c:choose>
+                                                        <c:when test="${not empty content}">
+                                                            ${content}
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            ${POST.content}
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </textarea>
                                             </div>
-                                        </div>
-                                        <!--                                        </div>-->
+                                        </div>                                        <!--                                        </div>-->
                                         <div class="form-group col-6">
                                             <h3>4. Thumbnail</h3>
                                             <div>
@@ -117,7 +134,7 @@
                                                 <img src="${POST.thumbnail}" alt="Thumbnail" class="img-thumbnail" width="300">
 
                                                 <!-- Input cho phép chọn ảnh mới -->
-                                                <input class="form-control" type="file" name="thumbnail" accept="image/*">
+                                                <input class="form-control" type="file" name="thumbnail" accept="image/*" onchange="validateImageFile(this)" required>
                                             </div>
                                         </div>
 
@@ -161,6 +178,7 @@
         <script src="assets2/js/functions.js"></script>
         <script src="assets2/vendors/chart/chart.min.js"></script>
         <script src="assets2/js/admin.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
             CKEDITOR.replace('content', {
@@ -181,6 +199,27 @@
                     e.preventDefault();
                     $(this).parent().parent().parent().parent().remove();
                 });
+            }
+        </script>
+        <script>
+            function validateImageFile(input) {
+                const file = input.files[0];
+
+                if (!file)
+                    return;
+
+                const fileType = file.type;
+
+                if (!fileType.startsWith("image/")) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid file type!",
+                        text: "Only image files are allowed.",
+                        confirmButtonText: "OK"
+                    });
+
+                    input.value = ""; // Clear the file input
+                }
             }
         </script>
     </body>

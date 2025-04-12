@@ -64,7 +64,7 @@ public class PostListController extends HttpServlet {
             if (request.getParameter("page") != null) {
                 page = Integer.parseInt(request.getParameter("page"));
             }
-            String search = request.getParameter("search") != null ? request.getParameter("search") : "";
+            String search = request.getParameter("search") != null ? request.getParameter("search").trim().replaceAll("\\s+", " ") : "";
             String statusParam = request.getParameter("status");
             Boolean status = null;
             if (statusParam != null && !statusParam.isEmpty()) {

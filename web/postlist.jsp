@@ -391,7 +391,7 @@
                                                         </button>
                                                     </form>
 
-                                                    <form method="get" action="post" style="display:inline;">
+                                                    <form method="post" action="post" style="display:inline;">
                                                         <input  type="hidden" name="id" value="${post.id}">
                                                         <button type="submit" class="btn update" style="display:inline;">
                                                             <i class="fa fa-pencil" aria-hidden="true" ></i>

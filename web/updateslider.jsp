@@ -89,17 +89,24 @@
                                 <form class="edit-profile m-b30" action="sliders-update" method="post" enctype="multipart/form-data">
                                     <input type="hidden" name="id" value="${SLIDER.id}"><br>
                                     <div class="row">
-                                        
+
                                         <div class="form-group col-6">
                                             <h3>1. Slider Title</h3>
+                                            <c:if test="${not empty fieldErrors.title}">
+                                                <small style="color: red;">${fieldErrors.title}</small>
+                                            </c:if>
+
                                             <div>
-                                                <input name="title" class="form-control" type="text" value="${SLIDER.title}" required>
+                                                <input name="title" class="form-control" type="text" value="${not empty param.title ? param.title : SLIDER.title}" >
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
                                             <h3>2. Back Link</h3>
+                                            <c:if test="${not empty fieldErrors.backlink}">
+                                                <small style="color: red;">${fieldErrors.backlink}</small>
+                                            </c:if>
                                             <div>
-                                                <input name="backlink" class="form-control" type="text" value="${SLIDER.backLink}" required>
+                                                <input name="backlink" class="form-control" type="text" value="${not empty param.backlink ? param.backlink : SLIDER.backLink}" >
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
@@ -109,7 +116,7 @@
                                                 <img src="${SLIDER.imageUrl}" alt="Slider Image" class="img-thumbnail" width="300">
 
                                                 <!-- Input cho phép chọn ảnh mới -->
-                                                <input class="form-control" type="file" name="image" accept="image/*">
+                                                <input type="file" name="image" class="form-control" accept="image/*" onchange="validateImageFile(this)" required>
                                             </div>
                                         </div>
 
@@ -153,23 +160,45 @@
         <script src="assets2/js/functions.js"></script>
         <script src="assets2/vendors/chart/chart.min.js"></script>
         <script src="assets2/js/admin.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
-            // Pricing add
-            function newMenuItem() {
-                var newElem = $('tr.list-item').first().clone();
-                newElem.find('input').val('');
-                newElem.appendTo('table#item-add');
-            }
-            if ($("table#item-add").is('*')) {
-                $('.add-item').on('click', function (e) {
-                    e.preventDefault();
-                    newMenuItem();
-                });
-                $(document).on("click", "#item-add .delete", function (e) {
-                    e.preventDefault();
-                    $(this).parent().parent().parent().parent().remove();
-                });
+                                                    // Pricing add
+                                                    function newMenuItem() {
+                                                        var newElem = $('tr.list-item').first().clone();
+                                                        newElem.find('input').val('');
+                                                        newElem.appendTo('table#item-add');
+                                                    }
+                                                    if ($("table#item-add").is('*')) {
+                                                        $('.add-item').on('click', function (e) {
+                                                            e.preventDefault();
+                                                            newMenuItem();
+                                                        });
+                                                        $(document).on("click", "#item-add .delete", function (e) {
+                                                            e.preventDefault();
+                                                            $(this).parent().parent().parent().parent().remove();
+                                                        });
+                                                    }
+        </script>
+        <script>
+            function validateImageFile(input) {
+                const file = input.files[0];
+
+                if (!file)
+                    return;
+
+                const fileType = file.type;
+
+                if (!fileType.startsWith("image/")) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid file type!",
+                        text: "Only image files are allowed.",
+                        confirmButtonText: "OK"
+                    });
+
+                    input.value = ""; // Clear the file input
+                }
             }
         </script>
     </body>

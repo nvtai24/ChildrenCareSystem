@@ -1,3 +1,53 @@
+//controller
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+package controller.dashboard.admin;
+
+import dal.SettingDAO;
+import java.io.IOException;
+import java.io.PrintWriter;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import model.Setting;
+
+/**
+ *
+ * @author admin
+ */
+public class SettingDetailController extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String id = request.getParameter("id");
+        SettingDAO settingDAO = new SettingDAO();
+
+        if (id != null) {
+            // Lấy chi tiết Setting theo ID
+            Setting setting = settingDAO.getSettingById(Integer.parseInt(id));
+            request.setAttribute("setting", setting);
+        }
+        request.getRequestDispatcher("dashboard/setting.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String id = request.getParameter("id");
+        String value = request.getParameter("value");
+        String description = request.getParameter("description");
+        boolean status = "0".equals(request.getParameter("status"));
+        SettingDAO settingDAO = new SettingDAO();
+        settingDAO.updateSetting(new Setting(Integer.parseInt(id), null, value, description, status));
+
+        response.sendRedirect("settings");
+    }
+}
+//jsp
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -84,7 +134,7 @@
                 </div>
 
                 <div class="container">
-                    <form action="setting" method="post" id="settingForm" onsubmit="return validateForm()">
+                    <form action="setting" method="post">
                         <input type="hidden" name="id" value="${setting.id}" />
 
                         <div class="form-group">
@@ -93,8 +143,7 @@
                         </div>
                         <div class="form-group">
                             <label>Value</label>
-                            <input type="text" class="form-control" name="value" id="valueField" value="${setting.settingValue}" required>
-                            <div class="error-message" id="valueError" style="color: red"></div>
+                            <input type="text" class="form-control" name="value" value="${setting.settingValue}" required>
                         </div>
 
                         <div class="form-group">
@@ -128,26 +177,4 @@
         <script src="${pageContext.request.contextPath}/assets2/vendors/chart/chart.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets2/js/admin.js"></script>
     </body>
-    <script>
-            function validateForm() {
-                let isValid = true;
-                const valueField = document.getElementById('valueField');
-                const valueError = document.getElementById('valueError');
-                
-                valueError.textContent = '';
-                
-                valueField.value = valueField.value.trim();
-                
-                if (valueField.value.length > 100) {
-                    valueError.textContent = 'Value must not exceed 100 characters';
-                    isValid = false;
-                }
-                
-                if (valueField.value === '') {
-                    valueError.textContent = 'Value cannot be empty';
-                    isValid = false;
-                }
-                return isValid;
-            }
-        </script>
 </html>

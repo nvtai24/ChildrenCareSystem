@@ -88,7 +88,8 @@ public class HomePageController extends HttpServlet {
             } else {
                 System.out.println("Khong co listPost trong he thong");
             }
-            String search = request.getParameter("search") != null ? request.getParameter("search") : "";
+            String search = request.getParameter("search") != null ? request.getParameter("search").trim().replaceAll("\\s+", " ") : "";
+
             if (!"".equals(search)) {
                 List<Service> listServices = serviceDAO.getServicesBySearch(search);
                 List<Post> listPosts = postDAO.getPostsBySearch(search);
