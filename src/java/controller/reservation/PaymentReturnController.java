@@ -109,14 +109,14 @@ public class PaymentReturnController extends HttpServlet {
 
             session.setAttribute("r", r);
 
-            request.setAttribute("rid", id);
-
-            request.getRequestDispatcher("../reservation-complete.jsp").forward(request, response);
+            session.setAttribute("rid", id);
+            
+            response.sendRedirect("/app/reservation/complete");
 //            response.getWriter().write("Success!\n " + result.toString());
         } else {
             request.getRequestDispatcher("../reservation-confirm.jsp").forward(request, response);
 //            response.getWriter().write("Failed!\n " + result.toString());
         }
     }
-
+    
 }

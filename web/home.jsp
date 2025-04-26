@@ -258,7 +258,7 @@
                                              data-no-retina />
 
                                         <!-- LAYER NR. 1 -->
-                                        <a href="/app${slider.backLink}"><div class="tp-caption tp-shape tp-shapewrapper " 
+                                        <a href="#"><div class="tp-caption tp-shape tp-shapewrapper " 
                                                                               id="slide-100-layer-1" 
                                                                               data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
                                                                               data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" 
@@ -277,7 +277,7 @@
                                                                               data-paddingleft="[0,0,0,0]"
                                                                               style="z-index: 5;background-color:rgba(2, 0, 11, 0.80);border-color:rgba(0, 0, 0, 0);border-width:0px;"> </div></a>
                                         <!-- LAYER NR. 2 -->
-                                        <a href="/app${slider.backLink}"><div class="tp-caption Newspaper-Title   tp-resizeme" 
+                                        <a href="#"><div class="tp-caption Newspaper-Title   tp-resizeme" 
                                                                               id="slide-100-layer-2" 
                                                                               data-x="['center','center','center','center']" 
                                                                               data-hoffset="['0','0','0','0']" 
@@ -301,7 +301,7 @@
                                             </div></a>
 
                                         <!-- LAYER NR. 3 -->
-                                        <a href="/app${slider.backLink}"><div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
+                                        <a href="#"><div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
                                                                               id="slide-100-layer-3" 
                                                                               data-x="['center','center','center','center']" 
                                                                               data-hoffset="['0','0','0','0']" 
@@ -323,7 +323,7 @@
                                             </div></a>
 
                                         <!-- LAYER NR. 3 -->
-                                        <a href="/app${slider.backLink}"><div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
+                                        <a href="#"><div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
                                                                               id="slide-100-layer-4" 
                                                                               data-x="['center','center','center','center']" 
                                                                               data-hoffset="['0','0','0','0']" 

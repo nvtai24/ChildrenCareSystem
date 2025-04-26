@@ -42,7 +42,8 @@ public class BookNowReturnController extends HttpServlet {
             ReservationDAO rdb = new ReservationDAO();
             int id = rdb.insertReservation(r);
 
-            request.setAttribute("rid", id);
+            session.setAttribute("rid", id);
+            session.setAttribute("r", r);
 
             PaymentHistory ph = new PaymentHistory().builder()
                     .rid(id)

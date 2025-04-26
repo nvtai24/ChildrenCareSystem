@@ -166,7 +166,7 @@ public class BookNowController extends HttpServlet {
             EmailUtil.sendReserveNotification(email, subject, message);
 
             session.setAttribute("r", r);
-            request.setAttribute("rid", id);
+            session.setAttribute("rid", id);
             request.getRequestDispatcher("booknow_success.jsp").forward(request, response);
         }
 

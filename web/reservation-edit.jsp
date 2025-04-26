@@ -226,7 +226,7 @@
                                                 <div class="form-row">
                                                     <div class="col-md-6">
                                                         <a type="button" class="btn btn-danger btn-block red" href="/app/history">
-                                                            Cancel
+                                                            Back
                                                         </a>
                                                     </div>
                                                     <div class="col-md-6">

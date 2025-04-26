@@ -192,9 +192,10 @@
                                                 </c:if>
                                             </td>
                                             <td class="align-middle">
-                                                <a class="btn green" href="reservation/info?id=${r.id}" style="color: white; width: 100px">
-                                                    View
-                                                </a>
+                                                <form action="/app/reservation/info" method="post">
+                                            <input type="hidden" name="id" value="${r.id}"/>
+                                            <input type="submit" value="View" class="btn btn-primary">
+                                            </form>
                                             </td>
                                         </tr>
                                     </c:forEach>

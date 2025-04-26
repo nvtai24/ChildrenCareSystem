@@ -886,5 +886,24 @@ public class ReservationDAO extends DBContext {
             Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+        public void cancelReservation2(int rid) {
+
+        Reservation r = getReservation(rid);
+
+        int newStatus = 4;
+
+        
+
+        String sql = "update reservation\n"
+                + "set status_id = ?\n"
+                + "where id = ?";
+
+        try {
+            executeUpdate(sql, newStatus, rid);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }

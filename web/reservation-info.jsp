@@ -199,7 +199,7 @@
                                         <div>
                                             <div class="form-row">
                                                 <c:if  test="${r.status.id == 1}">
-
+                                                    
                                                     <div class="col-md-6">
                                                         <a class="btn btn-block btn-danger red mb-2" style="color: white" onclick="preCancel(event, '/app/reservation/cancel?id=${r.id}')">
                                                             Cancel

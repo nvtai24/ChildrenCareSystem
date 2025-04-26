@@ -222,7 +222,7 @@
                                         </td>
                                         <td>${rd.staff.profile.lastName} ${rd.staff.profile.firstName}</td>                                        
                                         <td style="display: flex; align-items: center; justify-content: center; gap: 5px;">
-                                            <c:if test="${manager && r.status.statusName eq 'Confirmed'}">
+                                            <c:if test="${manager && r.status.statusName eq 'Confirmed' && rd.status.id != 6 }">
                                                 <form action="reservation" method="POST" style="display: flex; align-items: center; justify-content: center; gap: 5px;">
                                                     <input type="hidden" name="servicename" value="${rd.service.name}" />
                                                     <input type="hidden" name="quantity" value="${rd.quantity}" />

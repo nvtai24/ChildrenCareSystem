@@ -230,6 +230,10 @@
         <servlet-name>CommentPostController</servlet-name>
         <servlet-class>controller.blog.CommentPostController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReservationCompletion</servlet-name>
+        <servlet-class>controller.reservation.ReservationCompletion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ErrorHandleController</servlet-name>
         <url-pattern>/error-handle</url-pattern>
@@ -501,6 +505,10 @@
     <servlet-mapping>
         <servlet-name>CommentPostController</servlet-name>
         <url-pattern>/post/comment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservationCompletion</servlet-name>
+        <url-pattern>/reservation/complete</url-pattern>
     </servlet-mapping>
     <error-page>
         <location>/error-handle</location>

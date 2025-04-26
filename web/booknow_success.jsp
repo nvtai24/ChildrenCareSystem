@@ -74,7 +74,10 @@
 
                                         <div class="mt-5 d-flex justify-content-center">
                                             <a href="/app" class="btn btn-success mr-2"><i class="fa fa-home"></i> Home</a>
-                                            <a href="/app/reservation/info?id=${requestScope.rid}" class="btn btn-primary"><i class="fa fa-calendar-check-o"></i> View Appointment</a>
+                                            <form action="/app/reservation/info" method="post">
+                                            <input type="hidden" name="id" value="${sessionScope.rid}"/>
+                                            <input type="submit" value="View Appointment" class="btn btn-primary">
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

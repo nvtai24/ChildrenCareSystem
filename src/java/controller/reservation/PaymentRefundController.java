@@ -33,13 +33,9 @@ public class PaymentRefundController extends HttpServlet {
         PaymentHistory p = phdb.getPaymentHistoryInfo(id);
 
         String responseCode = Vnpay.refundTransaction(request, p.getTxnRef(), p.getAmount(), p.getTransactionDateString());
-
-        response.getWriter().print(responseCode);
-
+        ReservationDAO rdb = new ReservationDAO();
+        rdb.cancelReservation2(id);
         if ("00".equals(responseCode)) {
-            ReservationDAO rdb = new ReservationDAO();
-            rdb.cancelReservation(id);
-
             out.print("{\"success\": true, \"message\": \"Email sent successfully\"}");
             out.flush();
             response.setStatus(HttpServletResponse.SC_OK);
